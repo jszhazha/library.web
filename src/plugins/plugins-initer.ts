@@ -1,6 +1,7 @@
 
 import type { App } from 'vue';
 
+
 import antUiPlugins from '/@/plugins/ant-ui-plugins'
 
 // import componentRegisterPlugin from '@/plugins/component-register-plugin'

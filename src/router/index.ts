@@ -3,24 +3,12 @@ import type { App } from 'vue';
 
 import { createRouter, createWebHistory } from 'vue-router'
 // import { createGuard } from '@/router/guard/'
+import { basicRoutes } from './routes/';
 
-
-const routes: RouteRecordRaw[] = [
-  {
-    path: '/',
-    name: 'Home',
-    component: () => import('/@/pages/Home.vue')
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('/@/pages/About.vue')
-  }
-]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes: basicRoutes as RouteRecordRaw[],
 })
 
 export function setupRouter(app: App<Element>): void {

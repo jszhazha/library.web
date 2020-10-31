@@ -11,8 +11,10 @@ module.exports = {
   },
   extends: [
     'plugin:vue/vue3-recommended',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
   ],
   rules: {
+    '@typescript-eslint/no-non-null-assertion': 'off',
   }
 }

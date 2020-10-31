@@ -1,34 +1,27 @@
 <template>
-  <div id="nav">
-    <router-link to="/">
-      Home
-    </router-link> |
-    <router-link to="/about">
-      About
-    </router-link>
-  </div>
-  <router-view />
+  <config-provider :locale="zhCN" :transform-cell-text="transformCellText">
+    <router-view />
+  </config-provider>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  text-align: center;
-}
 
-#nav {
-  padding: 30px;
-  
-  a {
-    font-weight: bold;
-    color: red;
-  }
-}
+<script lang="ts">
+import { defineComponent } from "vue";
+import { ConfigProvider } from "ant-design-vue";
+import { useConfigProvider } from "./useApp";
+import zhCN from "ant-design-vue/es/locale/zh_CN";
+import moment from "moment";
+import './utils/browser'
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+moment.locale("zh-cn");
+export default defineComponent({
+  components: { ConfigProvider },
+  setup() {
+    const { transformCellText } = useConfigProvider();
+    return {
+      zhCN,
+      transformCellText
+    };
+  },
+});
+</script>

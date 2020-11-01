@@ -2,9 +2,9 @@
   <div class="login">
     <div class="login-header">
       <div class="index-middle center">
-        <img :src="globSetting.logo" />
+        <img :src="config.logo" />
         <div class="title">
-          {{ globSetting.title }}
+          {{ config.title }}
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
 import { defineComponent, ref, onMounted, reactive } from "vue";
 import accountLogin from "./account.vue";
 import phoneLogin from "./phone.vue";
-import globSetting from "/@/config/";
+import config from "/@/config/";
 import { toDataURL } from "qrcode";
 
 // import useM essage from "@/hooks/web/useMessage";
@@ -70,7 +70,7 @@ export default defineComponent({
 
     return {
       qrcode,
-      globSetting,
+      config,
       loginContent,
       loginTypeChange,
     };

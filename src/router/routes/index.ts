@@ -1,6 +1,7 @@
 import type { AppRouteRecordRaw } from '/@/router/types';
+
+import { DEFAULT_LAYOUT_COMPONENT } from '../constant';
 import loginRoute from './modules/loginRoute';
-import config from '/@/config/'
 
 
 
@@ -9,9 +10,9 @@ import config from '/@/config/'
 export const RootRoute: AppRouteRecordRaw = {
   path: '/',
   name: 'Root',
-  component: () => import('/@/views/frame/about.vue'),
+  component: DEFAULT_LAYOUT_COMPONENT,
   meta: {
-    title: config.systemTitle
+    title: ''
   }
 };
 

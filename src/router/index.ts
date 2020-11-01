@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import type { App } from 'vue';
 
 import { createRouter, createWebHistory } from 'vue-router'
-// import { createGuard } from '@/router/guard/'
+import { createGuard } from '/@/router/guard/'
 import { basicRoutes } from './routes/';
 
 
@@ -13,7 +13,7 @@ const router = createRouter({
 
 export function setupRouter(app: App<Element>): void {
   app.use(router)
-  // createGuard(router)
+  createGuard(router)
 }
 
 

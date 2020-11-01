@@ -2,9 +2,9 @@
   <div class="login">
     <div class="login-header">
       <div class="index-middle center">
-        <img src="@/assets/svg/logo.svg" />
+        <img :src="globSetting.logo" />
         <div class="title">
-          {{ title }}
+          {{ globSetting.title }}
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
 import { defineComponent, ref, onMounted, reactive } from "vue";
 import accountLogin from "./account.vue";
 import phoneLogin from "./phone.vue";
-import config from "/@/config/";
+import globSetting from "/@/config/";
 import { toDataURL } from "qrcode";
 
 // import useM essage from "@/hooks/web/useMessage";
@@ -44,7 +44,6 @@ export default defineComponent({
   name: "Login",
   components: { accountLogin, phoneLogin },
   setup() {
-    const title: string = config.systemTitle;
     const loginContent = reactive({ type: "account", title: "图书馆账号登录" });
     const qrcode = ref<null | HTMLImageElement>(null);
     const renderValue = String("Hello world");
@@ -70,8 +69,8 @@ export default defineComponent({
     };
 
     return {
-      title,
       qrcode,
+      globSetting,
       loginContent,
       loginTypeChange,
     };

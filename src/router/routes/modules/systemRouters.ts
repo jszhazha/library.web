@@ -4,10 +4,10 @@ import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
 const routers: AppRouteModule = {
   layout: {
-    path: '/system-manager',
-    name: 'system-manager',
+    path: '/system-manage',
+    name: 'system-manage',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/system-manager/user-manage',
+    redirect: '/system-manage/user-manage',
     meta: {
       title: '系统管理',
     },
@@ -29,15 +29,15 @@ const routers: AppRouteModule = {
       },
     },
     {
-      path: 'role-manager',
-      name: 'role-manager',
+      path: 'role-manage',
+      name: 'role-manage',
       meta: {
         title: '角色管理'
       },
     },
     {
-      path: 'role-manager-page',
-      name: 'role-manager-page',
+      path: 'role-manage-page',
+      name: 'role-manage-page',
       meta: {
         title: '角色详情'
       },

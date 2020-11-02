@@ -9,7 +9,7 @@ const routers: AppRouteModule = {
     component: PAGE_LAYOUT_COMPONENT,
     redirect: '/book-manage/subject-category',
     meta: {
-      title: '主数据管理',
+      title: '图书管理',
     },
   },
 

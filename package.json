@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development vite",
+    "serve": "cross-env NODE_ENV=development vite",
     "build": "cross-env NODE_ENV=production vite build"
   },
   "dependencies": {
@@ -12,7 +12,8 @@
     "qrcode": "^1.4.4",
     "vue": "^3.0.0-rc.1",
     "vue-router": "^4.0.0-rc.1",
-    "vuex": "^4.0.0-rc.1"
+    "vuex": "^4.0.0-rc.1",
+    "vuex-module-decorators": "^1.0.1"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.3",

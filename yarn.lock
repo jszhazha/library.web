@@ -4315,6 +4315,11 @@ vue@^3.0.2:
     "@vue/runtime-dom" "3.0.2"
     "@vue/shared" "3.0.2"
 
+vuex-module-decorators@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/vuex-module-decorators/download/vuex-module-decorators-1.0.1.tgz#d34dafb5428a3636f1c26d3d014c15fc9659ccd0"
+  integrity sha1-002vtUKKNjbxwm09AUwV/JZZzNA=
+
 vuex@^4.0.0-rc.1:
   version "4.0.0-rc.1"
   resolved "https://registry.npm.taobao.org/vuex/download/vuex-4.0.0-rc.1.tgz?cache=0&sync_timestamp=1604065486770&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvuex%2Fdownload%2Fvuex-4.0.0-rc.1.tgz#160cd5957972a61c7c01ab585995b78e092a298d"

@@ -9,13 +9,13 @@ import systemRouters from './modules/systemRouters'
 import bookRouters from './modules/bookRouters'
 
 const routeModuleList: AppRouteModule[] = [
+  bookRouters,
   systemRouters,
-  bookRouters
+
 ]
 
-genRouteModule(routeModuleList)
 export const asyncRoutes = {
-
+  ...genRouteModule(routeModuleList)
 }
 
 // 主框架根路由

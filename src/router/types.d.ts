@@ -50,3 +50,9 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   children?: AppRouteRecordRaw[];
   props?: any;
 }
+
+
+export interface AppRouteModule {
+  layout: AppRouteRecordRaw;
+  routes: AppRouteRecordRaw[];
+}

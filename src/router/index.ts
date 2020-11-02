@@ -4,10 +4,11 @@ import type { App } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router'
 import { createGuard } from '/@/router/guard/'
 import { basicRoutes } from './routes/';
+import config from '/@/config/index'
 
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(config.publicPath),
   routes: basicRoutes as RouteRecordRaw[],
 })
 

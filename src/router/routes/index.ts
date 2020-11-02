@@ -1,10 +1,20 @@
-import type { AppRouteRecordRaw } from '/@/router/types';
+import type { AppRouteRecordRaw, AppRouteModule } from '/@/router/types';
+import { genRouteModule } from '/@/utils/routeHelper'
 
 import { DEFAULT_LAYOUT_COMPONENT } from '../constant';
 import loginRoute from './modules/loginRoute';
 
+// 路由
+import systemRouters from './modules/systemRouters'
 
+const routeModuleList: AppRouteModule[] = [
+  systemRouters,
+]
 
+genRouteModule(routeModuleList)
+export const asyncRoutes = {
+
+}
 
 // 主框架根路由
 export const RootRoute: AppRouteRecordRaw = {

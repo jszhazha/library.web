@@ -2,11 +2,6 @@ import type { AppRouteModule  } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-const BASE_PATH = '/@/views/pages/book-manage'
-
-const LIST_PATH = '/data-list/list-page.vue'
-
-const DATA_PATH = '/data-page/data-page.vue'
 
 
 const routers: AppRouteModule = {
@@ -24,7 +19,7 @@ const routers: AppRouteModule = {
     {
       path: "subject-category-list-page",
       name: 'subject-category-list-page',
-      component: (): unknown => import(`${BASE_PATH}/subject-category${LIST_PATH}`),
+      component: (): unknown => import(`/@/views/pages/book-manage/subject-category/data-list/list-page.vue`),
       meta: {
         title: '学科类别'
       },
@@ -32,7 +27,7 @@ const routers: AppRouteModule = {
     {
       path: "subject-category-data-page",
       name: 'subject-category-data-page',
-      component: (): unknown => import(`${BASE_PATH}/subject-category${DATA_PATH}`),
+      component: (): unknown => import(`/@/views/pages/book-manage/subject-category/data-page/data-page.vue`),
       meta: {
         title: '学科类别详情'
       },
@@ -40,7 +35,7 @@ const routers: AppRouteModule = {
     {
       path: 'book-info-list-page',
       name: 'book-info-list-page',
-      component: (): unknown => import(`${BASE_PATH}/book-info${LIST_PATH}`),
+      component: (): unknown => import(`/@/views/pages/book-manage/book-info/data-list/list-page.vue`),
       meta: {
         title: '图书信息'
       },
@@ -48,7 +43,7 @@ const routers: AppRouteModule = {
     {
       path: 'book-info-data-page',
       name: 'book-info-data-page',
-      component: (): unknown => import(`${BASE_PATH}/book-info${DATA_PATH}`),
+      component: (): unknown => import(`/@/views/pages/book-manage/book-info/data-page/data-page.vue`),
       meta: {
         title: '图书信息详情'
       },

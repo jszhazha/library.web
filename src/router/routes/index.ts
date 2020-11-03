@@ -14,9 +14,12 @@ const routeModuleList: AppRouteModule[] = [
 
 ]
 
-export const asyncRoutes = {
-  ...genRouteModule(routeModuleList)
-}
+export const asyncRoutes = [
+  
+]
+
+console.log(asyncRoutes)
+
 
 // 主框架根路由
 export const RootRoute: AppRouteRecordRaw = {
@@ -30,4 +33,4 @@ export const RootRoute: AppRouteRecordRaw = {
 
 
 // 基础路由 不用权限
-export const basicRoutes = [loginRoute, RootRoute];
+export const basicRoutes = [loginRoute, RootRoute, ...genRouteModule(routeModuleList)];

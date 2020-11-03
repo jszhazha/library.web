@@ -45,14 +45,32 @@ export interface RouteMeta {
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   meta: RouteMeta;
-  component?: any;
-  components?: any;
+  components?: unknown;
   children?: AppRouteRecordRaw[];
-  props?: any;
+  props?: unknown;
 }
 
 
 export interface AppRouteModule {
   layout: AppRouteRecordRaw;
   routes: AppRouteRecordRaw[];
+}
+
+
+export interface Menu {
+  name: string;
+
+  icon?: string;
+
+  path: string;
+
+  disabled?: boolean;
+
+  children?: Menu[];
+
+  orderNo?: number;
+
+  roles?: RoleEnum[];
+
+  meta?: Partial<RouteMeta>;
 }

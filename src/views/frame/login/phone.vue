@@ -14,10 +14,16 @@
       :code-disabled="true"
       :maxlength="8"
     />
-    <span class="login-phone-change-link" @click="hangleChange">
+    <span
+      class="login-phone-change-link"
+      @click="hangleChange"
+    >
       密码登录
     </span>
-    <global-button class="login-phone-button" :disabled="true">
+    <global-button
+      class="login-phone-button"
+      :disabled="true"
+    >
       登录
     </global-button>
   </div>

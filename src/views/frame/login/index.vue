@@ -2,7 +2,7 @@
   <div class="login">
     <div class="login-header">
       <div class="index-middle center">
-        <img :src="config.logo" />
+        <img :src="config.logo">
         <div class="title">
           {{ config.title }}
         </div>
@@ -14,11 +14,16 @@
     <div class="index-center login-main">
       <div class="login-main-left">
         <div class="qrcode-wrap">
-          <img ref="qrcode" />
+          <img ref="qrcode">
         </div>
-        <div class="login-main-left-footer">请使用微信扫描二维码登录</div>
+        <div class="login-main-left-footer">
+          请使用微信扫描二维码登录
+        </div>
       </div>
-      <a-divider type="vertical" class="divider" />
+      <a-divider
+        type="vertical"
+        class="divider"
+      />
       <div class="login-main-right">
         <div v-show="loginContent.type === 'account'">
           <account-login @on-change="loginTypeChange" />

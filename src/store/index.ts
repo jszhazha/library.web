@@ -12,7 +12,6 @@ const store = createStore({
 
 export function setupStore(app: App<Element>): void {
   app.use(store)
-
 }
 
 export default store

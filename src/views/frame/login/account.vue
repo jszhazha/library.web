@@ -1,21 +1,34 @@
 <template>
   <div class="login-account">
-    <global-input type="text" placeholder="手机号/邮件地址/图书馆账号" />
+    <global-input
+      type="text"
+      placeholder="手机号/邮件地址/图书馆账号"
+    />
     <global-input
       class="login-account-password"
       type="password"
       placeholder="密码"
     />
-    <span class="login-account-change-link" @click="hangleChange">
+    <span
+      class="login-account-change-link"
+      @click="hangleChange"
+    >
       短信验证码登录
     </span>
-    <global-button class="login-account-button" :disabled="true">
+    <global-button
+      class="login-account-button"
+      :disabled="true"
+    >
       登录
     </global-button>
     <div class="login-account-link">
-      <router-link to="/"> 忘记密码 </router-link>
+      <router-link to="/">
+        忘记密码
+      </router-link>
       <a-divider type="vertical" />
-      <router-link to="/login"> 遇到问题 </router-link>
+      <router-link to="/login">
+        遇到问题
+      </router-link>
     </div>
   </div>
 </template>

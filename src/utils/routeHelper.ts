@@ -5,7 +5,7 @@ import type { AppRouteModule, AppRouteRecordRaw } from '/@/router/types';
 
 // import config from '/@/config/index'
 
-export function genRouteModule(moduleList: AppRouteModule[]): RouteRecordRaw[] {
+export function genRouteModule(moduleList: AppRouteModule[]): AppRouteRecordRaw[] {
   const ret: AppRouteRecordRaw[] = []
   for (const routeMod of moduleList) {
     const routes = (routeMod.routes as unknown) as RouteRecordRaw[];
@@ -16,5 +16,5 @@ export function genRouteModule(moduleList: AppRouteModule[]): RouteRecordRaw[] {
     layout.children = (routes as unknown) as AppRouteRecordRaw[];
     ret.push(layout);
   }
-  return ret as RouteRecordRaw[];
+  return ret as AppRouteRecordRaw[];
 }

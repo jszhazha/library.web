@@ -6,7 +6,6 @@ import { createGuard } from '/@/router/guard/'
 import { basicRoutes } from './routes/';
 import config from '/@/config/index'
 
-console.log(basicRoutes)
 
 const router = createRouter({
   history: createWebHistory(config.publicPath),

@@ -1,8 +1,9 @@
 import { defineComponent } from 'vue';
-import LayoutHeader from './LayoutHeader';
-import LayoutSider from './LayoutSider'
 import { useFullContent } from '/@/hooks/web/useFullContent';
 import { Layout } from 'ant-design-vue'
+import LayoutHeader from './LayoutHeader';
+import LayoutSider from './LayoutSider'
+import LayoutContent from './LayoutContent'
 
 import './index.less';
 
@@ -20,7 +21,10 @@ export default defineComponent({
               <LayoutSider />
               <Layout>
                 {() => (
-                  <LayoutHeader />
+                  <>
+                    <LayoutHeader />
+                    <LayoutContent />
+                  </>
                 )}
               </Layout>
             </>

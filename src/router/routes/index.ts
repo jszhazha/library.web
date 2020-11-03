@@ -8,29 +8,22 @@ import loginRoute from './modules/loginRoute';
 import systemRouters from './modules/systemRouters'
 import bookRouters from './modules/bookRouters'
 
-const routeModuleList: AppRouteModule[] = [
+export const routeModuleList: AppRouteModule[] = [
   bookRouters,
   systemRouters,
-
 ]
-
-export const asyncRoutes = [
-  
-]
-
-console.log(asyncRoutes)
 
 
 // 主框架根路由
 export const RootRoute: AppRouteRecordRaw = {
   path: '/',
-  name: 'Root',
+  name: 'root-router',
   component: DEFAULT_LAYOUT_COMPONENT,
   meta: {
     title: ''
-  }
+  },
+  children: genRouteModule(routeModuleList)
 };
 
 
-// 基础路由 不用权限
-export const basicRoutes = [loginRoute, RootRoute, ...genRouteModule(routeModuleList)];
+export const basicRoutes = [loginRoute, RootRoute];

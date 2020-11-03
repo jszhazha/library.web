@@ -8,10 +8,19 @@ import loginRoute from './modules/loginRoute';
 import systemRouters from './modules/systemRouters'
 import bookRouters from './modules/bookRouters'
 
-export const routeModuleList: AppRouteModule[] = [
+const routeModuleList: AppRouteModule[] = [
   bookRouters,
   systemRouters,
 ]
+
+const MenuRouter = genRouteModule(routeModuleList)
+
+
+// 获取菜单 树级
+export const getMenus = (): AppRouteRecordRaw[] => {
+  return MenuRouter
+};
+
 
 
 // 主框架根路由
@@ -22,7 +31,7 @@ export const RootRoute: AppRouteRecordRaw = {
   meta: {
     title: ''
   },
-  children: genRouteModule(routeModuleList)
+  children: MenuRouter
 };
 
 

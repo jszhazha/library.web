@@ -9,7 +9,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <Layout.Header class="dlayout-header">
+        <Layout.Header class="layout-header">
           {() => (
             <div class="index-space-between">
               <div class="dlayout-header-left index-middle">

@@ -29,7 +29,8 @@ const routers: AppRouteModule = {
       name: 'user-manage-data-page',
       component: (): unknown => import(`/@/views/pages/system-manage/user-manage/data-page/data-page.vue`),
       meta: {
-        title: '用户详情'
+        title: '用户详情',
+        hideInMenu: true
       },
     },
     {
@@ -45,7 +46,8 @@ const routers: AppRouteModule = {
       name: 'role-manage-data-page',
       component: (): unknown => import(`/@/views/pages/system-manage/role-manage/data-page/data-page.vue`),
       meta: {
-        title: '角色详情'
+        title: '角色详情',
+        hideInMenu: true
       },
     },
   ]

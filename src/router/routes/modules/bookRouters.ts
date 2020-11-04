@@ -1,4 +1,4 @@
-import type { AppRouteModule  } from '/@/router/types';
+import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
@@ -29,7 +29,8 @@ const routers: AppRouteModule = {
       name: 'subject-category-data-page',
       component: (): unknown => import(`/@/views/pages/book-manage/subject-category/data-page/data-page.vue`),
       meta: {
-        title: '学科类别详情'
+        title: '学科类别详情',
+        hideInMenu: true
       },
     },
     {
@@ -45,7 +46,8 @@ const routers: AppRouteModule = {
       name: 'book-info-data-page',
       component: (): unknown => import(`/@/views/pages/book-manage/book-info/data-page/data-page.vue`),
       meta: {
-        title: '图书信息详情'
+        title: '图书信息详情',
+        hideInMenu: true
       },
     },
   ]

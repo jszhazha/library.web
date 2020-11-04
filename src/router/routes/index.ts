@@ -13,12 +13,12 @@ const routeModuleList: AppRouteModule[] = [
   systemRouters,
 ]
 
-const MenuRouter = genRouteModule(routeModuleList)
+const routeList = genRouteModule(routeModuleList)
 
 
 // 获取菜单 树级
-export const getMenus = (): AppRouteRecordRaw[] => {
-  return MenuRouter
+export const getRouteList = (): AppRouteRecordRaw[] => {
+  return routeList
 };
 
 
@@ -31,7 +31,7 @@ export const RootRoute: AppRouteRecordRaw = {
   meta: {
     title: ''
   },
-  children: MenuRouter
+  children: routeList
 };
 
 

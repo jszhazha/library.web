@@ -29,7 +29,7 @@ export const RootRoute: AppRouteRecordRaw = {
   name: 'root-router',
   component: DEFAULT_LAYOUT_COMPONENT,
   meta: {
-    title: ''
+    title: '主页'
   },
   children: routeList
 };

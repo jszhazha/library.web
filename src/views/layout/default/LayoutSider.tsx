@@ -4,6 +4,7 @@ import { Layout, Menu } from 'ant-design-vue';
 import { getMenus, menuHasChildren } from '/@/utils/menuHelp';
 import config from "/@/config/";
 import { MenuState } from './type'
+import router from '/@/router';
 
 
 export default defineComponent({
@@ -17,10 +18,11 @@ export default defineComponent({
       isAppMenu: true,
     })
 
-    // 处理点击菜单
+    // 处理点击菜单 -> 导航 跳转
     function handleMenuClick(menu: MenuType) {
       const { path } = menu;
       menuState.selectedKeys = [path];
+      router.push(path)
     }
 
     // 渲染菜单

@@ -22,7 +22,6 @@ export interface RouteMeta {
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   meta: RouteMeta;
-  components?: unknown;
   children?: AppRouteRecordRaw[];
   props?: unknown;
 }

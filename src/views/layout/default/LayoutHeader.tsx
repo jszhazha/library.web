@@ -1,5 +1,6 @@
 import { defineComponent } from 'vue';
 import { Layout } from 'ant-design-vue';
+import LayoutBreadcrumb from './LayoutBreadcrumb'
 
 
 export default defineComponent({
@@ -13,7 +14,7 @@ export default defineComponent({
           {() => (
             <div class="index-space-between">
               <div class="dlayout-header-left index-middle">
-                首页
+                <LayoutBreadcrumb />
               </div>
               <div>
                 admin

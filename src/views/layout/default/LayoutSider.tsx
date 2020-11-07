@@ -1,7 +1,8 @@
 import type { Menu as MenuType } from '/@/router/types';
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, unref, computed } from 'vue';
 import { Layout, Menu } from 'ant-design-vue';
-import { getMenus, menuHasChildren } from '/@/utils/menuHelp';
+import { getMenus, menuHasChildren, getFlatMenus, getAllParentPath } from '/@/utils/menuHelp';
+import { useRouter } from 'vue-router'
 import config from "/@/config/";
 import { MenuState } from './type'
 import router from '/@/router';
@@ -16,6 +17,7 @@ export default defineComponent({
       selectedKeys: [],
       mode: 'inline',
       isAppMenu: true,
+      openKeys: []
     })
 
     // 处理点击菜单 -> 导航 跳转
@@ -23,6 +25,25 @@ export default defineComponent({
       const { path } = menu;
       menuState.selectedKeys = [path];
       router.push(path)
+    }
+
+    // 处理菜单改变
+    function handleMenuChange() {
+      const { currentRoute } = useRouter()
+      const flatItems = getFlatMenus()
+      const findMenu = flatItems.find((menu) => menu.path === unref(currentRoute).path);
+      if (findMenu) {
+        menuState.openKeys = getAllParentPath(flatItems, findMenu.path!)
+        menuState.selectedKeys = [findMenu.path!]
+      }
+    }
+
+    const getOpenKeys = computed(() => {
+      return menuState.openKeys;
+    });
+
+    function handleOpenChange(openKeys: string[]): void {
+      menuState.openKeys = openKeys
     }
 
     // 渲染菜单
@@ -56,12 +77,14 @@ export default defineComponent({
 
     // 渲染根菜单
     function renderMenu() {
-      const { selectedKeys, mode, isAppMenu, } = menuState;
+      const { selectedKeys, mode, isAppMenu } = menuState;
       return (
         <Menu
           mode={mode}
+          onOpenChange={handleOpenChange}
           forceSubMenuRender={isAppMenu}
           selectedKeys={selectedKeys}
+          openKeys={unref(getOpenKeys)}
           class="layout-sider-menu"
         >
           {{ default: () => renderMenuItem(menuItem) }}
@@ -70,6 +93,8 @@ export default defineComponent({
     }
 
 
+
+    handleMenuChange()
 
     return () => {
       return (

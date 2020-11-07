@@ -1,8 +1,8 @@
-import type { Menu as MenuType, AppRouteRecordRaw } from '/@/router/types';
+import type { Menu as MenuType, AppRouteRecordRaw, FlatMenu } from '/@/router/types';
 import { getRouteList } from '/@/router/routes/'
 
 
-export function menuHasChildren(menuTreeItem: MenuType): boolean {
+export function menuHasChildren(menuTreeItem: MenuType | AppRouteRecordRaw): boolean {
   return (
     Reflect.has(menuTreeItem, 'children') &&
     !!menuTreeItem.children &&
@@ -10,20 +10,51 @@ export function menuHasChildren(menuTreeItem: MenuType): boolean {
   );
 }
 
-function getMenuItem(menus: AppRouteRecordRaw[], parentPath = ''): MenuType[] {
-  return menus.map((el: AppRouteRecordRaw) => {
-    const { path, name, meta } = el
-    const currPath = `${parentPath}/${path}`.replace(/[/]{2,}/, '/')
-    const item: MenuType = { path: currPath, name, ...meta }
-    if (el.children) {
-      item.children = getMenuItem(el.children, currPath)
-    }
-    return item
-  })
-}
-
 // 获取菜单
 export function getMenus(): MenuType[] {
   const routeList = getRouteList()
   return getMenuItem(routeList)
 }
+
+// 获取深层扁平化菜单
+export function getFlatMenus(): FlatMenu[] {
+  const routeList = getRouteList()
+  return flatMenus(routeList, '')
+}
+
+// 获取全部父级路由
+export function getAllParentPath(treeData: FlatMenu[], path: string): string[] {
+  const menuList = findPath(treeData, path)
+  return menuList.map(el => el.path)
+}
+
+function flatMenus(router: AppRouteRecordRaw[], parentPath = ''): FlatMenu[] {
+  let result: FlatMenu[] = []
+  router.forEach((el) => {
+    const currPath = `${parentPath}/${el.path}`.replace(/[/]{2,}/, '/')
+    result.push({ name: el.name, path: currPath, title: el.meta.title })
+    if (menuHasChildren(el)) {
+      result = result.concat(flatMenus(el.children!, currPath))
+    }
+  })
+  return result;
+}
+
+
+function getMenuItem(menus: AppRouteRecordRaw[], parentPath = ''): MenuType[] {
+  return menus.map((el: AppRouteRecordRaw) => {
+    const { path, name, meta } = el
+    const currPath = `${parentPath}/${path}`.replace(/[/]{2,}/, '/')
+    const item: MenuType = { path: currPath, name, ...meta }
+    if (menuHasChildren(el)) {
+      item.children = getMenuItem(el.children!, currPath)
+    }
+    return item
+  })
+}
+
+
+function findPath(tree: FlatMenu[], path: string) {
+  return tree.filter((el) => new RegExp(el.path!).test(path))
+}
+

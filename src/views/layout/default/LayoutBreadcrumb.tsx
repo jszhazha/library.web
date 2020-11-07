@@ -13,13 +13,13 @@ export default defineComponent({
     // 路由发送变换
     function getBreadcrumb() {
       const { matched } = unref(currentRoute);
-      const matchedList = matched.filter((item) => item.meta && item.meta.title);
+      const matchedList = matched.filter((item) => item.meta && item.meta.title).slice(1);
       itemList.value = (matchedList as unknown) as AppRouteRecordRaw[]
     }
 
     // 监听路由发生变化
     watch(
-      currentRoute,
+      () => currentRoute.value,
       () => {
         getBreadcrumb();
       },
@@ -37,7 +37,6 @@ export default defineComponent({
         {() => (
           <TransitionGroup name="breadcrumb" >
             {() => unref(itemList).map(el => {
-              console.log(el)
               return (
                 <BreadcrumbItem key={el.path}>
                   {() => el.meta.title}

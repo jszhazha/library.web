@@ -51,3 +51,12 @@ export interface Menu extends RouteMeta {
   roles?: RoleEnum[];
 
 }
+
+
+export interface FlatMenu {
+  path: string
+
+  title?: string
+
+  name?: string | symbol;
+}

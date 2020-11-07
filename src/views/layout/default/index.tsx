@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue';
-import { useFullContent } from '/@/hooks/web/useFullContent';
+// import { useFullContent } from '/@/hooks/web/useFullContent';
 import { Layout } from 'ant-design-vue'
 import LayoutHeader from './LayoutHeader';
 import LayoutSider from './LayoutSider'
@@ -11,7 +11,7 @@ export default defineComponent({
   name: 'DefaultLayout',
   setup() {
     // 获取项目配置
-    useFullContent();
+    // useFullContent();
 
     return () => {
       return (

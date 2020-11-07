@@ -3,7 +3,12 @@
     class="global-input index-middle"
     :style="{ 'border-color': borderColor }"
   >
-    <div v-if="type === 'phone'" class="global-input-phone">中国 +86</div>
+    <div
+      v-if="type === 'phone'"
+      class="global-input-phone"
+    >
+      中国 +86
+    </div>
     <input
       v-model="inputValue"
       :type="inputType"
@@ -12,7 +17,7 @@
       @blur="handleBlur"
       @focus="handleFocus"
       @input="handleInput"
-    />
+    >
     <div
       v-if="type === 'code'"
       class="global-input-code"

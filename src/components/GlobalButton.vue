@@ -36,6 +36,7 @@ export default defineComponent({
     const handleClick = (event: MouseEvent) => {
       if (props.disabled) return;
       const ripples = handleAnimation(event);
+      console.log(ripples)
     };
     return { handleClick, button };
   },

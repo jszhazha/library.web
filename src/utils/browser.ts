@@ -36,30 +36,30 @@ function getTypeVersion() {
 const { type, version } = getTypeVersion();
 
 
-export function getVersion() {
+export function getVersion(): string | null | Array<string> {
   return version;
 }
 
-export function isIeFn() {
+export function isIeFn(): boolean {
   return type === 'IE';
 }
 
-export function isChromeFn() {
+export function isChromeFn(): boolean {
   return type === 'Chrome';
 }
 
-export function isEdgeFn() {
+export function isEdgeFn(): boolean {
   return type === 'Edge';
 }
 
-export function isSafariFn() {
+export function isSafariFn(): boolean {
   return type === 'Safari';
 }
 
-export function isFirefoxFn() {
+export function isFirefoxFn(): boolean {
   return type === 'Firefox';
 }
 
-export function isOperaFn() {
+export function isOperaFn(): boolean {
   return type === 'Opera';
 }

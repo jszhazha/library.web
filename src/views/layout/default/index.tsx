@@ -1,14 +1,14 @@
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 // import { useFullContent } from '/@/hooks/web/useFullContent';
-import { Layout } from 'ant-design-vue'
-import LayoutHeader from './LayoutHeader';
-import LayoutSider from './LayoutSider'
-import LayoutContent from './LayoutContent'
+import { Layout, Affix } from "ant-design-vue";
+import LayoutHeader from "./LayoutHeader";
+import LayoutSider from "./LayoutSider";
+import LayoutContent from "./LayoutContent";
 
-import './index.less';
+import "./index.less";
 
 export default defineComponent({
-  name: 'DefaultLayout',
+  name: "DefaultLayout",
   setup() {
     // 获取项目配置
     // useFullContent();
@@ -22,7 +22,7 @@ export default defineComponent({
               <Layout>
                 {() => (
                   <>
-                    <LayoutHeader />
+                    <Affix offsetTop={1}>{() => <LayoutHeader />}</Affix>
                     <LayoutContent />
                   </>
                 )}
@@ -30,7 +30,7 @@ export default defineComponent({
             </>
           )}
         </Layout>
-      )
-    }
-  }
-})
+      );
+    };
+  },
+});

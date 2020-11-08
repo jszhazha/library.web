@@ -8,10 +8,12 @@ import loginRoute from './modules/loginRoute';
 // 路由
 import systemRouters from './modules/systemRouters'
 import bookRouters from './modules/bookRouters'
+import accountRouters from './modules/accountRouters'
 
 const routeModuleList: AppRouteModule[] = [
   bookRouters,
   systemRouters,
+  accountRouters
 ]
 
 const routeList = [OVERVIEW_PAGE, ...genRouteModule(routeModuleList)]

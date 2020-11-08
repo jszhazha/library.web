@@ -1,5 +1,5 @@
 <template>
-  <div>图书信息</div>
+  <div>个人中心</div>
 </template>
 
 <script lang="ts">

@@ -1,8 +1,9 @@
 import type { Menu as MenuType, AppRouteRecordRaw, FlatMenu } from '/@/router/types';
 import { getRouteList } from '/@/router/routes/'
+import { routerHasChildren } from '/@/utils/routeHelper'
 
 
-export function menuHasChildren(menuTreeItem: MenuType | AppRouteRecordRaw): boolean {
+export function menuHasChildren(menuTreeItem: MenuType): boolean {
   return (
     Reflect.has(menuTreeItem, 'children') &&
     !!menuTreeItem.children &&
@@ -33,7 +34,7 @@ function flatMenus(router: AppRouteRecordRaw[], parentPath = ''): FlatMenu[] {
   router.forEach((el) => {
     const currPath = `${parentPath}/${el.path}`.replace(/[/]{2,}/, '/')
     result.push({ name: el.name, path: currPath, title: el.meta.title })
-    if (menuHasChildren(el)) {
+    if (routerHasChildren(el)) {
       result = result.concat(flatMenus(el.children!, currPath))
     }
   })
@@ -46,7 +47,7 @@ function getMenuItem(menus: AppRouteRecordRaw[], parentPath = ''): MenuType[] {
     const { path, name, meta } = el
     const currPath = `${parentPath}/${path}`.replace(/[/]{2,}/, '/')
     const item: MenuType = { path: currPath, name, ...meta }
-    if (menuHasChildren(el)) {
+    if (routerHasChildren(el)) {
       item.children = getMenuItem(el.children!, currPath)
     }
     return item

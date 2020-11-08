@@ -40,13 +40,17 @@ export default defineComponent({
 
   .is-link {
     font-weight: 500;
-    color: #2c3a61;
+    color: rgba(0, 0, 0, 0.45);
     cursor: pointer;
     transition: color 0.2s;
   }
 
+  .is-link:hover {
+    color: #1890ff;
+  }
+
   &-content {
-    color: #6e90a7;
+    color: rgba(0, 0, 0, 0.65);
   }
 }
 </style>

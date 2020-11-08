@@ -8,7 +8,7 @@ import router from "/@/router";
 
 export default defineComponent({
   setup() {
-    const { currentRoute } = useRouter();
+    const { currentRoute, push } = useRouter();
     const itemList = ref<AppRouteRecordRaw[]>([]);
 
     // 路由发送变换
@@ -39,7 +39,7 @@ export default defineComponent({
     function handleItemClick(item: AppRouteRecordRaw) {
       const { redirect } = item;
       if (redirect) {
-        // push(redirect as string)
+        push(redirect as string);
       }
     }
 

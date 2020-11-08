@@ -1,11 +1,11 @@
 import type { Menu as MenuType } from "/@/router/types";
-import { defineComponent, reactive, unref, computed } from "vue";
+import { defineComponent, reactive, unref, computed, watch } from "vue";
 import { Layout, Menu } from "ant-design-vue";
 import {
   getMenus,
-  menuHasChildren,
   getFlatMenus,
   getAllParentPath,
+  menuHasChildren,
 } from "/@/utils/menuHelp";
 import { useRouter } from "vue-router";
 import config from "/@/config/";
@@ -15,6 +15,7 @@ import router from "/@/router";
 export default defineComponent({
   name: "DefaultLayoutSider",
   setup() {
+    const { currentRoute } = useRouter();
     const menuItem: MenuType[] = getMenus();
     const menuState = reactive<Partial<MenuState>>({
       selectedKeys: [],
@@ -32,7 +33,6 @@ export default defineComponent({
 
     // 处理菜单改变
     function handleMenuChange() {
-      const { currentRoute } = useRouter();
       const flatItems = getFlatMenus();
       const findMenu = flatItems.find(
         (menu) => menu.path === unref(currentRoute).path
@@ -46,7 +46,7 @@ export default defineComponent({
     const getOpenKeys = computed(() => {
       return menuState.openKeys;
     });
-    
+
     // 处理打开菜单
     function handleOpenChange(openKeys: string[]): void {
       menuState.openKeys = openKeys;
@@ -76,17 +76,24 @@ export default defineComponent({
       });
     }
 
+    watch(
+      () => currentRoute.value.name,
+      () => {
+        handleMenuChange()
+      }
+    );
+
     // 渲染根菜单
     function renderMenu() {
       const { selectedKeys, mode, isAppMenu } = menuState;
       return (
         <Menu
           mode={mode}
-          onOpenChange={handleOpenChange}
-          forceSubMenuRender={isAppMenu}
-          selectedKeys={selectedKeys}
-          openKeys={unref(getOpenKeys)}
-          class="layout-sider-menu"
+          onOpenChange = {handleOpenChange}
+          forceSubMenuRender = {isAppMenu}
+          selectedKeys = {selectedKeys}
+          openKeys = {unref(getOpenKeys)}
+          class = "layout-sider-menu"
         >
           {{ default: () => renderMenuItem(menuItem) }}
         </Menu>

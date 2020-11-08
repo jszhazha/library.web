@@ -17,7 +17,6 @@ export function genRouteModule(moduleList: AppRouteModule[]): AppRouteRecordRaw[
     layout.children = childroutes(routes, layout.name as string)
     ret.push(layout);
   }
-  console.log(ret)
   return ret as AppRouteRecordRaw[];
 }
 

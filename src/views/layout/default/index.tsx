@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
 // import { useFullContent } from '/@/hooks/web/useFullContent';
-import { Layout, Affix } from "ant-design-vue";
+import { Layout } from "ant-design-vue";
 import LayoutHeader from "./LayoutHeader";
 import LayoutSider from "./LayoutSider";
 import LayoutContent from "./LayoutContent";
@@ -22,8 +22,8 @@ export default defineComponent({
               <Layout>
                 {() => (
                   <>
-                    <Affix offsetTop={1}>{() => <LayoutHeader />}</Affix>
-                    <LayoutContent />
+                    <LayoutHeader />
+                    <LayoutContent class="layout-content" />
                   </>
                 )}
               </Layout>

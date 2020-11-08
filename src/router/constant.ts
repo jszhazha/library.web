@@ -22,6 +22,6 @@ export const OVERVIEW_PAGE: AppRouteRecordRaw = {
   name: 'overview-page',
   component: (): unknown => import('/@/views/pages/overview/overview-page.vue'),
   meta: {
-    title: ''
+    title: '主页'
   }
 }

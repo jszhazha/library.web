@@ -9,7 +9,7 @@ const routers: AppRouteModule = {
     path: '/system-manage',
     name: 'system-manage',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: { name: 'user-manage-list-page' },
+    redirect: '/system-manage/user-manage-list-page',
     meta: {
       title: '系统管理',
     },

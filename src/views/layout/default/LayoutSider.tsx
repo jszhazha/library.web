@@ -46,7 +46,8 @@ export default defineComponent({
     const getOpenKeys = computed(() => {
       return menuState.openKeys;
     });
-
+    
+    // 处理打开菜单
     function handleOpenChange(openKeys: string[]): void {
       menuState.openKeys = openKeys;
     }

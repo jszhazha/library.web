@@ -1,9 +1,12 @@
 <template>
   <div class="breadcrumb-item">
-    <span class="breadcrumb-item-content">
+    <span :class="['breadcrumb-item-content', isLink ? 'is-link' : '']">
       <slot />
     </span>
-    <span class="breadcrumb-item-separator">{{ separator }}</span>
+    <span
+      v-if="isLink"
+      class="breadcrumb-item-separator"
+    >{{ separator }}</span>
   </div>
 </template>
 
@@ -11,6 +14,12 @@
 import { defineComponent, inject } from "vue";
 
 export default defineComponent({
+  props: {
+    isLink: {
+      type: Boolean,
+      default: false,
+    },
+  },
   setup() {
     const parent = inject("breadcrumb") as { separator: string };
 
@@ -29,18 +38,15 @@ export default defineComponent({
     margin: 0 9px;
   }
 
-  &:not(:last-of-type) &-content {
-    font-weight: 600;
-    color: #000;
+  .is-link {
+    font-weight: 500;
+    color: #2c3a61;
     cursor: pointer;
+    transition: color 0.2s;
   }
 
-  // &:not(:last-of-type) &-content:hover {
-  //   color: #1890ff;
-  // }
-
-  &:last-of-type &-separator {
-    display: none;
+  &-content {
+    color: #6e90a7;
   }
 }
 </style>

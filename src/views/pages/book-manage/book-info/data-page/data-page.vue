@@ -1,5 +1,7 @@
 <template>
-  <div>图书信息详情</div>
+  <global-card title="基础数据">
+    123
+  </global-card>
 </template>
 
 <script lang="ts">

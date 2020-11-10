@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="index-content">
     <search-panle />
     <list-view />
   </div>

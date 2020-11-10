@@ -36,5 +36,10 @@ export const tablecolumns: ColumnProps[] = [
     title: '总数量',
     dataIndex: 'count',
     align: 'center'
+  },
+  {
+    title: '在馆数量',
+    dataIndex: 'number',
+    align: 'center'
   }
 ]

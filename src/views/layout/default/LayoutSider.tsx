@@ -25,10 +25,10 @@ export default defineComponent({
     });
 
     // 处理点击菜单 -> 导航 跳转
-    function handleMenuClick(menu: MenuType) {
-      const { path } = menu;
-      menuState.selectedKeys = [path];
-      router.push(path);
+    function handleMenuClick(menu: { key: string }) {
+      const { key } = menu;
+      menuState.selectedKeys = [key];
+      router.push(key);
     }
 
     // 处理菜单改变
@@ -59,11 +59,7 @@ export default defineComponent({
         const { title, path, hideInMenu } = menu;
         if (hideInMenu) return;
         if (!menuHasChildren(menu)) {
-          return (
-            <Menu.Item key={path} onClick={handleMenuClick.bind(null, menu)}>
-              {() => [<div>{title}</div>]}
-            </Menu.Item>
-          );
+          return <Menu.Item key={path}>{() => [<div>{title}</div>]}</Menu.Item>;
         }
         return (
           <Menu.SubMenu key={path}>
@@ -79,7 +75,7 @@ export default defineComponent({
     watch(
       () => currentRoute.value.name,
       () => {
-        handleMenuChange()
+        handleMenuChange();
       }
     );
 
@@ -89,11 +85,12 @@ export default defineComponent({
       return (
         <Menu
           mode={mode}
-          onOpenChange = {handleOpenChange}
-          forceSubMenuRender = {isAppMenu}
-          selectedKeys = {selectedKeys}
-          openKeys = {unref(getOpenKeys)}
-          class = "layout-sider-menu"
+          onOpenChange={handleOpenChange}
+          onClick={handleMenuClick}
+          forceSubMenuRender={isAppMenu}
+          selectedKeys={selectedKeys}
+          openKeys={unref(getOpenKeys)}
+          class="layout-sider-menu"
         >
           {{ default: () => renderMenuItem(menuItem) }}
         </Menu>

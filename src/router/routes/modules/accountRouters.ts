@@ -9,7 +9,7 @@ const routers: AppRouteModule = {
     path: '/account-manage',
     name: 'account-manage',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/account/subject-category-list-page',
+    redirect: '/account-manage/center',
     meta: {
       title: '个人管理',
     },
@@ -19,7 +19,7 @@ const routers: AppRouteModule = {
     {
       path: "center",
       name: 'center',
-      component: (): unknown => import(`/@/views/pages/account/center/index.vue`),
+      component: (): unknown => import(`/@/views/pages/account-mange/center/index.vue`),
       meta: {
         title: '个人中心'
       },
@@ -27,7 +27,7 @@ const routers: AppRouteModule = {
     {
       path: "setting",
       name: 'setting',
-      component: (): unknown => import(`/@/views/pages/account/setting/index.vue`),
+      component: (): unknown => import(`/@/views/pages/account-mange/setting/index.vue`),
       meta: {
         title: '个人设置'
       },

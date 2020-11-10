@@ -1,4 +1,4 @@
-@import './transition/index.less';
+@import "./transition/index.less";
 
 .index {
   &-middle {
@@ -11,12 +11,12 @@
     justify-content: center;
   }
 
-  &-column{
+  &-column {
     display: flex;
     flex-direction: column;
   }
 
-  &-space-between{
+  &-space-between {
     display: flex;
     justify-content: space-between;
   }
@@ -26,9 +26,26 @@
     opacity: 0.38;
   }
 
-  &-center-middle{
+  &-center-middle {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  &-card {
+    padding: 16px;
+    margin: 16px;
+    background: #fff;
+    border-radius: 4px;
+  }
+
+  &-search {
+    &-input {
+      margin: 16px 0 0;
+
+      input {
+        width: 200px;
+      }
+    }
   }
 }

@@ -1,14 +1,20 @@
 <template>
-  <div>图书信息</div>
+  <div>
+    <search-panle />
+    <list-view />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
+import listView from "./list-view.vue";
+import searchPanle from "./search-panle.vue";
+
 export default defineComponent({
+  components: { listView, searchPanle },
 });
 </script>
 
 
 <style lang="less" scoped>
-
 </style>

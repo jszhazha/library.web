@@ -6,7 +6,7 @@ import {
   getFlatMenus,
   getAllParentPath,
   menuHasChildren,
-} from "/@/utils/menuHelp";
+} from "/@/utils/helper/menu";
 import { useRouter } from "vue-router";
 import config from "/@/config/";
 import { MenuState } from "./type";
@@ -28,7 +28,7 @@ export default defineComponent({
     function handleMenuClick(menu: { key: string }) {
       const { key } = menu;
       menuState.selectedKeys = [key];
-      router.push(key);
+      router.push(`${key}-list-page`);
     }
 
     // 处理菜单改变
@@ -39,7 +39,9 @@ export default defineComponent({
       );
       if (findMenu) {
         menuState.openKeys = getAllParentPath(flatItems, findMenu.path!);
-        menuState.selectedKeys = [findMenu.path!];
+        menuState.selectedKeys = [
+          findMenu.path.replace(/(-list-page)|(-data-page)/, ""),
+        ];
       }
     }
 
@@ -58,8 +60,13 @@ export default defineComponent({
       return menuList.map((menu) => {
         const { title, path, hideInMenu } = menu;
         if (hideInMenu) return;
+
         if (!menuHasChildren(menu)) {
-          return <Menu.Item key={path}>{() => [<div>{title}</div>]}</Menu.Item>;
+          return (
+            <Menu.Item key={path.replace("-list-page", "")}>
+              {() => [<div>{title}</div>]}
+            </Menu.Item>
+          );
         }
         return (
           <Menu.SubMenu key={path}>

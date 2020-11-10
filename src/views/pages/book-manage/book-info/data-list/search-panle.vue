@@ -1,45 +1,52 @@
 <template>
-  <div class="index-table-search index-card">
-    <a-form>
-      <a-row type="flex">
-        <a-col :md="24" :lg="8" class="index-table-search-col">
-          <a-form-item label="题 名">
-            <a-input placeholder="请输入" />
-          </a-form-item>
-        </a-col>
-        <a-col :md="24" :lg="8" class="index-table-search-col">
-          <a-form-item label="国际标准书号">
-            <a-input placeholder="请输入" />
-          </a-form-item>
-        </a-col>
-        <a-col :md="24" :lg="8" class="index-table-search-col">
-          <div class="index-table-search-button">
-            <a-button type="primary">
-              查询
-            </a-button>
-            <a-button style="margin-left: 8px;">
-              重置
-            </a-button>
-          </div>
-        </a-col>
-      </a-row>
-    </a-form>
-    <a-row>
-      <a-col :span="4" class="index-table-search-col">
-        <a-button type="primary">
-          <template #icon>
-            <PlusOutlined />
-          </template>
-          增加
-        </a-button>
+  <a-form>
+    <a-row type="flex">
+      <a-col :md="24" :lg="8" class="index-table-search-col">
+        <a-form-item label="题 名">
+          <a-input placeholder="请输入" />
+        </a-form-item>
+      </a-col>
+      <a-col :md="24" :lg="8" class="index-table-search-col">
+        <a-form-item label="国际标准书号">
+          <a-input placeholder="请输入" />
+        </a-form-item>
+      </a-col>
+      <a-col :md="24" :lg="8" class="index-table-search-col">
+        <div class="index-table-search-button">
+          <a-button type="primary">
+            查询
+          </a-button>
+          <a-button style="margin-left: 8px;">
+            重置
+          </a-button>
+        </div>
       </a-col>
     </a-row>
-  </div>
+  </a-form>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-export default defineComponent({});
+import { PagerQueryData } from "/@/lib/http/axios/types";
+
+export default defineComponent({
+  setup() {
+    // 数据搜索
+    const queryData: PagerQueryData = {
+      page: 1,
+      pageSize: 10,
+      sorts: [],
+    };
+    // 返回查询条件
+    // getPagerQueryData():PagerQueryData{
+    //   return queryData
+    // }
+
+    return {
+      queryData
+    };
+  },
+});
 </script>
 
 

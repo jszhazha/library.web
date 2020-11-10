@@ -1,5 +1,5 @@
 import type { AppRouteRecordRaw, AppRouteModule } from '/@/router/types';
-import { genRouteModule } from '/@/utils/routeHelper'
+import { genRouteModule } from '/@/utils/helper/route'
 import { PageEnum } from '/@/enums/pageEnum'
 
 import { DEFAULT_LAYOUT_COMPONENT, OVERVIEW_PAGE } from '../constant';

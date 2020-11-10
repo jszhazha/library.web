@@ -1,19 +1,31 @@
 import type { AppRouteRecordRaw } from "/@/router/types";
 import type { RouteLocationMatched } from "vue-router";
-import { defineComponent, watch, unref, ref, TransitionGroup } from "vue";
+import { defineComponent, watch, unref, TransitionGroup, reactive } from "vue";
 import { Breadcrumb, BreadcrumbItem } from "/@/components/Breadcrumb/";
+import { parsePageModeFromString } from "/@/utils/helper/breadcrumb";
 import { useRouter } from "vue-router";
 import { PageEnum } from "/@/enums/pageEnum";
+import { isBoolean } from "/@/utils/is";
 import router from "/@/router";
+
+interface ItemList {
+  value: AppRouteRecordRaw[];
+  length: number;
+  modeName: string | boolean;
+}
 
 export default defineComponent({
   setup() {
     const { currentRoute, push } = useRouter();
-    const itemList = ref<AppRouteRecordRaw[]>([]);
-
+    // const itemList = ref<AppRouteRecordRaw[]>([]);
+    const itemList = reactive<ItemList>({
+      value: [],
+      length: 0,
+      modeName: false,
+    });
     // 路由发送变换
     function getBreadcrumb() {
-      const { matched } = unref(currentRoute);
+      const { matched, query } = unref(currentRoute);
       const matchedList = matched.filter(
         (item) => item.meta && item.meta.title
       );
@@ -22,6 +34,8 @@ export default defineComponent({
       if (result) {
         matchedList.shift();
       }
+      itemList.modeName = parsePageModeFromString(query.mode as string);
+      itemList.length = matchedList.length - 1;
       itemList.value = (matchedList as unknown) as AppRouteRecordRaw[];
     }
 
@@ -59,15 +73,18 @@ export default defineComponent({
         {() => (
           <TransitionGroup name="breadcrumb">
             {() =>
-              unref(itemList).map((el) => {
+              itemList.value.map((el, index) => {
                 const isLink = !!el.redirect;
+                const { length, modeName } = itemList;
+                const mode = length === index && !isBoolean(modeName)? `- ${modeName}`: "";
+
                 return (
                   <BreadcrumbItem
                     key={el.path}
                     isLink={isLink}
                     onClick={handleItemClick.bind(null, el)}
                   >
-                    {() => el.meta.title}
+                    {() => `${el.meta.title} ${mode}`}
                   </BreadcrumbItem>
                 );
               })

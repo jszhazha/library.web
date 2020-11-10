@@ -1,6 +1,6 @@
 import type { Menu as MenuType, AppRouteRecordRaw, FlatMenu } from '/@/router/types';
 import { getRouteList } from '/@/router/routes/'
-import { routerHasChildren } from '/@/utils/routeHelper'
+import { routerHasChildren } from '/@/utils/helper/route'
 
 
 export function menuHasChildren(menuTreeItem: MenuType): boolean {

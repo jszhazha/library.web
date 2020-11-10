@@ -10,3 +10,13 @@ export interface Result<T = any> {
   data: T;
 }
 
+
+/**
+ * 分页请求
+ */
+export interface PagerQueryData{
+  page:number
+  pageSize:number
+  sorts:Array<string>
+  [prop:string]:any
+}

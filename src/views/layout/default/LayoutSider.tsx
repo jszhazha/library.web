@@ -28,7 +28,7 @@ export default defineComponent({
     function handleMenuClick(menu: { key: string }) {
       const { key } = menu;
       menuState.selectedKeys = [key];
-      router.push(`${key}-list-page`);
+      router.push(key);
     }
 
     // 处理菜单改变
@@ -40,7 +40,7 @@ export default defineComponent({
       if (findMenu) {
         menuState.openKeys = getAllParentPath(flatItems, findMenu.path!);
         menuState.selectedKeys = [
-          findMenu.path.replace(/(-list-page)|(-data-page)/, ""),
+          findMenu.path.replace(/data-page$/, "list-page"),
         ];
       }
     }
@@ -62,11 +62,7 @@ export default defineComponent({
         if (hideInMenu) return;
 
         if (!menuHasChildren(menu)) {
-          return (
-            <Menu.Item key={path.replace("-list-page", "")}>
-              {() => [<div>{title}</div>]}
-            </Menu.Item>
-          );
+          return <Menu.Item key={path}>{() => [<div>{title}</div>]}</Menu.Item>;
         }
         return (
           <Menu.SubMenu key={path}>
@@ -92,6 +88,7 @@ export default defineComponent({
       return (
         <Menu
           mode={mode}
+          theme={config.theme as "dark" | "light" | undefined}
           onOpenChange={handleOpenChange}
           onClick={handleMenuClick}
           forceSubMenuRender={isAppMenu}
@@ -108,7 +105,11 @@ export default defineComponent({
 
     return () => {
       return (
-        <Layout.Sider theme="light" class="layout-sider" width="260">
+        <Layout.Sider
+          theme={config.theme as "dark" | "light" | undefined}
+          class="layout-sider"
+          width="260"
+        >
           {() => (
             <>
               <div class="layout-sider-header index-center-middle">

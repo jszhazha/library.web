@@ -14,6 +14,11 @@ export default {
   logo: logo,
 
   // 路由
-  publicPath: publicPath
+  publicPath: publicPath,
+
+  // 主题
+  theme: 'dark'
 
 }
+
+

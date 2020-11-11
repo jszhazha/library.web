@@ -1,17 +1,17 @@
 <template>
   <a-form>
-    <a-row type="flex">
-      <a-col :md="24" :lg="8" class="index-table-search-col">
+    <a-row>
+      <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="题 名">
           <a-input placeholder="请输入" />
         </a-form-item>
       </a-col>
-      <a-col :md="24" :lg="8" class="index-table-search-col">
+      <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="国际标准书号">
           <a-input placeholder="请输入" />
         </a-form-item>
       </a-col>
-      <a-col :md="24" :lg="8" class="index-table-search-col">
+      <a-col :xs="24" :lg="8" class="index-table-search-col">
         <div class="index-table-search-button">
           <a-button type="primary">
             查询

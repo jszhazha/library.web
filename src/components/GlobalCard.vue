@@ -1,5 +1,5 @@
 <template>
-  <div class="index-card">
+  <div class="global-card index-card">
     <div class="card-title">
       {{ title }}
     </div>
@@ -20,11 +20,28 @@ export default defineComponent({
 </script>
 
 
-<style lang="less" scoped>
-.card-title {
-  margin: 0 0 16px 0;
-  font-size: 16px;
-  font-weight: 700;
-  color: #2c3a61;
+<style lang="less">
+.global-card {
+  padding: 16px 0;
+
+  .card-title {
+    margin: 0 16px 16px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #2c3a61;
+  }
+
+  .ant-form > .ant-row > .ant-col {
+    padding: 0 16px;
+  }
+
+  // .ant-form-item-label {
+  //   text-align: justify;
+  //   text-align-last: justify;
+  // }
+
+  // .ant-form-item-label > label::after {
+  //   content: "";
+  // }
 }
 </style>

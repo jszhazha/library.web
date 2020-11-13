@@ -2,8 +2,9 @@ import type { App } from 'vue';
 import OperationInfoPanel from '/@/components/OperationInfoPanel.vue'
 import GlobalButton from "/@/components/GlobalButton.vue";
 import GlobalInput from "/@/components/GlobalInput.vue";
-import GlobalTabel from '/@/components/GlobalTabel.vue'
-import GlobalCard from '/@/components/GlobalCard.vue'
+import GlobalTabel from '/@/components/GlobalTabel.vue';
+import GlobalDataPage from '/@/components/GlobalDataPage.vue'
+import GlobalCard from '/@/components/GlobalCard.vue';
 
 
 export default class ComponentRegisterPlugin {
@@ -12,6 +13,7 @@ export default class ComponentRegisterPlugin {
     app.component('GlobalInput', GlobalInput)
     app.component('GlobalTabel', GlobalTabel)
     app.component('GlobalCard', GlobalCard)
+    app.component('GlobalDataPage', GlobalDataPage)
     app.component("OperationInfoPanel", OperationInfoPanel)
   }
 }

@@ -47,7 +47,6 @@ export default defineComponent({
 
 <style  lang="less">
 .globla-button {
-  position: relative;
   width: 100%;
   height: 48px;
   overflow: hidden;

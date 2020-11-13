@@ -1,7 +1,7 @@
 <template>
   <config-provider
     :locale="zhCN"
-    :transform-cell-text="transformCellText"
+    @transform-cell-text="transformCellText"
   >
     <router-view />
   </config-provider>

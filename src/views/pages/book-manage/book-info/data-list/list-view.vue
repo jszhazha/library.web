@@ -1,41 +1,39 @@
 <template>
-  <div class="index-card">
-    <global-tabel
-      title="图书列表"
-      :columns="tablecolumns"
-      :data-source="dataSource"
-    >
-      <template #header>
-        <a-button> 批量导入 </a-button>
-        <a-button> 导出数据 </a-button>
-        <a-button type="primary" @click="newDataItem">
-          新增
-        </a-button>
-        <a-divider type="vertical" />
-        <a-dropdown>
+  <global-tabel
+    title="图书列表"
+    :columns="tablecolumns"
+    :data-source="dataSource"
+  >
+    <template #header-left>
+      <a-button> 批量导入 </a-button>
+      <a-button type="primary" @click="newDataItem">
+        新增
+      </a-button>
+    </template>
+    <template #header-right>
+      <a-dropdown>
+        <a-button type="link" size="small">
           <SettingOutlined />
-          <template #overlay>
-            <a-menu>
-              <a-menu-item>
-                Excel 模板
-              </a-menu-item>
-            </a-menu>
-          </template>
-        </a-dropdown>
-      </template>
-      <template #operation>
-        <a-button type="link" size="small">
-          查看
         </a-button>
-        <a-button type="link" size="small">
-          编辑
-        </a-button>
-        <a-button type="link" size="small">
-          删除
-        </a-button>
-      </template>
-    </global-tabel>
-  </div>
+        <template #overlay>
+          <a-menu>
+            <a-menu-item> Excel 模板 </a-menu-item>
+          </a-menu>
+        </template>
+      </a-dropdown>
+    </template>
+    <template #operation>
+      <a-button type="link" size="small">
+        查看
+      </a-button>
+      <a-button type="link" size="small">
+        编辑
+      </a-button>
+      <a-button type="link" size="small">
+        删除
+      </a-button>
+    </template>
+  </global-tabel>
 </template>
 
 <script lang="ts">

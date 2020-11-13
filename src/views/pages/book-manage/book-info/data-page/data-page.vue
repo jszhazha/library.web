@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <global-card title="基础数据">
-      <a-form :label-col="{ flex: '100px' }" :wrapper-col="{ flex: 'auto' }">
+  <global-data-page>
+    <a-form :label-col="{ flex: '120px' }" :wrapper-col="{ flex: 'auto' }">
+      <global-card title="书目信息">
         <a-row>
           <a-col :xs="24" :lg="9">
             <a-form-item label="题名">
@@ -16,7 +16,7 @@
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="9">
-            <a-form-item label="语言">
+            <a-form-item label="语种">
               <a-input placeholder="请输入" />
             </a-form-item>
           </a-col>
@@ -28,19 +28,7 @@
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="9">
-            <a-form-item label="出版社">
-              <a-input placeholder="请输入" />
-            </a-form-item>
-          </a-col>
-          <a-col :xs="24" :lg="9">
-            <a-form-item label="总数量">
-              <a-input placeholder="请输入" />
-            </a-form-item>
-          </a-col>
-        </a-row>
-        <a-row>
-          <a-col :xs="24" :lg="9">
-            <a-form-item label="在馆数量">
+            <a-form-item label="出版发行">
               <a-input placeholder="请输入" />
             </a-form-item>
           </a-col>
@@ -52,19 +40,7 @@
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="9">
-            <a-form-item label="图书编号">
-              <a-input placeholder="请输入" />
-            </a-form-item>
-          </a-col>
-          <a-col :xs="24" :lg="9">
             <a-form-item label="出版时间">
-              <a-input placeholder="请输入" />
-            </a-form-item>
-          </a-col>
-        </a-row>
-        <a-row>
-          <a-col :xs="24" :lg="9">
-            <a-form-item label="图书编号">
               <a-input placeholder="请输入" />
             </a-form-item>
           </a-col>
@@ -74,10 +50,28 @@
             </a-form-item>
           </a-col>
         </a-row>
-      </a-form>
-    </global-card>
-    <!-- <OperationInfoPanel /> -->
-  </div>
+      </global-card>
+
+      <global-card title="馆藏信息">
+        <a-row>
+          <a-col :xs="24" :lg="9">
+            <a-form-item label="索书号">
+              <a-input placeholder="请输入" />
+            </a-form-item>
+          </a-col>
+        </a-row>
+      </global-card>
+    </a-form>
+    <OperationInfoPanel />
+
+    <template #footer-block>
+      <a-button> 返回 </a-button>
+      <a-button> 重置 </a-button>
+      <a-button type="primary">
+        保存
+      </a-button>
+    </template>
+  </global-data-page>
 </template>
 
 <script lang="ts">

@@ -7,32 +7,38 @@ export const tablecolumns: TableColumn[] = [
   {
     title: '题名',
     dataIndex: 'name',
-    align: 'center'
+    align: 'center',
+
   },
   {
     title: '国际标准书号',
     dataIndex: 'isbn',
-    align: 'center'
+    align: 'center',
+
   },
   {
     title: '作者',
     dataIndex: 'author',
-    align: 'center'
+    align: 'center',
+
   },
   {
     title: '出版社',
     dataIndex: 'press',
-    align: 'center'
+    align: 'center',
+
   },
   {
     title: '总数量',
     dataIndex: 'count',
-    align: 'center'
+    align: 'center',
+    width: 100
   },
   {
     title: '在馆数量',
     dataIndex: 'number',
-    align: 'center'
+    align: 'center',
+    width: 100
   },
   {
     title: '操作',
@@ -40,6 +46,5 @@ export const tablecolumns: TableColumn[] = [
     width: 170,
     dataIndex: 'operation',
     slots: { customRender: 'operation' },
-
   }
 ]

@@ -3,10 +3,7 @@
     class="global-input index-middle"
     :style="{ 'border-color': borderColor }"
   >
-    <div
-      v-if="type === 'phone'"
-      class="global-input-phone"
-    >
+    <div v-if="type === 'phone'" class="global-input-phone">
       中国 +86
     </div>
     <input
@@ -41,6 +38,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons-vue";
 
 enum InputTypeMap {
   text = "text",
@@ -57,6 +55,7 @@ enum TypeMap {
 }
 
 export default defineComponent({
+  components: { EyeInvisibleOutlined, EyeOutlined },
   props: {
     // 类型
     type: {

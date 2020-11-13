@@ -76,12 +76,14 @@ export default defineComponent({
               itemList.value.map((el, index) => {
                 const isLink = !!el.redirect;
                 const { length, modeName } = itemList;
-                const mode = length === index && !isBoolean(modeName)? `- ${modeName}`: "";
+                const isDivider= length !== index 
+                const mode = length === index && !isBoolean(modeName) ? `- ${modeName}` : "";
 
                 return (
                   <BreadcrumbItem
                     key={el.path}
                     isLink={isLink}
+                    isDivider={isDivider}
                     onClick={handleItemClick.bind(null, el)}
                   >
                     {() => `${el.meta.title} ${mode}`}

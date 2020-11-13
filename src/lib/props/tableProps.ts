@@ -1,7 +1,7 @@
 import type { ColumnProps } from "ant-design-vue/lib/table/interface";
 import type { PropType } from "vue";
 
-export default {
+export const tableProps = {
   columns: {
     type: [Array] as PropType<ColumnProps[]>,
     default: null,
@@ -17,5 +17,13 @@ export default {
   total: {
     type: Number,
     default: undefined
+  },
+  title: {
+    type: String,
+    default: ""
   }
+}
+
+export interface TableColumn extends ColumnProps {
+  slots?: Indexable;
 }

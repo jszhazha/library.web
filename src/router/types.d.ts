@@ -18,6 +18,9 @@ export interface RouteMeta {
 
   // 菜单隐藏
   hideInMenu?: boolean
+
+  // 页面重定向
+  redirect?: string
 }
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {

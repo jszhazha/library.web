@@ -45,28 +45,29 @@
     }
 
     &-button {
-      margin: 0 0 24px;
+      button:not(:last-of-type) {
+        margin: 0 10px 0 0;
+      }
+
     }
 
     &-col {
       padding: 0 16px;
     }
 
-    .ant-form-item-label {
-      line-height: 32px;
-    }
+    .ant-form-item {
+      &-label {
+        line-height: 32px;
+      }
 
-    .ant-form-item-control-wrapper {
-      flex: 1;
-    }
+      &-control {
+        height: 32px;
+        line-height: 32px;
 
-    .ant-form-item-control {
-      height: 32px;
-      line-height: 32px;
+        &-wrapper {
+          flex: 1;
+        }
+      }
     }
-  }
-
-  &-operating-wrap > button {
-    margin: 0 16px;
   }
 }

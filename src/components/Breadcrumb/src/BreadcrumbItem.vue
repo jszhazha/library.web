@@ -3,10 +3,7 @@
     <span :class="['breadcrumb-item-content', isLink ? 'is-link' : '']">
       <slot />
     </span>
-    <span
-      v-if="isLink"
-      class="breadcrumb-item-separator"
-    >{{ separator }}</span>
+    <span v-if="isDivider" class="breadcrumb-item-separator">{{ separator }}</span>
   </div>
 </template>
 
@@ -16,6 +13,10 @@ import { defineComponent, inject } from "vue";
 export default defineComponent({
   props: {
     isLink: {
+      type: Boolean,
+      default: false,
+    },
+    isDivider: {
       type: Boolean,
       default: false,
     },

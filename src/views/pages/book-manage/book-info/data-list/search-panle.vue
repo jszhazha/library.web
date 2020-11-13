@@ -16,8 +16,11 @@
           <a-button type="primary">
             查询
           </a-button>
-          <a-button style="margin-left: 8px;">
+          <a-button>
             重置
+          </a-button>
+          <a-button type="link">
+            展开
           </a-button>
         </div>
       </a-col>
@@ -28,6 +31,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { PagerQueryData } from "/@/lib/http/axios/types";
+// import { DownOutlined } from "@ant-design/icons-vue";
 
 export default defineComponent({
   setup() {
@@ -43,7 +47,7 @@ export default defineComponent({
     // }
 
     return {
-      queryData
+      queryData,
     };
   },
 });

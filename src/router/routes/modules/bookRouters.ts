@@ -47,7 +47,8 @@ const routers: AppRouteModule = {
       component: (): unknown => import(`/@/views/pages/book-manage/book-info/data-page/data-page.vue`),
       meta: {
         title: '图书信息详情',
-        hideInMenu: true
+        hideInMenu: true,
+        redirect: "/book-manage/book-info-list-page"
       },
     },
   ]

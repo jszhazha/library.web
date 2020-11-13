@@ -1,9 +1,40 @@
 <template>
   <div class="index-card">
     <global-tabel
+      title="图书列表"
       :columns="tablecolumns"
       :data-source="dataSource"
-    />
+    >
+      <template #header>
+        <a-button> 批量导入 </a-button>
+        <a-button> 导出数据 </a-button>
+        <a-button type="primary" @click="newDataItem">
+          新增
+        </a-button>
+        <a-divider type="vertical" />
+        <a-dropdown>
+          <SettingOutlined />
+          <template #overlay>
+            <a-menu>
+              <a-menu-item>
+                Excel 模板
+              </a-menu-item>
+            </a-menu>
+          </template>
+        </a-dropdown>
+      </template>
+      <template #operation>
+        <a-button type="link" size="small">
+          查看
+        </a-button>
+        <a-button type="link" size="small">
+          编辑
+        </a-button>
+        <a-button type="link" size="small">
+          删除
+        </a-button>
+      </template>
+    </global-tabel>
   </div>
 </template>
 
@@ -12,7 +43,8 @@ import { defineComponent } from "vue";
 import { tablecolumns } from "./list-data";
 
 export default defineComponent({
-  setup() {
+  emits: ["new-data-item"],
+  setup(_props, { emit }) {
     const dataSource = [];
     for (let i = 0; i < 20; i++) {
       dataSource.push({
@@ -27,7 +59,9 @@ export default defineComponent({
         number: 30,
       });
     }
-    return { tablecolumns, dataSource };
+    const newDataItem = () => emit("new-data-item");
+
+    return { tablecolumns, dataSource, newDataItem };
   },
 });
 </script>

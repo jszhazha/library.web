@@ -1,20 +1,12 @@
-import type { ColumnProps } from 'ant-design-vue/lib/table/interface';
+import type { TableColumn } from '/@/lib/props/tableProps';
 
 
-export const tablecolumns: ColumnProps[] = [
+
+
+export const tablecolumns: TableColumn[] = [
   {
     title: '题名',
     dataIndex: 'name',
-    align: 'center'
-  },
-  {
-    title: '图书编号',
-    dataIndex: 'code',
-    align: 'center'
-  },
-  {
-    title: '学科类别',
-    dataIndex: 'subjectCategory',
     align: 'center'
   },
   {
@@ -41,5 +33,13 @@ export const tablecolumns: ColumnProps[] = [
     title: '在馆数量',
     dataIndex: 'number',
     align: 'center'
+  },
+  {
+    title: '操作',
+    align: 'center',
+    width: 170,
+    dataIndex: 'operation',
+    slots: { customRender: 'operation' },
+
   }
 ]

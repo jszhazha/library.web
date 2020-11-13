@@ -2,16 +2,8 @@
   <div class="index-content">
     <div class="index-table-search index-card">
       <search-panle />
-      <div class="index-operating-wrap">
-        <a-button type="primary" @click="newDataItem">
-          <template #icon>
-            <PlusOutlined />
-          </template>
-          增加
-        </a-button>
-      </div>
     </div>
-    <list-view />
+    <list-view @newDataItem="newDataItem" />
   </div>
 </template>
 

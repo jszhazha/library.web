@@ -15,5 +15,6 @@ export default class ComponentRegisterPlugin {
     app.component('GlobalCard', GlobalCard)
     app.component('GlobalDataPage', GlobalDataPage)
     app.component("OperationInfoPanel", OperationInfoPanel)
+
   }
 }

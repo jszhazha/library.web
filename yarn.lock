@@ -260,6 +260,16 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@iconify/iconify@>=2.0.0-rc.1":
+  version "2.0.0-rc.2"
+  resolved "https://registry.npm.taobao.org/@iconify/iconify/download/@iconify/iconify-2.0.0-rc.2.tgz#c4a95ddc06ca9b9496df03604e66fdefb39f4c4b"
+  integrity sha1-xKld3AbKm5SW3wNgTmb977OfTEs=
+
+"@iconify/json@^1.1.258":
+  version "1.1.258"
+  resolved "https://registry.npm.taobao.org/@iconify/json/download/@iconify/json-1.1.258.tgz#392064ae8fd4c6d542c21bb4d0d57d5860f38abb"
+  integrity sha1-OSBkro/UxtVCwhu00NV9WGDzirs=
+
 "@koa/cors@^3.1.0":
   version "3.1.0"
   resolved "https://registry.npm.taobao.org/@koa/cors/download/@koa/cors-3.1.0.tgz#618bb073438cfdbd3ebd0e648a76e33b84f3a3b2"
@@ -312,6 +322,13 @@
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/@pawelgalazka/shell/download/@pawelgalazka/shell-2.0.0.tgz#7174a2d904375e435f6a012322713234c00e75cd"
   integrity sha1-cXSi2QQ3XkNfagEjInEyNMAOdc0=
+
+"@purge-icons/generated@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.npm.taobao.org/@purge-icons/generated/download/@purge-icons/generated-0.4.1.tgz#b2e447ab56a59a254ce56f1529964cd887732f54"
+  integrity sha1-suRHq1almiVM5W8VKZZM2IdzL1Q=
+  dependencies:
+    "@iconify/iconify" ">=2.0.0-rc.1"
 
 "@rollup/plugin-commonjs@^15.1.0":
   version "15.1.0"

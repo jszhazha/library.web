@@ -12,6 +12,7 @@ const routers: AppRouteModule = {
     redirect: '/system-manage/user-manage-list-page',
     meta: {
       title: '系统管理',
+      icon: 'ant-design:setting-outlined'
     },
   },
 

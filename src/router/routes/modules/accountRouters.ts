@@ -12,6 +12,7 @@ const routers: AppRouteModule = {
     redirect: '/account-manage/center',
     meta: {
       title: '个人管理',
+      icon:'ant-design:user-outlined'
     },
   },
 

@@ -12,6 +12,7 @@ import {
   getAllParentPath,
   menuHasChildren,
 } from "/@/utils/helper/menu";
+import MenuContent from "./MenuContent";
 
 export default defineComponent({
   name: "DefaultLayoutSider",
@@ -59,16 +60,20 @@ export default defineComponent({
     function renderMenuItem(menuList?: MenuType[]) {
       if (!menuList) return;
       return menuList.map((menu) => {
-        const { title, path, hideInMenu } = menu;
+        const { title, path, hideInMenu, icon } = menu;
         if (hideInMenu) return;
 
         if (!menuHasChildren(menu)) {
-          return <Menu.Item key={path}>{() => [<div>{title}</div>]}</Menu.Item>;
+          return (
+            <Menu.Item key={path}>
+              {() => [<MenuContent icon={icon} title={title} />]}
+            </Menu.Item>
+          );
         }
         return (
           <Menu.SubMenu key={path}>
             {{
-              title: () => title,
+              title: () =>[ <MenuContent icon={icon} title={title} />],
               default: () => renderMenuItem(menu.children),
             }}
           </Menu.SubMenu>
@@ -90,6 +95,7 @@ export default defineComponent({
         <Menu
           mode={mode}
           theme={config.theme}
+          inlineCollapsed={true}
           onOpenChange={handleOpenChange}
           onClick={handleMenuClick}
           forceSubMenuRender={isAppMenu}
@@ -108,6 +114,7 @@ export default defineComponent({
       const { getMenuWidthState } = menuStore;
       return (
         <Layout.Sider
+          collapsible={true}
           theme={config.theme}
           width={getMenuWidthState}
           class="layout-sider"
@@ -116,7 +123,7 @@ export default defineComponent({
             <>
               <div class="layout-sider-header index-center-middle">
                 <img src={config.logo} class="layout-sider-header-logo" />
-                <div class="layout-sider-header-title">{config.title}</div>
+                {/* <div class="layout-sider-header-title">{config.title}</div> */}
               </div>
               <div>{renderMenu()}</div>
             </>

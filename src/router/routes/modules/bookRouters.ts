@@ -12,6 +12,7 @@ const routers: AppRouteModule = {
     redirect: '/book-manage/subject-category-list-page',
     meta: {
       title: '图书管理',
+      icon: 'ion:book-outline'
     },
   },
 

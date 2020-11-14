@@ -21,6 +21,9 @@ export interface RouteMeta {
 
   // 页面重定向
   redirect?: string
+
+  // 图标
+  icon?: string;
 }
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
@@ -40,8 +43,6 @@ export interface Menu extends RouteMeta {
   name?: string | symbol;
 
   title: string
-
-  icon?: string;
 
   path: string;
 

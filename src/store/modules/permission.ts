@@ -1,7 +1,6 @@
 import store from '/@/store/index';
-import { VuexModule, Mutation, Module, getModule, Action } from 'vuex-module-decorators';
-import { Menu, AppRouteRecordRaw } from '/@/router/types'
-import { asyncRoutes } from '/@/router/routes/index';
+import { VuexModule, Mutation, Module, getModule } from 'vuex-module-decorators';
+import { Menu } from '/@/router/types'
 
 const NAME = 'permission';
 
@@ -37,13 +36,10 @@ export default class Permission extends VuexModule {
     this.isDynamicAddedRouteState = state;
   }
 
-  @Action
-  async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
-    let routes: AppRouteRecordRaw[] = [];
-    routes = asyncRoutes as AppRouteRecordRaw[]
-    return routes
+  // @Action
+  // async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
 
-  }
+  // }
 
 }
 

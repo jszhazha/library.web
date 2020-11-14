@@ -1,16 +1,17 @@
 import type { Menu as MenuType } from "/@/router/types";
 import { defineComponent, reactive, unref, computed, watch } from "vue";
 import { Layout, Menu } from "ant-design-vue";
+import { menuStore } from "/@/store/modules/menu";
+import { useRouter } from "vue-router";
+import config from "/@/config/";
+import { MenuState } from "./type";
+import router from "/@/router";
 import {
   getMenus,
   getFlatMenus,
   getAllParentPath,
   menuHasChildren,
 } from "/@/utils/helper/menu";
-import { useRouter } from "vue-router";
-import config from "/@/config/";
-import { MenuState } from "./type";
-import router from "/@/router";
 
 export default defineComponent({
   name: "DefaultLayoutSider",
@@ -88,7 +89,7 @@ export default defineComponent({
       return (
         <Menu
           mode={mode}
-          theme={config.theme as "dark" | "light" | undefined}
+          theme={config.theme}
           onOpenChange={handleOpenChange}
           onClick={handleMenuClick}
           forceSubMenuRender={isAppMenu}
@@ -104,11 +105,12 @@ export default defineComponent({
     handleMenuChange();
 
     return () => {
+      const { getMenuWidthState } = menuStore;
       return (
         <Layout.Sider
-          theme={config.theme as "dark" | "light" | undefined}
+          theme={config.theme}
+          width={getMenuWidthState}
           class="layout-sider"
-          width="260"
         >
           {() => (
             <>

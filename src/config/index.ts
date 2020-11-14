@@ -6,7 +6,21 @@ const { title, publicPath } = useSetting()
 /**
  *  系统配置文件可用于设置使用系统运行的参数
  **/
-export default {
+
+interface Config {
+  title: string,
+
+  logo: string,
+
+  publicPath: string
+
+  theme: "dark" | "light" | undefined,
+
+  menuWidth: number
+}
+
+
+const config: Config = {
   // 系统名称
   title: title,
 
@@ -17,8 +31,13 @@ export default {
   publicPath: publicPath,
 
   // 主题
-  theme: 'dark'
+  theme: 'dark',
 
+  // 菜单宽度
+  menuWidth: 260
 }
 
+
+
+export default config
 

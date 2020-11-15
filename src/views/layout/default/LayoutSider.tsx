@@ -24,6 +24,7 @@ export default defineComponent({
       mode: "inline",
       isAppMenu: true,
       openKeys: [],
+      collapsedOpenKeys: [],
     });
 
     // 处理点击菜单 -> 导航 跳转
@@ -48,37 +49,63 @@ export default defineComponent({
     }
 
     const getOpenKeys = computed(() => {
-      return menuState.openKeys;
+      return menuStore.getCollapsedState
+        ? menuState.collapsedOpenKeys
+        : menuState.openKeys;
     });
 
     // 处理打开菜单
     function handleOpenChange(openKeys: string[]): void {
-      menuState.openKeys = openKeys;
+      if (!menuStore.getCollapsedState) {
+        menuState.openKeys = openKeys;
+      } else {
+        menuState.collapsedOpenKeys = openKeys;
+      }
     }
 
     // 渲染菜单
-    function renderMenuItem(menuList?: MenuType[]) {
+    function renderMenuItem(menuList?: MenuType[], index = 1) {
       if (!menuList) return;
       return menuList.map((menu) => {
         const { title, path, hideInMenu, icon } = menu;
+        const showTitle = !menuStore.getCollapsedState;
         if (hideInMenu) return;
 
         if (!menuHasChildren(menu)) {
           return (
-            <Menu.Item key={path}>
-              {() => [<MenuContent icon={icon} title={title} />]}
+            <Menu.Item key={path} title={index === 1 ? title : ""}>
+              {() => [
+                <MenuContent
+                  icon={icon}
+                  level={index}
+                  title={title}
+                  showTitle={showTitle}
+                />,
+              ]}
             </Menu.Item>
           );
         }
         return (
           <Menu.SubMenu key={path}>
             {{
-              title: () =>[ <MenuContent icon={icon} title={title} />],
-              default: () => renderMenuItem(menu.children),
+              title: () => [
+                <MenuContent
+                  icon={icon}
+                  level={index}
+                  title={title}
+                  showTitle={showTitle}
+                />,
+              ],
+              default: () => renderMenuItem(menu.children, index + 1),
             }}
           </Menu.SubMenu>
         );
       });
+    }
+
+    // 处理点击菜单收缩
+    function handleCollapseChange(collapsed: boolean) {
+      menuStore.commitCollapsedState(collapsed);
     }
 
     watch(
@@ -91,11 +118,12 @@ export default defineComponent({
     // 渲染根菜单
     function renderMenu() {
       const { selectedKeys, mode, isAppMenu } = menuState;
+
       return (
         <Menu
           mode={mode}
           theme={config.theme}
-          inlineCollapsed={true}
+          inlineCollapsed={menuStore.getCollapsedState}
           onOpenChange={handleOpenChange}
           onClick={handleMenuClick}
           forceSubMenuRender={isAppMenu}
@@ -111,19 +139,28 @@ export default defineComponent({
     handleMenuChange();
 
     return () => {
-      const { getMenuWidthState } = menuStore;
+      const { getCollapsedState, getMenuWidthState } = menuStore;
       return (
         <Layout.Sider
-          collapsible={true}
+          collapsible
+          collapsed={getCollapsedState}
+          onCollapse={handleCollapseChange}
           theme={config.theme}
           width={getMenuWidthState}
           class="layout-sider"
         >
           {() => (
             <>
-              <div class="layout-sider-header index-center-middle">
+              <div class="layout-sider-header index-center-middle index-hidden-newline">
                 <img src={config.logo} class="layout-sider-header-logo" />
-                {/* <div class="layout-sider-header-title">{config.title}</div> */}
+                <div
+                  class={[
+                    "layout-sider-header-title",
+                    getCollapsedState && "index-hidden",
+                  ]}
+                >
+                  {config.title}
+                </div>
               </div>
               <div>{renderMenu()}</div>
             </>

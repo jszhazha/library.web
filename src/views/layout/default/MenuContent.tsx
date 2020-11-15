@@ -12,6 +12,14 @@ export default defineComponent({
       type: String,
       default: "",
     },
+    showTitle: {
+      type: Boolean,
+      default: true,
+    },
+    level: {
+      type: Number,
+      default: 0,
+    },
   },
   setup(props) {
     function renderIcon(icon: string) {
@@ -19,8 +27,12 @@ export default defineComponent({
     }
 
     return () => {
-      const { title, icon } = props;
-      return [renderIcon(icon), <span>{title}</span>];
+      const { title, icon, showTitle, level } = props;
+      const show = level === 1 ? showTitle : true;
+      return [
+        renderIcon(icon),
+        <span class={!show && "index-hidden"}>{title}</span>,
+      ];
     };
   },
 });

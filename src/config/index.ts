@@ -16,7 +16,9 @@ interface Config {
 
   theme: "dark" | "light" | undefined,
 
-  menuWidth: number
+  menuWidth: number,
+
+  collapsed: boolean;
 }
 
 
@@ -34,7 +36,10 @@ const config: Config = {
   theme: 'dark',
 
   // 菜单宽度
-  menuWidth: 260
+  menuWidth: 260,
+
+  // 菜单是否收起状态
+  collapsed: false
 }
 
 

@@ -145,6 +145,7 @@ export default defineComponent({
           collapsible
           collapsed={getCollapsedState}
           onCollapse={handleCollapseChange}
+          trigger={null}
           theme={config.theme}
           width={getMenuWidthState}
           class="layout-sider"

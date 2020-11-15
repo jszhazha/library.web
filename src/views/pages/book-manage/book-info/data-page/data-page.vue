@@ -1,7 +1,7 @@
 <template>
   <global-data-page>
     <a-form :label-col="{ flex: '120px' }" :wrapper-col="{ flex: 'auto' }">
-      <global-card title="书目信息">
+      <global-card title="基本信息">
         <a-row>
           <a-col :xs="24" :lg="9">
             <a-form-item label="题名">
@@ -65,8 +65,12 @@
     <OperationInfoPanel />
 
     <template #footer-block>
-      <a-button> 返回 </a-button>
-      <a-button> 重置 </a-button>
+      <a-button @click="onClosePage">
+        返回
+      </a-button>
+      <a-button>
+        重置
+      </a-button>
       <a-button type="primary">
         保存
       </a-button>
@@ -76,7 +80,16 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-export default defineComponent({});
+import { dataPageMix } from "/@/utils/dataPage";
+
+export default defineComponent({
+  setup() {
+    const { closePage: onClosePage } = dataPageMix();
+    return {
+      onClosePage,
+    };
+  },
+});
 </script>
 
 

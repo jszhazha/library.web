@@ -2,18 +2,20 @@ import type { App } from 'vue';
 import OperationInfoPanel from '/@/components/OperationInfoPanel.vue'
 import GlobalButton from "/@/components/GlobalButton.vue";
 import GlobalInput from "/@/components/GlobalInput.vue";
-import GlobalTabel from '/@/components/GlobalTabel.vue';
+import GlobalTable from '/@/components/GlobalTable.vue'
 import GlobalDataPage from '/@/components/GlobalDataPage.vue'
 import GlobalCard from '/@/components/GlobalCard.vue';
-
+import TableList from '/@/components/TableList.vue';
 
 export default class ComponentRegisterPlugin {
   static init(app: App): void {
-    app.component('GlobalButton', GlobalButton)
-    app.component('GlobalInput', GlobalInput)
-    app.component('GlobalTabel', GlobalTabel)
     app.component('GlobalCard', GlobalCard)
+    app.component('GlobalInput', GlobalInput)
+    app.component("GlobalTable", GlobalTable)
+    app.component('GlobalButton', GlobalButton)
     app.component('GlobalDataPage', GlobalDataPage)
+
+    app.component('TableList', TableList)
     app.component("OperationInfoPanel", OperationInfoPanel)
 
   }

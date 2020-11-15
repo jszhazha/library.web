@@ -7,3 +7,8 @@
 # 前言
 > 你的本地环境需要安装 npm(yarn)、node 和 git
 
+## 启动项目
+`npm insert (yarn)`
+
+`npm run serve (yarn serve)`
+

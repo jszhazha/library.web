@@ -23,7 +23,9 @@ export default defineComponent({
   },
   setup(props) {
     function renderIcon(icon: string) {
-      return icon ? <Icon icon={icon} class="menu-content-icon" /> : null;
+      return icon ? (
+        <Icon icon={icon} size={16} class="menu-content-icon" />
+      ) : null;
     }
 
     return () => {

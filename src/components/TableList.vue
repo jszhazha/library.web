@@ -1,9 +1,10 @@
 <template>
   <div
     ref="tableRef"
-    :class="['index-card', 'global-table', fullScreen ? 'full-screen' : '']"
+    :class="['index-card', 'table-list', fullScreen ? 'full-screen' : '']"
+    :style="wrapStyle"
   >
-    <div class="global-table-header index-space-between">
+    <div class="table-list-header index-space-between">
       <div class="title">
         {{ title }}
       </div>
@@ -17,68 +18,83 @@
         </a-button>
       </div>
     </div>
-    <Table
-      bordered
-      :row-key="rowKey"
+    <global-table
       :columns="columns"
       :data-source="dataSource"
-      :pagination="{
-        showTotal: (total) => `共 ${total} 条`,
-        total: total,
-      }"
       :scroll="scroll"
+      :total="total"
     >
       <template v-for="item in Object.keys($slots)" #[item]="data">
         <slot :name="item" v-bind="data" />
       </template>
-    </Table>
+    </global-table>
   </div>
 </template>
 
 <script lang="ts">
-import { Table } from "ant-design-vue";
-import { defineComponent, ref, reactive, onMounted } from "vue";
-import { tableProps } from "/@/lib/props/tableProps";
-import { browserClient } from "/@/utils/elelment";
+import {
+  defineComponent,
+  ref,
+  unref,
+  reactive,
+  onMounted,
+  computed,
+  watch,
+} from "vue";
+import { tableListProps } from "/@/lib/props/tableProps";
+import { browserClient, elementOffset } from "/@/utils/elelment";
 import { ExpandOutlined, CompressOutlined } from "@ant-design/icons-vue";
 
 export default defineComponent({
-  components: { ExpandOutlined, CompressOutlined, Table },
-  props: tableProps,
+  components: { ExpandOutlined, CompressOutlined },
+  props: tableListProps,
   setup() {
     // 全屏 标志位
-    const fullScreen = ref<boolean>(true);
+    const fullScreen = ref<boolean>(false);
     // table 滚动条高度
     const scroll = reactive<{ y?: number; x?: number }>({});
     // 标签
     const tableRef = ref<HTMLElement | null>(null);
-    // 视图高度
-    let clientHeight = 0;
+    // 视图大小
+    let browserSize: { width?: number; height?: number } = {};
+    // 偏移量
+    const transform = ref<string>("");
+    // 样式
+    const wrapStyle = computed(() => {
+      return `transform:translate(${transform.value});`;
+    });
 
     onMounted(() => {
-      clientHeight = browserClient().clientHeight;
-      handleFullScreen();
+      browserSize = browserClient();
+      scroll.y = browserSize.height! - 400;
     });
+
 
     // 处理全屏
     const handleFullScreen = () => {
       if (fullScreen.value) {
-        // 非全屏
-        scroll.y = clientHeight - 396;
+        // 切换为非全屏
+        scroll.y = browserSize.height! - 400;
+        transform.value = `0px,0px`;
       } else {
-        // 全屏
-        scroll.y = clientHeight - 200;
+        // 切换为全屏
+        const offset = elementOffset(unref(tableRef));
+        transform.value = `-${offset.left - 16}px,-${offset.top}px`;
+        scroll.y = browserSize.height! - 200;
       }
       fullScreen.value = !fullScreen.value;
     };
-    return { scroll, fullScreen, tableRef, handleFullScreen };
+
+    return { scroll, fullScreen, wrapStyle, tableRef, handleFullScreen };
   },
 });
 </script>
 
 
 <style lang="less">
-.global-table {
+.table-list {
+  transition: transform 0.2s ease-out;
+
   &-header {
     margin: 0 0 16px;
 
@@ -104,12 +120,9 @@ export default defineComponent({
 
 .full-screen {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100% !important;
+  height: 100% !important;
   margin: 0;
-  overflow: auto;
   border-radius: 0;
 }
 </style>

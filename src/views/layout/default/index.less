@@ -1,4 +1,4 @@
-@height: 60px;
+@height: 64px;
 
 .default-layout {
   width: 100vw;
@@ -6,9 +6,23 @@
 
   .layout-header {
     height: @height;
+    padding: 0 50px 0 0;
     line-height: @height;
     background: #fff;
     border-bottom: 1px solid #e8e8e8;
+
+    .header-trigger {
+      height: @height;
+      padding: 0 24px;
+      margin: 0 10px 0 0;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .header-trigger:hover {
+      background: rgba(0, 0, 0, 0.025);
+    }
   }
 
   .layout-content {

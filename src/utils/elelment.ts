@@ -13,9 +13,9 @@ export const elementOffset = (el: HTMLElement | null): { top: number, left: numb
   return offset
 }
 
-export const browserClient = (): { clientWidth: number, clientHeight: number } => {
+export const browserClient = (): { width: number, height: number } => {
   return {
-    clientWidth: window.document.documentElement.clientWidth,
-    clientHeight: window.document.documentElement.clientHeight
+    width: window.document.documentElement.clientWidth,
+    height: window.document.documentElement.clientHeight
   }
 }

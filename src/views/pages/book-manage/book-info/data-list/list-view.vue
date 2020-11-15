@@ -1,5 +1,5 @@
 <template>
-  <global-tabel
+  <table-list
     title="图书列表"
     :columns="tablecolumns"
     :data-source="dataSource"
@@ -33,7 +33,7 @@
         删除
       </a-button>
     </template>
-  </global-tabel>
+  </table-list>
 </template>
 
 <script lang="ts">

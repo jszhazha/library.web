@@ -1,3 +1,8 @@
+/**
+ * @description 添加新的页面枚举 变量 需要同时添加 PageMode 和 pageModeName
+ */
+
+
 // 页面的模式枚举
 export enum PageMode {
   view,

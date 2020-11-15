@@ -28,7 +28,7 @@
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="9">
-            <a-form-item label="出版发行">
+            <a-form-item label="出版社">
               <a-input placeholder="请输入" />
             </a-form-item>
           </a-col>
@@ -56,6 +56,11 @@
         <a-row>
           <a-col :xs="24" :lg="9">
             <a-form-item label="索书号">
+              <a-input placeholder="请输入" />
+            </a-form-item>
+          </a-col>
+          <a-col :xs="24" :lg="9">
+            <a-form-item label="存放位置">
               <a-input placeholder="请输入" />
             </a-form-item>
           </a-col>

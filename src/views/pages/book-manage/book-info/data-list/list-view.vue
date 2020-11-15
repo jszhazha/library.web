@@ -22,11 +22,11 @@
         </template>
       </a-dropdown>
     </template>
-    <template #operation>
-      <a-button type="link" size="small">
+    <template #operation="{ record }">
+      <a-button type="link" size="small" @click="viewDataItem(record)">
         查看
       </a-button>
-      <a-button type="link" size="small">
+      <a-button type="link" size="small" @click="editDataItem(record)">
         编辑
       </a-button>
       <a-button type="link" size="small">
@@ -39,9 +39,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { tablecolumns } from "./list-data";
+import { BookInfo } from "/@/api/book-manage/book-info";
 
 export default defineComponent({
-  emits: ["new-data-item"],
+  emits: ["new-data-item", "view-data-item", "edit-data-item"],
   setup(_props, { emit }) {
     const dataSource = [];
     for (let i = 0; i < 20; i++) {
@@ -57,9 +58,29 @@ export default defineComponent({
         number: 30,
       });
     }
-    const newDataItem = () => emit("new-data-item");
 
-    return { tablecolumns, dataSource, newDataItem };
+    // 添加新的数据
+    function newDataItem() {
+      emit("new-data-item");
+    }
+
+    // 查看数据
+    function viewDataItem(record: BookInfo) {
+      emit("view-data-item", record.id);
+    }
+
+    // 编辑数据
+    function editDataItem(record: BookInfo) {
+      emit("edit-data-item", record.id);
+    }
+
+    return {
+      tablecolumns,
+      dataSource,
+      newDataItem,
+      viewDataItem,
+      editDataItem,
+    };
   },
 });
 </script>

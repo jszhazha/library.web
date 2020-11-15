@@ -39,7 +39,6 @@ import {
   reactive,
   onMounted,
   computed,
-  watch,
 } from "vue";
 import { tableListProps } from "/@/lib/props/tableProps";
 import { browserClient, elementOffset } from "/@/utils/elelment";
@@ -58,10 +57,12 @@ export default defineComponent({
     // 视图大小
     let browserSize: { width?: number; height?: number } = {};
     // 偏移量
-    const transform = ref<string>("");
+    const transform = reactive<{ translate: string }>({
+      translate: "(0px,0px)",
+    });
     // 样式
     const wrapStyle = computed(() => {
-      return `transform:translate(${transform.value});`;
+      return `transform:translate${transform.translate};`;
     });
 
     onMounted(() => {
@@ -69,17 +70,16 @@ export default defineComponent({
       scroll.y = browserSize.height! - 400;
     });
 
-
     // 处理全屏
     const handleFullScreen = () => {
       if (fullScreen.value) {
         // 切换为非全屏
         scroll.y = browserSize.height! - 400;
-        transform.value = `0px,0px`;
+        transform.translate = `(0px,0px)`;
       } else {
         // 切换为全屏
         const offset = elementOffset(unref(tableRef));
-        transform.value = `-${offset.left - 16}px,-${offset.top}px`;
+        transform.translate = `(-${offset.left - 16}px,-${offset.top}px)`;
         scroll.y = browserSize.height! - 200;
       }
       fullScreen.value = !fullScreen.value;

@@ -19,6 +19,8 @@ interface Config {
   menuWidth: number,
 
   collapsed: boolean;
+
+  collapsedWidth: number
 }
 
 
@@ -39,7 +41,10 @@ const config: Config = {
   menuWidth: 260,
 
   // 菜单是否收起状态
-  collapsed: false
+  collapsed: false,
+
+  // 收缩宽度
+  collapsedWidth: 49
 }
 
 

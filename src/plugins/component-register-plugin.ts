@@ -5,16 +5,16 @@ import GlobalInput from "/@/components/GlobalInput.vue";
 import GlobalTable from '/@/components/GlobalTable.vue'
 import GlobalDataPage from '/@/components/GlobalDataPage.vue'
 import GlobalCard from '/@/components/GlobalCard.vue';
+import GlobalPopconfirm from '/@/components/GlobalPopconfirm.vue'
 import TableList from '/@/components/TableList.vue';
+import Icon from '/@/components/Icon'
 
 export default class ComponentRegisterPlugin {
   static init(app: App): void {
-    app.component('GlobalCard', GlobalCard)
-    app.component('GlobalInput', GlobalInput)
-    app.component("GlobalTable", GlobalTable)
-    app.component('GlobalButton', GlobalButton)
-    app.component('GlobalDataPage', GlobalDataPage)
-
+    app.component('Icon', Icon)
+    app.component('GlobalCard', GlobalCard).component('GlobalInput', GlobalInput)
+    app.component("GlobalTable", GlobalTable).component('GlobalButton', GlobalButton)
+    app.component('GlobalDataPage', GlobalDataPage).component('GlobalPopconfirm', GlobalPopconfirm)
     app.component('TableList', TableList)
     app.component("OperationInfoPanel", OperationInfoPanel)
 

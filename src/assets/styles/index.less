@@ -32,6 +32,21 @@
     justify-content: center;
   }
 
+  &-operation {
+    & > span:not(:last-of-type) {
+      margin: 0 5px 0 0;
+    }
+
+    & > span {
+      color: #1890ff;
+      cursor: pointer;
+    }
+
+    & > span:hover {
+      color: #096dd9;
+    }
+  }
+
   &-card {
     padding: 16px;
     margin: 16px;
@@ -42,6 +57,10 @@
   &-table-search {
     &.index-card {
       padding: 16px 0;
+    }
+
+    &-close {
+      font-size: 12px;
     }
 
     &-button {

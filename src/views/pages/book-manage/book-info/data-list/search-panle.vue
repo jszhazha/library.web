@@ -21,6 +21,7 @@
           </a-button>
           <a-button type="link">
             展开
+            <DownOutlined class="index-table-search-close" />
           </a-button>
         </div>
       </a-col>
@@ -31,9 +32,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { PagerQueryData } from "/@/lib/http/axios/types";
-// import { DownOutlined } from "@ant-design/icons-vue";
+import { DownOutlined } from "@ant-design/icons-vue";
 
 export default defineComponent({
+  components:{DownOutlined},
   setup() {
     // 数据搜索
     const queryData: PagerQueryData = {

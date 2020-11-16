@@ -13,12 +13,19 @@ class Menu extends VuexModule {
   // 默认展开
   private collapsedState: boolean = config.collapsed
 
+  // 收缩宽度
+  private collapsedWidth: number = config.collapsedWidth
+
   get getMenuWidthState(): number {
     return this.menuWidthState
   }
 
   get getCollapsedState(): boolean {
     return this.collapsedState
+  }
+
+  get getCollapsedWidth(): number {
+    return this.collapsedWidth
   }
 
   @Mutation
@@ -31,6 +38,10 @@ class Menu extends VuexModule {
     this.collapsedState = collapsed;
   }
 
+  @Mutation
+  commitCollapsedWidth(collapsedWidth: number): void {
+    this.collapsedWidth = collapsedWidth
+  }
 
 
 

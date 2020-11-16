@@ -52,6 +52,7 @@
     }
 
     &-menu {
+      width: 100%;
       border-width: 0;
     }
   }
@@ -59,5 +60,19 @@
   .menu-content-icon {
     margin-right: 10px;
     vertical-align: -0.125em;
+  }
+
+  .ant-menu-inline-collapsed > .ant-menu-item,
+  .ant-menu-inline-collapsed
+    > .ant-menu-item-group
+    > .ant-menu-item-group-list
+    > .ant-menu-item,
+  .ant-menu-inline-collapsed
+    > .ant-menu-item-group
+    > .ant-menu-item-group-list
+    > .ant-menu-submenu
+    > .ant-menu-submenu-title,
+  .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title {
+    padding: 0 calc(50% - 8px) !important;
   }
 }

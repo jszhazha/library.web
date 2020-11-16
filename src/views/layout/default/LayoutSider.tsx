@@ -73,7 +73,10 @@ export default defineComponent({
 
         if (!menuHasChildren(menu)) {
           return (
-            <Menu.Item key={path} title={index === 1 ? title : ""}>
+            <Menu.Item
+              key={path}
+              title={index === 1 && !showTitle ? title : ""}
+            >
               {() => [
                 <MenuContent
                   icon={icon}
@@ -139,11 +142,16 @@ export default defineComponent({
     handleMenuChange();
 
     return () => {
-      const { getCollapsedState, getMenuWidthState } = menuStore;
+      const {
+        getCollapsedState,
+        getMenuWidthState,
+        getCollapsedWidth,
+      } = menuStore;
       return (
         <Layout.Sider
           collapsible
           collapsed={getCollapsedState}
+          collapsedWidth={getCollapsedWidth}
           onCollapse={handleCollapseChange}
           trigger={null}
           theme={config.theme}

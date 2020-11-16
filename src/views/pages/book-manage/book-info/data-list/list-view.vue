@@ -23,15 +23,13 @@
       </a-dropdown>
     </template>
     <template #operation="{ record }">
-      <a-button type="link" size="small" @click="viewDataItem(record)">
-        查看
-      </a-button>
-      <a-button type="link" size="small" @click="editDataItem(record)">
-        编辑
-      </a-button>
-      <a-button type="link" size="small">
-        删除
-      </a-button>
+      <div class="index-operation">
+        <span @click="viewDataItem(record)">查看</span>
+        <span @click="editDataItem(record)">编辑</span>
+        <global-popconfirm>
+          <span>删除</span>
+        </global-popconfirm>
+      </div>
     </template>
   </table-list>
 </template>
@@ -71,7 +69,7 @@ export default defineComponent({
 
     // 编辑数据
     function editDataItem(record: BookInfo) {
-      emit("edit-data-item", record.id);
+      emit("edit-data-item", record);
     }
 
     return {

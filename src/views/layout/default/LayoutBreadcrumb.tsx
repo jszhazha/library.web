@@ -2,7 +2,7 @@ import type { AppRouteRecordRaw } from "/@/router/types";
 import type { RouteLocationMatched } from "vue-router";
 import { defineComponent, watch, unref, TransitionGroup, reactive } from "vue";
 import { Breadcrumb, BreadcrumbItem } from "/@/components/Breadcrumb/";
-import { parsePageModeFromString } from "/@/utils/helper/breadcrumb";
+import { parsePageModeFromString, ParsePageModeFromString} from "/@/utils/helper/breadcrumb";
 import { useRouter } from "vue-router";
 import { PageEnum } from "/@/enums/pageEnum";
 import { isBoolean } from "/@/utils/is";
@@ -11,18 +11,18 @@ import router from "/@/router";
 interface ItemList {
   value: AppRouteRecordRaw[];
   length: number;
-  modeName: string | boolean;
+  pageMode: ParsePageModeFromString | boolean;
 }
 
 export default defineComponent({
   setup() {
     const { currentRoute, push } = useRouter();
-    // const itemList = ref<AppRouteRecordRaw[]>([]);
     const itemList = reactive<ItemList>({
       value: [],
       length: 0,
-      modeName: false,
+      pageMode: false,
     });
+
     // 路由发送变换
     function getBreadcrumb() {
       const { matched, query } = unref(currentRoute);
@@ -34,7 +34,7 @@ export default defineComponent({
       if (result) {
         matchedList.shift();
       }
-      itemList.modeName = parsePageModeFromString(query.mode as string);
+      itemList.pageMode = parsePageModeFromString(query.mode as string);
       itemList.length = matchedList.length - 1;
       itemList.value = (matchedList as unknown) as AppRouteRecordRaw[];
     }
@@ -75,9 +75,9 @@ export default defineComponent({
             {() =>
               itemList.value.map((el, index) => {
                 const isLink = !!el.redirect;
-                const { length, modeName } = itemList;
+                const { length, pageMode } = itemList;
                 const isDivider= length !== index 
-                const mode = length === index && !isBoolean(modeName) ? `- ${modeName}` : "";
+                const mode = length === index && !isBoolean(pageMode) ? `- ${pageMode.modeName}` : "";
 
                 return (
                   <BreadcrumbItem

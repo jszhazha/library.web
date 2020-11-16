@@ -24,6 +24,7 @@ export default defineComponent({});
   .content{
     flex: 1;
     height: 0;
+    padding: 0 0 16px 0;
     overflow: auto;
   }
 }

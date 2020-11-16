@@ -31,10 +31,6 @@ export default defineComponent({
     color: #2c3a61;
   }
 
-  .ant-form > .ant-row > .ant-col {
-    padding: 0 16px;
-  }
-
   // .ant-form-item-label {
   //   text-align: justify;
   //   text-align-last: justify;

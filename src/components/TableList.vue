@@ -79,7 +79,7 @@ export default defineComponent({
       } else {
         // 切换为全屏
         const offset = elementOffset(unref(tableRef));
-        transform.translate = `(-${offset.left - 16}px,-${offset.top}px)`;
+        transform.translate = `(-${offset.left - 16}px,-${offset.top - 16}px)`;
         scroll.y = browserSize.height! - 200;
       }
       fullScreen.value = !fullScreen.value;
@@ -93,6 +93,7 @@ export default defineComponent({
 
 <style lang="less">
 .table-list {
+  position: fixed;
   transition: transform 0.2s ease-out;
 
   &-header {
@@ -119,7 +120,6 @@ export default defineComponent({
 }
 
 .full-screen {
-  position: fixed;
   width: 100% !important;
   height: 100% !important;
   margin: 0;

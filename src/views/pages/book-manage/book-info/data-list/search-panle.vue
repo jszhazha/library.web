@@ -2,7 +2,7 @@
   <a-form>
     <a-row>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="题 名">
+        <a-form-item label="题名">
           <a-input placeholder="请输入" />
         </a-form-item>
       </a-col>

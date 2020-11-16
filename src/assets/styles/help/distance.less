@@ -1,0 +1,12 @@
+@import "loop.less";
+
+// padding步长
+@padding-size-base: 4;
+
+// 最大生成
+@padding-size-max: 10;
+
+.distance() {
+  .loop (pl, padding-left, 1, @padding-size-base, @padding-size-max);
+  .loop (pr, padding-right, 1, @padding-size-base, @padding-size-max);
+}

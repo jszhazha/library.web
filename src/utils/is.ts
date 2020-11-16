@@ -22,3 +22,7 @@ export function isBoolean(val: unknown): val is boolean {
 export function isString(val: unknown): val is string {
   return is(val, 'String');
 }
+
+export function isNumber(val: unknown): val is number {
+  return is(val, 'Number');
+}

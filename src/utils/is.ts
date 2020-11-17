@@ -26,3 +26,7 @@ export function isString(val: unknown): val is string {
 export function isNumber(val: unknown): val is number {
   return is(val, 'Number');
 }
+
+export function isStrNum(val: string): boolean {
+  return /^[0-9]+$/.test(val)
+}

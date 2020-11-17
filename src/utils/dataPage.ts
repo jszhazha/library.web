@@ -4,8 +4,12 @@ import { unref, ref, onMounted } from 'vue'
 import { useRouter } from "vue-router";
 import { parsePageModeFromString, PageMode } from "/@/utils/helper/breadcrumb";
 import { useMessage } from '/@/hooks/web/useMessage'
-import { isBoolean, isString } from "/@/utils/is";
+import { isBoolean, isString, isStrNum } from "/@/utils/is";
 import { createStorage } from '/@/utils/storage/'
+
+
+
+const { notification } = useMessage()
 
 interface DataPageMix {
   // 页面模式
@@ -28,17 +32,21 @@ interface CheckDataRouter {
 // 检查路由是否合法 并返回页面模式
 function checkDataRouter(query: CheckDataRouter): number {
   const { id, mode } = query
+  // 解析路由
   const pageMode = parsePageModeFromString(mode);
-  const { notification } = useMessage()
+  // 设置报错内容
   let description: string | boolean = false
+  // 判断 mode , id 是否正确
   if (isBoolean(pageMode)) {
     description = '记录的 MODE 值不合法, 请修改后再次尝试'
-  } else if (pageMode.mode !== PageMode.new && !isString(id)) {
+  } else if (pageMode.mode !== PageMode.new && !isStrNum(id)) {
     description = '记录的 ID 值不合法, 请修改后再次尝试'
   }
+  // 判断 description 类型 字符串 -> 弹出提示框
   if (isString(description)) {
     onMounted(() => notification.error({ message: '错误', description: description as string }))
   }
+  // 输出结果
   return isBoolean(pageMode) ? PageMode.view : pageMode.mode
 }
 
@@ -46,6 +54,10 @@ function checkDataRouter(query: CheckDataRouter): number {
 function checkCacheData(name: string, storage: CreateStorage) {
   const data = storage.get(name)
   console.log(data)
+  notification.info({
+    message: '测试',
+    description: (h) => h('div','3423')
+  })
 }
 
 
@@ -58,9 +70,13 @@ export function dataPageMix<T>(dataItem: T): DataPageMix {
   const mode = ref<number>(checkDataRouter((query as unknown) as CheckDataRouter))
   // 设置输入框为只读
   const readonly = ref<boolean>(false)
+
+  // 页面为查看模式, 输入框 设置为只读模式
   if (mode.value === PageMode.view) {
     readonly.value = true
   }
+
+  // 查看缓存中是否有数据
   if (mode.value === PageMode.new) {
     checkCacheData(name as string, storage)
   }

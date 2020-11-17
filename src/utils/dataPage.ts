@@ -1,6 +1,6 @@
 import type { Ref } from 'vue';
 import type { CreateStorage } from '/@/utils/storage/Storage'
-import { unref, ref, onBeforeUnmount } from 'vue'
+import { unref, ref, onMounted } from 'vue'
 import { useRouter } from "vue-router";
 import { parsePageModeFromString, PageMode } from "/@/utils/helper/breadcrumb";
 import { useMessage } from '/@/hooks/web/useMessage'
@@ -32,12 +32,12 @@ function checkDataRouter(query: CheckDataRouter): number {
   const { notification } = useMessage()
   let description: string | boolean = false
   if (isBoolean(pageMode)) {
-    description = '记录的 MODE 值不合法, 请修改后再试'
+    description = '记录的 MODE 值不合法, 请修改后再次尝试'
   } else if (pageMode.mode !== PageMode.new && !isString(id)) {
-    description = '记录的 ID 值不合法, 请修改后再试'
+    description = '记录的 ID 值不合法, 请修改后再次尝试'
   }
   if (isString(description)) {
-    notification.error({ message: '错误', description })
+    onMounted(() => notification.error({ message: '错误', description: description as string }))
   }
   return isBoolean(pageMode) ? PageMode.view : pageMode.mode
 }
@@ -72,9 +72,9 @@ export function dataPageMix<T>(dataItem: T): DataPageMix {
 
   //  push({ query: { mode: PageMode[PageMode.edit] } })
 
-  onBeforeUnmount(() => {
-    // createStorage(localStorage).set(name as string, dataItem)
-  })
+  // onBeforeUnmount(() => {
+  //   // createStorage(localStorage).set(name as string, dataItem)
+  // })
 
 
 

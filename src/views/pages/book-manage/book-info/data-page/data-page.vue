@@ -98,7 +98,6 @@ export default defineComponent({
     const dataItem = reactive<BookInfo>({});
     const { onClosePage, mode, readonly } = dataPageMix<BookInfo>(dataItem);
 
-
     return { mode, dataItem, onClosePage, readonly };
   },
 });

@@ -1,26 +1,25 @@
-import type { PluginOptions } from 'vue-toastification';
-import type { ToastContent } from 'vue-toastification/dist/types/types/';
+import type { ToastContent, ToastOptions } from 'vue-toastification/dist/types/types/';
 import { useToast } from "vue-toastification";
 import { assign } from 'lodash-es';
 
 import './index.less'
 
 
-const open = (type: 'error' | 'success' | 'info', optionDefault: PluginOptions = {}) => {
-  return (description: ToastContent, option: PluginOptions = {}) => {
+const open = (type: 'error' | 'success' | 'info', optionDefault = {}) => {
+  return (description: ToastContent, option = {}) => {
     const toast = useToast()
     toast[type](description, assign(optionDefault, option))
   }
 };
 
 
-const errorDefault: PluginOptions = {
+const errorDefault: ToastOptions = {
   toastClassName: ["toast-custom", "toast-custom-error"],
   bodyClassName: ["toast-custom-body"],
   hideProgressBar: true
 };
 
-const cacheDefault: PluginOptions = {
+const cacheDefault: ToastOptions = {
   toastClassName: ["toast-custom", "toast-custom-cache"],
   bodyClassName: ["toast-custom-body"],
   closeOnClick: false,

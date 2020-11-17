@@ -9,7 +9,6 @@ export default defineComponent({
     function handleClickCancel() {
       emit("close-toast");
     }
-
     // 处理 点击确认
     function handleClickConfirm() {
       emit("confirmToast");

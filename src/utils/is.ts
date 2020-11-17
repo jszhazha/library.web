@@ -30,3 +30,15 @@ export function isNumber(val: unknown): val is number {
 export function isStrNum(val: string): boolean {
   return /^[0-9]+$/.test(val)
 }
+
+export function isObject(val: unknown): boolean {
+  return val !== null && is(val, 'Object');
+}
+
+export function isEmptyObject(val: unknown): boolean {
+  return isObject(val) && JSON.stringify(val) === '{}'
+}
+
+export function isFunction(val: unknown): boolean {
+  return typeof val === 'function';
+}

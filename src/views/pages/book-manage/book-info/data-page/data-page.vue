@@ -90,7 +90,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
-import { dataPageMix } from "/@/utils/dataPage";
+import { dataPageMix } from "/@/utils/dataPage/";
 import { BookInfo } from "/@/api/book-manage/book-info";
 
 export default defineComponent({

@@ -14,7 +14,11 @@
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="作者">
-              <a-input placeholder="请输入" :disabled="readonly" />
+              <a-input
+                v-model:value="dataItem.author"
+                placeholder="请输入"
+                :disabled="readonly"
+              />
             </a-form-item>
           </a-col>
         </a-row>

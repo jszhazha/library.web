@@ -1,5 +1,5 @@
 import type { Ref } from "vue";
-import { unref, ref } from "vue";
+import { unref, ref, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import { assign } from 'lodash-es'
 import { checkCacheData } from './check/cacheData'
@@ -25,9 +25,6 @@ interface DataPageMix {
 
 
 
-
-
-
 export function dataPageMix<T>(dataItem: T): DataPageMix {
   const { back, currentRoute } = useRouter();
   const { query, name } = unref(currentRoute);
@@ -48,7 +45,8 @@ export function dataPageMix<T>(dataItem: T): DataPageMix {
   // 查看缓存中是否有数据
   if (mode.value === PageMode.new) {
     checkCacheData<T>(name as string, storage, (data: T) => {
-      dataItem = assign(dataItem, data)
+      console.log(data)
+      assign(dataItem, data)
     });
   }
   /**
@@ -58,9 +56,10 @@ export function dataPageMix<T>(dataItem: T): DataPageMix {
 
   //  push({ query: { mode: PageMode[PageMode.edit] } })
 
-  // onBeforeUnmount(() => {
-  //   // createStorage(localStorage).set(name as string, dataItem)
-  // })
+  onBeforeUnmount(() => {
+    // console.log(dataItem)
+    // storage.set(name as string, dataItem)
+  })
 
   return { onClosePage, mode, readonly };
 }

@@ -26,13 +26,17 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
     }
 
     // 读取 键值
-    get(key: string): unknown {
+    get(key: string, def = null): unknown {
       const item = this.storage.getItem(this.getKey(key));
       if (item) {
-        const { value } = JSON.parse(item)
-        return value
+        try {
+          const { value } = JSON.parse(item)
+          return Object.keys(value).length ? value : new Error('null')
+        } catch (e) {
+          return (this.remove(key), def);
+        }
       }
-      return ''
+      return def
     }
 
     // 删除 键值

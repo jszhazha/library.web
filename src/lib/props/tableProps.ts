@@ -18,10 +18,10 @@ export const tableProps = {
     type: Number,
     default: undefined
   },
-  scroll:{
+  scroll: {
     type: Object as PropType<{ x: number | true; y: number }>,
     default: null,
-  }
+  },
 }
 
 export const tableListProps = {

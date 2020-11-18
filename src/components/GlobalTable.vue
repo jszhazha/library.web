@@ -32,7 +32,6 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .global-table {
-  
   ::v-deep(.ant-spin-container) {
     border: 1px solid #f0f0f0;
   }

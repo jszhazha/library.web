@@ -8,10 +8,7 @@ import { PlusOutlined, SettingOutlined, DownOutlined } from '@ant-design/icons-v
 
 import 'ant-design-vue/dist/antd.css';
 
-// 导入 toastification 通知提醒框
-import Toast from "vue-toastification";
-// 导入 toastification 通知提醒框 UI
-import "vue-toastification/dist/index.css";
+
 
 // 导入自定义 ui
 import '/@/assets/styles/index.less'
@@ -25,7 +22,6 @@ notification.config({ placement: 'topRight', duration: 6 });
 
 export default class AntUiPlugins {
   static init(app: App<Element>): void {
-    app.use(Toast);
     app.use(Button).use(Divider).use(Form).use(Input).use(Modal).use(Pagination)
     app.use(Row).use(Col).use(Dropdown).use(Menu)
     app.component('PlusOutlined', PlusOutlined)

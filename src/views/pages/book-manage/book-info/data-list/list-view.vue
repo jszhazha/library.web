@@ -35,25 +35,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
 import { tablecolumns } from "./list-data";
 import { BookInfo } from "/@/api/book-manage/book-info";
 
 export default defineComponent({
   emits: ["new-data-item", "view-data-item", "edit-data-item"],
   setup(_props, { emit }) {
-    const dataSource = [];
-    for (let i = 0; i < 3; i++) {
+    const dataSource = reactive<BookInfo[]>([]);
+    for (let i = 0; i < 24; i++) {
       dataSource.push({
         id: i,
         name: "深入浅出 Vue.js",
         code: "210-113-232",
-        subjectCategory: i,
         isbn: "90-333",
         author: "张三",
         press: "人民邮电出版社",
-        count: 30,
-        number: 20,
       });
     }
 

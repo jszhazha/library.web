@@ -84,7 +84,9 @@
       <a-button @click="onClosePage">
         返回
       </a-button>
-      <a-button> 重置 </a-button>
+      <a-button @click="onRestPage">
+        重置
+      </a-button>
       <a-button type="primary">
         保存
       </a-button>
@@ -100,11 +102,11 @@ import { BookInfo } from "/@/api/book-manage/book-info";
 export default defineComponent({
   setup() {
     const dataItem = reactive<BookInfo>({});
-    const { onClosePage, mode, readonly } = dataPageMix<BookInfo>(dataItem);
+    const { onClosePage, onRestPage, mode, readonly } = dataPageMix<BookInfo>(
+      dataItem
+    );
 
-
-
-    return { mode, dataItem, onClosePage, readonly };
+    return { mode, dataItem, onClosePage, onRestPage, readonly };
   },
 });
 </script>

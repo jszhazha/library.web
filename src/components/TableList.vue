@@ -51,7 +51,7 @@ export default defineComponent({
     // 全屏 标志位
     const fullScreen = ref<boolean>(false);
     // table 滚动条高度
-    const scroll = reactive<{ y?: number; x?: number }>({ });
+    const scroll = reactive<{ y?: number | true; x?: number | true }>({});
     // 标签
     const tableRef = ref<HTMLElement | null>(null);
     // 视图大小
@@ -67,14 +67,14 @@ export default defineComponent({
 
     onMounted(() => {
       browserSize = browserClient();
-      scroll.y = browserSize.height! - 400;
+      // scroll.y = browserSize.height! - 400;
     });
 
     // 处理全屏
     const handleFullScreen = () => {
       if (fullScreen.value) {
         // 切换为非全屏
-        scroll.y = browserSize.height! - 400;
+        delete scroll.y
         transform.translate = `(0px,0px)`;
       } else {
         // 切换为全屏

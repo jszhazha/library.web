@@ -1,5 +1,6 @@
 import { isString, isEmptyObject } from '/@/utils/is'
 import { stringify } from '/@/utils/stringify'
+import md5 from 'md5'
 
 export interface CreateStorage {
   set: (key: string, value: unknown) => void
@@ -18,14 +19,14 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
 
     // 获取 键 
     private getKey(key: string): string {
-      return `${key}`.toUpperCase()
+      return md5(`${key}`).toUpperCase()
     }
 
     // 设置 键值
     set(key: string, value: unknown): void {
       // 有数据再进行缓存
 
-      const stringData = stringify({ value, key: [1, '2', 3] })
+      const stringData = stringify({ value })
       if (isString(stringData)) {
         this.storage.setItem(this.getKey(key), stringData)
       }

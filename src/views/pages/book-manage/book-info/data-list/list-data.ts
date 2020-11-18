@@ -11,22 +11,24 @@ export const tablecolumns: TableColumn[] = [
 
   },
   {
+    title: '学科类别',
+    dataIndex: 'subjectCategory',
+    align: 'center'
+  },
+  {
     title: '国际标准书号',
     dataIndex: 'isbn',
     align: 'center',
-
   },
   {
     title: '作者',
     dataIndex: 'author',
     align: 'center',
-
   },
   {
     title: '出版社',
     dataIndex: 'press',
-    align: 'center',
-
+    align: 'center'
   },
   {
     title: '总数量',

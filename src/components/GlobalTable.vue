@@ -1,6 +1,6 @@
 <template>
   <Table
-    bordered
+    class="global-table"
     :row-key="rowKey"
     :columns="columns"
     :data-source="dataSource"
@@ -29,3 +29,15 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="less" scoped>
+.global-table {
+  /deep/ .ant-spin-container {
+    border: 1px solid #f0f0f0;
+  }
+
+  /deep/ .ant-table-tbody > tr:last-of-type > td {
+    border-width: 0;
+  }
+}
+</style>

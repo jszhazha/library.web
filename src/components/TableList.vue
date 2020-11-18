@@ -51,7 +51,7 @@ export default defineComponent({
     // 全屏 标志位
     const fullScreen = ref<boolean>(false);
     // table 滚动条高度
-    const scroll = reactive<{ y?: number; x?: number }>({});
+    const scroll = reactive<{ y?: number; x?: number }>({ });
     // 标签
     const tableRef = ref<HTMLElement | null>(null);
     // 视图大小
@@ -79,7 +79,7 @@ export default defineComponent({
       } else {
         // 切换为全屏
         const offset = elementOffset(unref(tableRef));
-        transform.translate = `(-${offset.left - 16}px,-${offset.top - 16}px)`;
+        transform.translate = `(-${offset.left - 16}px,-${offset.top}px)`;
         scroll.y = browserSize.height! - 200;
       }
       fullScreen.value = !fullScreen.value;
@@ -93,7 +93,6 @@ export default defineComponent({
 
 <style lang="less">
 .table-list {
-  position: fixed;
   transition: transform 0.2s ease-out;
 
   &-header {
@@ -120,6 +119,7 @@ export default defineComponent({
 }
 
 .full-screen {
+  position: fixed;
   width: 100% !important;
   height: 100% !important;
   margin: 0;

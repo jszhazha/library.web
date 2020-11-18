@@ -43,7 +43,7 @@ export default defineComponent({
   emits: ["new-data-item", "view-data-item", "edit-data-item"],
   setup(_props, { emit }) {
     const dataSource = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 3; i++) {
       dataSource.push({
         id: i,
         name: "深入浅出 Vue.js",
@@ -52,8 +52,8 @@ export default defineComponent({
         isbn: "90-333",
         author: "张三",
         press: "人民邮电出版社",
-        count: 20,
-        number: 30,
+        count: 30,
+        number: 20,
       });
     }
 

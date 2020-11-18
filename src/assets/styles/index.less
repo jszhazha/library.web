@@ -1,8 +1,7 @@
 @import "./transition/index.less";
-@import './help/distance.less';
+@import "./help/distance.less";
 
 .distance();
-
 
 .index {
   &-middle {
@@ -53,14 +52,14 @@
 
   &-card {
     padding: 16px;
-    margin: 16px 16px 0;
+    margin: 16px;
     background: #fff;
-    border-radius: 4px;
+    // border-radius: 4px;
   }
 
   &-table-search {
     &.index-card {
-      padding: 16px 0;
+      padding: 24px 0 0;
     }
 
     &-close {
@@ -68,6 +67,8 @@
     }
 
     &-button {
+      text-align: right;
+
       button:not(:last-of-type) {
         margin: 0 10px 0 0;
       }

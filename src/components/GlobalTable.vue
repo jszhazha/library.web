@@ -32,11 +32,12 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .global-table {
-  /deep/ .ant-spin-container {
+  
+  ::v-deep(.ant-spin-container) {
     border: 1px solid #f0f0f0;
   }
 
-  /deep/ .ant-table-tbody > tr:last-of-type > td {
+  ::v-deep(.ant-table-tbody > tr:last-of-type > td) {
     border-width: 0;
   }
 }

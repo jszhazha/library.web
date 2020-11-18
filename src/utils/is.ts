@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export function is(val: unknown, type: string): boolean {
   return toString.call(val) === `[object ${type}]`;
@@ -35,10 +37,19 @@ export function isObject(val: unknown): boolean {
   return val !== null && is(val, 'Object');
 }
 
-export function isEmptyObject(val: unknown): boolean {
-  return isObject(val) && JSON.stringify(val) === '{}'
+export function isEmptyObject(val: any): boolean {
+  return isObject(val) && isEmptyArray(Object.keys(val))
 }
 
 export function isFunction(val: unknown): boolean {
   return typeof val === 'function';
 }
+
+export function isArray(val: unknown): boolean {
+  return val && Array.isArray(val);
+}
+
+export function isEmptyArray(val: any): boolean {
+  return isArray(val) && !!val.length
+}
+

@@ -1,4 +1,4 @@
-import { isString } from '/@/utils/is'
+import { isString, isEmptyObject } from '/@/utils/is'
 import { stringify } from '/@/utils/stringify'
 
 export interface CreateStorage {
@@ -24,7 +24,8 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
     // 设置 键值
     set(key: string, value: unknown): void {
       // 有数据再进行缓存
-      const stringData = stringify({ value })
+
+      const stringData = stringify({ value, key: [1, '2', 3] })
       if (isString(stringData)) {
         this.storage.setItem(this.getKey(key), stringData)
       }
@@ -37,7 +38,10 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
         // 防止 item 不符合 JSON 格式
         try {
           const { value } = JSON.parse(item)
-          return Object.keys(value).length ? value : new Error('null')
+          if (isEmptyObject(value)) {
+            return value
+          }
+          throw 'value null'
         } catch (e) {
           return (this.remove(key), def);
         }

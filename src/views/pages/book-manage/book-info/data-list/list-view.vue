@@ -10,18 +10,6 @@
         新增
       </a-button>
     </template>
-    <template #header-right>
-      <a-dropdown>
-        <a-button type="link" size="small">
-          <SettingOutlined />
-        </a-button>
-        <template #overlay>
-          <a-menu>
-            <a-menu-item> Excel 模板 </a-menu-item>
-          </a-menu>
-        </template>
-      </a-dropdown>
-    </template>
     <template #operation="{ record }">
       <div class="index-operation">
         <span @click="viewDataItem(record)">查看</span>

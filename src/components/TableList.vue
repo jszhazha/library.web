@@ -12,10 +12,34 @@
         <slot name="header-left" />
         <a-divider type="vertical" />
         <slot name="header-right" />
-        <a-button type="link" size="small" @click="handleFullScreen">
-          <CompressOutlined v-if="fullScreen" />
-          <ExpandOutlined v-else />
-        </a-button>
+        <Dropdown trigger="click">
+          <a-button type="link" size="small">
+            <SettingOutlined />
+          </a-button>
+
+          <template #overlay>
+            <a-menu>
+              <a-menu-item> Excel 模板 </a-menu-item>
+            </a-menu>
+          </template>
+        </Dropdown>
+        <Tooltip>
+          <template #title>
+            <span>下载模板</span>
+          </template>
+          <a-button type="link" size="small">
+            <VerticalAlignBottomOutlined />
+          </a-button>
+        </Tooltip>
+        <Tooltip>
+          <template #title>
+            <span>{{ fullScreen ? "退出全屏" : "全屏" }}</span>
+          </template>
+          <a-button type="link" size="small" @click="handleFullScreen">
+            <CompressOutlined v-if="fullScreen" />
+            <ExpandOutlined v-else />
+          </a-button>
+        </Tooltip>
       </div>
     </div>
     <global-table
@@ -40,12 +64,23 @@ import {
   onMounted,
   computed,
 } from "vue";
+import { Dropdown, Tooltip } from "ant-design-vue";
 import { tableListProps } from "/@/lib/props/tableProps";
 import { browserClient, elementOffset } from "/@/utils/elelment";
-import { ExpandOutlined, CompressOutlined } from "@ant-design/icons-vue";
+import {
+  ExpandOutlined,
+  CompressOutlined,
+  VerticalAlignBottomOutlined,
+} from "@ant-design/icons-vue";
 
 export default defineComponent({
-  components: { ExpandOutlined, CompressOutlined },
+  components: {
+    Tooltip,
+    Dropdown,
+    ExpandOutlined,
+    CompressOutlined,
+    VerticalAlignBottomOutlined,
+  },
   props: tableListProps,
   setup() {
     // 全屏 标志位
@@ -74,7 +109,7 @@ export default defineComponent({
     const handleFullScreen = () => {
       if (fullScreen.value) {
         // 切换为非全屏
-        delete scroll.y
+        delete scroll.y;
         transform.translate = `(0px,0px)`;
       } else {
         // 切换为全屏

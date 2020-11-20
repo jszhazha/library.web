@@ -6,7 +6,7 @@ import GlobalTable from '/@/components/GlobalTable.vue'
 import GlobalDataPage from '/@/components/GlobalDataPage.vue'
 import GlobalCard from '/@/components/GlobalCard.vue';
 import GlobalPopconfirm from '/@/components/GlobalPopconfirm.vue'
-import TableList from '/@/components/TableList.vue';
+import TableList from '/@/components/TableList/index.vue';
 import Icon from '/@/components/Icon'
 
 export default class ComponentRegisterPlugin {

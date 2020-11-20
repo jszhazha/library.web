@@ -7,6 +7,8 @@
 @padding-size-max: 10;
 
 .distance() {
+  .loop (pt, padding-top, 1, @padding-size-base, @padding-size-max);
   .loop (pl, padding-left, 1, @padding-size-base, @padding-size-max);
+  .loop (pb, padding-bottom, 1, @padding-size-base, @padding-size-max);
   .loop (pr, padding-right, 1, @padding-size-base, @padding-size-max);
 }

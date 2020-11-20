@@ -12,34 +12,17 @@
         <slot name="header-left" />
         <a-divider type="vertical" />
         <slot name="header-right" />
-        <Dropdown trigger="click">
-          <a-button type="link" size="small">
-            <SettingOutlined />
-          </a-button>
-
-          <template #overlay>
-            <a-menu>
-              <a-menu-item> Excel 模板 </a-menu-item>
-            </a-menu>
-          </template>
-        </Dropdown>
-        <Tooltip>
-          <template #title>
-            <span>下载模板</span>
-          </template>
-          <a-button type="link" size="small">
-            <VerticalAlignBottomOutlined />
-          </a-button>
-        </Tooltip>
-        <Tooltip>
-          <template #title>
-            <span>{{ fullScreen ? "退出全屏" : "全屏" }}</span>
-          </template>
-          <a-button type="link" size="small" @click="handleFullScreen">
-            <CompressOutlined v-if="fullScreen" />
-            <ExpandOutlined v-else />
-          </a-button>
-        </Tooltip>
+        <listSetting :columns="columns" />
+        <TooltipButton title="下载导入模板">
+          <VerticalAlignBottomOutlined />
+        </TooltipButton>
+        <TooltipButton
+          :title="fullScreen ? '退出全屏' : '全屏'"
+          @on-click="handleFullScreen"
+        >
+          <CompressOutlined v-if="fullScreen" />
+          <ExpandOutlined v-else />
+        </TooltipButton>
       </div>
     </div>
     <global-table
@@ -57,14 +40,13 @@
 
 <script lang="ts">
 import {
-  defineComponent,
   ref,
   unref,
   reactive,
-  onMounted,
   computed,
+  onMounted,
+  defineComponent,
 } from "vue";
-import { Dropdown, Tooltip } from "ant-design-vue";
 import { tableListProps } from "/@/lib/props/tableProps";
 import { browserClient, elementOffset } from "/@/utils/elelment";
 import {
@@ -72,11 +54,13 @@ import {
   CompressOutlined,
   VerticalAlignBottomOutlined,
 } from "@ant-design/icons-vue";
+import listSetting from "./listSetting.vue";
+import TooltipButton from "./TooltipButton.vue";
 
 export default defineComponent({
   components: {
-    Tooltip,
-    Dropdown,
+    listSetting,
+    TooltipButton,
     ExpandOutlined,
     CompressOutlined,
     VerticalAlignBottomOutlined,
@@ -95,18 +79,16 @@ export default defineComponent({
     const transform = reactive<{ translate: string }>({
       translate: "(0px,0px)",
     });
+
     // 样式
     const wrapStyle = computed(() => {
       return `transform:translate${transform.translate};`;
     });
 
-    onMounted(() => {
-      browserSize = browserClient();
-      // scroll.y = browserSize.height! - 400;
-    });
+    onMounted(() => (browserSize = browserClient()));
 
     // 处理全屏
-    const handleFullScreen = () => {
+    function handleFullScreen() {
       if (fullScreen.value) {
         // 切换为非全屏
         delete scroll.y;
@@ -118,15 +100,21 @@ export default defineComponent({
         scroll.y = browserSize.height! - 200;
       }
       fullScreen.value = !fullScreen.value;
-    };
+    }
 
-    return { scroll, fullScreen, wrapStyle, tableRef, handleFullScreen };
+    return {
+      scroll,
+      tableRef,
+      wrapStyle,
+      fullScreen,
+      handleFullScreen,
+    };
   },
 });
 </script>
 
 
-<style lang="less">
+<style lang="less" scoped>
 .table-list {
   transition: transform 0.2s ease-out;
 
@@ -139,15 +127,15 @@ export default defineComponent({
       color: #2c3a61;
     }
 
-    .button > button {
+    .button > ::v-deep(button) {
       margin: 0 5px;
     }
 
-    .ant-btn-link {
+    ::v-deep(.ant-btn-link) {
       color: inherit;
     }
 
-    .ant-btn-link:hover {
+    ::v-deep(.ant-btn-link:hover) {
       color: #1890ff;
     }
   }

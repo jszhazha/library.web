@@ -14,9 +14,7 @@
       <div class="index-operation">
         <span @click="viewDataItem(record)">查看</span>
         <span @click="editDataItem(record)">编辑</span>
-        <global-popconfirm>
-          <span>删除</span>
-        </global-popconfirm>
+        <span>删除</span>
       </div>
     </template>
   </table-list>

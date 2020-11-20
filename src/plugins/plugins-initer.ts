@@ -7,6 +7,8 @@ import componentRegisterPlugin from '/@/plugins/component-register-plugin'
 
 import ToastPlugins from '/@/plugins/toast-plugins'
 
+import DirectivesRegisterPlugin from '/@/lib/directives/'
+
 
 export default class PluginsIniter {
   static init(app: App<Element>): void {
@@ -18,6 +20,9 @@ export default class PluginsIniter {
 
     // 消息通知
     ToastPlugins.init(app)
+
+    // 指令注册
+    DirectivesRegisterPlugin.init(app)
 
   }
 }

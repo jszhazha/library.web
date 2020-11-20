@@ -33,6 +33,21 @@ export const tableListProps = {
   }
 }
 
+export const listSettingProps = {
+  columns: {
+    type: [Array] as PropType<ColumnProps[]>,
+    default: [],
+  },
+}
+
 export interface TableColumn extends ColumnProps {
   slots?: Indexable;
+}
+
+export interface Options {
+  label: string
+  value: string
+  disabled?: boolean
+  indeterminate?: boolean
+  onChange?: () => void
 }

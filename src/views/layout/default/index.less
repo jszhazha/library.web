@@ -1,4 +1,4 @@
-@height: 64px;
+@height: 48px;
 
 .default-layout {
   width: 100vw;
@@ -15,7 +15,7 @@
       height: @height;
       padding: 0 24px;
       margin: 0 10px 0 0;
-      font-size: 20px;
+      font-size: 16px;
       cursor: pointer;
       transition: all 0.3s;
     }
@@ -74,5 +74,11 @@
     > .ant-menu-submenu-title,
   .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title {
     padding: 0 calc(50% - 8px) !important;
+  }
+}
+
+.ant-layout-sider-light {
+  .layout-sider-header-title {
+    color: #000;
   }
 }

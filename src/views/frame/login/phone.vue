@@ -16,7 +16,7 @@
     />
     <span
       class="login-phone-change-link"
-      @click="hangleChange"
+      @click="onChange"
     >
       密码登录
     </span>
@@ -36,11 +36,11 @@ export default defineComponent({
   emits: ["on-change"],
   setup(_props, { emit }) {
     const inputValue = ref<string>("");
-    const hangleChange = () => {
+    const onChange = () => {
       emit("on-change", "phone");
     };
 
-    return { inputValue, hangleChange };
+    return { inputValue, onChange };
   },
 });
 </script>

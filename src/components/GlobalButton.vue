@@ -36,7 +36,7 @@ export default defineComponent({
     const handleClick = (event: MouseEvent) => {
       if (props.disabled) return;
       const ripples = handleAnimation(event);
-      console.log(ripples)
+      console.log(ripples);
     };
     return { handleClick, button };
   },
@@ -47,13 +47,15 @@ export default defineComponent({
 
 <style  lang="less">
 .globla-button {
+  position: relative;
   width: 100%;
   height: 48px;
   overflow: hidden;
   font-size: 18px;
   font-weight: bold;
   color: #fff;
-  background: #1890ff;
+  cursor: pointer;
+  background: #177ddc;
   border-width: 0;
   border-radius: 8px;
   outline: none;

@@ -1,24 +1,20 @@
 <template>
   <div class="login-account">
     <global-input
+      v-model:value="formData.account"
       type="text"
       placeholder="手机号/邮件地址/图书馆账号"
     />
     <global-input
+      v-model:value="formData.password"
       class="login-account-password"
       type="password"
       placeholder="密码"
     />
-    <span
-      class="login-account-change-link"
-      @click="hangleChange"
-    >
+    <span class="login-account-change-link" @click="onChange">
       短信验证码登录
     </span>
-    <global-button
-      class="login-account-button"
-      :disabled="true"
-    >
+    <global-button class="login-account-button" :disabled="disabled">
       登录
     </global-button>
     <div class="login-account-link">
@@ -34,18 +30,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent, reactive } from "vue";
 
 export default defineComponent({
   emits: ["on-change"],
   setup(_props, { emit }) {
+    const formData = reactive({
+      account: "admin",
+      password: "123456",
+    });
+
     // 点击短信登录
-    const hangleChange = () => {
-      emit("on-change", "account");
-    };
+    const onChange = () => emit("on-change", "account");
+
+    const disabled = computed(() => !(!!formData.account && !!formData.password));
 
     return {
-      hangleChange,
+      disabled,
+      formData,
+      onChange,
     };
   },
 });

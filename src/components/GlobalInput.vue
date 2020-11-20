@@ -83,7 +83,8 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props) {
+  emits: ["update:value"],
+  setup(props, { emit }) {
     const inputType = ref<string>(InputTypeMap[props.type as InputTypeMap]);
     const passwordType = ref<boolean>(true);
     const borderColor = ref<string>("");
@@ -111,6 +112,7 @@ export default defineComponent({
       if (props.type === TypeMap.phone || props.type === TypeMap.code) {
         inputValue.value = inputValue.value.replace(/[^0-9]+/g, "");
       }
+      emit("update:value", inputValue);
     };
 
     // 点击 code

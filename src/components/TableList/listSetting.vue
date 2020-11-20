@@ -11,7 +11,7 @@
     </TooltipButton>
 
     <template #title>
-      <div class="index-space-between pt-1 pb-1">
+      <div class="pt-1 pb-1">
         <a-checkbox
           v-model:checked="checkAll"
           :indeterminate="indeterminate"
@@ -19,9 +19,6 @@
         >
           列设置
         </a-checkbox>
-        <div class="index-button">
-          重置
-        </div>
       </div>
     </template>
     <template #content>

@@ -152,6 +152,7 @@ export default defineComponent({
       return (
         <Layout.Sider
           collapsible
+          breakpoint="md"
           collapsed={getCollapsedState}
           collapsedWidth={getCollapsedWidth}
           onCollapse={handleCollapseChange}

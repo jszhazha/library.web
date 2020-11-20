@@ -1,6 +1,9 @@
 import type { ColumnProps } from "ant-design-vue/lib/table/interface";
 import type { PropType } from "vue";
 
+
+
+
 export const tableProps = {
   columns: {
     type: [Array] as PropType<ColumnProps[]>,
@@ -33,21 +36,27 @@ export const tableListProps = {
   }
 }
 
-export const listSettingProps = {
-  columns: {
-    type: [Array] as PropType<ColumnProps[]>,
-    default: [],
-  },
+export interface Instance {
+  getColumns: () => ColumnProps[];
+  setColumns: (column: string[]) => void
 }
 
+
 export interface TableColumn extends ColumnProps {
+  dataIndex: string
+
   slots?: Indexable;
 }
 
+
 export interface Options {
-  label: string
-  value: string
-  disabled?: boolean
-  indeterminate?: boolean
-  onChange?: () => void
+  label: string;
+  value: string;
+}
+
+export interface State {
+  indeterminate: boolean;
+  checkAll: boolean;
+  checkedList: string[];
+  defaultCheckList: string[];
 }

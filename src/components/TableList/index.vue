@@ -12,13 +12,13 @@
         <slot name="header-left" />
         <a-divider type="vertical" />
         <slot name="header-right" />
-        <listSetting :columns="columns" />
+        <listSetting />
         <TooltipButton title="下载导入模板">
           <VerticalAlignBottomOutlined />
         </TooltipButton>
         <TooltipButton
           :title="fullScreen ? '退出全屏' : '全屏'"
-          @on-click="handleFullScreen"
+          @on-click="onFullScreen"
         >
           <CompressOutlined v-if="fullScreen" />
           <ExpandOutlined v-else />
@@ -26,7 +26,7 @@
       </div>
     </div>
     <global-table
-      :columns="columns"
+      :columns="getTableColumns"
       :data-source="dataSource"
       :scroll="scroll"
       :total="total"
@@ -46,8 +46,9 @@ import {
   computed,
   onMounted,
   defineComponent,
+  Ref,
 } from "vue";
-import { tableListProps } from "/@/lib/props/tableProps";
+import { tableListProps, TableColumn } from "/@/lib/props/tableProps";
 import { browserClient, elementOffset } from "/@/utils/elelment";
 import {
   ExpandOutlined,
@@ -56,6 +57,7 @@ import {
 } from "@ant-design/icons-vue";
 import listSetting from "./listSetting.vue";
 import TooltipButton from "./TooltipButton.vue";
+import { provideTable } from "./useProvince";
 
 export default defineComponent({
   components: {
@@ -66,7 +68,7 @@ export default defineComponent({
     VerticalAlignBottomOutlined,
   },
   props: tableListProps,
-  setup() {
+  setup(props) {
     // 全屏 标志位
     const fullScreen = ref<boolean>(false);
     // table 滚动条高度
@@ -79,6 +81,17 @@ export default defineComponent({
     const transform = reactive<{ translate: string }>({
       translate: "(0px,0px)",
     });
+    // table 表头数据
+    const tableColumns = (ref(unref(props).columns) as unknown) as Ref<
+      TableColumn[]
+    >;
+    const cacheTableColumns = (ref(unref(props).columns) as unknown) as Ref<
+      TableColumn[]
+    >;
+    // 获取 table 表头数据
+    const getTableColumns = computed(() => {
+      return tableColumns.value;
+    });
 
     // 样式
     const wrapStyle = computed(() => {
@@ -88,7 +101,7 @@ export default defineComponent({
     onMounted(() => (browserSize = browserClient()));
 
     // 处理全屏
-    function handleFullScreen() {
+    function onFullScreen() {
       if (fullScreen.value) {
         // 切换为非全屏
         delete scroll.y;
@@ -101,13 +114,30 @@ export default defineComponent({
       }
       fullScreen.value = !fullScreen.value;
     }
+    // 设置 table 头
+    function setColumns(columns: string[]) {
+      if (columns.length <= 0) {
+        tableColumns.value = [];
+        return;
+      }
+      const newColumns = unref(cacheTableColumns).filter((item) => {
+        return columns.includes(item.dataIndex);
+      });
+      tableColumns.value = newColumns;
+    }
+
+    provideTable({
+      getColumns: () => props.columns,
+      setColumns,
+    });
 
     return {
       scroll,
       tableRef,
       wrapStyle,
       fullScreen,
-      handleFullScreen,
+      onFullScreen,
+      getTableColumns,
     };
   },
 });

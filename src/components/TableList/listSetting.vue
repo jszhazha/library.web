@@ -3,9 +3,8 @@
     trigger="click"
     placement="bottomRight"
     overlay-class-name="table-list-popover"
-    :force-render="true"
     :arrow-point-at-center="true"
-    :default-visible="false"
+    :get-popup-container="(trigger) => trigger.parentNode"
   >
     <TooltipButton title="列设置">
       <SettingOutlined />
@@ -13,7 +12,13 @@
 
     <template #title>
       <div class="index-space-between pt-1 pb-1">
-        <a-checkbox> 列设置 </a-checkbox>
+        <a-checkbox
+          v-model:checked="checkAll"
+          :indeterminate="indeterminate"
+          @change="onCheckAllChange"
+        >
+          列设置
+        </a-checkbox>
         <div class="index-button">
           重置
         </div>
@@ -22,42 +27,74 @@
     <template #content>
       <a-checkbox-group
         v-model:value="checkedList"
-        :options="options"
-        @change="handleCheckboxChange"
+        :options="plainOptions"
+        @change="onCheckChange"
       />
     </template>
   </a-popover>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
-import { Options, listSettingProps } from "/@/lib/props/tableProps";
+import { defineComponent, reactive, toRefs } from "vue";
+import { State, Options } from "/@/lib/props/tableProps";
 import TooltipButton from "./TooltipButton.vue";
+import { injectTable } from "./useProvince";
 
 export default defineComponent({
   components: { TooltipButton },
-  props: listSettingProps,
-  setup(props) {
-    // 多选选中的
-    const checkedList = ref<string[]>([]);
+  setup() {
+    // 获取向上传递方法和数据g
+    const table = injectTable();
+    // 多选选中
+    let plainOptions: Options[] = [];
+    // 设置状态
+    const state = reactive<State>({
+      indeterminate: false,
+      checkAll: true,
+      checkedList: [],
+      defaultCheckList: [],
+    });
 
-    // 处理多选改变
-    function handleCheckboxChange(list: string[]) {
-      checkedList.value = list;
+    // 初始化数据
+    function init() {
+      const result: Options[] = [];
+      table.getColumns().forEach((item) => {
+        result.push({
+          label: item.title as string,
+          value: (item.dataIndex || item.title) as string,
+        });
+      });
+      plainOptions = result;
+      const checkList = table
+        .getColumns()
+        .map((item) => item.dataIndex || item.title) as string[];
+      state.checkedList = checkList;
     }
 
-    // 多选选项
-    const options = computed(() => {
-      return props.columns.map(
-        (el): Options => {
-          return {
-            label: el.title as string,
-            value: el.dataIndex as string,
-          };
-        }
-      );
-    });
-    return { options, checkedList, handleCheckboxChange };
+    init();
+
+    // 处理多选改变
+    function onCheckChange(checkedList: string[]) {
+      state.indeterminate =
+        !!checkedList.length && checkedList.length < plainOptions.length;
+      state.checkAll = checkedList.length === plainOptions.length;
+      table.setColumns(checkedList);
+    }
+
+    // 点击全选
+    function onCheckAllChange(e: ChangeEvent) {
+      state.indeterminate = false;
+      const checkList = plainOptions.map((item) => item.value);
+      if (e.target.checked) {
+        state.checkedList = checkList;
+        table.setColumns(checkList);
+      } else {
+        state.checkedList = [];
+        table.setColumns([]);
+      }
+    }
+
+    return { plainOptions, ...toRefs(state), onCheckAllChange, onCheckChange };
   },
 });
 </script>

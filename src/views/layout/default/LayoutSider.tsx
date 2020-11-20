@@ -69,8 +69,10 @@ export default defineComponent({
       return menuList.map((menu) => {
         const { title, path, hideInMenu, icon } = menu;
         const showTitle = !menuStore.getCollapsedState;
+        // 不显示菜单
         if (hideInMenu) return;
 
+        // 没有子菜单
         if (!menuHasChildren(menu)) {
           return (
             <Menu.Item
@@ -89,7 +91,7 @@ export default defineComponent({
           );
         }
         return (
-          <Menu.SubMenu key={path}>
+          <Menu.SubMenu key={path} class="layout-sider-menu-sub">
             {{
               title: () => [
                 <MenuContent

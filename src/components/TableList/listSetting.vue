@@ -3,14 +3,13 @@
     trigger="click"
     placement="bottomRight"
     overlay-class-name="table-list-popover"
-    :force-render="true" 
+    :force-render="true"
     :arrow-point-at-center="true"
     :default-visible="false"
   >
     <TooltipButton title="列设置">
       <SettingOutlined />
     </TooltipButton>
-    
 
     <template #title>
       <div class="index-space-between pt-1 pb-1">
@@ -63,5 +62,23 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
+.table-list-popover .ant-popover-inner-content {
+  padding-right: 0;
+  padding-left: 0;
+
+  .ant-checkbox-group {
+    width: 100%;
+
+    label {
+      display: block;
+      padding: 4px 16px;
+      margin: 0;
+    }
+
+    label:hover {
+      background: rgba(1, 143, 251, 0.1);
+    }
+  }
+}
 </style>

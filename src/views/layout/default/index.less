@@ -4,6 +4,10 @@
   width: 100vw;
   height: 100vh;
 
+  .ant-layout-sider {
+    background: var(--sider-dark-background);
+  }
+
   .layout-header {
     height: @height;
     padding: 0 50px 0 0;
@@ -53,7 +57,14 @@
 
     &-menu {
       width: 100%;
+      background: var(--sider-dark-background);
       border-width: 0;
+
+      &-sub {
+        .ant-menu-sub {
+          background: var(--sider-dark-sub-background);
+        }
+      }
     }
   }
 

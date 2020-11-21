@@ -25,7 +25,7 @@ import searchPanle from "./search-panle.vue";
 import { useRouter } from "vue-router";
 import { PageMode } from "/@/utils/helper/breadcrumb";
 import { BookInfo } from "/@/api/book-manage/book-info";
-import { importColumns } from "./data/";
+import { importColumns } from "./data-list";
 import { ImportInstance } from "/@/lib/props/ImportModal";
 
 const DATA_PAGE_NAME = "book-manage-book-info-data-page";
@@ -38,18 +38,8 @@ export default defineComponent({
     // 导入对话框实例
     const importInstance = ref<ImportInstance | null>(null);
 
+    // 批量导入数据集合
     const dataSource = reactive<BookInfo[]>([]);
-
-    for (let i = 0; i < 24; i++) {
-      dataSource.push({
-        id: i,
-        name: "深入浅出 Vue.js",
-        code: "210-113-232",
-        isbn: "90-333" + i,
-        author: "张三",
-        press: "人民邮电出版社",
-      });
-    }
 
     /**
      * 添加新的数据

@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
-import { tableColumns } from "./data/";
+import { tableColumns } from "./data-list";
 import { BookInfo } from "/@/api/book-manage/book-info";
 
 export default defineComponent({
@@ -32,7 +32,6 @@ export default defineComponent({
     "on-new-data-item",
     "on-view-data-item",
     "on-edit-data-item",
-    "open-import-modal",
   ],
   setup(_props, { emit }) {
     const dataSource = reactive<BookInfo[]>([]);
@@ -64,7 +63,7 @@ export default defineComponent({
 
     // 批量导入
     function onBatchImport() {
-      emit("open-import-modal");
+      // emit("open-import-modal");
     }
 
     return {

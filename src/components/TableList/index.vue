@@ -39,6 +39,7 @@
 </template>
 
 <script lang="ts">
+import type { Ref } from "vue";
 import {
   ref,
   unref,
@@ -46,9 +47,8 @@ import {
   computed,
   onMounted,
   defineComponent,
-  Ref,
 } from "vue";
-import { tableListProps, TableColumn } from "/@/lib/props/tableProps";
+import { tableListProps, TableColumn } from "/@/lib/props/TableList";
 import { browserClient, elementOffset } from "/@/utils/elelment";
 import {
   ExpandOutlined,

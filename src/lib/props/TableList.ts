@@ -11,7 +11,7 @@ export const tableProps = {
   },
   dataSource: {
     type: Array as PropType<unknown[]>,
-    default: null,
+    default: [],
   },
   rowKey: {
     type: [String, Function] as PropType<string | ((record: unknown) => string)>,
@@ -23,8 +23,12 @@ export const tableProps = {
   },
   scroll: {
     type: Object as PropType<{ x: number | true; y: number }>,
-    default: null,
+    default: {},
   },
+  rowSelection: {
+    type: Object,
+    default: undefined,
+  }
 }
 
 export const tableListProps = {

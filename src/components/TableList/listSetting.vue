@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue";
-import { State, Options } from "/@/lib/props/tableProps";
+import { State, Options } from "/@/lib/props/TableList";
 import TooltipButton from "./TooltipButton.vue";
 import { injectTable } from "./useProvince";
 

@@ -1,5 +1,5 @@
 
-import { Instance } from '/@/lib/props/tableProps'
+import { Instance } from '/@/lib/props/TableList'
 import { provide, inject } from 'vue';
 
 const key = Symbol('table');

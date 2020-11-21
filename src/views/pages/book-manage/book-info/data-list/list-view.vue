@@ -1,19 +1,21 @@
 <template>
   <table-list
     title="图书列表"
-    :columns="tablecolumns"
+    :columns="tableColumns"
     :data-source="dataSource"
   >
     <template #header-left>
-      <a-button> 批量导入 </a-button>
-      <a-button type="primary" @click="newDataItem">
+      <a-button @click="onBatchImport">
+        批量导入
+      </a-button>
+      <a-button type="primary" @click="onNewDataItem">
         新增
       </a-button>
     </template>
     <template #operation="{ record }">
       <div class="index-operation">
-        <span @click="viewDataItem(record)">查看</span>
-        <span @click="editDataItem(record)">编辑</span>
+        <span @click="onViewDataItem(record)">查看</span>
+        <span @click="onEditDataItem(record)">编辑</span>
         <span>删除</span>
       </div>
     </template>
@@ -22,11 +24,16 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
-import { tablecolumns } from "./list-data";
+import { tableColumns } from "./list-data";
 import { BookInfo } from "/@/api/book-manage/book-info";
 
 export default defineComponent({
-  emits: ["new-data-item", "view-data-item", "edit-data-item"],
+  emits: [
+    "on-new-data-item",
+    "on-view-data-item",
+    "on-edit-data-item",
+    "open-import-modal",
+  ],
   setup(_props, { emit }) {
     const dataSource = reactive<BookInfo[]>([]);
     for (let i = 0; i < 24; i++) {
@@ -41,26 +48,32 @@ export default defineComponent({
     }
 
     // 添加新的数据
-    function newDataItem() {
-      emit("new-data-item");
+    function onNewDataItem() {
+      emit("on-new-data-item");
     }
 
     // 查看数据
-    function viewDataItem(record: BookInfo) {
-      emit("view-data-item", record.id);
+    function onViewDataItem(record: BookInfo) {
+      emit("on-view-data-item", record.id);
     }
 
     // 编辑数据
-    function editDataItem(record: BookInfo) {
-      emit("edit-data-item", record);
+    function onEditDataItem(record: BookInfo) {
+      emit("on-edit-data-item", record);
+    }
+
+    // 批量导入
+    function onBatchImport() {
+      emit("open-import-modal");
     }
 
     return {
-      tablecolumns,
+      tableColumns,
       dataSource,
-      newDataItem,
-      viewDataItem,
-      editDataItem,
+      onBatchImport,
+      onNewDataItem,
+      onViewDataItem,
+      onEditDataItem,
     };
   },
 });

@@ -7,6 +7,7 @@ import GlobalDataPage from '/@/components/GlobalDataPage.vue'
 import GlobalCard from '/@/components/GlobalCard.vue';
 import GlobalPopconfirm from '/@/components/GlobalPopconfirm.vue'
 import TableList from '/@/components/TableList/index.vue';
+import ImportModal from '/@/components/ImportModal.vue'
 import Icon from '/@/components/Icon'
 
 export default class ComponentRegisterPlugin {
@@ -15,7 +16,7 @@ export default class ComponentRegisterPlugin {
     app.component('GlobalCard', GlobalCard).component('GlobalInput', GlobalInput)
     app.component("GlobalTable", GlobalTable).component('GlobalButton', GlobalButton)
     app.component('GlobalDataPage', GlobalDataPage).component('GlobalPopconfirm', GlobalPopconfirm)
-    app.component('TableList', TableList)
+    app.component('TableList', TableList).component('ImportModal', ImportModal)
     app.component("OperationInfoPanel", OperationInfoPanel)
 
   }

@@ -10,6 +10,7 @@
       total: total,
     }"
     :scroll="scroll"
+    :row-selection="rowSelection"
   >
     <template v-for="item in Object.keys($slots)" #[item]="data">
       <slot :name="item" v-bind="data" />
@@ -20,7 +21,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { Table } from "ant-design-vue";
-import { tableProps } from "/@/lib/props/tableProps";
+import { tableProps } from "/@/lib/props/TableList";
 
 export default defineComponent({
   components: { Table },

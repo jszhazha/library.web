@@ -11,7 +11,7 @@
         :columns="columns"
         :data-source="dataSource"
         :row-selection="rowSelection"
-        :scroll="{ y: browserSize.height - 352, x: 1200 }"
+        :scroll="{ y: browserSize.height - 345, x: 1200 }"
       />
     </div>
   </a-modal>

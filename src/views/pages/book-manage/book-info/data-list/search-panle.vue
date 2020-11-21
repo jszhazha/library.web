@@ -11,17 +11,17 @@
           <a-input placeholder="请输入" />
         </a-form-item>
       </a-col>
-      <a-col v-show="IsOpen" :xs="24" :lg="8" class="index-table-search-col">
+      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="出版社">
           <a-input placeholder="请输入" />
         </a-form-item>
       </a-col>
-      <a-col v-show="IsOpen" :xs="24" :lg="8" class="index-table-search-col">
+      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="学科类别">
           <a-input placeholder="请输入" />
         </a-form-item>
       </a-col>
-      <a-col v-show="IsOpen" :xs="24" :lg="8" class="index-table-search-col">
+      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="国际标准书号">
           <a-input placeholder="请输入" />
         </a-form-item>
@@ -32,16 +32,7 @@
             查询
           </a-button>
           <a-button> 重置 </a-button>
-          <a-button type="link" @click="handleOpen">
-            {{ IsOpen ? "收起 " : "展开" }}
-            <DownOutlined
-              :class="['index-table-search-close']"
-              :style="[
-                'transition: all 0.3s ease 0s;',
-                `transform: rotate(${IsOpen ? '0.5' : '0'}turn)`,
-              ]"
-            />
-          </a-button>
+          <DownOutButton :is-open="isOpen" @click="handleOpen" />
         </div>
       </a-col>
     </a-row>
@@ -51,13 +42,12 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue";
 import { PagerQueryData } from "/@/lib/http/axios/types";
-import { DownOutlined } from "@ant-design/icons-vue";
+
 
 export default defineComponent({
-  components: { DownOutlined },
   setup() {
     // 搜索是否展开
-    const IsOpen = ref<boolean>(false);
+    const isOpen = ref<boolean>(false);
     // 数据搜索
     const queryData = reactive<PagerQueryData>({
       pageSize: 10,
@@ -71,11 +61,11 @@ export default defineComponent({
 
     // 处理展开
     function handleOpen() {
-      IsOpen.value = !IsOpen.value;
+      isOpen.value = !isOpen.value;
     }
 
     return {
-      IsOpen,
+      isOpen,
       queryData,
       handleOpen,
     };

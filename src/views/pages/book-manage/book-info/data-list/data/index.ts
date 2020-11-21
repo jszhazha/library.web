@@ -97,14 +97,14 @@ export const importColumns: TableColumn[] = [
     dataIndex: 'press',
     align: 'center'
   },
-  {
-    title: '索书号',
-    dataIndex: 'callNumber',
-    align: 'center'
-  },
-  {
-    title: '存放位置',
-    dataIndex: 'storageLocation',
-    align: 'center'
-  },
+  // {
+  //   title: '索书号',
+  //   dataIndex: 'callNumber',
+  //   align: 'center'
+  // },
+  // {
+  //   title: '存放位置',
+  //   dataIndex: 'storageLocation',
+  //   align: 'center'
+  // },
 ]

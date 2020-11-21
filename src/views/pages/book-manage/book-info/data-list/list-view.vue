@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
-import { tableColumns } from "./list-data";
+import { tableColumns } from "./data/";
 import { BookInfo } from "/@/api/book-manage/book-info";
 
 export default defineComponent({

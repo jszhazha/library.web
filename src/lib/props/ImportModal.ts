@@ -18,7 +18,7 @@ export const importProps = {
   // 对话框宽度
   width: {
     type: [Number, String] as PropType<number | string>,
-    default: 520,
+    default: '80%',
   }
 
 }
@@ -27,4 +27,10 @@ export const importProps = {
 export interface ImportInstance {
   // 对话框是否可见
   openModal?: () => void;
+}
+
+// 选中的数据
+export interface SelectedData {
+  selectedRows?: unknown[]
+  selectedRowKeys?: number[]
 }

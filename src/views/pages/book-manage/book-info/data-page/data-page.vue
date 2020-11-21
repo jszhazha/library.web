@@ -59,25 +59,13 @@
           </a-col>
         </a-row>
       </global-card>
-
-      <global-card title="馆藏信息">
-        <a-row>
-          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="索书号">
-              <a-input placeholder="请输入" :disabled="readonly" />
-            </a-form-item>
-          </a-col>
-          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="存放位置">
-              <a-input placeholder="请输入" :disabled="readonly" />
-            </a-form-item>
-          </a-col>
-        </a-row>
-      </global-card>
     </a-form>
 
+    <!-- 馆藏信息 -->
+    <hold-info />
+
     <!-- 修改信息 -->
-    <OperationInfoPanel />
+    <OperationInfoPanel :readonly="readonly" />
 
     <!-- 操作 -->
     <template #footer-block>
@@ -98,8 +86,10 @@
 import { defineComponent, reactive } from "vue";
 import { dataPageMix } from "/@/utils/dataPage/";
 import { BookInfo } from "/@/api/book-manage/book-info";
+import holdInfo from "./hold-lnfo.vue";
 
 export default defineComponent({
+  components: { holdInfo },
   setup() {
     const dataItem = reactive<BookInfo>({});
     const { onClosePage, onRestPage, mode, readonly } = dataPageMix<BookInfo>(

@@ -4,6 +4,7 @@
     ok-text="确定"
     cancel-text="取消"
     placement="topRight"
+    :get-popup-container="(trigger) => trigger.parentNode"
   >
     <template #icon>
       <QuestionCircleFilled style="color: #f5222d;" />

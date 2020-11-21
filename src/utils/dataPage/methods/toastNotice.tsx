@@ -3,15 +3,17 @@ import { Button } from "ant-design-vue";
 import { InfoCircleFilled } from "@ant-design/icons-vue";
 
 export default defineComponent({
-  emits: ["close-toast", "confirmToast"],
+  emits: ["close-toast", "confirmToast", "removeItem"],
   setup(_props, { emit }) {
     // 处理 点击取消
     function handleClickCancel() {
+      emit("removeItem");
       emit("close-toast");
     }
     // 处理 点击确认
     function handleClickConfirm() {
       emit("confirmToast");
+      emit("removeItem");
       emit("close-toast");
     }
 

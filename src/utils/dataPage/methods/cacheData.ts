@@ -14,11 +14,11 @@ export function checkCacheData<T>(name: string, storage: CreateStorage, callback
         listeners: {
           // 从缓存中读取数据
           confirmToast: () => callback(data),
+          // 删除数据 不主动删除数据
+          removeItem: () => storage.remove(name),
         },
       },
       {
-        // 通知提醒框 关闭清空数据
-        onClose: () => storage.remove(name),
       }
     );
   }

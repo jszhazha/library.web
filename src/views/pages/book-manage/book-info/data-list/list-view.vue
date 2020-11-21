@@ -27,6 +27,7 @@ import { defineComponent, reactive } from "vue";
 import { tableColumns } from "./data-list";
 import { BookInfo } from "/@/api/book-manage/book-info";
 
+
 export default defineComponent({
   emits: [
     "on-new-data-item",
@@ -45,6 +46,7 @@ export default defineComponent({
         press: "人民邮电出版社",
       });
     }
+
 
     // 添加新的数据
     function onNewDataItem() {

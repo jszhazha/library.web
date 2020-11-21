@@ -1,12 +1,13 @@
 import type { Ref } from "vue";
 import type { CreateStorage } from "/@/utils/storage/Storage";
-import { unref, ref, onBeforeUnmount, onMounted } from "vue";
+import { unref, ref, onBeforeUnmount, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { assign } from 'lodash-es'
 import { checkCacheData, cacheData } from './methods/cacheData'
 import { checkDataRouter, CheckDataRouter } from './methods/dataRouter'
 import { createStorage } from "/@/utils/storage/";
 import { PageMode } from "/@/utils/helper/breadcrumb";
+import { useToast } from "vue-toastification";
 
 
 import './index.less'
@@ -60,6 +61,10 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
 export function dataPageMix<T>(dataItem: T): DataPageMix {
   const { back, currentRoute } = useRouter();
   const { query, name } = unref(currentRoute);
+  const toast = useToast()
+
+
+
   // 设置缓存
   const storage = createStorage(localStorage);
   // 页面模式
@@ -79,10 +84,18 @@ export function dataPageMix<T>(dataItem: T): DataPageMix {
   if (mode.value === PageMode.new) {
     newModeInit<T>(dataItem, mode, name as string, storage)
   }
+
   /**
    * 页面点击关闭触发函数
    */
   const onClosePage = () => back();
+
+  /**
+   * 监听路由变化 关闭对话框
+   */
+  watch(() => currentRoute.value, () => {
+    toast.clear()
+  })
 
   /**
    * 页面点击重置触发的函数

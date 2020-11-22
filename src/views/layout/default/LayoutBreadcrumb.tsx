@@ -69,7 +69,7 @@ export default defineComponent({
     );
 
     return () => (
-      <Breadcrumb>
+      <Breadcrumb class='index-stop-row'>
         {() => (
           <TransitionGroup name="breadcrumb">
             {() =>

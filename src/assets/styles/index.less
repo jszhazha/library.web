@@ -33,6 +33,12 @@
     opacity: 0.38;
   }
 
+  &-stop-row {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   &-center-middle {
     display: flex;
     align-items: center;
@@ -56,7 +62,7 @@
 
   &-card {
     padding: 16px;
-    margin: 16px;
+    margin: 8px 16px 16px;
     background: #fff;
     // border-radius: 4px;
   }
@@ -124,9 +130,9 @@
   &-button {
     color: @selectBefore;
     cursor: pointer;
+  }
 
-    &:hover {
-      color: @selectAfter;
-    }
+  &-selected {
+    color: @selectBefore;
   }
 }

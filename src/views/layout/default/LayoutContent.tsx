@@ -6,7 +6,11 @@ export default defineComponent({
   name: "DefaultLayoutContent",
   setup() {
     return () => {
-      return <Layout.Content>{() => <RouterView />}</Layout.Content>;
+      return (
+        <Layout.Content class="layout-content">
+          {() => <RouterView />}
+        </Layout.Content>
+      );
     };
   },
 });

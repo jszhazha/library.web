@@ -37,7 +37,7 @@ export default defineComponent({
             key={key}
             class={[
               "default-tabs-item",
-              "index-stop-row",
+              "index-hidden-newline",
               activeKey.value === key ? "index-selected" : "",
             ]}
             onClick={handleChange.bind(null, item)}

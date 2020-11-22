@@ -72,7 +72,9 @@ export default defineComponent({
     // 全屏 标志位
     const fullScreen = ref<boolean>(false);
     // table 滚动条高度
-    const scroll = reactive<{ y?: number | true; x?: number | true }>({});
+    const scroll = reactive<{ y?: number | true; x?: number | true }>({
+      x: true,
+    });
     // 标签
     const tableRef = ref<HTMLElement | null>(null);
     // 视图大小

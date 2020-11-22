@@ -22,7 +22,7 @@
 import { defineComponent, reactive, unref, ref } from "vue";
 import listView from "./list-view.vue";
 import searchPanle from "./search-panle.vue";
-import { useRouter } from "vue-router";
+import { useGo } from "/@/hooks/web/usePage";
 import { PageMode } from "/@/utils/helper/breadcrumb";
 import { BookInfo } from "/@/api/book-manage/book-info";
 import { importColumns } from "./data-list";
@@ -33,7 +33,7 @@ const DATA_PAGE_NAME = "book-manage-book-info-data-page";
 export default defineComponent({
   components: { listView, searchPanle },
   setup() {
-    const { push } = useRouter();
+    const pageGo = useGo();
 
     // 导入对话框实例
     const importInstance = ref<ImportInstance | null>(null);
@@ -45,14 +45,14 @@ export default defineComponent({
      * 添加新的数据
      */
     function onNewDataItem() {
-      push({ name: DATA_PAGE_NAME, query: { mode: PageMode[PageMode.new] } });
+      pageGo({ name: DATA_PAGE_NAME, query: { mode: PageMode[PageMode.new] } });
     }
 
     /**
      * 查看数据
      */
     function onViewDataItem(id: number) {
-      push({
+      pageGo({
         name: DATA_PAGE_NAME,
         query: { mode: PageMode[PageMode.view], id },
       });
@@ -62,7 +62,7 @@ export default defineComponent({
      * 编辑数据
      */
     function onEditDataItem(record: BookInfo) {
-      push({
+      pageGo({
         name: DATA_PAGE_NAME,
         query: { mode: PageMode[PageMode.edit], id: record.id },
       });

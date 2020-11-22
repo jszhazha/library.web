@@ -2,10 +2,14 @@ import type { AppRouteRecordRaw } from "/@/router/types";
 import type { RouteLocationMatched } from "vue-router";
 import { defineComponent, watch, unref, TransitionGroup, reactive } from "vue";
 import { Breadcrumb, BreadcrumbItem } from "/@/components/Breadcrumb/";
-import { parsePageModeFromString, ParsePageModeFromString} from "/@/utils/helper/breadcrumb";
+import {
+  parsePageModeFromString,
+  ParsePageModeFromString,
+} from "/@/utils/helper/breadcrumb";
 import { useRouter } from "vue-router";
 import { PageEnum } from "/@/enums/pageEnum";
 import { isBoolean } from "/@/utils/is";
+import { useGo } from "/@/hooks/web/usePage";
 import router from "/@/router";
 
 interface ItemList {
@@ -16,7 +20,8 @@ interface ItemList {
 
 export default defineComponent({
   setup() {
-    const { currentRoute, push } = useRouter();
+    const { currentRoute } = useRouter();
+    const go = useGo();
     const itemList = reactive<ItemList>({
       value: [],
       length: 0,
@@ -53,7 +58,7 @@ export default defineComponent({
     function handleItemClick(item: AppRouteRecordRaw) {
       const { redirect } = item;
       if (redirect) {
-        push(redirect as string);
+        go(redirect as string);
       }
     }
 
@@ -69,15 +74,18 @@ export default defineComponent({
     );
 
     return () => (
-      <Breadcrumb class='index-stop-row'>
+      <Breadcrumb class="index-stop-row">
         {() => (
           <TransitionGroup name="breadcrumb">
             {() =>
               itemList.value.map((el, index) => {
                 const isLink = !!el.redirect;
                 const { length, pageMode } = itemList;
-                const isDivider= length !== index 
-                const mode = length === index && !isBoolean(pageMode) ? `- ${pageMode.modeName}` : "";
+                const isDivider = length !== index;
+                const mode =
+                  length === index && !isBoolean(pageMode)
+                    ? `- ${pageMode.modeName}`
+                    : "";
 
                 return (
                   <BreadcrumbItem

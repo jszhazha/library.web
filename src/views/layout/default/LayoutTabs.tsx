@@ -3,6 +3,7 @@ import { defineComponent, computed, unref, watch, ref } from "vue";
 import { useGo } from "/@/hooks/web/usePage";
 import { tabStore, TabItem } from "/@/store/modules/tab";
 import router from "/@/router";
+import { Tabs } from "ant-design-vue";
 
 export default defineComponent({
   setup() {
@@ -37,40 +38,48 @@ export default defineComponent({
      * @description: 设置固定tabs
      */
     function addAffixTabs(): void {
-      const affixTabs = filterAffixTabs((router.getRoutes() as unknown) as AppRouteRecordRaw[]);
+      const affixTabs = filterAffixTabs(
+        (router.getRoutes() as unknown) as AppRouteRecordRaw[]
+      );
       for (const tab of affixTabs) {
         tabStore.commitAddTab(tab);
       }
     }
 
     // 处理点击
-    function handleChange(item: TabItem) {
-      activeKey.value = item.name as string;
-      pageGo(item as any, false);
+    function handleChange(name: string) {
+      activeKey.value = name;
+      pageGo(
+        unref(getTabsState).find((item: TabItem) => item.name === name) as any,
+        false
+      );
     }
 
     function renderTabs() {
       return unref(getTabsState).map((item: TabItem) => {
         const key = item.name as string;
         return (
-          <div
-            key={key}
-            class={[
-              "default-tabs-item",
-              "index-hidden-newline",
-              activeKey.value === key ? "index-selected" : "",
-            ]}
-            onClick={handleChange.bind(null, item)}
-          >
-            {item.meta!.title}
-          </div>
+          <Tabs.TabPane key={key} closable={!item.meta!.affix}>
+            {{
+              tab: () => item.meta!.title,
+            }}
+          </Tabs.TabPane>
         );
       });
     }
 
     return () => (
       <div class="default-tabs">
-        <div class="default-tabs-left">{renderTabs()}</div>
+        <Tabs
+          type="card"
+          size="small"
+          hideAdd={true}
+          tabBarGutter={6}
+          activeKey={unref(activeKey)}
+          onChange={handleChange}
+        >
+          {() => renderTabs()}
+        </Tabs>
       </div>
     );
   },

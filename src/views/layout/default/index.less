@@ -1,4 +1,5 @@
 @height: 48px;
+@tabHeight: 28px;
 
 .default-layout {
   width: 100vw;
@@ -88,22 +89,33 @@
   }
 
   .default-tabs {
-    display: flex;
-    align-items: center;
-    height: 38px;
-    padding: 0 8px;
-
-    &-left {
-      display: flex;
+    .ant-tabs-bar {
+      margin: 0 10px;
     }
 
-    &-item{
-      padding: 3px 10px;
-      margin: 0 5px 0;
-      cursor: pointer;
-      background-color: #fff;
-      border-radius: 2px;
+    .ant-tabs-tab-prev.ant-tabs-tab-arrow-show,
+    .ant-tabs-tab-next.ant-tabs-tab-arrow-show {
+      width: @tabHeight;
+      height: @tabHeight;
+      margin: 2px 0;
+      font-weight: bold;
+      color: #000;
+    }
 
+    .ant-tabs.ant-tabs-card {
+      .ant-tabs-card-bar {
+        .ant-tabs-nav-container {
+          height: @tabHeight + 6px;
+        }
+
+        .ant-tabs-tab {
+          height: @tabHeight;
+          margin: 2px 0;
+          line-height: 26px;
+          background: #fff;
+          border-radius: 3px;
+        }
+      }
     }
   }
 }

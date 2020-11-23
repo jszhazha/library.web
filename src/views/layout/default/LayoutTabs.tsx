@@ -4,6 +4,7 @@ import { useGo } from "/@/hooks/web/usePage";
 import { tabStore, TabItem } from "/@/store/modules/tab";
 import router from "/@/router";
 import { Tabs } from "ant-design-vue";
+import { closeTab } from "/@/hooks/web/useTab";
 
 export default defineComponent({
   setup() {
@@ -46,13 +47,26 @@ export default defineComponent({
       }
     }
 
-    // 处理点击
-    function handleChange(name: string) {
-      activeKey.value = name;
-      pageGo(
-        unref(getTabsState).find((item: TabItem) => item.name === name) as any,
-        false
-      );
+    // 查找数据
+    function findItem(key: string): TabItem | undefined {
+      return unref(getTabsState).find((item: TabItem) => item.name === key);
+    }
+
+    // 切换面板的回调
+    function handleChange(key: string) {
+      activeKey.value = key;
+      const item = findItem(key);
+      if (item) {
+        pageGo(item as any, false);
+      }
+    }
+
+    // 删除页签的回调
+    function handleEdit(key: string) {
+      const item = findItem(key);
+      if (item) {
+        closeTab(item);
+      }
     }
 
     function renderTabs() {
@@ -71,12 +85,13 @@ export default defineComponent({
     return () => (
       <div class="default-tabs">
         <Tabs
-          type="card"
+          type="editable-card"
           size="small"
           hideAdd={true}
           tabBarGutter={6}
           activeKey={unref(activeKey)}
           onChange={handleChange}
+          onEdit={handleEdit}
         >
           {() => renderTabs()}
         </Tabs>

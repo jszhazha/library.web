@@ -38,6 +38,7 @@ export default class Tab extends VuexModule {
     return this.lastChangeRouteState
   }
 
+  // 添加
   @Mutation
   commitAddTab(route: TabItem): void {
     const { path, name, meta, fullPath, params, query } = route
@@ -61,6 +62,14 @@ export default class Tab extends VuexModule {
   @Mutation
   commitLastChangeRouteState(route: TabItem): void {
     this.lastChangeRouteState = route;
+  }
+
+  @Mutation
+  commitCloseTab(route: TabItem): void {
+    const { name, meta: { affix } = {} } = route;
+    if (affix) return;
+    const index = this.tabsState.findIndex((item) => item.name === name);
+    index !== -1 && this.tabsState.splice(index, 1);
   }
 
 }

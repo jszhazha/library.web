@@ -107,9 +107,11 @@ export default defineComponent({
       if (fullScreen.value) {
         // 切换为非全屏
         delete scroll.y;
+        scroll.x = true;
         transform.translate = `(0px,0px)`;
       } else {
         // 切换为全屏
+        delete scroll.x;
         const offset = elementOffset(unref(tableRef));
         transform.translate = `(-${offset.left - 16}px,-${offset.top}px)`;
         scroll.y = browserSize.height! - 200;

@@ -1,6 +1,6 @@
 <template>
   <div class="global-data-page">
-    <div class="content">
+    <div class="scrollbar content">
       <slot />
     </div>
     <div class="index-footer-block">

@@ -1,4 +1,3 @@
-import type { AppRouteRecordRaw } from '/@/router/types';
 
 
 /**
@@ -14,15 +13,3 @@ export const DEFAULT_LAYOUT_COMPONENT = (): unknown => import('/@/views/layout/d
 export const PAGE_LAYOUT_COMPONENT = (): unknown => import('/@/views/layout/page/index');
 
 
-/**
- * @description 主页
- */
-export const OVERVIEW_PAGE: AppRouteRecordRaw = {
-  path: 'overview-page',
-  name: 'overview-page',
-  component: (): unknown => import('/@/views/pages/overview/overview-page.vue'),
-  meta: {
-    title: '主页',
-    icon: "ant-design:home-outlined"
-  }
-}

@@ -2,8 +2,8 @@ import type { AppRouteRecordRaw, AppRouteModule } from '/@/router/types';
 import { genRouteModule } from '/@/utils/helper/route'
 import { PageEnum } from '/@/enums/pageEnum'
 
-import { DEFAULT_LAYOUT_COMPONENT, OVERVIEW_PAGE } from '../constant';
-import loginRoute from './modules/loginRoute';
+import { DEFAULT_LAYOUT_COMPONENT } from '../constant';
+import { loginRoute ,overviewPage} from './modules/indexRoute';
 
 // 路由
 import systemRouters from './modules/systemRouters'
@@ -16,7 +16,7 @@ const routeModuleList: AppRouteModule[] = [
   accountRouters
 ]
 
-const routeList = [OVERVIEW_PAGE, ...genRouteModule(routeModuleList)]
+const routeList = [overviewPage, ...genRouteModule(routeModuleList)]
 
 
 // 获取菜单 树级
@@ -35,7 +35,7 @@ export const RootRoute: AppRouteRecordRaw = {
   component: DEFAULT_LAYOUT_COMPONENT,
   redirect: PageEnum.BASE_HOME,
   meta: {
-    title: '主页'
+    title: '首页'
   },
   children: routeList
 };

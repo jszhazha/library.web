@@ -1,5 +1,5 @@
 <template>
-  <div>主页</div>
+  <div>首页</div>
 </template>
 
 <script lang="ts">

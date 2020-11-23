@@ -1,9 +1,12 @@
+import type { AppRouteRecordRaw } from "/@/router/types";
 import { defineComponent, computed, unref, watch, ref } from "vue";
 import { useGo } from "/@/hooks/web/usePage";
 import { tabStore, TabItem } from "/@/store/modules/tab";
+import router from "/@/router";
 
 export default defineComponent({
   setup() {
+    let isAddAffix = false;
     const activeKey = ref<string>("");
     const pageGo = useGo();
 
@@ -16,12 +19,29 @@ export default defineComponent({
     watch(
       () => tabStore.getLastChangeRouteState,
       (value) => {
+        if (!isAddAffix) {
+          addAffixTabs();
+          isAddAffix = true;
+        }
         const lastChangeRoute = unref(value);
         activeKey.value = value.name as string;
         tabStore.commitAddTab(lastChangeRoute);
       },
       { immediate: true }
     );
+
+    function filterAffixTabs(routes: AppRouteRecordRaw[]) {
+      return routes.filter((route) => route.meta.affix);
+    }
+    /**
+     * @description: 设置固定tabs
+     */
+    function addAffixTabs(): void {
+      const affixTabs = filterAffixTabs((router.getRoutes() as unknown) as AppRouteRecordRaw[]);
+      for (const tab of affixTabs) {
+        tabStore.commitAddTab(tab);
+      }
+    }
 
     // 处理点击
     function handleChange(item: TabItem) {

@@ -24,6 +24,9 @@ export interface RouteMeta {
 
   // 图标
   icon?: string;
+
+  // 固定标签
+  affix?: boolean
 }
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {

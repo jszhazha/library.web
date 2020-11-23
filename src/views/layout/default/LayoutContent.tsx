@@ -7,7 +7,7 @@ export default defineComponent({
   setup() {
     return () => {
       return (
-        <Layout.Content class="layout-content">
+        <Layout.Content class="layout-content scrollbar">
           {() => <RouterView />}
         </Layout.Content>
       );

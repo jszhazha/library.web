@@ -1,19 +1,24 @@
+import { onMounted } from 'vue'
 import { provideDataPage } from '/@/utils/listPage/methods/useProvince'
-// import { ImportInstance } from "/@/lib/props/ImportModal";
-
-// interface ListPageMix {
-
-// }
 
 
 
+interface Options {
+  // 从服务器取得数据
+  fetchDataFromServer: () => void
+}
 
-export function listPageMix<T>(dataPageName: string): void {
+
+
+export function listPageMix<T>(dataPageName: string, { fetchDataFromServer }: Options): void {
 
   provideDataPage<T>(dataPageName)
 
-  // function searchInstance(): void {
-  //   // 
-  // }
+  
+  onMounted(() => {
+    // 首次加载 从服务器取得数据
+    fetchDataFromServer()
+  })
 
 }
+

@@ -14,9 +14,9 @@ export interface Result<T = any> {
 /**
  * 分页请求
  */
-export interface PagerQueryData{
-  page:number
-  pageSize:number
-  sorts:Array<string>
-  [prop:string]:any
+export interface PagerQueryData {
+  page: number
+  pageSize: number
+  sorts: Array<string>
+  [prop: string]: any
 }

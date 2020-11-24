@@ -13,6 +13,8 @@ export const elementOffset = (el: HTMLElement | null): { top: number, left: numb
   return offset
 }
 
+
+// 获取浏览器高度
 export const browserClient = (): { width: number, height: number } => {
   return {
     width: window.document.documentElement.clientWidth,

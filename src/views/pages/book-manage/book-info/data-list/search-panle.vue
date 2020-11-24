@@ -3,12 +3,12 @@
     <a-row>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="题名">
-          <a-input placeholder="请输入" />
+          <a-input v-model:value="queryData.name" placeholder="请输入" />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="作者">
-          <a-input placeholder="请输入" />
+          <a-input v-model:value="queryData.author" placeholder="请输入" />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
@@ -31,8 +31,10 @@
           <a-button type="primary">
             查询
           </a-button>
-          <a-button> 重置 </a-button>
-          <DownOutButton :is-open="isOpen" @click="handleOpen" />
+          <a-button @click="onResetData">
+            重置
+          </a-button>
+          <DownOutButton :is-open="isOpen" @click="onOpen" />
         </div>
       </a-col>
     </a-row>
@@ -40,12 +42,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 import { PagerQueryData } from "/@/lib/http/axios/types";
-
+import { useSearch, SearchInstance } from "/@/utils/listPage/methods/useSearch";
 
 export default defineComponent({
-  setup() {
+  setup(): SearchInstance {
     // 搜索是否展开
     const isOpen = ref<boolean>(false);
     // 数据搜索
@@ -55,25 +57,16 @@ export default defineComponent({
       sorts: [],
     });
     // 返回查询条件
-    // getPagerQueryData():PagerQueryData{
-    //   return queryData
-    // }
+    const getCurQueryData = (): PagerQueryData => queryData;
 
-    // 处理展开 收起
-    function handleOpen() {
-      isOpen.value = !isOpen.value;
-    }
-
-
-    onMounted(()=>{
-      console.log(123)
-    })
-
+    const { onResetData, onOpen } = useSearch({ queryData, isOpen });
 
     return {
       isOpen,
       queryData,
-      handleOpen,
+      onOpen,
+      onResetData,
+      getCurQueryData,
     };
   },
 });

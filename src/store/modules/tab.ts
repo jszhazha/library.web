@@ -4,8 +4,6 @@ import { Module, VuexModule, Mutation, getModule } from 'vuex-module-decorators'
 import { RouteMeta } from '/@/router/types'
 
 export interface TabItem {
-  // 完整路由
-  fullPath?: string;
   // 路径
   path?: string;
   // 参数
@@ -41,7 +39,7 @@ export default class Tab extends VuexModule {
   // 添加
   @Mutation
   commitAddTab(route: TabItem): void {
-    const { path, name, meta, fullPath, params, query } = route
+    const { path, name, meta, params, query } = route
 
     let updateIndex = -1;
     const hasTab = this.tabsState.some((tab, index) => {
@@ -56,7 +54,7 @@ export default class Tab extends VuexModule {
       this.tabsState.splice(updateIndex, 1, curTab);
       return
     }
-    this.tabsState.push({ path, fullPath, name, meta, params, query });
+    this.tabsState.push({ path, name, meta, params, query });
   }
 
   @Mutation

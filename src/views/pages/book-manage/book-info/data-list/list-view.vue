@@ -40,7 +40,6 @@ export default defineComponent({
       });
     }
 
-    console.log();
 
     // 添加新的数据
     const onNewDataItem = () => dataPage.onNewDataItem();

@@ -52,4 +52,6 @@ export function isArray(val: unknown): boolean {
 export function isEmptyArray(val: any): boolean {
   return isArray(val) && !!val.length
 }
-
+export function isEmpty(val: any): boolean {
+  return isEmptyArray(val) || isEmptyArray(val) || !!val
+}

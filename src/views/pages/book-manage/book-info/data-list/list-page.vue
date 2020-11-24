@@ -15,12 +15,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue";
-import listView from "./list-view.vue";
-import searchPanle from "./search-panle.vue";
 import { BookInfo } from "/@/api/book-manage/book-info";
-import { importColumns } from "./data-list";
 import { ImportInstance } from "/@/lib/props/ImportModal";
-import { listPageMix, SearchInstance } from "/@/utils/listPage/";
+import { listPageMix } from "/@/utils/listPage/";
+import { SearchInstance } from "/@/utils/listPage/methods/useSearch";
+import { importColumns } from "./data-list";
+import searchPanle from "./search-panle.vue";
+import listView from "./list-view.vue";
 
 const DATA_PAGE_NAME = "book-manage-book-info-data-page";
 
@@ -45,7 +46,7 @@ export default defineComponent({
 
     // 从服务器取得数据
     function fetchDataFromServer(): void {
-      console.log(searchInstance.value?.getCurQueryData())
+      console.log(searchInstance.value?.getCurQueryData());
     }
 
     // 打开对话框

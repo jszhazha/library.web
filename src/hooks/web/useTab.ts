@@ -2,6 +2,7 @@ import { unref, computed } from 'vue'
 import router from '/@/router';
 import { tabStore, TabItem } from "/@/store/modules/tab";
 import { PageEnum } from '/@/enums/pageEnum';
+import { createStorage } from "/@/utils/storage/";
 
 // 关闭
 export function closeTab(closedTab: TabItem): void {
@@ -40,3 +41,35 @@ export function closeTab(closedTab: TabItem): void {
   tabStore.commitCloseTab(closedTab);
   replace({ name: toPageName });
 }
+
+
+// 缓存数据
+export function useCacheTabs(): { setCacheTabs: () => void, readCacheTabs: () => TabItem[] } {
+
+  const storage = createStorage(localStorage);
+
+  const key = 'openTabs'
+
+  // 缓存数据
+  function setCacheTabs(): void {
+    window.addEventListener("beforeunload", () => {
+      const openTabs = filterTabs(tabStore.getTabsState);
+      storage.set(key, openTabs);
+    });
+  }
+  // 添加过滤缓存标签
+  function filterTabs(routes: TabItem[]) {
+    return routes.filter((route) => !route.meta?.ignoreKeepAlive);
+  }
+
+  // 读取缓存数据
+  function readCacheTabs(): TabItem[] {
+    return storage.get(key) as TabItem[]
+  }
+
+  return { setCacheTabs, readCacheTabs }
+
+
+}
+
+

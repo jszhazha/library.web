@@ -5,7 +5,7 @@ import { RoleEnum } from '/@/enums/roleEnum';
 export interface RouteMeta {
 
   // 标题
-  title: string;
+  title?: string;
 
   // 忽略身份验证
   ignoreAuth?: boolean;
@@ -13,7 +13,7 @@ export interface RouteMeta {
   // 角色信息
   roles?: RoleEnum[];
 
-  // 标签 是否不缓存
+  // 忽略标签缓存
   ignoreKeepAlive?: boolean;
 
   // 菜单隐藏

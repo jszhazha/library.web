@@ -63,10 +63,8 @@ export function dataPageMix<T>(dataItem: T): DataPageMix {
   const { query, name } = unref(currentRoute);
   const toast = useToast()
 
-
-
   // 设置缓存
-  const storage = createStorage(localStorage);
+  const storage = createStorage(sessionStorage);
   // 页面模式
   const mode = ref<number>(
     checkDataRouter((query as unknown) as CheckDataRouter)

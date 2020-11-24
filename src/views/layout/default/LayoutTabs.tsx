@@ -2,20 +2,27 @@ import type { AppRouteRecordRaw } from "/@/router/types";
 import { defineComponent, computed, unref, watch, ref } from "vue";
 import { useGo } from "/@/hooks/web/usePage";
 import { tabStore, TabItem } from "/@/store/modules/tab";
-import router from "/@/router";
 import { Tabs } from "ant-design-vue";
-import { closeTab } from "/@/hooks/web/useTab";
+import { closeTab, useCacheTabs } from "/@/hooks/web/useTab";
+
+import router from "/@/router";
 
 export default defineComponent({
   setup() {
     let isAddAffix = false;
+    // 当前激活标签
     const activeKey = ref<string>("");
+    // 页面跳转
     const pageGo = useGo();
 
     // 当前tab列表;
     const getTabsState = computed(() => {
       return tabStore.getTabsState;
     });
+    // 使用缓存
+    const { setCacheTabs, readCacheTabs } = useCacheTabs();
+    // 缓存标签
+    setCacheTabs();
 
     // 监听路由变化
     watch(
@@ -32,6 +39,7 @@ export default defineComponent({
       { immediate: true }
     );
 
+    // 添加过滤固定标签
     function filterAffixTabs(routes: AppRouteRecordRaw[]) {
       return routes.filter((route) => route.meta.affix);
     }
@@ -39,11 +47,15 @@ export default defineComponent({
      * @description: 设置固定tabs
      */
     function addAffixTabs(): void {
-      const affixTabs = filterAffixTabs(
-        (router.getRoutes() as unknown) as AppRouteRecordRaw[]
-      );
+      const affixTabs = filterAffixTabs((router.getRoutes() as unknown) as AppRouteRecordRaw[]);
+      const cacheTabs = readCacheTabs();
       for (const tab of affixTabs) {
         tabStore.commitAddTab(tab);
+      }
+      if (cacheTabs) {
+        for (const tab of cacheTabs) {
+          tabStore.commitAddTab(tab);
+        }
       }
     }
 

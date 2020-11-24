@@ -1,4 +1,5 @@
-import { isString, isEmptyObject } from '/@/utils/is'
+import { DEFAULT_CACHE_TIME } from '/@/config/encryptionSetting';
+import { isString, isEmpty, isNumber } from '/@/utils/is'
 import { stringify } from '/@/utils/stringify'
 import md5 from 'md5'
 
@@ -23,12 +24,12 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
     }
 
     // 设置 键值
-    set(key: string, value: unknown): void {
+    set(key: string, value: unknown, expire = DEFAULT_CACHE_TIME): void {
       // 有数据再进行缓存
-
-      const stringData = stringify({ value })
-      if (isString(stringData)) {
-        this.storage.setItem(this.getKey(key), stringData)
+      const result = stringify(value)
+      if (isString(result)) {
+        const stringData = stringify({ value, expire: new Date().getTime() + expire * 1000 })
+        this.storage.setItem(this.getKey(key), stringData as string)
       }
     }
 
@@ -38,8 +39,8 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
       if (item) {
         // 防止 item 不符合 JSON 格式
         try {
-          const { value } = JSON.parse(item)
-          if (isEmptyObject(value)) {
+          const { value, expire } = JSON.parse(item)
+          if (isEmpty(value) && isNumber(expire) && expire >= new Date().getTime()) {
             return value
           }
           throw 'value null'

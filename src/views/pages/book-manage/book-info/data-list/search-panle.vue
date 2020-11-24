@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
+import { defineComponent, onMounted, reactive, ref } from "vue";
 import { PagerQueryData } from "/@/lib/http/axios/types";
 
 
@@ -59,10 +59,16 @@ export default defineComponent({
     //   return queryData
     // }
 
-    // 处理展开
+    // 处理展开 收起
     function handleOpen() {
       isOpen.value = !isOpen.value;
     }
+
+
+    onMounted(()=>{
+      console.log(123)
+    })
+
 
     return {
       isOpen,

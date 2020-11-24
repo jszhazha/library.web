@@ -5,8 +5,6 @@ import { provide, inject } from 'vue';
 const key = Symbol('table');
 
 
-
-
 export function provideTable(instance: Instance): void {
   provide(key, instance);
 }

@@ -1,5 +1,4 @@
-
-// import { ref, unref } from 'vue'
+import { provideDataPage } from '/@/utils/listPage/methods/useProvince'
 // import { ImportInstance } from "/@/lib/props/ImportModal";
 
 // interface ListPageMix {
@@ -8,11 +7,13 @@
 
 
 
-// export function listPageMix(dataPathName:stirng): ListPageMix {
 
+export function listPageMix<T>(dataPageName: string): void {
 
+  provideDataPage<T>(dataPageName)
 
-//   return {
+  // function searchInstance(): void {
+  //   // 
+  // }
 
-//   }
-// }
+}

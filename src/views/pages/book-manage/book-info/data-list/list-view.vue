@@ -1,9 +1,5 @@
 <template>
-  <table-list
-    title="图书列表"
-    :columns="tableColumns"
-    :data-source="dataSource"
-  >
+  <table-list title="图书列表" :columns="tableColumns" :data-source="dataSource">
     <template #header-left>
       <a-button @click="onBatchImport">
         批量导入
@@ -26,16 +22,13 @@
 import { defineComponent, reactive } from "vue";
 import { tableColumns } from "./data-list";
 import { BookInfo } from "/@/api/book-manage/book-info";
-
+import { injectDataPage } from "/@/utils/listPage/methods/useProvince";
 
 export default defineComponent({
-  emits: [
-    "on-new-data-item",
-    "on-view-data-item",
-    "on-edit-data-item",
-  ],
-  setup(_props, { emit }) {
+  setup() {
     const dataSource = reactive<BookInfo[]>([]);
+    const dataPage = injectDataPage<BookInfo>();
+
     for (let i = 0; i < 24; i++) {
       dataSource.push({
         id: i,
@@ -47,21 +40,14 @@ export default defineComponent({
       });
     }
 
+    console.log();
 
     // 添加新的数据
-    function onNewDataItem() {
-      emit("on-new-data-item");
-    }
-
+    const onNewDataItem = () => dataPage.onNewDataItem();
     // 查看数据
-    function onViewDataItem(record: BookInfo) {
-      emit("on-view-data-item", record.id);
-    }
-
+    const onViewDataItem = (record: BookInfo) => dataPage.onViewDataItem(record);
     // 编辑数据
-    function onEditDataItem(record: BookInfo) {
-      emit("on-edit-data-item", record);
-    }
+    const onEditDataItem = (record: BookInfo) => dataPage.onEditDataItem(record);
 
     // 批量导入
     function onBatchImport() {

@@ -18,8 +18,6 @@ export function checkCacheData<T>(name: string, storage: CreateStorage, callback
           removeItem: () => storage.remove(name),
         },
       },
-      {
-      }
     );
   }
 }

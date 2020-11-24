@@ -13,7 +13,7 @@ export interface RouteMeta {
   // 角色信息
   roles?: RoleEnum[];
 
-  // 是否不缓存
+  // 标签 是否不缓存
   ignoreKeepAlive?: boolean;
 
   // 菜单隐藏

@@ -31,7 +31,8 @@ const routers: AppRouteModule = {
       component: (): unknown => import(`/@/views/pages/book-manage/subject-category/data-page/data-page.vue`),
       meta: {
         title: '学科类别详情',
-        hideInMenu: true
+        hideInMenu: true,
+        ignoreKeepAlive: true
       },
     },
     {
@@ -49,7 +50,7 @@ const routers: AppRouteModule = {
       meta: {
         title: '图书信息详情',
         hideInMenu: true,
-        redirect: "/book-manage/book-info-list-page"
+        ignoreKeepAlive: true
       },
     },
   ]

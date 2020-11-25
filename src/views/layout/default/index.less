@@ -1,5 +1,5 @@
 @height: 48px;
-@tabHeight: 28px;
+@tabHeight: 32px;
 
 .default-layout {
   width: 100vw;
@@ -75,10 +75,7 @@
   }
 
   .ant-menu-inline-collapsed > .ant-menu-item,
-  .ant-menu-inline-collapsed
-    > .ant-menu-item-group
-    > .ant-menu-item-group-list
-    > .ant-menu-item,
+  .ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item,
   .ant-menu-inline-collapsed
     > .ant-menu-item-group
     > .ant-menu-item-group-list
@@ -105,15 +102,16 @@
     }
 
     .ant-tabs.ant-tabs-card {
+      padding: 6px 0;
+
       .ant-tabs-card-bar {
         .ant-tabs-nav-container {
-          height: @tabHeight + 6px;
+          height: @tabHeight;
         }
 
         .ant-tabs-tab {
           height: @tabHeight;
-          margin: 2px 0;
-          line-height: 26px;
+          line-height: @tabHeight;
           background: #fff;
           border-radius: 3px;
 

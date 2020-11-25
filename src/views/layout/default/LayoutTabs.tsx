@@ -105,7 +105,7 @@ export default defineComponent({
           onChange={handleChange}
           onEdit={handleEdit}
         >
-          {() => renderTabs()}
+          {{ default: () => renderTabs() }}
         </Tabs>
       </div>
     );

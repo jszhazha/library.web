@@ -94,8 +94,7 @@
     .ant-tabs-tab-next {
       &.ant-tabs-tab-arrow-show {
         width: @tabHeight;
-        height: @tabHeight;
-        margin: 2px 0;
+        height: @tabHeight - 2px;
         font-weight: bold;
         color: #000;
       }
@@ -111,7 +110,7 @@
 
         .ant-tabs-tab {
           height: @tabHeight;
-          line-height: @tabHeight;
+          line-height: @tabHeight - 2px;
           background: #fff;
           border-radius: 3px;
 
@@ -130,6 +129,7 @@
         .ant-tabs-tab-active {
           color: #fff;
           background: #1890ff;
+          border-color: transparent;
 
           .anticon {
             width: 12px;

@@ -45,12 +45,12 @@ export default defineComponent({
     }
 
     // 获取路由
-    function getHomeRoute(routerItem: RouteLocationMatched) {
+    function getHomeRoute(routerItem: RouteLocationMatched) {    
       if (!routerItem || !routerItem.name) return true;
       const routes = router.getRoutes();
-      const homeRoute = routes.find((item) => item.path === PageEnum.BASE_HOME);
+      const homeRoute = routes.find((item) => item.name === PageEnum.BASE_HOME);
       if (!homeRoute) return true;
-      if (homeRoute.path === routerItem.path) return true;
+      if (homeRoute.name === routerItem.name) return true;
       return false;
     }
 

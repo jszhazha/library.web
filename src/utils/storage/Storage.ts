@@ -40,7 +40,7 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
         // 防止 item 不符合 JSON 格式
         try {
           const { value, expire } = JSON.parse(item)
-          if (!isEmpty(value) && isNumber(expire) && expire >= new Date().getTime()) {
+          if (isEmpty(value) && isNumber(expire) && expire >= new Date().getTime()) {
             return value
           }
           throw 'value null'

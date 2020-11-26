@@ -19,7 +19,7 @@ export const stringify = (value: any): false | string | number => {
   const type = typeof value
   if (type !== 'object' || type === null) {
     return isToString(value)
-  } else if (!isEmptyArray(value)) {
+  } else if (isEmptyArray(value)) {
     let json = '[';
     for (let i = 0; i < value.length; i++) {
       const result = stringify(value[i])
@@ -29,7 +29,7 @@ export const stringify = (value: any): false | string | number => {
     }
     json += ']'
     return json === '[]' ? false : json
-  } else if (!isEmptyObject(value)) {
+  } else if (isEmptyObject(value)) {
     const json = []
     for (const k in value) {
       const result = stringify(value[k])

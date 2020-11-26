@@ -61,6 +61,7 @@ export default class Tab extends VuexModule {
       if (!curTab) return
       curTab.params = params || curTab.params;
       curTab.query = query || curTab.query;
+      curTab.meta = meta || curTab.meta
       this.tabsState.splice(updateIndex, 1, curTab);
       return
     }
@@ -99,7 +100,7 @@ export default class Tab extends VuexModule {
     const tabs = this.tabsState.slice(startIndex + startBase, endIndex)
     // 以 name 为数组列表
     const nameList: string[] = []
-    
+
     for (const item of tabs) {
       const affix = item.meta ? item.meta.affix : false;
       if (!affix) {

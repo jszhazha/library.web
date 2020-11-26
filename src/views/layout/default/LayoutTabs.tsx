@@ -53,13 +53,13 @@ export default defineComponent({
     function addAffixTabs(): void {
       const affixTabs = filterAffixTabs((router.getRoutes() as unknown) as AppRouteRecordRaw[]);
       const cacheTabs = readCacheTabs();
-      for (const tab of affixTabs) {
-        tabStore.commitAddTab(tab);
-      }
       if (cacheTabs) {
         for (const tab of cacheTabs) {
           tabStore.commitAddTab(tab);
         }
+      }
+      for (const tab of affixTabs) {
+        tabStore.commitAddTab(tab);
       }
     }
 

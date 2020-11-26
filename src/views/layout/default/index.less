@@ -145,11 +145,23 @@
       .ant-tabs-extra-content {
         width: 32px;
         height: @tabHeight;
-        line-height: @tabHeight + 10px;
-        text-align: center;
+        font-size: 0;
         cursor: pointer;
         background: #fff;
         border-radius: 4px;
+
+        .default-dropdown-icon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          color: #000;
+
+          &:hover {
+            color: #1890ff;
+          }
+        }
       }
     }
   }

@@ -5,12 +5,8 @@ export function is(val: unknown, type: string): boolean {
   return toString.call(val) === `[object ${type}]`;
 }
 
-export const isDef = <T = unknown>(val?: T): val is T => {
-  return typeof val !== 'undefined';
-};
-
 export const isUnDef = <T = unknown>(val?: T): val is T => {
-  return !isDef(val);
+  return typeof val !== 'undefined';
 };
 
 export function isNull(val: unknown): val is null {
@@ -38,7 +34,7 @@ export function isObject(val: unknown): boolean {
 }
 
 export function isEmptyObject(val: any): boolean {
-  return isObject(val) && isEmptyArray(Object.keys(val))
+  return !(isObject(val) && isEmptyArray(Object.keys(val)))
 }
 
 export function isFunction(val: unknown): boolean {
@@ -50,8 +46,8 @@ export function isArray(val: unknown): boolean {
 }
 
 export function isEmptyArray(val: any): boolean {
-  return isArray(val) && !!val.length
+  return !(isArray(val) && !!val.length)
 }
 export function isEmpty(val: any): boolean {
-  return isEmptyArray(val) || isEmptyArray(val) || !!val
+  return !(isEmptyArray(val) || isEmptyArray(val) || !!val)
 }

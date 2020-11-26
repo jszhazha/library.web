@@ -3,6 +3,8 @@ import router from '/@/router';
 import { tabStore, TabItem } from "/@/store/modules/tab";
 import { PageEnum } from '/@/enums/pageEnum';
 import { createStorage } from "/@/utils/storage/";
+import { menuEnum } from '/@/enums/menuEnum';
+import { useGo } from '/@/hooks/web/usePage';
 
 // 关闭
 export function closeTab(closedTab: TabItem): void {
@@ -68,8 +70,70 @@ export function useCacheTabs(): { setCacheTabs: () => void, readCacheTabs: () =>
   }
 
   return { setCacheTabs, readCacheTabs }
-
-
 }
 
 
+
+export function useTabDropdown(): { handelMenuClick: ({ key }: { key: menuEnum }) => void } {
+
+  const { currentRoute } = router;
+
+  const pageGo = useGo();
+
+  function closeLeft(): void {
+    tabStore.commitSliceCloseTab({ start: 0, end: unref(currentRoute) })
+  }
+  function closeRight(): void {
+    tabStore.commitSliceCloseTab({ start: unref(currentRoute), startBase: 1 })
+  }
+  function closeAll(): void {
+    tabStore.commitSliceCloseTab({ start: 0 })
+    gotoPage()
+  }
+
+  // 关闭所有页面时，跳转页面
+  function gotoPage() {
+    const len = unref(tabStore.getTabsState).length;
+    const { name } = unref(currentRoute);
+
+    let toPageName: PageEnum | string = PageEnum.BASE_HOME;
+
+    if (len > 0) {
+      const page = unref(tabStore.getTabsState)[len - 1];
+      const name = page.name as string
+      if (name) {
+        toPageName = name;
+      }
+    }
+    // 跳到当前页面报错
+    name !== toPageName && pageGo({ name: toPageName }, true);
+  }
+
+  function handelMenuClick({ key }: { key: menuEnum }): void {
+    switch (key) {
+      // 关闭左侧
+      case menuEnum.CLOSE_LEFT:
+        closeLeft();
+        break;
+      // 关闭右侧
+      case menuEnum.CLOSE_RIGHT:
+        closeRight();
+        break;
+      // 关闭其他
+      case menuEnum.CLOSE_OTHER:
+        closeLeft();
+        closeRight();
+        break;
+      // 关闭全部
+      case menuEnum.CLOSE_ALL:
+        closeAll();
+        break;
+      default:
+        break;
+
+    }
+
+  }
+  return { handelMenuClick }
+
+}

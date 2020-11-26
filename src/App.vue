@@ -1,5 +1,5 @@
 <template>
-  <config-provider :locale="zhCN" :transform-cell-text="transformCellText">
+  <config-provider :locale="zhCN">
     <router-view />
   </config-provider>
 </template>

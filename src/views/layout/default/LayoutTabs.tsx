@@ -2,8 +2,10 @@ import type { AppRouteRecordRaw } from "/@/router/types";
 import { defineComponent, computed, unref, watch, ref } from "vue";
 import { useGo } from "/@/hooks/web/usePage";
 import { tabStore, TabItem } from "/@/store/modules/tab";
-import { Tabs } from "ant-design-vue";
-import { closeTab, useCacheTabs } from "/@/hooks/web/useTab";
+import { Tabs, Dropdown, Menu } from "ant-design-vue";
+import { closeTab, useCacheTabs, useTabDropdown } from "/@/hooks/web/useTab";
+import { getActions } from "./tab.data";
+import Icon from "/@/components/Icon";
 
 import router from "/@/router";
 
@@ -21,7 +23,9 @@ export default defineComponent({
     });
     // 使用缓存
     const { setCacheTabs, readCacheTabs } = useCacheTabs();
-    // 缓存标签
+    // 使用下拉菜单
+    const { handelMenuClick } = useTabDropdown();
+    // 设置缓存
     setCacheTabs();
 
     // 监听路由变化
@@ -81,6 +85,7 @@ export default defineComponent({
       }
     }
 
+    // 渲染标签
     function renderTabs() {
       return unref(getTabsState).map((item: TabItem) => {
         const key = item.name as string;
@@ -94,6 +99,34 @@ export default defineComponent({
       });
     }
 
+    // 渲染菜单
+    function renderMenu() {
+      return getActions().map((el) => {
+        return (
+          <Menu.Item key={el.event}>
+            {() => (
+              <div class="p-1 index-middle">
+                <Icon icon={el.icon!} />
+                <span class="pl-3">{el.text}</span>
+              </div>
+            )}
+          </Menu.Item>
+        );
+      });
+    }
+
+    // 渲染下拉菜单
+    function readerDropdown() {
+      return (
+        <Dropdown>
+          {{
+            default: () => <Icon icon="radix-icons:caret-down" color="#000" size="20" />,
+            overlay: () => <Menu onClick={handelMenuClick}>{() => renderMenu()}</Menu>,
+          }}
+        </Dropdown>
+      );
+    }
+
     return () => (
       <div class="default-tabs">
         <Tabs
@@ -105,7 +138,7 @@ export default defineComponent({
           onChange={handleChange}
           onEdit={handleEdit}
         >
-          {{ default: () => renderTabs() }}
+          {{ default: () => renderTabs(), tabBarExtraContent: () => readerDropdown() }}
         </Tabs>
       </div>
     );

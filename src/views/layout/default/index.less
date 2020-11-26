@@ -94,7 +94,7 @@
     .ant-tabs-tab-next {
       &.ant-tabs-tab-arrow-show {
         width: @tabHeight;
-        height: @tabHeight - 2px;
+        height: @tabHeight;
         font-weight: bold;
         color: #000;
       }
@@ -140,6 +140,16 @@
             }
           }
         }
+      }
+
+      .ant-tabs-extra-content {
+        width: 32px;
+        height: @tabHeight;
+        line-height: @tabHeight + 10px;
+        text-align: center;
+        cursor: pointer;
+        background: #fff;
+        border-radius: 4px;
       }
     }
   }

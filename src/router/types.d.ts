@@ -13,6 +13,9 @@ export interface RouteMeta {
   // 角色信息
   roles?: RoleEnum[];
 
+  // 缓存页面
+  KeepAlive?: boolean,
+  
   // 忽略标签缓存
   ignoreKeepAlive?: boolean;
 

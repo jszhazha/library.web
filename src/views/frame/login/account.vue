@@ -1,19 +1,25 @@
 <template>
   <div class="login-account">
+    <div v-show="error.is" class="index-msg-error">
+      <div class="index-msg-error-error-div index-middle">
+        <InfoCircleFilled class="index-msg-error-error-div-icon" />
+        <span>{{ error.msg }}</span>
+      </div>
+    </div>
     <global-input
       v-model:value="formData.account"
+      v-model:errorBorder="error.is"
       type="text"
       placeholder="手机号/邮件地址/图书馆账号"
     />
     <global-input
       v-model:value="formData.password"
+      v-model:errorBorder="error.is"
       class="login-account-password"
       type="password"
       placeholder="密码"
     />
-    <span class="login-account-change-link" @click="onChange">
-      短信验证码登录
-    </span>
+    <span class="login-account-change-link" @click="onChange"> 短信验证码登录 </span>
     <global-button class="login-account-button" :disabled="disabled">
       登录
     </global-button>
@@ -39,13 +45,20 @@ export default defineComponent({
       account: "admin",
       password: "123456",
     });
+    // 错误信息
+    const error = reactive({
+      msg: "",
+      is: false,
+    });
 
     // 点击短信登录
     const onChange = () => emit("on-change", "account");
 
+    // 点击按键
     const disabled = computed(() => !(!!formData.account && !!formData.password));
 
     return {
+      error,
       disabled,
       formData,
       onChange,

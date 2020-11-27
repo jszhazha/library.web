@@ -88,8 +88,7 @@ export default defineComponent({
 @titleColor: #191919;
 
 .login {
-  width: 100vw;
-  height: 100vh;
+  min-width: 800px;
 
   &-header {
     display: flex;

@@ -1,28 +1,30 @@
 <template>
   <div
-    class="global-input index-middle"
+    :class="['global-input', 'index-middle', errorBorder ? 'error-border' : '']"
     :style="{ 'border-color': borderColor }"
   >
     <div v-if="type === 'phone'" class="global-input-phone">
       中国 +86
     </div>
     <input
-      v-model="inputValue"
-      :type="inputType"
+      v-model="userInput.value"
+      :type="userInput.type"
       :placeholder="placeholder"
       :maxlength="maxlength"
       @blur="handleBlur"
       @focus="handleFocus"
       @input="handleInput"
     >
+    <!-- 验证码 -->
     <div
       v-if="type === 'code'"
       class="global-input-code"
-      :class="{ 'index-disabled': codeDisabled }"
+      :class="{ 'index-disabled': codeDisabled || codeContent.instance }"
       @click="handleCode"
     >
-      获取验证码
+      {{ codeContent.tip }}
     </div>
+    <!-- 密码显示 -->
     <EyeInvisibleOutlined
       v-if="type === 'password' && passwordType"
       class="global-input-password"
@@ -37,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, reactive, onBeforeUnmount } from "vue";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons-vue";
 
 enum InputTypeMap {
@@ -52,6 +54,17 @@ enum TypeMap {
   password = "password",
   phone = "phone",
   code = "code",
+}
+
+interface UserInput {
+  type: string;
+  value: string;
+}
+
+interface CodeContent {
+  instance: NodeJS.Timeout | null;
+  time: number;
+  tip: string;
 }
 
 export default defineComponent({
@@ -77,52 +90,95 @@ export default defineComponent({
       type: Number,
       default: undefined,
     },
-    // code 类型 禁止点击
+    // code (验证码) 类型 禁止点击
     codeDisabled: {
       type: Boolean,
       default: false,
     },
+    // 错误边框
+    errorBorder: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ["update:value"],
+  emits: ["update:value", "update:errorBorder"],
   setup(props, { emit }) {
-    const inputType = ref<string>(InputTypeMap[props.type as InputTypeMap]);
+    const userInput = reactive<UserInput>({
+      type: InputTypeMap[props.type as InputTypeMap],
+      value: props.value,
+    });
+    const codeContent = reactive<CodeContent>({
+      instance: null,
+      tip: "获取验证码",
+      time: 0,
+    });
     const passwordType = ref<boolean>(true);
     const borderColor = ref<string>("");
-    const inputValue = ref<string>(props.value);
 
     // 密码切换
-    const handleSwitch = (value: boolean) => {
+    function handleSwitch(value: boolean) {
       passwordType.value = value;
-      if (value) inputType.value = TypeMap.password;
-      else inputType.value = TypeMap.text;
-    };
+      if (value) userInput.type = TypeMap.password;
+      else userInput.type = TypeMap.text;
+    }
 
     // 失去焦点
-    const handleBlur = () => {
+    function handleBlur() {
       borderColor.value = "";
-    };
+      if (props.type === TypeMap.phone) {
+        if (/^1\d{10}$/.test(userInput.value)) {
+          emit("update:errorBorder", false);
+        } else {
+          emit("update:errorBorder", true);
+        }
+      }
+    }
 
     // 获得焦点
-    const handleFocus = () => {
+    function handleFocus() {
       borderColor.value = "#1890ff";
-    };
+    }
 
     // 输入内容
-    const handleInput = () => {
+    function handleInput() {
       if (props.type === TypeMap.phone || props.type === TypeMap.code) {
-        inputValue.value = inputValue.value.replace(/[^0-9]+/g, "");
+        userInput.value = userInput.value.replace(/[^0-9]+/g, "");
       }
-      emit("update:value", inputValue);
-    };
+      emit("update:value", userInput.value);
+      emit("update:errorBorder", false);
+    }
 
     // 点击 code
-    const handleCode = () => {
-      if (props.codeDisabled) return;
-    };
+    function handleCode() {
+      if (props.codeDisabled || codeContent.instance) {
+        return;
+      }
+      setCountdown();
+    }
+
+    // 设置定时器
+    function setCountdown() {
+      codeContent.time = 60;
+      codeContent.instance = setInterval(() => {
+        codeContent.time--;
+        codeContent.tip = `重新获取 (${codeContent.time})`;
+        console.log(codeContent.time)
+        if (codeContent.time === -1) {
+          codeContent.tip = "重新获取";
+          clearInterval(codeContent.instance!);
+          codeContent.instance = null;
+        }
+      }, 1000);
+    }
+
+    onBeforeUnmount(() => {
+      // 页面卸载时销毁 定时器
+      codeContent.instance && clearInterval(codeContent.instance);
+    });
 
     return {
-      inputType,
-      inputValue,
+      userInput,
+      codeContent,
       borderColor,
       passwordType,
       handleCode,
@@ -174,5 +230,9 @@ export default defineComponent({
     color: #1890ff;
     cursor: pointer;
   }
+}
+
+.error-border {
+  border-color: #fa2a2d !important;
 }
 </style>

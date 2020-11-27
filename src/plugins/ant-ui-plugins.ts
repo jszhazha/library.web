@@ -4,7 +4,7 @@ import type { App } from 'vue';
 import { Button, Divider, Form, Input, Modal, Pagination, Row, Col, Checkbox, notification, Popover } from 'ant-design-vue';
 
 // 导入 Icon
-import { PlusOutlined, SettingOutlined, DownOutlined } from '@ant-design/icons-vue';
+import { PlusOutlined, SettingOutlined, DownOutlined, InfoCircleFilled } from '@ant-design/icons-vue';
 
 import 'ant-design-vue/dist/antd.css';
 
@@ -27,5 +27,6 @@ export default class AntUiPlugins {
     app.component('PlusOutlined', PlusOutlined)
     app.component("DownOutlined", DownOutlined)
     app.component('SettingOutlined', SettingOutlined)
+    app.component('InfoCircleFilled', InfoCircleFilled)
   }
 }

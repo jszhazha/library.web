@@ -32,6 +32,7 @@
   &-disabled {
     cursor: default !important;
     opacity: 0.38;
+    user-select: none;
   }
 
   &-center-middle {
@@ -129,5 +130,21 @@
 
   &-selected {
     color: @selectBefore;
+  }
+
+
+  &-msg-error {
+    position: relative;
+    height: 0;
+    color: #fa2a2d;
+
+    &-error-div {
+      position: absolute;
+      bottom: 5px;
+
+      &-icon {
+        margin: 0 5px 0 0;
+      }
+    }
   }
 }

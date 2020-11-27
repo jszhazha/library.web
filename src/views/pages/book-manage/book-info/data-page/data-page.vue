@@ -67,7 +67,7 @@
       <a-button v-show="!readonly" @click="onRestPage">
         重置
       </a-button>
-      <a-button v-show="readonly" type="primary">
+      <a-button v-show="readonly" type="primary" @click="onEditpage">
         编辑
       </a-button>
       <a-button v-show="!readonly" type="primary">
@@ -78,7 +78,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, toRefs } from "vue";
 import { dataPageMix } from "/@/utils/dataPage/";
 import { BookInfo } from "/@/api/book-manage/book-info";
 import { formRules } from "./data-page";
@@ -89,12 +89,16 @@ export default defineComponent({
   setup() {
     const dataItem = reactive<BookInfo>({});
     const rules = reactive(formRules);
-    const { onClosePage, onRestPage, mode, readonly, validateInfos } = dataPageMix<BookInfo>({
-      dataItem,
-      rules,
-    });
+    const { pageInfo, onPage, validateInfos } = dataPageMix<BookInfo>({ dataItem, rules });
+    const { mode, readonly } = toRefs(pageInfo);
 
-    return { mode, dataItem, formRules, onClosePage, onRestPage, readonly, validateInfos };
+    return {
+      mode,
+      readonly,
+      dataItem,
+      ...onPage,
+      validateInfos,
+    };
   },
 });
 </script>

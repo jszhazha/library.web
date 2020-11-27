@@ -4,15 +4,15 @@ import { isBoolean, isString, isStrNum } from "/@/utils/is";
 import useToast from "/@/components/Toast";
 
 
-export interface CheckDataRouter {
-  id: string;
+export interface QueryRoute {
+  id?: string;
 
   mode: string;
 }
 
 
 // 检查路由是否合法 并返回页面模式
-export function checkDataRouter(query: CheckDataRouter): number {
+export function checkDataRouter(query: QueryRoute): number {
   const { id, mode } = query;
   // 解析路由
   const pageMode = parsePageModeFromString(mode);
@@ -21,7 +21,7 @@ export function checkDataRouter(query: CheckDataRouter): number {
   // 判断 mode , id 是否正确
   if (isBoolean(pageMode)) {
     description = "记录的 MODE 值不合法, 请修改后再次尝试";
-  } else if (pageMode.mode !== PageMode.new && !isStrNum(id)) {
+  } else if (pageMode.mode !== PageMode.new && !isStrNum(id!)) {
     description = "记录的 ID 值不合法, 请修改后再次尝试";
   }
   // 判断 description 类型 字符串 -> 弹出提示框

@@ -1,11 +1,11 @@
-import { Ref } from "vue";
+import type { Ref } from 'vue';
 import type { CreateStorage } from "/@/utils/storage/Storage";
 import type { FromRules } from '/@/lib/interface/From'
-import { unref, ref, onBeforeUnmount, onMounted, watch } from "vue";
+import { unref, onBeforeUnmount, onMounted, watch, reactive, toRef } from "vue";
 import { useRouter } from "vue-router";
 import { assign } from 'lodash-es'
 import { checkCacheData, cacheData } from './methods/cacheData'
-import { checkDataRouter, CheckDataRouter } from './methods/dataRouter'
+import { checkDataRouter, QueryRoute } from './methods/dataRouter'
 import { createStorage } from "/@/utils/storage/";
 import { PageMode } from "/@/utils/helper/breadcrumb";
 import { useToast } from "vue-toastification";
@@ -15,20 +15,23 @@ import './index.less'
 
 
 interface DataPageMix {
-  // 页面模式
-  mode: Ref<number>;
 
-  // 关闭触发
-  onClosePage: () => void;
+  // 页面底部方法
+  onPage: {
+    // 关闭触发
+    onClosePage: () => void;
 
-  // 重置触发
-  onRestPage: () => void;
+    // 重置触发
+    onRestPage: () => void;
 
-  //设置输入框为只读
-  readonly: Ref<boolean>;
+    // 编辑触发
+    onEditpage: () => void
+  }
+  // 页面信息
+  pageInfo: PageInfo
 
   // 检测消息
-  validateInfos: unknown;
+  validateInfos: unknown
 }
 
 interface DataPageMixParameter<T> {
@@ -39,6 +42,18 @@ interface DataPageMixParameter<T> {
   rules: FromRules
 }
 
+// 页面信息
+interface PageInfo {
+  // 模式
+  mode: number
+
+  // 只能读取
+  readonly: boolean
+
+  // 参数信息
+  query: QueryRoute
+}
+
 
 // 页面为新建模式  初始化
 function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: CreateStorage) {
@@ -46,7 +61,6 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
   function updateHandler() {
     if (mode.value === PageMode.new) {
       cacheData(name, storage, dataItem)
-
     }
   }
   // 查看缓存中是否有数据
@@ -72,30 +86,30 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
 
 
 export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): DataPageMix {
-  const { back, currentRoute } = useRouter();
+  const { back, replace, currentRoute } = useRouter();
   const { query, name } = unref(currentRoute);
   const toast = useToast()
   const { validateInfos, resetFields } = useForm(dataItem, rules)
+  const pageInfo = reactive<PageInfo>({
+    mode: checkDataRouter((query as unknown) as QueryRoute),
+    readonly: false,
+    query: (query as unknown) as QueryRoute
+  })
 
 
   // 设置缓存
   const storage = createStorage(sessionStorage);
-  // 页面模式
-  const mode = ref<number>(
-    checkDataRouter((query as unknown) as CheckDataRouter)
-  );
-  // 设置输入框为只读
-  const readonly = ref<boolean>(false);
+
 
 
   // 页面为查看模式, 输入框 设置为只读模式
-  if (mode.value === PageMode.view) {
-    readonly.value = true;
+  if (pageInfo.mode === PageMode.view) {
+    pageInfo.readonly = true;
   }
 
   // 页面为新建模式 
-  if (mode.value === PageMode.new) {
-    newModeInit<T>(dataItem, mode, name as string, storage)
+  if (pageInfo.mode === PageMode.new) {
+    newModeInit<T>(dataItem, toRef(pageInfo, 'mode'), name as string, storage)
   }
 
   /**
@@ -119,6 +133,15 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
     resetFields();
   }
 
+  /**
+   * 页面点击编辑触发的函数
+   */
+  const onEditpage = () => {
+    pageInfo.mode = PageMode.edit
+    pageInfo.readonly = false
+    replace({ query: { mode: PageMode[PageMode.edit], id: pageInfo.query.id } })
+  }
+
   //  push({ query: { mode: PageMode[PageMode.edit] } })
 
 
@@ -128,5 +151,5 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   // console.log(dataItem)
   // storage.set(name as string, dataItem)
 
-  return { onClosePage, onRestPage, mode, readonly, validateInfos };
+  return { onPage: { onClosePage, onRestPage, onEditpage }, pageInfo, validateInfos };
 }

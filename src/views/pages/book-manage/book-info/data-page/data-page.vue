@@ -1,6 +1,6 @@
 <template>
   <global-data-page>
-    <a-form :label-col="{ flex: '100px' }" :wrapper-col="{ flex: 'auto' }" :rules="formRules">
+    <a-form :label-col="{ flex: '100px' }" :wrapper-col="{ flex: 'auto' }">
       <global-card title="基本信息">
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
@@ -90,8 +90,6 @@ export default defineComponent({
       dataItem,
       rules,
     });
-
-    // const { validateInfos } = useForm(dataItem, formRules);
 
     return { mode, dataItem, formRules, onClosePage, onRestPage, readonly, validateInfos };
   },

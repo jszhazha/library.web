@@ -11,7 +11,6 @@ import { PageMode } from "/@/utils/helper/breadcrumb";
 import { useToast } from "vue-toastification";
 import { useForm } from "@ant-design-vue/use";
 
-
 import './index.less'
 
 
@@ -76,7 +75,8 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   const { back, currentRoute } = useRouter();
   const { query, name } = unref(currentRoute);
   const toast = useToast()
-  const { validateInfos } = useForm(dataItem, rules)
+  const { validateInfos, resetFields } = useForm(dataItem, rules)
+
 
   // 设置缓存
   const storage = createStorage(sessionStorage);
@@ -113,8 +113,11 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   /**
    * 页面点击重置触发的函数
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onRestPage = () => Object.keys(dataItem).forEach((key) => (dataItem as any)[key] = '')
+  const onRestPage = () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Object.keys(dataItem).forEach((key) => (dataItem as any)[key] = '')
+    resetFields();
+  }
 
   //  push({ query: { mode: PageMode[PageMode.edit] } })
 

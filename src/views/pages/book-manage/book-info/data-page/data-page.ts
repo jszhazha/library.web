@@ -1,5 +1,5 @@
 import type { TableColumn } from "/@/lib/props/TableList";
-import type { FromRules } from '/@/lib/interface/From'
+import type { FromRules } from '/@/lib/interface/From';
 
 export const holdInfoColumns: TableColumn[] = [
   {
@@ -38,6 +38,7 @@ export const holdInfoColumns: TableColumn[] = [
     align: "center",
   },
 ];
+
 
 export const formRules: FromRules = {
   name: [

@@ -1,9 +1,6 @@
 
 
 interface RulesOptions {
-  // 校验触发的时机
-  trigger?: 'blur' | 'change' | ['change', 'blur']
-
   // 枚举类型
   enum?: string
 

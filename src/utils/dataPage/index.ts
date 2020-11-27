@@ -1,5 +1,6 @@
-import type { Ref } from "vue";
+import { Ref } from "vue";
 import type { CreateStorage } from "/@/utils/storage/Storage";
+import type { FromRules } from '/@/lib/interface/From'
 import { unref, ref, onBeforeUnmount, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { assign } from 'lodash-es'
@@ -8,6 +9,7 @@ import { checkDataRouter, CheckDataRouter } from './methods/dataRouter'
 import { createStorage } from "/@/utils/storage/";
 import { PageMode } from "/@/utils/helper/breadcrumb";
 import { useToast } from "vue-toastification";
+import { useForm } from "@ant-design-vue/use";
 
 
 import './index.less'
@@ -25,7 +27,19 @@ interface DataPageMix {
 
   //设置输入框为只读
   readonly: Ref<boolean>;
+
+  // 检测消息
+  validateInfos: unknown;
 }
+
+interface DataPageMixParameter<T> {
+  // 数据
+  dataItem: T;
+
+  // 规则
+  rules: FromRules
+}
+
 
 // 页面为新建模式  初始化
 function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: CreateStorage) {
@@ -58,10 +72,11 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
 
 
 
-export function dataPageMix<T>(dataItem: T): DataPageMix {
+export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): DataPageMix {
   const { back, currentRoute } = useRouter();
   const { query, name } = unref(currentRoute);
   const toast = useToast()
+  const { validateInfos } = useForm(dataItem, rules)
 
   // 设置缓存
   const storage = createStorage(sessionStorage);
@@ -110,5 +125,5 @@ export function dataPageMix<T>(dataItem: T): DataPageMix {
   // console.log(dataItem)
   // storage.set(name as string, dataItem)
 
-  return { onClosePage, onRestPage, mode, readonly };
+  return { onClosePage, onRestPage, mode, readonly, validateInfos };
 }

@@ -46,6 +46,7 @@ const viteConfig: UserConfig = {
     include: [
       'ant-design-vue/es/locale/zh_CN',
       '@ant-design/icons-vue',
+      '@ant-design-vue/use'
     ],
   },
 

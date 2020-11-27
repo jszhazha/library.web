@@ -1,24 +1,16 @@
 <template>
   <global-data-page>
-    <a-form :label-col="{ flex: '100px' }" :wrapper-col="{ flex: 'auto' }">
+    <a-form :label-col="{ flex: '100px' }" :wrapper-col="{ flex: 'auto' }" :rules="formRules">
       <global-card title="基本信息">
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="题名">
-              <a-input
-                v-model:value="dataItem.name"
-                placeholder="请输入"
-                :disabled="readonly"
-              />
+            <a-form-item label="题名" v-bind="validateInfos.name">
+              <a-input v-model:value="dataItem.name" placeholder="请输入" :disabled="readonly" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="作者">
-              <a-input
-                v-model:value="dataItem.author"
-                placeholder="请输入"
-                :disabled="readonly"
-              />
+            <a-form-item label="作者" v-bind="validateInfos.author">
+              <a-input v-model:value="dataItem.author" placeholder="请输入" :disabled="readonly" />
             </a-form-item>
           </a-col>
         </a-row>
@@ -86,17 +78,22 @@
 import { defineComponent, reactive } from "vue";
 import { dataPageMix } from "/@/utils/dataPage/";
 import { BookInfo } from "/@/api/book-manage/book-info";
+import { formRules } from "./data-page";
 import holdInfo from "./hold-lnfo.vue";
 
 export default defineComponent({
   components: { holdInfo },
   setup() {
     const dataItem = reactive<BookInfo>({});
-    const { onClosePage, onRestPage, mode, readonly } = dataPageMix<BookInfo>(
-      dataItem
-    );
+    const rules = reactive(formRules);
+    const { onClosePage, onRestPage, mode, readonly, validateInfos } = dataPageMix<BookInfo>({
+      dataItem,
+      rules,
+    });
 
-    return { mode, dataItem, onClosePage, onRestPage, readonly };
+    // const { validateInfos } = useForm(dataItem, formRules);
+
+    return { mode, dataItem, formRules, onClosePage, onRestPage, readonly, validateInfos };
   },
 });
 </script>

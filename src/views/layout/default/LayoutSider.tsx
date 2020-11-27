@@ -6,12 +6,7 @@ import { useRouter } from "vue-router";
 import config from "/@/config/";
 import { MenuState } from "./type";
 import router from "/@/router";
-import {
-  getMenus,
-  getFlatMenus,
-  getAllParentPath,
-  menuHasChildren,
-} from "/@/utils/helper/menu";
+import { getMenus, getFlatMenus, getAllParentPath, menuHasChildren } from "/@/utils/helper/menu";
 import MenuContent from "./MenuContent";
 
 export default defineComponent({
@@ -37,21 +32,15 @@ export default defineComponent({
     // 处理菜单改变
     function handleMenuChange() {
       const flatItems = getFlatMenus();
-      const findMenu = flatItems.find(
-        (menu) => menu.path === unref(currentRoute).path
-      );
+      const findMenu = flatItems.find((menu) => menu.path === unref(currentRoute).path);
       if (findMenu) {
         menuState.openKeys = getAllParentPath(flatItems, findMenu.path!);
-        menuState.selectedKeys = [
-          findMenu.path.replace(/data-page$/, "list-page"),
-        ];
+        menuState.selectedKeys = [findMenu.path.replace(/data-page$/, "list-page")];
       }
     }
 
     const getOpenKeys = computed(() => {
-      return menuStore.getCollapsedState
-        ? menuState.collapsedOpenKeys
-        : menuState.openKeys;
+      return menuStore.getCollapsedState ? menuState.collapsedOpenKeys : menuState.openKeys;
     });
 
     // 处理打开菜单
@@ -75,17 +64,9 @@ export default defineComponent({
         // 没有子菜单
         if (!menuHasChildren(menu)) {
           return (
-            <Menu.Item
-              key={path}
-              title={index === 1 && !showTitle ? title : ""}
-            >
+            <Menu.Item key={path} title={index === 1 && !showTitle ? title : ""}>
               {() => [
-                <MenuContent
-                  icon={icon}
-                  level={index}
-                  title={title}
-                  showTitle={showTitle}
-                />,
+                <MenuContent icon={icon} level={index} title={title} showTitle={showTitle} />,
               ]}
             </Menu.Item>
           );
@@ -94,12 +75,7 @@ export default defineComponent({
           <Menu.SubMenu key={path} class="layout-sider-menu-sub">
             {{
               title: () => [
-                <MenuContent
-                  icon={icon}
-                  level={index}
-                  title={title}
-                  showTitle={showTitle}
-                />,
+                <MenuContent icon={icon} level={index} title={title} showTitle={showTitle} />,
               ],
               default: () => renderMenuItem(menu.children, index + 1),
             }}
@@ -108,10 +84,6 @@ export default defineComponent({
       });
     }
 
-    // 处理点击菜单收缩
-    function handleCollapseChange(collapsed: boolean) {
-      menuStore.commitCollapsedState(collapsed);
-    }
 
     watch(
       () => currentRoute.value.name,
@@ -144,18 +116,13 @@ export default defineComponent({
     handleMenuChange();
 
     return () => {
-      const {
-        getCollapsedState,
-        getMenuWidthState,
-        getCollapsedWidth,
-      } = menuStore;
+      const { getCollapsedState,getMenuWidthState, getCollapsedWidth } = menuStore;
       return (
         <Layout.Sider
           collapsible
           breakpoint="md"
           collapsed={getCollapsedState}
           collapsedWidth={getCollapsedWidth}
-          onCollapse={handleCollapseChange}
           trigger={null}
           theme={config.theme}
           width={getMenuWidthState}
@@ -165,12 +132,7 @@ export default defineComponent({
             <>
               <div class="layout-sider-header index-center-middle index-hidden-newline">
                 <img src={config.logo} class="layout-sider-header-logo" />
-                <div
-                  class={[
-                    "layout-sider-header-title",
-                    getCollapsedState && "index-hidden",
-                  ]}
-                >
+                <div class={["layout-sider-header-title", getCollapsedState && "index-hidden"]}>
                   {config.title}
                 </div>
               </div>

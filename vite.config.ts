@@ -6,7 +6,7 @@ import { createProxy } from './build/config/vite/proxy';
 function pathResolve(dir: string) {
   return resolve(__dirname, '.', dir);
 }
-const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY } = loadEnv();
+const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_OPEN } = loadEnv();
 
 
 const viteConfig: UserConfig = {
@@ -27,7 +27,7 @@ const viteConfig: UserConfig = {
    * 运行自动打开浏览器·
    * @default 'false'
    */
-  open: true,
+  open: VITE_OPEN,
 
   // 别名
   alias: {

@@ -10,7 +10,7 @@ class Menu extends VuexModule {
   // 菜单宽度
   private menuWidthState: number = config.menuWidth
 
-  // 默认展开
+  // 菜单是否展开
   private collapsedState: boolean = config.collapsed
 
   // 收缩宽度

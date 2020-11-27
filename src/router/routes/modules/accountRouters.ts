@@ -2,10 +2,6 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-/**
- * @description  所有路由已 name 字段 作为 key 值,在注册路由时, 会拼接 layout.name + routes.name
- */
-
 const routers: AppRouteModule = {
   layout: {
     path: '/account-manage',

@@ -116,7 +116,3 @@ const routers: AppRouteModule = {
     affix?: boolean
   }
 ```
-
-
-# 特别感谢 [Vben](https://vvbin.cn/doc-next/)
-# 特别感谢 [中山行必果](http://www.gdxbgkj.com/)

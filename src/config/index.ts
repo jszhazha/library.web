@@ -20,7 +20,9 @@ interface Config {
 
   collapsed: boolean;
 
-  collapsedWidth: number
+  collapsedWidth: number,
+
+  max: number;
 }
 
 
@@ -44,7 +46,11 @@ const config: Config = {
   collapsed: false,
 
   // 收缩宽度
-  collapsedWidth: 49
+  collapsedWidth: 49,
+
+  // 缓存最大数量
+  max: 2
+
 }
 
 

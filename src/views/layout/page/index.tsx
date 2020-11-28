@@ -7,13 +7,7 @@ export default defineComponent({
     return () => (
       <RouterView>
         {{
-          default: ({
-            Component,
-            route,
-          }: {
-            Component: any;
-            route: RouteLocation;
-          }) => {
+          default: ({ Component, route }: { Component: any; route: RouteLocation }) => {
             return (
               <Transition name="fade-slide" mode="out-in">
                 {() => <Component key={route.path} />}

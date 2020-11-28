@@ -32,7 +32,6 @@ class aes {
   // 加密
   encrypt(str: string): string {
     const encrypted = CryptoES.AES.encrypt(str, this.key, this.getOption)
-    console.log(encrypted)
     return encrypted.toString()
   }
 

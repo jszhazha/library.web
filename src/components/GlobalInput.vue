@@ -162,7 +162,6 @@ export default defineComponent({
       codeContent.instance = setInterval(() => {
         codeContent.time--
         codeContent.tip = `重新获取 (${codeContent.time})`
-        console.log(codeContent.time)
         if (codeContent.time === -1) {
           codeContent.tip = "重新获取"
           clearInterval(codeContent.instance!)

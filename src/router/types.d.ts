@@ -1,5 +1,5 @@
-import type { RouteRecordRaw } from 'vue-router';
-import { RoleEnum } from '/@/enums/roleEnum';
+import type { RouteRecordRaw } from 'vue-router'
+import { RoleEnum } from '/@/enums/roleEnum'
 
 
 export interface RouteMeta {
@@ -48,7 +48,7 @@ export interface AppRouteModule {
 export interface Menu extends RouteMeta {
   name?: string | symbol;
 
-  title: string
+  title?: string
 
   path: string;
 
@@ -59,7 +59,7 @@ export interface Menu extends RouteMeta {
   orderNo?: number;
 
   roles?: RoleEnum[];
-
+  
 }
 
 

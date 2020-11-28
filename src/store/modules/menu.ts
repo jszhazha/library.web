@@ -2,7 +2,7 @@ import store from '/@/store/'
 import { VuexModule, Module, getModule, Mutation } from 'vuex-module-decorators'
 import config from '/@/config'
 
-const NAME = 'menu';
+const NAME = 'menu'
 
 @Module({ namespaced: true, name: NAME, dynamic: true, store })
 class Menu extends VuexModule {
@@ -30,12 +30,12 @@ class Menu extends VuexModule {
 
   @Mutation
   commitMenuWidthState(menuWidth: number): void {
-    this.menuWidthState = menuWidth;
+    this.menuWidthState = menuWidth
   }
 
   @Mutation
   commitCollapsedState(collapsed: boolean): void {
-    this.collapsedState = collapsed;
+    this.collapsedState = collapsed
   }
 
   @Mutation
@@ -47,5 +47,5 @@ class Menu extends VuexModule {
 
 }
 
-export { Menu };
+export { Menu }
 export const menuStore = getModule<Menu>(Menu)

@@ -1,8 +1,8 @@
-import store from '/@/store/index';
-import { VuexModule, Mutation, Module, getModule } from 'vuex-module-decorators';
+import store from '/@/store/index'
+import { VuexModule, Mutation, Module, getModule } from 'vuex-module-decorators'
 import { Menu } from '/@/router/types'
 
-const NAME = 'permission';
+const NAME = 'permission'
 
 /**
  * dynamic: true: 动态创建动态模块,即new Vuex.Store({})里面不用注册的,
@@ -16,10 +16,10 @@ export default class Permission extends VuexModule {
   private backMenuListState: Menu[] = []
 
   // 是否获取列表
-  private isDynamicAddedRouteState = false;
+  private isDynamicAddedRouteState = false
 
   get getBackMenuListState(): Menu[] {
-    return this.backMenuListState;
+    return this.backMenuListState
   }
 
   get getIsDynamicAddedRouteState(): boolean {
@@ -28,12 +28,12 @@ export default class Permission extends VuexModule {
 
   @Mutation
   commitBackMenuListState(list: Menu[]): void {
-    this.backMenuListState = list;
+    this.backMenuListState = list
   }
 
   @Mutation
   commitDynamicAddedRouteState(state: boolean): void {
-    this.isDynamicAddedRouteState = state;
+    this.isDynamicAddedRouteState = state
   }
 
   // @Action
@@ -43,5 +43,5 @@ export default class Permission extends VuexModule {
 
 }
 
-export { Permission };
-export const permissionStore = getModule<Permission>(Permission);
+export { Permission }
+export const permissionStore = getModule<Permission>(Permission)

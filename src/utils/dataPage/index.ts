@@ -1,15 +1,15 @@
-import type { Ref } from 'vue';
-import type { CreateStorage } from "/@/utils/storage/Storage";
+import type { Ref } from 'vue'
+import type { CreateStorage } from "/@/utils/storage/Storage"
 import type { FromRules } from '/@/lib/interface/From'
-import { unref, onBeforeUnmount, onMounted, watch, reactive, toRef } from "vue";
-import { useRouter } from "vue-router";
+import { unref, onBeforeUnmount, onMounted, watch, reactive, toRef } from "vue"
+import { useRouter } from "vue-router"
 import { assign } from 'lodash-es'
 import { checkCacheData, cacheData } from './methods/cacheData'
 import { checkDataRouter, QueryRoute } from './methods/dataRouter'
-import { createStorage } from "/@/utils/storage/";
-import { PageMode } from "/@/utils/helper/breadcrumb";
-import { useToast } from "vue-toastification";
-import { useForm } from "@ant-design-vue/use";
+import { createStorage } from "/@/utils/storage/"
+import { PageMode } from "/@/utils/helper/breadcrumb"
+import { useToast } from "vue-toastification"
+import { useForm } from "@ant-design-vue/use"
 
 import './index.less'
 
@@ -64,7 +64,7 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
     }
   }
   // 查看缓存中是否有数据
-  checkCacheData<T>(name, storage, (data: T) => assign(dataItem, data));
+  checkCacheData<T>(name, storage, (data: T) => assign(dataItem, data))
 
   /**
    * 刷新页面 不会走生命周期 , 同时监听刷新和卸载时 进行缓存数据
@@ -75,7 +75,7 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
   })
   onBeforeUnmount(() => {
     // 
-    updateHandler();
+    updateHandler()
     // 停止监听刷新
     window.removeEventListener('beforeunload', updateHandler)
 
@@ -86,8 +86,8 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
 
 
 export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): DataPageMix {
-  const { back, replace, currentRoute } = useRouter();
-  const { query, name } = unref(currentRoute);
+  const { back, replace, currentRoute } = useRouter()
+  const { query, name } = unref(currentRoute)
   const toast = useToast()
   const { validateInfos, resetFields } = useForm(dataItem, rules)
   const pageInfo = reactive<PageInfo>({
@@ -98,13 +98,13 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
 
 
   // 设置缓存
-  const storage = createStorage(sessionStorage);
+  const storage = createStorage(sessionStorage)
 
 
 
   // 页面为查看模式, 输入框 设置为只读模式
   if (pageInfo.mode === PageMode.view) {
-    pageInfo.readonly = true;
+    pageInfo.readonly = true
   }
 
   // 页面为新建模式 
@@ -115,7 +115,7 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   /**
    * 页面点击关闭触发函数
    */
-  const onClosePage = () => back();
+  const onClosePage = () => back()
 
   /**
    * 监听路由变化 关闭对话框
@@ -130,7 +130,7 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   const onRestPage = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Object.keys(dataItem).forEach((key) => (dataItem as any)[key] = '')
-    resetFields();
+    resetFields()
   }
 
   /**
@@ -151,5 +151,5 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   // console.log(dataItem)
   // storage.set(name as string, dataItem)
 
-  return { onPage: { onClosePage, onRestPage, onEditpage }, pageInfo, validateInfos };
+  return { onPage: { onClosePage, onRestPage, onEditpage }, pageInfo, validateInfos }
 }

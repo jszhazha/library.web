@@ -1,8 +1,8 @@
-import { defineComponent } from "vue";
-import { Layout } from "ant-design-vue";
-import LayoutBreadcrumb from "./LayoutBreadcrumb";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
-import { menuStore } from "/@/store/modules/menu";
+import { defineComponent } from "vue"
+import { Layout } from "ant-design-vue"
+import LayoutBreadcrumb from "./LayoutBreadcrumb"
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue"
+import { menuStore } from "/@/store/modules/menu"
 
 export default defineComponent({
   name: "DefaultLayoutHeader",
@@ -11,12 +11,11 @@ export default defineComponent({
       // 处理点击折叠
       function handleTriggerClick() {
         if (menuStore.getCollapsedState) {
-          menuStore.commitCollapsedState(false);
+          menuStore.commitCollapsedState(false)
         } else {
-          menuStore.commitCollapsedState(true);
+          menuStore.commitCollapsedState(true)
         }
       }
-
 
       return (
         <Layout.Header class="layout-header">
@@ -24,12 +23,8 @@ export default defineComponent({
             <div class="index-space-between">
               <div class="layout-header-left index-middle">
                 <div class="header-trigger" onClick={handleTriggerClick}>
-                  <MenuFoldOutlined
-                    class={[menuStore.getCollapsedState && "index-hidden"]}
-                  />
-                  <MenuUnfoldOutlined
-                    class={[!menuStore.getCollapsedState && "index-hidden"]}
-                  />
+                  <MenuFoldOutlined class={[menuStore.getCollapsedState && "index-hidden"]} />
+                  <MenuUnfoldOutlined class={[!menuStore.getCollapsedState && "index-hidden"]} />
                 </div>
                 <LayoutBreadcrumb />
               </div>
@@ -37,7 +32,7 @@ export default defineComponent({
             </div>
           )}
         </Layout.Header>
-      );
-    };
+      )
+    }
   },
-});
+})

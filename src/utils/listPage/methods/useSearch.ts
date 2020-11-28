@@ -1,5 +1,5 @@
-import { Ref } from "vue";
-import { PagerQueryData } from "/@/lib/http/axios/types";
+import { Ref } from "vue"
+import { PagerQueryData } from "/@/lib/http/axios/types"
 
 interface UseSearch {
   // 重置数据
@@ -33,7 +33,7 @@ export function useSearch({ queryData, isOpen }: Parameter): UseSearch {
   }
 
   function onOpen() {
-    isOpen!.value = !isOpen!.value;
+    isOpen!.value = !isOpen!.value
   }
 
   return {

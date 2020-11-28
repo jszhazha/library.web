@@ -1,7 +1,7 @@
 
 
-import { notification } from 'ant-design-vue';
-import { ArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
+import { notification } from 'ant-design-vue'
+import { ArgsProps, ConfigProps } from 'ant-design-vue/lib/notification'
 
 export interface NotifyApi {
   info(config: ArgsProps): void;

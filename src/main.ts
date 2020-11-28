@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { setupRouter } from './router';
+import { setupRouter } from './router'
 import { setupStore } from './store'
 import App from './App.vue'
 import PluginsIniter from './plugins/plugins-initer'
@@ -15,4 +15,4 @@ setupStore(app)
 // 设置插件
 PluginsIniter.init(app)
 
-app.mount('#app');
+app.mount('#app')

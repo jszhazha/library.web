@@ -1,5 +1,5 @@
 
-import type { App } from 'vue';
+import type { App } from 'vue'
 
 import antUiPlugins from '/@/plugins/ant-ui-plugins'
 

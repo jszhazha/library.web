@@ -78,19 +78,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
-import { dataPageMix } from "/@/utils/dataPage/";
-import { BookInfo } from "/@/api/book-manage/book-info";
-import { formRules } from "./data-page";
-import holdInfo from "./hold-lnfo.vue";
+import { defineComponent, reactive, toRefs } from "vue"
+import { dataPageMix } from "/@/utils/dataPage/"
+import { BookInfo } from "/@/api/book-manage/book-info"
+import { formRules } from "./data-page"
+import holdInfo from "./hold-lnfo.vue"
 
 export default defineComponent({
   components: { holdInfo },
   setup() {
-    const dataItem = reactive<BookInfo>({});
-    const rules = reactive(formRules);
-    const { pageInfo, onPage, validateInfos } = dataPageMix<BookInfo>({ dataItem, rules });
-    const { mode, readonly } = toRefs(pageInfo);
+    const dataItem = reactive<BookInfo>({})
+    const rules = reactive(formRules)
+    const { pageInfo, onPage, validateInfos } = dataPageMix<BookInfo>({ dataItem, rules })
+    const { mode, readonly } = toRefs(pageInfo)
 
     return {
       mode,
@@ -98,9 +98,9 @@ export default defineComponent({
       dataItem,
       ...onPage,
       validateInfos,
-    };
+    }
   },
-});
+})
 </script>
 
 

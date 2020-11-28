@@ -20,11 +20,11 @@ export const stringify = (value: any): false | string | number => {
   if (type !== 'object' || type === null) {
     return isToString(value)
   } else if (isEmptyArray(value)) {
-    let json = '[';
+    let json = '['
     for (let i = 0; i < value.length; i++) {
       const result = stringify(value[i])
       if (!isBoolean(result)) {
-        json += (i ? ',' : '') + result;
+        json += (i ? ',' : '') + result
       }
     }
     json += ']'

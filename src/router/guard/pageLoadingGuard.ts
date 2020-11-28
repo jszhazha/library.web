@@ -1,4 +1,4 @@
-import type { Router } from 'vue-router';
+import type { Router } from 'vue-router'
 
 
 // 设置加载

@@ -36,8 +36,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { UserOutlined, CalendarOutlined } from "@ant-design/icons-vue";
+import { defineComponent } from "vue"
+import { UserOutlined, CalendarOutlined } from "@ant-design/icons-vue"
 
 export default defineComponent({
   components: { UserOutlined, CalendarOutlined },
@@ -47,7 +47,7 @@ export default defineComponent({
       default: "",
     },
   },
-});
+})
 </script>
 
 

@@ -1,4 +1,4 @@
-import { DEFAULT_CACHE_TIME } from '/@/config/encryptionSetting';
+import { DEFAULT_CACHE_TIME } from '/@/config/encryptionSetting'
 import { isString, isEmpty, isNumber } from '/@/utils/is'
 import { stringify } from '/@/utils/stringify'
 import md5 from 'md5'
@@ -12,10 +12,10 @@ export interface CreateStorage {
 
 export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage => {
   class WebStorage {
-    private storage: Storage;
+    private storage: Storage
 
     constructor() {
-      this.storage = storage;
+      this.storage = storage
     }
 
     // 获取 键 
@@ -35,7 +35,7 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
 
     // 读取 键值
     get(key: string, def = null): unknown {
-      const item = this.storage.getItem(this.getKey(key));
+      const item = this.storage.getItem(this.getKey(key))
       if (item) {
         // 防止 item 不符合 JSON 格式
         try {
@@ -45,7 +45,7 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
           }
           throw 'value null'
         } catch (e) {
-          return (this.remove(key), def);
+          return (this.remove(key), def)
         }
       }
       return def
@@ -53,7 +53,7 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
 
     // 删除 键值
     remove(key: string) {
-      this.storage.removeItem(this.getKey(key));
+      this.storage.removeItem(this.getKey(key))
     }
   }
   return new WebStorage()

@@ -28,5 +28,5 @@ export interface MenuState {
 
   // 菜单缩进宽度
   inlineIndent: number
-  
+
 }

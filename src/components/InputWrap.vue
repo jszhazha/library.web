@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, unref, watch } from "vue";
+import { defineComponent, PropType, ref, unref, watch } from "vue"
 
 export default defineComponent({
   props: {
@@ -28,27 +28,27 @@ export default defineComponent({
   },
   emits: ["update:value"],
   setup(props, { emit }) {
-    const currentValue = ref<string>("");
+    const currentValue = ref<string>("")
 
     // 内容发送变化触发
     const onChange = () => {
-      emit("update:value", currentValue.value);
-    };
+      emit("update:value", currentValue.value)
+    }
 
     watch(
       () => props.value,
       (newValue) => {
         if (unref(currentValue) === newValue) {
-          return;
+          return
         }
-        currentValue.value = newValue;
+        currentValue.value = newValue
       },
       { immediate: true }
-    );
+    )
 
-    return { currentValue, onChange };
+    return { currentValue, onChange }
   },
-});
+})
 </script>
 
 

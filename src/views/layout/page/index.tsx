@@ -1,6 +1,6 @@
-import { defineComponent, Transition } from "vue";
-import { RouterView, RouteLocation } from "vue-router";
-import "./index.less";
+import { defineComponent, Transition } from "vue"
+import { RouterView, RouteLocation } from "vue-router"
+import "./index.less"
 
 export default defineComponent({
   setup() {
@@ -12,10 +12,10 @@ export default defineComponent({
               <Transition name="fade-slide" mode="out-in">
                 {() => <Component key={route.path} />}
               </Transition>
-            );
+            )
           },
         }}
       </RouterView>
-    );
+    )
   },
-});
+})

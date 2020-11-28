@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive } from "vue"
 
 export default defineComponent({
   emits: ["on-change"],
@@ -39,17 +39,17 @@ export default defineComponent({
     const formData = reactive({
       phone: "",
       code: "",
-    });
+    })
     // 错误信息
     const error = reactive({
       code: false,
       phone: false,
-    });
-    const onChange = () => emit("on-change", "phone");
+    })
+    const onChange = () => emit("on-change", "phone")
 
-    return { formData, error, onChange };
+    return { formData, error, onChange }
   },
-});
+})
 </script>
 
 <style lang="less" scoped>

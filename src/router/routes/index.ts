@@ -1,9 +1,9 @@
-import type { AppRouteRecordRaw, AppRouteModule } from '/@/router/types';
+import type { AppRouteRecordRaw, AppRouteModule } from '/@/router/types'
 import { genRouteModule } from '/@/utils/helper/route'
 import { PageEnum } from '/@/enums/pageEnum'
 
-import { DEFAULT_LAYOUT_COMPONENT } from '../constant';
-import { loginRoute ,overviewPage} from './modules/indexRoute';
+import { DEFAULT_LAYOUT_COMPONENT } from '../constant'
+import { loginRoute ,overviewPage} from './modules/indexRoute'
 
 // 路由
 import systemRouters from './modules/systemRouters'
@@ -22,7 +22,7 @@ const routeList = [overviewPage, ...genRouteModule(routeModuleList)]
 // 获取菜单 树级
 export const getRouteList = (): AppRouteRecordRaw[] => {
   return routeList
-};
+}
 
 
 
@@ -38,7 +38,7 @@ export const RootRoute: AppRouteRecordRaw = {
     title: '首页'
   },
   children: routeList
-};
+}
 
 
-export const basicRoutes = [loginRoute, RootRoute];
+export const basicRoutes = [loginRoute, RootRoute]

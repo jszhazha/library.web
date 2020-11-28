@@ -1,14 +1,14 @@
 
 import { Instance } from '/@/lib/props/TableList'
-import { provide, inject } from 'vue';
+import { provide, inject } from 'vue'
 
-const key = Symbol('table');
+const key = Symbol('table')
 
 
 export function provideTable(instance: Instance): void {
-  provide(key, instance);
+  provide(key, instance)
 }
 
 export function injectTable(): Instance {
-  return inject(key) as Instance;
+  return inject(key) as Instance
 }

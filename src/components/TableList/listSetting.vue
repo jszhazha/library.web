@@ -32,68 +32,68 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
-import { State, Options } from "/@/lib/props/TableList";
-import TooltipButton from "./TooltipButton.vue";
-import { injectTable } from "./useProvince";
+import { defineComponent, reactive, toRefs } from "vue"
+import { State, Options } from "/@/lib/props/TableList"
+import TooltipButton from "./TooltipButton.vue"
+import { injectTable } from "./useProvince"
 
 export default defineComponent({
   components: { TooltipButton },
   setup() {
     // 获取向上传递方法和数据g
-    const table = injectTable();
+    const table = injectTable()
     // 多选选中
-    let plainOptions: Options[] = [];
+    let plainOptions: Options[] = []
     // 设置状态
     const state = reactive<State>({
       indeterminate: false,
       checkAll: true,
       checkedList: [],
       defaultCheckList: [],
-    });
+    })
 
     // 初始化数据
     function init() {
-      const result: Options[] = [];
+      const result: Options[] = []
       table.getColumns().forEach((item) => {
         result.push({
           label: item.title as string,
           value: (item.dataIndex || item.title) as string,
-        });
-      });
-      plainOptions = result;
+        })
+      })
+      plainOptions = result
       const checkList = table
         .getColumns()
-        .map((item) => item.dataIndex || item.title) as string[];
-      state.checkedList = checkList;
+        .map((item) => item.dataIndex || item.title) as string[]
+      state.checkedList = checkList
     }
 
-    init();
+    init()
 
     // 处理多选改变
     function onCheckChange(checkedList: string[]) {
       state.indeterminate =
-        !!checkedList.length && checkedList.length < plainOptions.length;
-      state.checkAll = checkedList.length === plainOptions.length;
-      table.setColumns(checkedList);
+        !!checkedList.length && checkedList.length < plainOptions.length
+      state.checkAll = checkedList.length === plainOptions.length
+      table.setColumns(checkedList)
     }
 
     // 点击全选
     function onCheckAllChange(e: ChangeEvent) {
-      state.indeterminate = false;
-      const checkList = plainOptions.map((item) => item.value);
+      state.indeterminate = false
+      const checkList = plainOptions.map((item) => item.value)
       if (e.target.checked) {
-        state.checkedList = checkList;
-        table.setColumns(checkList);
+        state.checkedList = checkList
+        table.setColumns(checkList)
       } else {
-        state.checkedList = [];
-        table.setColumns([]);
+        state.checkedList = []
+        table.setColumns([])
       }
     }
 
-    return { plainOptions, ...toRefs(state), onCheckAllChange, onCheckChange };
+    return { plainOptions, ...toRefs(state), onCheckAllChange, onCheckChange }
   },
-});
+})
 </script>
 
 <style lang="less">

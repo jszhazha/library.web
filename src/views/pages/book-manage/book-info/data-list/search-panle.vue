@@ -42,24 +42,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
-import { PagerQueryData } from "/@/lib/http/axios/types";
-import { useSearch, SearchInstance } from "/@/utils/listPage/methods/useSearch";
+import { defineComponent, reactive, ref } from "vue"
+import { PagerQueryData } from "/@/lib/http/axios/types"
+import { useSearch, SearchInstance } from "/@/utils/listPage/methods/useSearch"
 
 export default defineComponent({
   setup(): SearchInstance {
     // 搜索是否展开
-    const isOpen = ref<boolean>(false);
+    const isOpen = ref<boolean>(false)
     // 数据搜索
     const queryData = reactive<PagerQueryData>({
       pageSize: 10,
       page: 0,
       sorts: [],
-    });
+    })
     // 返回查询条件
-    const getCurQueryData = (): PagerQueryData => queryData;
+    const getCurQueryData = (): PagerQueryData => queryData
 
-    const { onResetData, onOpen } = useSearch({ queryData, isOpen });
+    const { onResetData, onOpen } = useSearch({ queryData, isOpen })
 
     return {
       isOpen,
@@ -67,9 +67,9 @@ export default defineComponent({
       onOpen,
       onResetData,
       getCurQueryData,
-    };
+    }
   },
-});
+})
 </script>
 
 

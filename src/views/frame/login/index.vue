@@ -37,11 +37,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, reactive } from "vue";
-import accountLogin from "./account.vue";
-import phoneLogin from "./phone.vue";
-import config from "/@/config/";
-import { toDataURL } from "qrcode";
+import { defineComponent, ref, onMounted, reactive } from "vue"
+import accountLogin from "./account.vue"
+import phoneLogin from "./phone.vue"
+import config from "/@/config/"
+import { toDataURL } from "qrcode"
 
 // import useM essage from "@/hooks/web/useMessage";
 
@@ -49,38 +49,38 @@ export default defineComponent({
   name: "Login",
   components: { accountLogin, phoneLogin },
   setup() {
-    const loginContent = reactive({ type: "account", title: "图书馆账号登录" });
-    const qrcode = ref<null | HTMLImageElement>(null);
-    const renderValue = String("Hello world");
-    const width = 160;
+    const loginContent = reactive({ type: "account", title: "图书馆账号登录" })
+    const qrcode = ref<null | HTMLImageElement>(null)
+    const renderValue = String("Hello world")
+    const width = 160
     // const { notification } = useMessage.init();
 
     onMounted(async () => {
       const url = await toDataURL(renderValue, {
         width,
-      });
-      qrcode.value!.src = url;
-    });
+      })
+      qrcode.value!.src = url
+    })
 
     // 账户登录改变
     const loginTypeChange = (value: string) => {
       if (value === "account") {
-        loginContent.type = "phone";
-        loginContent.title = "短信验证码登录";
+        loginContent.type = "phone"
+        loginContent.title = "短信验证码登录"
       } else if (value === "phone") {
-        loginContent.type = "account";
-        loginContent.title = "图书馆账号登录";
+        loginContent.type = "account"
+        loginContent.title = "图书馆账号登录"
       }
-    };
+    }
 
     return {
       qrcode,
       config,
       loginContent,
       loginTypeChange,
-    };
+    }
   },
-});
+})
 </script>
 
 

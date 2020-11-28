@@ -1,4 +1,4 @@
-import type { TableColumn } from '/@/lib/props/TableList';
+import type { TableColumn } from '/@/lib/props/TableList'
 
 
 

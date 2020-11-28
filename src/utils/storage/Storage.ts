@@ -1,7 +1,8 @@
-import { DEFAULT_CACHE_TIME } from '/@/config/encryptionSetting'
+import { DEFAULT_CACHE_TIME, cacheCipher } from '/@/config/encryptionSetting'
 import { isString, isEmpty, isNumber } from '/@/utils/is'
 import { stringify } from '/@/utils/stringify'
-import md5 from 'md5'
+import aes from '/@/utils/encryption/aes'
+import CryptoES from 'crypto-es'
 
 export interface CreateStorage {
   set: (key: string, value: unknown) => void
@@ -12,15 +13,20 @@ export interface CreateStorage {
 
 export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage => {
   class WebStorage {
-    private storage: Storage
+    private storage
+
+    private encryption
 
     constructor() {
+      // 设置数据库
       this.storage = storage
+      // 设置加密方式
+      this.encryption = new aes({ key: cacheCipher.key, iv: cacheCipher.iv })
     }
 
     // 获取 键 
     private getKey(key: string): string {
-      return md5(`${key}`).toUpperCase()
+      return CryptoES.MD5(key).toString()
     }
 
     // 设置 键值
@@ -28,8 +34,9 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
       // 有数据再进行缓存
       const result = stringify(value)
       if (isString(result)) {
-        const stringData = stringify({ value, expire: new Date().getTime() + expire * 1000 })
-        this.storage.setItem(this.getKey(key), stringData as string)
+        const stringData = stringify({ value, expire: new Date().getTime() + expire * 1000 }) as string
+        const encrypted = this.encryption.encrypt(stringData)
+        this.storage.setItem(this.getKey(key), encrypted)
       }
     }
 
@@ -39,7 +46,8 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
       if (item) {
         // 防止 item 不符合 JSON 格式
         try {
-          const { value, expire } = JSON.parse(item)
+          const decrypted = this.encryption.decrypt(item)
+          const { value, expire } = JSON.parse(decrypted)
           if (isEmpty(value) && isNumber(expire) && expire >= new Date().getTime()) {
             return value
           }

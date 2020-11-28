@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import CryptoES from 'crypto-es'
-// 加密还是有问题
 
 
 
@@ -29,12 +28,15 @@ class aes {
       iv: this.iv
     }
   }
-
+  
+  // 加密
   encrypt(str: string): string {
     const encrypted = CryptoES.AES.encrypt(str, this.key, this.getOption)
+    console.log(encrypted)
     return encrypted.toString()
   }
 
+  // 解密
   decrypt(str: string): string {
     const decrypted = CryptoES.AES.decrypt(str, this.key, this.getOption)
     return decrypted.toString(CryptoES.enc.Utf8)

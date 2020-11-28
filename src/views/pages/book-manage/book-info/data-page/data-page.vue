@@ -5,48 +5,48 @@
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="题名" v-bind="validateInfos.name">
-              <a-input v-model:value="dataItem.name" placeholder="请输入" :disabled="readonly" />
+              <InputWrap v-model:value="dataItem.name" :readonly="readonly" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="作者" v-bind="validateInfos.author">
-              <a-input v-model:value="dataItem.author" placeholder="请输入" :disabled="readonly" />
+              <InputWrap v-model:value="dataItem.author" :readonly="readonly" />
             </a-form-item>
           </a-col>
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="语种">
-              <a-input placeholder="请输入" :disabled="readonly" />
+              <InputWrap :readonly="readonly" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="价格">
-              <a-input placeholder="请输入" :disabled="readonly" />
+              <InputWrap :readonly="readonly" />
             </a-form-item>
           </a-col>
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="出版社">
-              <a-input placeholder="请输入" :disabled="readonly" />
+              <InputWrap :readonly="readonly" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="学科类别">
-              <a-input placeholder="请输入" :disabled="readonly" />
+              <InputWrap :readonly="readonly" />
             </a-form-item>
           </a-col>
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="出版时间">
-              <a-input placeholder="请输入" :disabled="readonly" />
+              <InputWrap :readonly="readonly" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="国际标准书号">
-              <a-input placeholder="请输入" :disabled="readonly" />
+              <InputWrap :readonly="readonly" />
             </a-form-item>
           </a-col>
         </a-row>

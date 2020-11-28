@@ -108,10 +108,6 @@ export default defineComponent({
       });
     }
 
-    // 处理点击菜单收缩
-    function handleCollapseChange(collapsed: boolean) {
-      menuStore.commitCollapsedState(collapsed);
-    }
 
     watch(
       () => currentRoute.value.name,
@@ -155,7 +151,6 @@ export default defineComponent({
           breakpoint="md"
           collapsed={getCollapsedState}
           collapsedWidth={getCollapsedWidth}
-          onCollapse={handleCollapseChange}
           trigger={null}
           theme={config.theme}
           width={getMenuWidthState}

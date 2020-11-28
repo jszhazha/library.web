@@ -41,7 +41,7 @@ const config: Config = {
   menuWidth: 260,
 
   // 菜单是否收起状态
-  collapsed: false,
+  collapsed: true,
 
   // 收缩宽度
   collapsedWidth: 49

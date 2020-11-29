@@ -4,7 +4,7 @@ import type { FromRules } from '/@/lib/interface/From'
 import { unref, onBeforeUnmount, onMounted, watch, reactive, toRef } from "vue"
 import { useRouter } from "vue-router"
 import { assign } from 'lodash-es'
-import { provideDataPage } from './methods/useProvince'
+import { provideDataPage } from './methods/useDepend'
 import { checkCacheData, cacheData } from './methods/cacheData'
 import { checkDataRouter, QueryRoute } from './methods/dataRouter'
 import { createStorage } from "/@/utils/storage/"
@@ -141,6 +141,7 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   const onEditpage = () => {
     pageInfo.mode = PageMode.edit
     pageInfo.readonly = false
+
     replace({ query: { mode: PageMode[PageMode.edit], id: pageInfo.query.id } })
   }
 
@@ -150,8 +151,13 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
    * 注入依赖
    */
   provideDataPage({
-    readonly: pageInfo.readonly
+    readonly: toRef(pageInfo,'readonly')
   })
+
+
+
+
+
 
 
   // console.log(dataItem)

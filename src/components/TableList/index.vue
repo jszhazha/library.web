@@ -57,7 +57,7 @@ import {
 } from "@ant-design/icons-vue"
 import listSetting from "./listSetting.vue"
 import TooltipButton from "./TooltipButton.vue"
-import { provideTable } from "./useProvince"
+import { provideTable } from "./useDepend"
 
 export default defineComponent({
   components: {

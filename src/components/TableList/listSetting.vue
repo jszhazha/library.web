@@ -35,7 +35,7 @@
 import { defineComponent, reactive, toRefs } from "vue"
 import { State, Options } from "/@/lib/props/TableList"
 import TooltipButton from "./TooltipButton.vue"
-import { injectTable } from "./useProvince"
+import { injectTable } from "./useDepend"
 
 export default defineComponent({
   components: { TooltipButton },

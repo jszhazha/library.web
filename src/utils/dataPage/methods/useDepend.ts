@@ -1,9 +1,10 @@
+import type { Ref} from 'vue'
 import { provide, inject } from 'vue'
 
 
 interface Instance {
-  // 是否只读模式
-  readonly?: boolean
+  // 是否只读
+  readonly?: Ref<boolean>
 }
 
 

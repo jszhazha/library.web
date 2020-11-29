@@ -22,7 +22,7 @@
 import { defineComponent, reactive } from "vue"
 import { tableColumns } from "./data-list"
 import { BookInfo } from "/@/api/book-manage/book-info"
-import { injectListPage } from "/@/utils/listPage/methods/useProvince"
+import { injectListPage } from "/@/utils/listPage/methods/useDepend"
 
 export default defineComponent({
   setup() {

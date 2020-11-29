@@ -11,12 +11,12 @@
 <script lang="ts">
 import type { Ref } from "vue"
 import { defineComponent, PropType, ref, unref, watch, computed, toRefs } from "vue"
-import { injectDatapage } from "/@/utils/dataPage/methods/useProvince"
+import { injectDatapage } from "/@/utils/dataPage/methods/useDepend"
 
 const useinputReadonly = (readonly: Ref<boolean>) => {
   return computed(() => {
     const dataPage = injectDatapage()
-    return readonly.value || dataPage.readonly
+    return readonly.value || dataPage.readonly?.value
   })
 }
 

@@ -6,36 +6,43 @@ export const holdInfoColumns: TableColumn[] = [
     title: "索书号",
     dataIndex: "number",
     align: "center",
+    ellipsis: true,
   },
   {
     title: "存放位置",
     dataIndex: "number",
     align: "center",
+    ellipsis: true,
   },
   {
     title: "馆藏状态",
     dataIndex: "state",
     align: "center",
+    ellipsis: true,
   },
   {
     title: "应还时间",
     dataIndex: "state",
     align: "center",
+    ellipsis: true,
   },
   {
     title: "借阅次数",
     dataIndex: "state",
     align: "center",
+    ellipsis: true,
   },
   {
     title: "续借次数",
     dataIndex: "state",
     align: "center",
+    ellipsis: true,
   },
   {
     title: "操作",
-    dataIndex: "state",
+    dataIndex: "operation",
     align: "center",
+    width: 100
   },
 ]
 

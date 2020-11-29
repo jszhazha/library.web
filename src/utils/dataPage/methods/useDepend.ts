@@ -1,4 +1,4 @@
-import type { Ref} from 'vue'
+import type { Ref } from 'vue'
 import { provide, inject } from 'vue'
 
 
@@ -17,5 +17,5 @@ export function provideDataPage(instance: Instance): void {
 }
 
 export function injectDatapage(): Instance {
-  return inject(key) as Instance
+  return inject(key, {}) as Instance
 }

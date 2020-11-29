@@ -93,7 +93,7 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   const toast = useToast()
   const { validateInfos, resetFields } = useForm(dataItem, rules)
   const pageInfo = reactive<PageInfo>({
-    mode: checkDataRouter((query as unknown) as QueryRoute),
+    mode: checkDataRouter((query as unknown) as QueryRoute, name as string),
     readonly: false,
     query: (query as unknown) as QueryRoute
   })
@@ -151,7 +151,7 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
    * 注入依赖
    */
   provideDataPage({
-    readonly: toRef(pageInfo,'readonly')
+    readonly: toRef(pageInfo, 'readonly')
   })
 
 

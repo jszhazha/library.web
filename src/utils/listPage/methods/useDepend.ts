@@ -38,5 +38,5 @@ export function provideListPage<T extends { id?: number }>(name: string): void {
 }
 
 export function injectListPage<T>(): DataPage<T> {
-  return inject(key) as DataPage<T>
+  return inject(key, {}) as DataPage<T>
 }

@@ -24,7 +24,7 @@
       登录
     </GlobalButton>
     <div class="login-account-link">
-      <router-link to="/">
+      <router-link to="/forget">
         忘记密码
       </router-link>
       <a-divider type="vertical" />
@@ -42,8 +42,8 @@ export default defineComponent({
   emits: ["on-change"],
   setup(_props, { emit }) {
     const formData = reactive({
-      account: "admin",
-      password: "123456",
+      account: "",
+      password: "",
     })
     // 错误信息
     const error = reactive({

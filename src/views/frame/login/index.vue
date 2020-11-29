@@ -1,13 +1,6 @@
 <template>
   <div class="login">
-    <div class="login-header">
-      <div class="index-middle center">
-        <img :src="config.logo">
-        <div class="title">
-          {{ config.title }}
-        </div>
-      </div>
-    </div>
+    <public-header />
     <div class="index-center login-title">
       {{ loginContent.title }}
     </div>
@@ -35,6 +28,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, reactive } from "vue"
+import publicHeader from "/@/views/frame/components/publicHeader"
 import accountLogin from "./account.vue"
 import phoneLogin from "./phone.vue"
 import config from "/@/config/"
@@ -44,9 +38,9 @@ import { toDataURL } from "qrcode"
 
 export default defineComponent({
   name: "Login",
-  components: { accountLogin, phoneLogin },
+  components: { accountLogin, phoneLogin, publicHeader },
   setup() {
-    const loginContent = reactive({ type: "account", title: "图书馆账号登录" })
+    const loginContent = reactive({ type: "account", title: `${config.shortTitle}账号登录` })
     const qrcode = ref<null | HTMLImageElement>(null)
     const renderValue = String("Hello world")
     const width = 160
@@ -66,7 +60,7 @@ export default defineComponent({
         loginContent.title = "短信验证码登录"
       } else if (value === "phone") {
         loginContent.type = "account"
-        loginContent.title = "图书馆账号登录"
+        loginContent.title = `${config.shortTitle}账号登录`
       }
     }
 
@@ -86,30 +80,6 @@ export default defineComponent({
 
 .login {
   min-width: 800px;
-
-  &-header {
-    display: flex;
-    align-items: center;
-    height: 48px;
-    background: #f0f2f5;
-
-    .center {
-      width: 1200px;
-      padding: 0 20px;
-      margin: 0 auto;
-
-      img {
-        width: 20px;
-      }
-    }
-
-    .title {
-      margin: 0 0 0 10px;
-      font-size: 16px;
-      font-weight: 700;
-      color: @titleColor;
-    }
-  }
 
   &-title {
     padding: 80px 0 64px;

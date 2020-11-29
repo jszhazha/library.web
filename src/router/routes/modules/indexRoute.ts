@@ -11,6 +11,15 @@ export const loginRoute: AppRouteRecordRaw = {
   },
 }
 
+export const forgetRoute: AppRouteRecordRaw = {
+  path: '/forget',
+  name: 'forget',
+  component: () => import('/@/views/frame/forget/index.vue'),
+  meta: {
+    ignoreTab: true
+  },
+}
+
 
 /**
  * @description 首页

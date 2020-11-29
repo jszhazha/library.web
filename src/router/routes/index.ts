@@ -3,7 +3,7 @@ import { genRouteModule } from '/@/utils/helper/route'
 import { PageEnum } from '/@/enums/pageEnum'
 
 import { DEFAULT_LAYOUT_COMPONENT } from '../constant'
-import { loginRoute ,overviewPage} from './modules/indexRoute'
+import { loginRoute, forgetRoute, overviewPage } from './modules/indexRoute'
 
 // 路由
 import systemRouters from './modules/systemRouters'
@@ -41,4 +41,4 @@ export const RootRoute: AppRouteRecordRaw = {
 }
 
 
-export const basicRoutes = [loginRoute, RootRoute]
+export const basicRoutes = [loginRoute, forgetRoute, RootRoute]

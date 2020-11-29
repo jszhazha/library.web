@@ -4,7 +4,7 @@
       <search-panle ref="searchInstance" />
     </div>
     <list-view />
-    <import-modal
+    <ImportModal
       title="批量导入"
       :columns="importColumns"
       :data-source="dataSource"

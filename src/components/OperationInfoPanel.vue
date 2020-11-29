@@ -1,5 +1,5 @@
 <template>
-  <global-card title="操作信息" class="operation">
+  <GlobalCard title="操作信息" class="operation">
     <a-row :gutter="[12, 48]">
       <a-col :offset="2" class="index-middle">
         <UserOutlined class="operation-icon" />
@@ -32,7 +32,7 @@
         <div>2010-12-21</div>
       </a-col>
     </a-row>
-  </global-card>
+  </GlobalCard>
 </template>
 
 <script lang="ts">

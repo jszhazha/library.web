@@ -1,5 +1,5 @@
 <template>
-  <global-card title="馆藏信息">
+  <GlobalCard title="馆藏信息">
     <a-form :label-col="{ flex: '100px' }" :wrapper-col="{ flex: 'auto' }">
       <a-row>
         <a-col :xs="24" :lg="9" class="pl-4 pr-4">
@@ -14,17 +14,15 @@
         </a-col>
       </a-row>
     </a-form>
-    <global-table class="m-4" :columns="holdInfoColumns" />
-  </global-card>
+    <GlobalTable class="m-4" :columns="holdInfoColumns" />
+  </GlobalCard>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue"
-import GlobalTable from "/@/components/GlobalTable.vue"
 import { holdInfoColumns } from "./data-page"
 
 export default defineComponent({
-  components: { GlobalTable },
   props: {
     readonly: {
       type: Boolean as PropType<boolean>,

@@ -25,7 +25,7 @@
         </TooltipButton>
       </div>
     </div>
-    <global-table
+    <GlobalTable
       :columns="getTableColumns"
       :data-source="dataSource"
       :scroll="scroll"
@@ -34,7 +34,7 @@
       <template v-for="item in Object.keys($slots)" #[item]="data">
         <slot :name="item" v-bind="data" />
       </template>
-    </global-table>
+    </GlobalTable>
   </div>
 </template>
 

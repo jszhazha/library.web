@@ -6,13 +6,13 @@
         <span>{{ error.msg }}</span>
       </div>
     </div>
-    <global-input
+    <GlobalInput
       v-model:value="formData.account"
       v-model:errorBorder="error.is"
       type="text"
       placeholder="手机号/邮件地址/图书馆账号"
     />
-    <global-input
+    <GlobalInput
       v-model:value="formData.password"
       v-model:errorBorder="error.is"
       class="login-account-password"
@@ -20,9 +20,9 @@
       placeholder="密码"
     />
     <span class="login-account-change-link" @click="onChange"> 短信验证码登录 </span>
-    <global-button class="login-account-button" :disabled="disabled">
+    <GlobalButton class="login-account-button" :disabled="disabled">
       登录
-    </global-button>
+    </GlobalButton>
     <div class="login-account-link">
       <router-link to="/">
         忘记密码

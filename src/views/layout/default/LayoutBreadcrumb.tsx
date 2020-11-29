@@ -1,64 +1,59 @@
-import type { AppRouteRecordRaw } from "/@/router/types";
-import type { RouteLocationMatched } from "vue-router";
-import { defineComponent, watch, unref, TransitionGroup, reactive } from "vue";
-import { Breadcrumb, BreadcrumbItem } from "/@/components/Breadcrumb/";
-import {
-  parsePageModeFromString,
-  ParsePageModeFromString,
-} from "/@/utils/helper/breadcrumb";
-import { useRouter } from "vue-router";
-import { PageEnum } from "/@/enums/pageEnum";
-import { isBoolean } from "/@/utils/is";
-import { useGo } from "/@/hooks/web/usePage";
-import router from "/@/router";
+import type { AppRouteRecordRaw } from "/@/router/types"
+import type { RouteLocationMatched } from "vue-router"
+import { defineComponent, watch, unref, TransitionGroup, reactive } from "vue"
+import { Breadcrumb, BreadcrumbItem } from "/@/components/Breadcrumb/"
+import { parsePageModeFromString, ParsePageModeFromString } from "/@/utils/helper/breadcrumb"
+import { useRouter } from "vue-router"
+import { PageEnum } from "/@/enums/pageEnum"
+import { isBoolean } from "/@/utils/is"
+import { useGo } from "/@/hooks/web/usePage"
+import router from "/@/router"
 
 interface ItemList {
-  value: AppRouteRecordRaw[];
-  length: number;
-  pageMode: ParsePageModeFromString | boolean;
+  value: AppRouteRecordRaw[]
+  length: number
+  pageMode: ParsePageModeFromString | boolean
 }
 
 export default defineComponent({
   setup() {
-    const { currentRoute } = useRouter();
-    const go = useGo();
+    const { currentRoute } = useRouter()
+    const go = useGo()
     const itemList = reactive<ItemList>({
       value: [],
       length: 0,
       pageMode: false,
-    });
+    })
 
     // 路由发送变换
     function getBreadcrumb() {
-      const { matched, query } = unref(currentRoute);
-      const matchedList = matched.filter(
-        (item) => item.meta && item.meta.title
-      );
-      const routerItem = matchedList[1];
-      const result = getHomeRoute(routerItem);
+      const { matched, query } = unref(currentRoute)
+      const matchedList = matched.filter((item) => item.meta && item.meta.title)
+      const routerItem = matchedList[1]
+      const result = getHomeRoute(routerItem)
       if (result) {
-        matchedList.shift();
+        matchedList.shift()
       }
-      itemList.pageMode = parsePageModeFromString(query.mode as string);
-      itemList.length = matchedList.length - 1;
-      itemList.value = (matchedList as unknown) as AppRouteRecordRaw[];
+      itemList.pageMode = parsePageModeFromString(query.mode as string)
+      itemList.length = matchedList.length - 1
+      itemList.value = (matchedList as unknown) as AppRouteRecordRaw[]
     }
 
     // 获取路由
-    function getHomeRoute(routerItem: RouteLocationMatched) {    
-      if (!routerItem || !routerItem.name) return true;
-      const routes = router.getRoutes();
-      const homeRoute = routes.find((item) => item.name === PageEnum.BASE_HOME);
-      if (!homeRoute) return true;
-      if (homeRoute.name === routerItem.name) return true;
-      return false;
+    function getHomeRoute(routerItem: RouteLocationMatched) {
+      if (!routerItem || !routerItem.name) return true
+      const routes = router.getRoutes()
+      const homeRoute = routes.find((item) => item.name === PageEnum.BASE_HOME)
+      if (!homeRoute) return true
+      if (homeRoute.name === routerItem.name) return true
+      return false
     }
 
     // 点击标题
     function handleItemClick(item: AppRouteRecordRaw) {
-      const { redirect } = item;
+      const { redirect } = item
       if (redirect) {
-        go(redirect as string);
+        go(redirect as string)
       }
     }
 
@@ -66,12 +61,12 @@ export default defineComponent({
     watch(
       () => currentRoute.value,
       () => {
-        getBreadcrumb();
+        getBreadcrumb()
       },
       {
         immediate: true,
       }
-    );
+    )
 
     return () => (
       <Breadcrumb class="index-hidden-newline">
@@ -79,13 +74,11 @@ export default defineComponent({
           <TransitionGroup name="breadcrumb">
             {() =>
               itemList.value.map((el, index) => {
-                const isLink = !!el.redirect;
-                const { length, pageMode } = itemList;
-                const isDivider = length !== index;
+                const isLink = !!el.redirect
+                const { length, pageMode } = itemList
+                const isDivider = length !== index
                 const mode =
-                  length === index && !isBoolean(pageMode)
-                    ? `- ${pageMode.modeName}`
-                    : "";
+                  length === index && !isBoolean(pageMode) ? `- ${pageMode.modeName}` : ""
 
                 return (
                   <BreadcrumbItem
@@ -96,12 +89,12 @@ export default defineComponent({
                   >
                     {() => `${el.meta.title} ${mode}`}
                   </BreadcrumbItem>
-                );
+                )
               })
             }
           </TransitionGroup>
         )}
       </Breadcrumb>
-    );
+    )
   },
-});
+})

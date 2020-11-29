@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive } from "vue";
+import { computed, defineComponent, reactive } from "vue"
 
 export default defineComponent({
   emits: ["on-change"],
@@ -44,27 +44,27 @@ export default defineComponent({
     const formData = reactive({
       account: "admin",
       password: "123456",
-    });
+    })
     // 错误信息
     const error = reactive({
       msg: "",
       is: false,
-    });
+    })
 
     // 点击短信登录
-    const onChange = () => emit("on-change", "account");
+    const onChange = () => emit("on-change", "account")
 
-    // 点击按键
-    const disabled = computed(() => !(!!formData.account && !!formData.password));
+    // 点击登录按键
+    const disabled = computed(() => !(!!formData.account && !!formData.password))
 
     return {
       error,
       disabled,
       formData,
       onChange,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="less" scoped>

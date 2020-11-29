@@ -4,12 +4,12 @@
       <a-row>
         <a-col :xs="24" :lg="9" class="pl-4 pr-4">
           <a-form-item label="索书号">
-            <a-input placeholder="请输入" :disabled="readonly" />
+            <InputWrap />
           </a-form-item>
         </a-col>
         <a-col :xs="24" :lg="9" class="pl-4 pr-4">
           <a-form-item label="存放位置">
-            <a-input placeholder="请输入" :disabled="readonly" />
+            <InputWrap />
           </a-form-item>
         </a-col>
       </a-row>
@@ -19,9 +19,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import GlobalTable from "/@/components/GlobalTable.vue";
-import { holdInfoColumns } from "./data-page";
+import { defineComponent, PropType } from "vue"
+import GlobalTable from "/@/components/GlobalTable.vue"
+import { holdInfoColumns } from "./data-page"
 
 export default defineComponent({
   components: { GlobalTable },
@@ -32,9 +32,9 @@ export default defineComponent({
     },
   },
   setup() {
-    return { holdInfoColumns };
+    return { holdInfoColumns }
   },
-});
+})
 </script>
 
 

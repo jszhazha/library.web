@@ -1,4 +1,4 @@
-import { isUnDef, isNull } from '/@/utils/is';
+import { isUnDef, isNull } from '/@/utils/is'
 
 interface ConfigProvideParameter {
   transformCellText: ({ text }: { text: string }) => string
@@ -7,11 +7,11 @@ interface ConfigProvideParameter {
 export function useConfigProvider(): ConfigProvideParameter {
   function transformCellText({ text }: { text: string }) {
     if (isNull(text) || isUnDef(text)) {
-      return ' - ';
+      return ' - '
     }
-    return text;
+    return text
   }
   return {
     transformCellText,
-  };
+  }
 }

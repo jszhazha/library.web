@@ -19,15 +19,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
-import { tableColumns } from "./data-list";
-import { BookInfo } from "/@/api/book-manage/book-info";
-import { injectDataPage } from "/@/utils/listPage/methods/useProvince";
+import { defineComponent, reactive } from "vue"
+import { tableColumns } from "./data-list"
+import { BookInfo } from "/@/api/book-manage/book-info"
+import { injectListPage } from "/@/utils/listPage/methods/useDepend"
 
 export default defineComponent({
   setup() {
-    const dataSource = reactive<BookInfo[]>([]);
-    const dataPage = injectDataPage<BookInfo>();
+    const dataSource = reactive<BookInfo[]>([])
+    const dataPage = injectListPage<BookInfo>()
 
     for (let i = 0; i < 24; i++) {
       dataSource.push({
@@ -37,16 +37,15 @@ export default defineComponent({
         isbn: "90-333",
         author: "张三",
         press: "人民邮电出版社",
-      });
+      })
     }
 
-
     // 添加新的数据
-    const onNewDataItem = () => dataPage.onNewDataItem();
+    const onNewDataItem = () => dataPage.onNewDataItem()
     // 查看数据
-    const onViewDataItem = (record: BookInfo) => dataPage.onViewDataItem(record);
+    const onViewDataItem = (record: BookInfo) => dataPage.onViewDataItem(record)
     // 编辑数据
-    const onEditDataItem = (record: BookInfo) => dataPage.onEditDataItem(record);
+    const onEditDataItem = (record: BookInfo) => dataPage.onEditDataItem(record)
 
     // 批量导入
     function onBatchImport() {
@@ -60,9 +59,9 @@ export default defineComponent({
       onNewDataItem,
       onViewDataItem,
       onEditDataItem,
-    };
+    }
   },
-});
+})
 </script>
 
 

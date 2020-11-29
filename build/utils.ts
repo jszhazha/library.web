@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 export interface ViteEnv {
   VITE_OPEN: boolean;
   VITE_PORT: number;
+  VITE_OPEN: boolean;
   VITE_USE_MOCK: boolean;
   VITE_PUBLIC_PATH: string;
   VITE_PROXY: [string, string][];

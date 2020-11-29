@@ -24,14 +24,14 @@
       :maxlength="8"
     />
     <span class="login-phone-change-link" @click="onChange"> 密码登录 </span>
-    <global-button class="login-phone-button" :disabled="true">
+    <global-button class="login-phone-button" :disabled="disabled">
       登录
     </global-button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, computed } from "vue"
 
 export default defineComponent({
   emits: ["on-change"],
@@ -39,17 +39,20 @@ export default defineComponent({
     const formData = reactive({
       phone: "",
       code: "",
-    });
+    })
     // 错误信息
     const error = reactive({
       code: false,
       phone: false,
-    });
-    const onChange = () => emit("on-change", "phone");
+    })
+    const onChange = () => emit("on-change", "phone")
 
-    return { formData, error, onChange };
+    // 点击登录按键
+    const disabled = computed(() => !(!!formData.phone && !!formData.code))
+
+    return { formData, error, onChange, disabled }
   },
-});
+})
 </script>
 
 <style lang="less" scoped>

@@ -83,7 +83,14 @@ export default defineComponent({
         );
       });
     }
+<<<<<<< HEAD
 
+=======
+    // 处理点击菜单收缩
+    function handleCollapseChange(collapsed: boolean) {
+      menuStore.commitCollapsedState(collapsed);
+    }
+>>>>>>> main
 
     watch(
       () => currentRoute.value.name,
@@ -116,7 +123,11 @@ export default defineComponent({
     handleMenuChange();
 
     return () => {
+<<<<<<< HEAD
       const { getCollapsedState,getMenuWidthState, getCollapsedWidth } = menuStore;
+=======
+      const { getCollapsedState, getMenuWidthState, getCollapsedWidth } = menuStore;
+>>>>>>> main
       return (
         <Layout.Sider
           collapsible

@@ -1,4 +1,4 @@
-import type { AppRouteRecordRaw } from '/@/router/types';
+import type { AppRouteRecordRaw } from '/@/router/types'
 
 
 export const loginRoute: AppRouteRecordRaw = {
@@ -8,7 +8,7 @@ export const loginRoute: AppRouteRecordRaw = {
   meta: {
     title: '登录',
   },
-};
+}
 
 
 /**

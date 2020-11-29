@@ -2,27 +2,27 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export function is(val: unknown, type: string): boolean {
-  return toString.call(val) === `[object ${type}]`;
+  return toString.call(val) === `[object ${type}]`
 }
 
 export const isUnDef = <T = unknown>(val?: T): val is T => {
-  return typeof val !== 'undefined';
-};
+  return typeof val !== 'undefined'
+}
 
 export function isNull(val: unknown): val is null {
-  return val === null;
+  return val === null
 }
 
 export function isBoolean(val: unknown): val is boolean {
-  return is(val, 'Boolean');
+  return is(val, 'Boolean')
 }
 
 export function isString(val: unknown): val is string {
-  return is(val, 'String');
+  return is(val, 'String')
 }
 
 export function isNumber(val: unknown): val is number {
-  return is(val, 'Number');
+  return is(val, 'Number')
 }
 
 export function isStrNum(val: string): boolean {
@@ -30,7 +30,7 @@ export function isStrNum(val: string): boolean {
 }
 
 export function isObject(val: unknown): boolean {
-  return val !== null && is(val, 'Object');
+  return val !== null && is(val, 'Object')
 }
 
 export function isEmptyObject(val: any): boolean {
@@ -38,11 +38,11 @@ export function isEmptyObject(val: any): boolean {
 }
 
 export function isFunction(val: unknown): boolean {
-  return typeof val === 'function';
+  return typeof val === 'function'
 }
 
 export function isArray(val: unknown): boolean {
-  return val && Array.isArray(val);
+  return val && Array.isArray(val)
 }
 
 export function isEmptyArray(val: any): boolean {

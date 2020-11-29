@@ -14,16 +14,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { Popconfirm } from "ant-design-vue";
-import { QuestionCircleFilled } from "@ant-design/icons-vue";
+import { defineComponent } from "vue"
+import { Popconfirm } from "ant-design-vue"
+import { QuestionCircleFilled } from "@ant-design/icons-vue"
 
 export default defineComponent({
   components: { Popconfirm, QuestionCircleFilled },
   setup() {
-    return {};
+    return {}
   },
-});
+})
 </script>
 
 <style>

@@ -1,5 +1,5 @@
-import type { RouteRecordRaw } from 'vue-router';
-import { RoleEnum } from '/@/enums/roleEnum';
+import type { RouteRecordRaw } from 'vue-router'
+import { RoleEnum } from '/@/enums/roleEnum'
 
 
 export interface RouteMeta {
@@ -14,7 +14,7 @@ export interface RouteMeta {
   roles?: RoleEnum[];
 
   // 缓存页面
-  KeepAlive?: boolean,
+  keepAlive?: boolean,
   
   // 忽略标签缓存
   ignoreKeepAlive?: boolean;
@@ -45,7 +45,7 @@ export interface AppRouteModule {
 export interface Menu extends RouteMeta {
   name?: string | symbol;
 
-  title: string
+  title?: string
 
   path: string;
 
@@ -56,7 +56,7 @@ export interface Menu extends RouteMeta {
   orderNo?: number;
 
   roles?: RoleEnum[];
-
+  
 }
 
 

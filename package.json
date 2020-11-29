@@ -8,11 +8,10 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.2",
-    "@types/md5": "^2.2.1",
     "ant-design-vue": "^2.0.0-rc.2",
     "axios": "^0.21.0",
+    "crypto-es": "^1.2.6",
     "lodash-es": "^4.17.15",
-    "md5": "^2.3.0",
     "qrcode": "^1.4.4",
     "vue": "3.0.3",
     "vue-router": "4.0.0-rc.5",

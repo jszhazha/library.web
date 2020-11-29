@@ -15,6 +15,8 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/no-non-null-assertion': 'off',
-    'vue/max-attributes-per-line': 'off'
+    'vue/max-attributes-per-line': 'off',
+    "semi": ["error", "never"],
+    "@typescript-eslint/semi": ["error", "never"]
   }
 }

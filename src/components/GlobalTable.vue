@@ -19,17 +19,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { Table } from "ant-design-vue";
-import { tableProps } from "/@/lib/props/TableList";
+import { defineComponent } from "vue"
+import { Table } from "ant-design-vue"
+import { tableProps } from "/@/lib/props/TableList"
 
 export default defineComponent({
   components: { Table },
   props: tableProps,
   setup() {
-    return {};
+    return {}
   },
-});
+})
 </script>
 
 <style lang="less" scoped>

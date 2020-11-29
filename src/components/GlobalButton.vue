@@ -11,7 +11,7 @@
 
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref } from "vue"
 
 export default defineComponent({
   props: {
@@ -21,26 +21,26 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const button = ref<HTMLElement | null>(null);
+    const button = ref<HTMLElement | null>(null)
     // 处理动画
     const handleAnimation = (event: MouseEvent): HTMLElement => {
-      const x = event.offsetX;
-      const y = event.offsetY;
-      const ripples = document.createElement("span");
-      ripples.style.left = `${x}px`;
-      ripples.style.top = `${y}px`;
-      button.value!.appendChild(ripples);
-      return ripples;
-    };
+      const x = event.offsetX
+      const y = event.offsetY
+      const ripples = document.createElement("span")
+      ripples.style.left = `${x}px`
+      ripples.style.top = `${y}px`
+      button.value!.appendChild(ripples)
+      return ripples
+    }
     // 处理点击
     const handleClick = (event: MouseEvent) => {
-      if (props.disabled) return;
-      const ripples = handleAnimation(event);
-      console.log(ripples);
-    };
-    return { handleClick, button };
+      if (props.disabled) return
+      const ripples = handleAnimation(event)
+      console.log(ripples)
+    }
+    return { handleClick, button }
   },
-});
+})
 </script>
 
 

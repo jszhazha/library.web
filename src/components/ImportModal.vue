@@ -21,40 +21,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, toRefs, ref, reactive } from "vue";
-import { importProps, SelectedData } from "/@/lib/props/ImportModal";
-import { browserClient } from "/@/utils/elelment";
+import { defineComponent, onMounted, toRefs, ref, reactive } from "vue"
+import { importProps, SelectedData } from "/@/lib/props/ImportModal"
+import { browserClient } from "/@/utils/elelment"
 
 export default defineComponent({
   props: importProps,
   emits: ["on-instance"],
   setup(_props, { emit }) {
     // 视图大小
-    const browserSize = ref<{ width?: number; height?: number }>({});
+    const browserSize = ref<{ width?: number; height?: number }>({})
     // 对话框是否可见
-    const visible = ref<boolean>(false);
+    const visible = ref<boolean>(false)
     // 选中的数据
-    const selectedData = reactive<SelectedData>({ selectedRows: [] });
+    const selectedData = reactive<SelectedData>({ selectedRows: [] })
 
     // 选择功能的配置
     const rowSelection = {
       onChange: (selectedRowKeys: number[], selectedRows: unknown[]) => {
-        selectedData.selectedRows = selectedRows;
-        selectedData.selectedRowKeys = selectedRowKeys;
+        selectedData.selectedRows = selectedRows
+        selectedData.selectedRowKeys = selectedRowKeys
       },
-    };
+    }
 
-    onMounted(() => (browserSize.value = browserClient()));
+    onMounted(() => (browserSize.value = browserClient()))
 
     // 打开对话框
-    const openModal = () => (visible.value = true);
+    const openModal = () => (visible.value = true)
 
     // 向父级传递实例
-    emit("on-instance", { openModal });
+    emit("on-instance", { openModal })
 
-    return { visible, browserSize, rowSelection, ...toRefs(selectedData) };
+    return { visible, browserSize, rowSelection, ...toRefs(selectedData) }
   },
-});
+})
 </script>
 
 <style lang="less" scoped>

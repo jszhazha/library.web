@@ -1,7 +1,7 @@
 import type { Router } from 'vue-router'
 import { createPageLoadingGuard } from './pageLoadingGuard'
-import { createPageTitleGuard } from './pageTitleGuard';
-import { createPermissionGuard } from './permissionGuard';
+import { createPageTitleGuard } from './pageTitleGuard'
+import { createPermissionGuard } from './permissionGuard'
 import {createRouteStateGuard} from './routeStateGuard'
 
 

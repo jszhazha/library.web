@@ -39,8 +39,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, onBeforeUnmount } from "vue";
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons-vue";
+import { defineComponent, ref, reactive, onBeforeUnmount } from "vue"
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons-vue"
 
 enum InputTypeMap {
   text = "text",
@@ -106,75 +106,74 @@ export default defineComponent({
     const userInput = reactive<UserInput>({
       type: InputTypeMap[props.type as InputTypeMap],
       value: props.value,
-    });
+    })
     const codeContent = reactive<CodeContent>({
       instance: null,
       tip: "获取验证码",
       time: 0,
-    });
-    const passwordType = ref<boolean>(true);
-    const borderColor = ref<string>("");
+    })
+    const passwordType = ref<boolean>(true)
+    const borderColor = ref<string>("")
 
     // 密码切换
     function handleSwitch(value: boolean) {
-      passwordType.value = value;
-      if (value) userInput.type = TypeMap.password;
-      else userInput.type = TypeMap.text;
+      passwordType.value = value
+      if (value) userInput.type = TypeMap.password
+      else userInput.type = TypeMap.text
     }
 
     // 失去焦点
     function handleBlur() {
-      borderColor.value = "";
+      borderColor.value = ""
       if (props.type === TypeMap.phone) {
         if (/^1\d{10}$/.test(userInput.value)) {
-          emit("update:errorBorder", false);
+          emit("update:errorBorder", false)
         } else {
-          emit("update:errorBorder", true);
+          emit("update:errorBorder", true)
         }
       }
     }
 
     // 获得焦点
     function handleFocus() {
-      borderColor.value = "#1890ff";
+      borderColor.value = "#1890ff"
     }
 
     // 输入内容
     function handleInput() {
       if (props.type === TypeMap.phone || props.type === TypeMap.code) {
-        userInput.value = userInput.value.replace(/[^0-9]+/g, "");
+        userInput.value = userInput.value.replace(/[^0-9]+/g, "")
       }
-      emit("update:value", userInput.value);
-      emit("update:errorBorder", false);
+      emit("update:value", userInput.value)
+      emit("update:errorBorder", false)
     }
 
     // 点击 code
     function handleCode() {
       if (props.codeDisabled || codeContent.instance) {
-        return;
+        return
       }
-      setCountdown();
+      setCountdown()
     }
 
     // 设置定时器
     function setCountdown() {
-      codeContent.time = 60;
+      codeContent.time = 60
       codeContent.instance = setInterval(() => {
-        codeContent.time--;
-        codeContent.tip = `重新获取 (${codeContent.time})`;
-        console.log(codeContent.time)
+        codeContent.time--
+        codeContent.tip = `重新获取 (${codeContent.time})`
         if (codeContent.time === -1) {
-          codeContent.tip = "重新获取";
-          clearInterval(codeContent.instance!);
-          codeContent.instance = null;
+          codeContent.tip = "重新获取"
+          clearInterval(codeContent.instance!)
+          codeContent.instance = null
         }
-      }, 1000);
+      }, 1000)
     }
 
     onBeforeUnmount(() => {
       // 页面卸载时销毁 定时器
-      codeContent.instance && clearInterval(codeContent.instance);
-    });
+      codeContent.instance && clearInterval(codeContent.instance)
+    })
 
     return {
       userInput,
@@ -186,9 +185,9 @@ export default defineComponent({
       handleFocus,
       handleInput,
       handleSwitch,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="less" scoped>

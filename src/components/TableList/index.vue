@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import type { Ref } from "vue";
+import type { Ref } from "vue"
 import {
   ref,
   unref,
@@ -47,17 +47,17 @@ import {
   computed,
   onMounted,
   defineComponent,
-} from "vue";
-import { tableListProps, TableColumn } from "/@/lib/props/TableList";
-import { browserClient, elementOffset } from "/@/utils/elelment";
+} from "vue"
+import { tableListProps, TableColumn } from "/@/lib/props/TableList"
+import { browserClient, elementOffset } from "/@/utils/elelment"
 import {
   ExpandOutlined,
   CompressOutlined,
   VerticalAlignBottomOutlined,
-} from "@ant-design/icons-vue";
-import listSetting from "./listSetting.vue";
-import TooltipButton from "./TooltipButton.vue";
-import { provideTable } from "./useProvince";
+} from "@ant-design/icons-vue"
+import listSetting from "./listSetting.vue"
+import TooltipButton from "./TooltipButton.vue"
+import { provideTable } from "./useDepend"
 
 export default defineComponent({
   components: {
@@ -70,70 +70,70 @@ export default defineComponent({
   props: tableListProps,
   setup(props) {
     // 全屏 标志位
-    const fullScreen = ref<boolean>(false);
+    const fullScreen = ref<boolean>(false)
     // table 滚动条高度
     const scroll = reactive<{ y?: number | true; x?: number | true }>({
       x: true,
-    });
+    })
     // 标签
-    const tableRef = ref<HTMLElement | null>(null);
+    const tableRef = ref<HTMLElement | null>(null)
     // 视图大小
-    let browserSize: { width?: number; height?: number } = {};
+    let browserSize: { width?: number; height?: number } = {}
     // 偏移量
     const transform = reactive<{ translate: string }>({
       translate: "(0px,0px)",
-    });
+    })
     // table 表头数据
     const tableColumns = (ref(unref(props).columns) as unknown) as Ref<
       TableColumn[]
-    >;
+    >
     const cacheTableColumns = (ref(unref(props).columns) as unknown) as Ref<
       TableColumn[]
-    >;
+    >
     // 获取 table 表头数据
     const getTableColumns = computed(() => {
-      return tableColumns.value;
-    });
+      return tableColumns.value
+    })
 
     // 样式
     const wrapStyle = computed(() => {
-      return `transform:translate${transform.translate};`;
-    });
+      return `transform:translate${transform.translate};`
+    })
 
-    onMounted(() => (browserSize = browserClient()));
+    onMounted(() => (browserSize = browserClient()))
 
     // 处理全屏
     function onFullScreen() {
       if (fullScreen.value) {
         // 切换为非全屏
-        delete scroll.y;
-        scroll.x = true;
-        transform.translate = `(0px,0px)`;
+        delete scroll.y
+        scroll.x = true
+        transform.translate = `(0px,0px)`
       } else {
         // 切换为全屏
-        delete scroll.x;
-        const offset = elementOffset(unref(tableRef));
-        transform.translate = `(-${offset.left - 16}px,-${offset.top}px)`;
-        scroll.y = browserSize.height! - 200;
+        delete scroll.x
+        const offset = elementOffset(unref(tableRef))
+        transform.translate = `(-${offset.left - 16}px,-${offset.top}px)`
+        scroll.y = browserSize.height! - 200
       }
-      fullScreen.value = !fullScreen.value;
+      fullScreen.value = !fullScreen.value
     }
     // 设置 table 头
     function setColumns(columns: string[]) {
       if (columns.length <= 0) {
-        tableColumns.value = [];
-        return;
+        tableColumns.value = []
+        return
       }
       const newColumns = unref(cacheTableColumns).filter((item) => {
-        return columns.includes(item.dataIndex);
-      });
-      tableColumns.value = newColumns;
+        return columns.includes(item.dataIndex)
+      })
+      tableColumns.value = newColumns
     }
 
     provideTable({
       getColumns: () => props.columns,
       setColumns,
-    });
+    })
 
     return {
       scroll,
@@ -142,9 +142,9 @@ export default defineComponent({
       fullScreen,
       onFullScreen,
       getTableColumns,
-    };
+    }
   },
-});
+})
 </script>
 
 

@@ -20,10 +20,7 @@
           请使用微信扫描二维码登录
         </div>
       </div>
-      <a-divider
-        type="vertical"
-        class="divider"
-      />
+      <a-divider type="vertical" class="divider" />
       <div class="login-main-right">
         <div v-show="loginContent.type === 'account'">
           <account-login @on-change="loginTypeChange" />
@@ -94,7 +91,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     height: 48px;
-    background: #f0f0f0;
+    background: #f0f2f5;
 
     .center {
       width: 1200px;

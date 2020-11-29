@@ -1,9 +1,13 @@
-
-import { Instance } from '/@/lib/props/TableList'
+import type { ColumnProps } from "ant-design-vue/lib/table/interface"
 import { provide, inject } from 'vue'
 
-const key = Symbol('table')
 
+export interface Instance {
+  getColumns: () => ColumnProps[];
+  setColumns: (column: string[]) => void
+}
+
+const key = Symbol('table')
 
 export function provideTable(instance: Instance): void {
   provide(key, instance)

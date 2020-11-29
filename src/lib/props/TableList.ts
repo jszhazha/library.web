@@ -40,11 +40,6 @@ export const tableListProps = {
   }
 }
 
-export interface Instance {
-  getColumns: () => ColumnProps[];
-  setColumns: (column: string[]) => void
-}
-
 
 export interface TableColumn extends ColumnProps {
   dataIndex: string

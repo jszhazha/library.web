@@ -4,12 +4,12 @@
       <a-row>
         <a-col :xs="24" :lg="9" class="pl-4 pr-4">
           <a-form-item label="索书号">
-            <InputWrap :readonly="readonly" />
+            <InputWrap />
           </a-form-item>
         </a-col>
         <a-col :xs="24" :lg="9" class="pl-4 pr-4">
           <a-form-item label="存放位置">
-            <InputWrap :readonly="readonly" />
+            <InputWrap />
           </a-form-item>
         </a-col>
       </a-row>

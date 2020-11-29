@@ -1,5 +1,5 @@
 import { onMounted } from 'vue'
-import { provideDataPage } from '/@/utils/listPage/methods/useProvince'
+import { provideListPage } from '/@/utils/listPage/methods/useProvince'
 
 
 
@@ -12,7 +12,7 @@ interface Options {
 
 export function listPageMix<T>(dataPageName: string, { fetchDataFromServer }: Options): void {
 
-  provideDataPage<T>(dataPageName)
+  provideListPage<T>(dataPageName)
 
   
   onMounted(() => {

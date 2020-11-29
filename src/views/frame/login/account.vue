@@ -54,7 +54,7 @@ export default defineComponent({
     // 点击短信登录
     const onChange = () => emit("on-change", "account")
 
-    // 点击按键
+    // 点击登录按键
     const disabled = computed(() => !(!!formData.account && !!formData.password))
 
     return {

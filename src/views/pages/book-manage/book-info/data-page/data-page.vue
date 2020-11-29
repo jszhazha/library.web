@@ -5,48 +5,48 @@
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="题名" v-bind="validateInfos.name">
-              <InputWrap v-model:value="dataItem.name" :readonly="readonly" />
+              <InputWrap v-model:value="dataItem.name" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="作者" v-bind="validateInfos.author">
-              <InputWrap v-model:value="dataItem.author" :readonly="readonly" />
+              <InputWrap v-model:value="dataItem.author" />
             </a-form-item>
           </a-col>
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="语种">
-              <InputWrap :readonly="readonly" />
+              <InputWrap />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="价格">
-              <InputWrap :readonly="readonly" />
+              <InputWrap />
             </a-form-item>
           </a-col>
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="出版社">
-              <InputWrap :readonly="readonly" />
+              <InputWrap />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="学科类别">
-              <InputWrap :readonly="readonly" />
+              <InputWrap />
             </a-form-item>
           </a-col>
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="出版时间">
-              <InputWrap :readonly="readonly" />
+              <InputWrap />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="国际标准书号">
-              <InputWrap :readonly="readonly" />
+              <InputWrap />
             </a-form-item>
           </a-col>
         </a-row>
@@ -57,7 +57,7 @@
     <hold-info />
 
     <!-- 修改信息 -->
-    <OperationInfoPanel :readonly="readonly" />
+    <OperationInfoPanel />
 
     <!-- 操作 -->
     <template #footer-block>

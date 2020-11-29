@@ -5,7 +5,7 @@ import { PageMode } from "/@/utils/helper/breadcrumb"
 
 
 
-const key = Symbol('dataItem')
+const key = Symbol('listPage')
 
 interface DataPage<T> {
   // 添加数据 
@@ -25,7 +25,7 @@ interface DataPage<T> {
  * @description 页面跳转进入的函数
  * @param name dataPage 页面 name 名称
  */
-export function provideDataPage<T extends { id?: number }>(name: string): void {
+export function provideListPage<T extends { id?: number }>(name: string): void {
   const pageGo = useGo()
 
   const onNewDataItem = () => pageGo({ name, query: { mode: PageMode[PageMode.new] } })
@@ -37,6 +37,6 @@ export function provideDataPage<T extends { id?: number }>(name: string): void {
   provide(key, instance)
 }
 
-export function injectDataPage<T>(): DataPage<T> {
+export function injectListPage<T>(): DataPage<T> {
   return inject(key) as DataPage<T>
 }

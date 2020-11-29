@@ -2,14 +2,23 @@
   <a-input
     v-model:value="currentValue"
     class="input-wrap"
-    :disabled="readonly"
-    :placeholder="readonly ? '' : placeholder"
+    :disabled="inputReadonly"
+    :placeholder="inputReadonly ? '' : placeholder"
     @change="onChange"
   />
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, unref, watch } from "vue"
+import type { Ref } from "vue"
+import { defineComponent, PropType, ref, unref, watch, computed, toRefs } from "vue"
+import { injectDatapage } from "/@/utils/dataPage/methods/useProvince"
+
+const useinputReadonly = (readonly: Ref<boolean>) => {
+  return computed(() => {
+    const dataPage = injectDatapage()
+    return readonly.value || dataPage.readonly
+  })
+}
 
 export default defineComponent({
   props: {
@@ -29,24 +38,23 @@ export default defineComponent({
   emits: ["update:value"],
   setup(props, { emit }) {
     const currentValue = ref<string>("")
+    const { readonly } = toRefs(props)
 
     // 内容发送变化触发
-    const onChange = () => {
-      emit("update:value", currentValue.value)
-    }
+    const onChange = () => emit("update:value", currentValue.value)
+
+    const inputReadonly = useinputReadonly(readonly)
 
     watch(
       () => props.value,
       (newValue) => {
-        if (unref(currentValue) === newValue) {
-          return
-        }
+        if (unref(currentValue) === newValue) return
         currentValue.value = newValue
       },
       { immediate: true }
     )
 
-    return { currentValue, onChange }
+    return { currentValue, inputReadonly, onChange }
   },
 })
 </script>

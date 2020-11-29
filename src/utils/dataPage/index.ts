@@ -4,12 +4,14 @@ import type { FromRules } from '/@/lib/interface/From'
 import { unref, onBeforeUnmount, onMounted, watch, reactive, toRef } from "vue"
 import { useRouter } from "vue-router"
 import { assign } from 'lodash-es'
+import { provideDataPage } from './methods/useProvince'
 import { checkCacheData, cacheData } from './methods/cacheData'
 import { checkDataRouter, QueryRoute } from './methods/dataRouter'
 import { createStorage } from "/@/utils/storage/"
 import { PageMode } from "/@/utils/helper/breadcrumb"
 import { useToast } from "vue-toastification"
 import { useForm } from "@ant-design-vue/use"
+
 
 import './index.less'
 
@@ -144,8 +146,12 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
 
   //  push({ query: { mode: PageMode[PageMode.edit] } })
 
-
-
+  /**
+   * 注入依赖
+   */
+  provideDataPage({
+    readonly: pageInfo.readonly
+  })
 
 
   // console.log(dataItem)

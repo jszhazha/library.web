@@ -15,7 +15,7 @@ export interface RouteMeta {
 
   // 缓存页面
   keepAlive?: boolean,
-  
+
   // 忽略标签缓存
   ignoreKeepAlive?: boolean;
 
@@ -29,7 +29,10 @@ export interface RouteMeta {
   icon?: string;
 
   // 固定标签
-  affix?: boolean
+  affix?: boolean,
+
+  // 忽略标签
+  ignoreTab?: boolean
 }
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
@@ -59,7 +62,7 @@ export interface Menu extends RouteMeta {
   orderNo?: number;
 
   roles?: RoleEnum[];
-  
+
 }
 
 

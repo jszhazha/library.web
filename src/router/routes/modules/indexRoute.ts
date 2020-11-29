@@ -7,6 +7,7 @@ export const loginRoute: AppRouteRecordRaw = {
   component: () => import('/@/views/frame/login/index.vue'),
   meta: {
     title: '登录',
+    ignoreTab: true
   },
 }
 

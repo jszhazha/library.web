@@ -54,7 +54,7 @@ export default class Tab extends VuexModule {
     let updateIndex = -1
     const hasTab = this.tabsState.some((tab, index) => {
       updateIndex = index
-      return tab.name === name
+      return !tab.meta?.ignoreTab && tab.name === name
     })
     if (hasTab) {
       const curTab = toRaw(this.tabsState)[updateIndex]

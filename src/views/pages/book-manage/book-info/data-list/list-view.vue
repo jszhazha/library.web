@@ -1,5 +1,5 @@
 <template>
-  <table-list title="图书列表" :columns="tableColumns" :data-source="dataSource">
+  <TableList title="图书列表" :columns="tableColumns" :data-source="dataSource">
     <template #header-left>
       <a-button @click="onBatchImport">
         批量导入
@@ -15,7 +15,7 @@
         <span>删除</span>
       </div>
     </template>
-  </table-list>
+  </TableList>
 </template>
 
 <script lang="ts">

@@ -1,7 +1,7 @@
 <template>
-  <global-data-page>
+  <GlobalDataPage>
     <a-form :label-col="{ flex: '100px' }" :wrapper-col="{ flex: 'auto' }">
-      <global-card title="基本信息">
+      <GlobalCard title="基本信息">
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="题名" v-bind="validateInfos.name">
@@ -50,7 +50,7 @@
             </a-form-item>
           </a-col>
         </a-row>
-      </global-card>
+      </GlobalCard>
     </a-form>
 
     <!-- 馆藏信息 -->
@@ -74,7 +74,7 @@
         保存
       </a-button>
     </template>
-  </global-data-page>
+  </GlobalDataPage>
 </template>
 
 <script lang="ts">

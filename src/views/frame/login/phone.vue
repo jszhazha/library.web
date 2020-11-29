@@ -7,14 +7,14 @@
         <span v-else-if="error.phone">手机号格式不正确 </span>
       </div>
     </div>
-    <global-input
+    <GlobalInput
       v-model:value="formData.phone"
       v-model:errorBorder="error.phone"
       type="phone"
       placeholder="手机号"
       :maxlength="20"
     />
-    <global-input
+    <GlobalInput
       v-model:value="formData.code"
       v-model:errorBorder="error.code"
       class="login-phone-code"
@@ -24,9 +24,9 @@
       :maxlength="8"
     />
     <span class="login-phone-change-link" @click="onChange"> 密码登录 </span>
-    <global-button class="login-phone-button" :disabled="disabled">
+    <GlobalButton class="login-phone-button" :disabled="disabled">
       登录
-    </global-button>
+    </GlobalButton>
   </div>
 </template>
 

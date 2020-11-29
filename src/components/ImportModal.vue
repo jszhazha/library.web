@@ -7,7 +7,7 @@
     :row-selection="rowSelection"
   >
     <div :style="{ height: browserSize.height - 252 + 'px' }">
-      <global-table
+      <GlobalTable
         :columns="columns"
         :data-source="dataSource"
         :row-selection="rowSelection"

@@ -50,6 +50,7 @@ export default class Tab extends VuexModule {
   @Mutation
   commitAddTab(route: TabItem): void {
     const { path, name, meta, params, query } = route
+    
     if (meta?.ignoreTab) return
     let updateIndex = -1
     const hasTab = this.tabsState.some((tab, index) => {

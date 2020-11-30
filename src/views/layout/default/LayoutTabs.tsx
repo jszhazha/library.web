@@ -12,6 +12,8 @@ import router from "/@/router"
 export default defineComponent({
   setup() {
     let isAddAffix = false
+    // 路由
+    const routeSet = new Set()
     // 当前激活标签
     const activeKey = ref<string>("")
     // 页面跳转
@@ -33,12 +35,15 @@ export default defineComponent({
       () => tabStore.getLastChangeRouteState,
       (value) => {
         if (!isAddAffix) {
+          addRouteSet()
           addAffixTabs()
+
           isAddAffix = true
         }
         const lastChangeRoute = unref(value)
         activeKey.value = value.name as string
-        tabStore.commitAddTab(lastChangeRoute)
+        const result = validateRoute(lastChangeRoute)
+        result && tabStore.commitAddTab(lastChangeRoute)
       },
       { immediate: true }
     )
@@ -47,6 +52,7 @@ export default defineComponent({
     function filterAffixTabs(routes: AppRouteRecordRaw[]) {
       return routes.filter((route) => route.meta.affix)
     }
+
     /**
      * @description: 设置固定tabs
      */
@@ -55,12 +61,25 @@ export default defineComponent({
       const cacheTabs = readCacheTabs()
       if (cacheTabs) {
         for (const tab of cacheTabs) {
-          tabStore.commitAddTab(tab)
+          const result = validateRoute(tab)
+          result && tabStore.commitAddTab(tab)
         }
       }
       for (const tab of affixTabs) {
         tabStore.commitAddTab(tab)
       }
+    }
+
+    // 获取全部路由设置 防止不存在路由添加
+    function addRouteSet() {
+      const routes = router.getRoutes()
+      routes.forEach((item) => routeSet.add(item.name))
+    }
+
+    // 检测路由是否存在
+    function validateRoute(route: TabItem): boolean {
+      const { name } = route
+      return routeSet.has(name)
     }
 
     // 查找数据

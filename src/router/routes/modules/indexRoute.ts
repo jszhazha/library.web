@@ -1,15 +1,26 @@
 import type { AppRouteRecordRaw } from '/@/router/types'
 
 
-export const loginRoute: AppRouteRecordRaw = {
-  path: '/login',
-  name: 'login',
-  component: () => import('/@/views/frame/login/index.vue'),
-  meta: {
-    title: '登录',
-    ignoreTab: true
+export const loginRoutes: AppRouteRecordRaw[] = [
+  {
+    path: '/login',
+    name: 'login',
+    component: (): unknown => import('/@/views/frame/login/index.vue'),
+    meta: {
+      title: '登录',
+      ignoreTab: true
+    },
   },
-}
+  {
+    path: '/login/choose-account',
+    name: 'login-choose-account',
+    component: (): unknown => import('/@/views/frame/login/choose-account/index.vue'),
+    meta: {
+      title: '选择登录帐号',
+      ignoreTab: true
+    },
+  }
+]
 
 export const forgetRoute: AppRouteRecordRaw = {
   path: '/forget',

@@ -33,7 +33,7 @@ export const RootRoute: AppRouteRecordRaw = {
   path: '/',
   name: 'root-router',
   component: DEFAULT_LAYOUT_COMPONENT,
-  redirect: PageEnum.BASE_HOME,
+  redirect: { name: PageEnum.BASE_HOME },
   meta: {
     title: '首页'
   },

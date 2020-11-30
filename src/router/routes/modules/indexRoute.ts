@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw } from '/@/router/types'
 
 
-export const loginRoutes: AppRouteRecordRaw[] = [
+export const LoginRoutes: AppRouteRecordRaw[] = [
   {
     path: '/login',
     name: 'login',
@@ -22,7 +22,7 @@ export const loginRoutes: AppRouteRecordRaw[] = [
   }
 ]
 
-export const forgetRoute: AppRouteRecordRaw = {
+export const ForgetRoute: AppRouteRecordRaw = {
   path: '/forget',
   name: 'forget',
   component: () => import('/@/views/frame/forget/index.vue'),
@@ -44,4 +44,16 @@ export const overviewPage: AppRouteRecordRaw = {
     affix: true,
     icon: "ant-design:home-outlined"
   }
+}
+
+
+
+export const NoFountPage: AppRouteRecordRaw = {
+  path: '/:path(.*)*',
+  name: 'no-fount-page',
+  component: (): unknown => import("/@/views/pages/exception/404.vue"),
+  meta: {
+    title: '404',
+    ignoreTab: true
+  },
 }

@@ -14,6 +14,7 @@
       @blur="handleBlur"
       @focus="handleFocus"
       @input="handleInput"
+      @keydown.enter="handleEnter"
     >
     <!-- 验证码 -->
     <div
@@ -106,7 +107,7 @@ export default defineComponent({
       default: true,
     },
   },
-  emits: ["update:value", "update:errorBorder"],
+  emits: ["update:value", "update:errorBorder", "on-enter"],
   setup(props, { emit }) {
     const userInput = reactive<UserInput>({
       type: InputTypeMap[props.type as InputTypeMap],
@@ -163,6 +164,13 @@ export default defineComponent({
       setCountdown()
     }
 
+    // 用户按下 enter
+    function handleEnter() {
+      if (userInput.value) {
+        emit("on-enter")
+      }
+    }
+
     // 设置定时器
     function setCountdown() {
       codeContent.time = 60
@@ -191,6 +199,7 @@ export default defineComponent({
       handleBlur,
       handleFocus,
       handleInput,
+      handleEnter,
       handleSwitch,
     }
   },

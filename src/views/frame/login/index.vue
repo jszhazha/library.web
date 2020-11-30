@@ -1,34 +1,30 @@
 <template>
-  <div class="login">
-    <public-header />
-    <div class="index-center login-title">
+  <public-layout>
+    <template #header>
       {{ loginContent.title }}
-    </div>
-    <div class="index-center login-main">
-      <div class="login-main-left">
-        <div class="qrcode-wrap">
-          <img ref="qrcode">
-        </div>
-        <div class="login-main-left-footer">
-          请使用微信扫描二维码登录
-        </div>
+    </template>
+    <template #left>
+      <div class="qrcode-wrap">
+        <img ref="qrcode">
       </div>
-      <a-divider type="vertical" class="divider" />
-      <div class="login-main-right">
-        <div v-show="loginContent.type === 'account'">
-          <account-login @on-change="loginTypeChange" />
-        </div>
-        <div v-show="loginContent.type === 'phone'">
-          <phone-login @on-change="loginTypeChange" />
-        </div>
+      <div class="login-main-left-footer">
+        请使用微信扫描二维码登录
       </div>
-    </div>
-  </div>
+    </template>
+    <template #right>
+      <div v-show="loginContent.type === 'account'">
+        <account-login @on-change="loginTypeChange" />
+      </div>
+      <div v-show="loginContent.type === 'phone'">
+        <phone-login @on-change="loginTypeChange" />
+      </div>
+    </template>
+  </public-layout>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, reactive } from "vue"
-import publicHeader from "/@/views/frame/components/publicHeader"
+import publicLayout from "/@/views/frame/components/publicLayout.vue"
 import accountLogin from "./account.vue"
 import phoneLogin from "./phone.vue"
 import config from "/@/config/"
@@ -38,7 +34,7 @@ import { toDataURL } from "qrcode"
 
 export default defineComponent({
   name: "Login",
-  components: { accountLogin, phoneLogin, publicHeader },
+  components: { accountLogin, phoneLogin, publicLayout },
   setup() {
     const loginContent = reactive({ type: "account", title: `${config.shortTitle}账号登录` })
     const qrcode = ref<null | HTMLImageElement>(null)
@@ -88,17 +84,6 @@ export default defineComponent({
   }
 
   &-main {
-    .divider {
-      height: 240px;
-      margin: 0 48px;
-      background: #d9d9d9;
-    }
-
-    &-right,
-    &-left {
-      width: 360px;
-    }
-
     &-left-footer {
       margin: 50px 0 0;
       font-size: 12px;

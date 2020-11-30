@@ -11,6 +11,7 @@
       v-model:errorBorder="error.is"
       type="text"
       placeholder="手机号/邮件地址/图书馆账号"
+      @on-enter="onEnter"
     />
     <GlobalInput
       v-model:value="formData.password"
@@ -18,6 +19,7 @@
       class="login-account-password"
       type="password"
       placeholder="密码"
+      @on-enter="onEnter"
     />
     <span class="login-account-change-link" @click="onChange"> 短信验证码登录 </span>
     <GlobalButton class="login-account-button" :disabled="disabled">
@@ -57,10 +59,15 @@ export default defineComponent({
     // 点击登录按键
     const disabled = computed(() => !(!!formData.account && !!formData.password))
 
+    const onEnter = () => {
+      // console.log(formData)
+    }
+
     return {
       error,
       disabled,
       formData,
+      onEnter,
       onChange,
     }
   },

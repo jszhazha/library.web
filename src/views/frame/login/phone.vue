@@ -13,6 +13,7 @@
       type="phone"
       placeholder="手机号"
       :maxlength="20"
+      @on-enter="onEnter"
     />
     <GlobalInput
       v-model:value="formData.code"
@@ -22,6 +23,7 @@
       placeholder="短信验证码"
       :code-disabled="formData.phone && error.phone"
       :maxlength="8"
+      @on-enter="onEnter"
     />
     <span class="login-phone-change-link" @click="onChange"> 密码登录 </span>
     <GlobalButton class="login-phone-button" :disabled="disabled">
@@ -50,7 +52,11 @@ export default defineComponent({
     // 点击登录按键
     const disabled = computed(() => !(!!formData.phone && !!formData.code))
 
-    return { formData, error, onChange, disabled }
+    const onEnter = () => {
+      // console.log(formData)
+    }
+
+    return { formData, error, onEnter, onChange, disabled }
   },
 })
 </script>

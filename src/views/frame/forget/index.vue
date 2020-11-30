@@ -11,7 +11,9 @@
             <div class="m-title mb-1">
               输入{{ shortTitle }}账号
             </div>
-            <div>输入注册{{ shortTitle }}帐号的手机号或邮件地址</div>
+            <div class="m-tip">
+              输入注册{{ shortTitle }}帐号的手机号或邮件地址
+            </div>
           </div>
           <GlobalInput
             class="input-account"
@@ -84,6 +86,10 @@ export default defineComponent({
       &-title {
         font-size: 16px;
         color: #333;
+      }
+
+      &-tip {
+        color: #999;
       }
 
       .input-account {

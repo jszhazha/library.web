@@ -14,6 +14,7 @@
       @blur="handleBlur"
       @focus="handleFocus"
       @input="handleInput"
+      @keydown.enter="handleEnter"
     >
     <!-- 验证码 -->
     <div
@@ -57,14 +58,14 @@ enum TypeMap {
 }
 
 interface UserInput {
-  type: string;
-  value: string;
+  type: string
+  value: string
 }
 
 interface CodeContent {
-  instance: NodeJS.Timeout | null;
-  time: number;
-  tip: string;
+  instance: NodeJS.Timeout | null
+  time: number
+  tip: string
 }
 
 export default defineComponent({
@@ -100,8 +101,13 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    // 输入框是否高亮
+    focusHighlight: {
+      type: Boolean,
+      default: true,
+    },
   },
-  emits: ["update:value", "update:errorBorder"],
+  emits: ["update:value", "update:errorBorder", "on-enter"],
   setup(props, { emit }) {
     const userInput = reactive<UserInput>({
       type: InputTypeMap[props.type as InputTypeMap],
@@ -136,7 +142,9 @@ export default defineComponent({
 
     // 获得焦点
     function handleFocus() {
-      borderColor.value = "#1890ff"
+      if (props.focusHighlight) {
+        borderColor.value = "#1890ff"
+      }
     }
 
     // 输入内容
@@ -154,6 +162,13 @@ export default defineComponent({
         return
       }
       setCountdown()
+    }
+
+    // 用户按下 enter
+    function handleEnter() {
+      if (userInput.value) {
+        emit("on-enter")
+      }
     }
 
     // 设置定时器
@@ -184,6 +199,7 @@ export default defineComponent({
       handleBlur,
       handleFocus,
       handleInput,
+      handleEnter,
       handleSwitch,
     }
   },
@@ -199,7 +215,7 @@ export default defineComponent({
   padding: 0 16px;
   font-size: 16px;
   color: #141414;
-  background: rgba(0, 0, 0, 0.05);
+  background: #f0f2f5;
   border: 1px solid transparent;
   border-radius: 8px;
   transition: border 0.2s ease-in-out;

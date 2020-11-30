@@ -21,5 +21,5 @@ export interface GlobConfig {
   publicPath: string;
 
   // 短标题
-  shortName: string;
+  shortTitle: string;
 }

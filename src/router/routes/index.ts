@@ -3,7 +3,7 @@ import { genRouteModule } from '/@/utils/helper/route'
 import { PageEnum } from '/@/enums/pageEnum'
 
 import { DEFAULT_LAYOUT_COMPONENT } from '../constant'
-import { loginRoute ,overviewPage} from './modules/indexRoute'
+import { loginRoutes, forgetRoute, overviewPage } from './modules/indexRoute'
 
 // 路由
 import systemRouters from './modules/systemRouters'
@@ -33,7 +33,7 @@ export const RootRoute: AppRouteRecordRaw = {
   path: '/',
   name: 'root-router',
   component: DEFAULT_LAYOUT_COMPONENT,
-  redirect: PageEnum.BASE_HOME,
+  redirect: { name: PageEnum.BASE_HOME },
   meta: {
     title: '首页'
   },
@@ -41,4 +41,4 @@ export const RootRoute: AppRouteRecordRaw = {
 }
 
 
-export const basicRoutes = [loginRoute, RootRoute]
+export const basicRoutes = [...loginRoutes, forgetRoute, RootRoute]

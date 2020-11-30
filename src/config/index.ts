@@ -1,34 +1,39 @@
 import logo from '/@/assets/svg/logo.svg'
 import { useSetting } from '/@/hooks/core/useSetting'
 
-const { title, publicPath } = useSetting()
+const { title, publicPath, shortTitle } = useSetting()
 
 /**
  *  系统配置文件可用于设置使用系统运行的参数
  **/
 
 interface Config {
-  title: string,
+  title: string
 
-  logo: string,
+  shortTitle: string
+
+  logo: string
 
   publicPath: string
 
-  theme: "dark" | "light" | undefined,
+  theme: "dark" | "light" | undefined
 
-  menuWidth: number,
+  menuWidth: number
 
-  collapsed: boolean;
+  collapsed: boolean
 
-  collapsedWidth: number,
+  collapsedWidth: number
 
-  max: number;
+  max: number
 }
 
 
 const config: Config = {
   // 系统名称
   title: title,
+
+  // 短系统标题
+  shortTitle: shortTitle,
 
   // logo
   logo: logo,

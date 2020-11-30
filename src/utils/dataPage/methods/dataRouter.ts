@@ -1,7 +1,8 @@
-import {  onMounted } from "vue"
+import { onMounted, onUnmounted } from "vue"
 import { parsePageModeFromString, PageMode } from "/@/utils/helper/breadcrumb"
 import { isBoolean, isString, isStrNum } from "/@/utils/is"
 import useToast from "/@/components/Toast"
+import { tabStore } from '/@/store/modules/tab'
 
 
 export interface QueryRoute {
@@ -11,8 +12,13 @@ export interface QueryRoute {
 }
 
 
-// 检查路由是否合法 并返回页面模式
-export function checkDataRouter(query: QueryRoute): number {
+/**
+ * 
+ * @param query 
+ * @param name 
+ * @description 检查路由是否合法 并返回页面模式, 如果不合法通过 name 字段 删除 缓存标签
+ */
+export function checkDataRouter(query: QueryRoute, name: string): number {
   const { id, mode } = query
   // 解析路由
   const pageMode = parsePageModeFromString(mode)
@@ -27,6 +33,7 @@ export function checkDataRouter(query: QueryRoute): number {
   // 判断 description 类型 字符串 -> 弹出提示框
   if (isString(description)) {
     onMounted(() => useToast.error(description))
+    onUnmounted(() => tabStore.commitCloseTab({ name }))
   }
   // 输出结果
   return isBoolean(pageMode) ? PageMode.view : pageMode.mode

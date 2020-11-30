@@ -3,7 +3,7 @@
     class="global-table"
     bordered
     :row-key="rowKey"
-    :columns="columns"
+    :columns="tableColumns"
     :data-source="dataSource"
     :pagination="{
       showTotal: (total) => `共 ${total} 条`,
@@ -19,15 +19,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
+import { computed, defineComponent, toRefs, unref } from "vue"
 import { Table } from "ant-design-vue"
 import { tableProps } from "/@/lib/props/TableList"
+import { injectDatapage } from "/@/utils/dataPage/methods/useDepend"
+import { cloneDeep } from "lodash-es"
 
 export default defineComponent({
   components: { Table },
   props: tableProps,
-  setup() {
-    return {}
+  setup(props) {
+    const { columns } = toRefs(props)
+
+    const tableColumns = computed(() => {
+      const { readonly } = injectDatapage()
+      const newColumns = cloneDeep(unref(columns))
+      if (readonly?.value) newColumns.pop()
+      return newColumns
+    })
+    return { tableColumns }
   },
 })
 </script>

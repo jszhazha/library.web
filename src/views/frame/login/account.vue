@@ -11,6 +11,7 @@
       v-model:errorBorder="error.is"
       type="text"
       placeholder="手机号/邮件地址/图书馆账号"
+      @on-enter="onEnter"
     />
     <GlobalInput
       v-model:value="formData.password"
@@ -18,13 +19,14 @@
       class="login-account-password"
       type="password"
       placeholder="密码"
+      @on-enter="onEnter"
     />
     <span class="login-account-change-link" @click="onChange"> 短信验证码登录 </span>
     <GlobalButton class="login-account-button" :disabled="disabled">
       登录
     </GlobalButton>
     <div class="login-account-link">
-      <router-link to="/">
+      <router-link to="/forget">
         忘记密码
       </router-link>
       <a-divider type="vertical" />
@@ -42,8 +44,8 @@ export default defineComponent({
   emits: ["on-change"],
   setup(_props, { emit }) {
     const formData = reactive({
-      account: "admin",
-      password: "123456",
+      account: "",
+      password: "",
     })
     // 错误信息
     const error = reactive({
@@ -57,10 +59,15 @@ export default defineComponent({
     // 点击登录按键
     const disabled = computed(() => !(!!formData.account && !!formData.password))
 
+    const onEnter = () => {
+      // console.log(formData)
+    }
+
     return {
       error,
       disabled,
       formData,
+      onEnter,
       onChange,
     }
   },

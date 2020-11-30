@@ -2,7 +2,7 @@ import store from '/@/store/index'
 import { toRaw } from 'vue'
 import { Module, VuexModule, Mutation, getModule } from 'vuex-module-decorators'
 import { RouteMeta } from '/@/router/types'
-import { isNumber, isUnDef } from '/@/utils/is'
+import { isNumber, isDef } from '/@/utils/is'
 
 export interface TabItem {
   // 路径
@@ -50,11 +50,12 @@ export default class Tab extends VuexModule {
   @Mutation
   commitAddTab(route: TabItem): void {
     const { path, name, meta, params, query } = route
-
+    
+    if (meta?.ignoreTab) return
     let updateIndex = -1
     const hasTab = this.tabsState.some((tab, index) => {
       updateIndex = index
-      return !tab.meta?.ignoreTab && tab.name === name
+      return tab.name === name
     })
     if (hasTab) {
       const curTab = toRaw(this.tabsState)[updateIndex]
@@ -91,7 +92,7 @@ export default class Tab extends VuexModule {
     // 设置开始下标
     const startIndex = isNumber(start) ? start : findIndex(start)
     // 设置结束下标
-    const endIndex = isUnDef(end) ? isNumber(end) ? end : findIndex(end) : undefined
+    const endIndex = isDef(end) ? isNumber(end) ? end : findIndex(end) : undefined
     // 没有找到下标 就跳出
     if (endIndex === -1 || startIndex === -1) {
       return

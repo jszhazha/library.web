@@ -14,5 +14,5 @@ export function provideTable(instance: Instance): void {
 }
 
 export function injectTable(): Instance {
-  return inject(key) as Instance
+  return inject(key, {}) as Instance
 }

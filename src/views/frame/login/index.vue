@@ -1,40 +1,30 @@
 <template>
-  <div class="login">
-    <div class="login-header">
-      <div class="index-middle center">
-        <img :src="config.logo">
-        <div class="title">
-          {{ config.title }}
-        </div>
-      </div>
-    </div>
-    <div class="index-center login-title">
+  <public-layout>
+    <template #header>
       {{ loginContent.title }}
-    </div>
-    <div class="index-center login-main">
-      <div class="login-main-left">
-        <div class="qrcode-wrap">
-          <img ref="qrcode">
-        </div>
-        <div class="login-main-left-footer">
-          请使用微信扫描二维码登录
-        </div>
+    </template>
+    <template #left>
+      <div class="qrcode-wrap">
+        <img ref="qrcode">
       </div>
-      <a-divider type="vertical" class="divider" />
-      <div class="login-main-right">
-        <div v-show="loginContent.type === 'account'">
-          <account-login @on-change="loginTypeChange" />
-        </div>
-        <div v-show="loginContent.type === 'phone'">
-          <phone-login @on-change="loginTypeChange" />
-        </div>
+      <div class="login-main-left-footer">
+        请使用微信扫描二维码登录
       </div>
-    </div>
-  </div>
+    </template>
+    <template #right>
+      <div v-show="loginContent.type === 'account'">
+        <account-login @on-change="loginTypeChange" />
+      </div>
+      <div v-show="loginContent.type === 'phone'">
+        <phone-login @on-change="loginTypeChange" />
+      </div>
+    </template>
+  </public-layout>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, reactive } from "vue"
+import publicLayout from "/@/views/frame/components/publicLayout.vue"
 import accountLogin from "./account.vue"
 import phoneLogin from "./phone.vue"
 import config from "/@/config/"
@@ -44,9 +34,9 @@ import { toDataURL } from "qrcode"
 
 export default defineComponent({
   name: "Login",
-  components: { accountLogin, phoneLogin },
+  components: { accountLogin, phoneLogin, publicLayout },
   setup() {
-    const loginContent = reactive({ type: "account", title: "图书馆账号登录" })
+    const loginContent = reactive({ type: "account", title: `${config.shortTitle}账号登录` })
     const qrcode = ref<null | HTMLImageElement>(null)
     const renderValue = String("Hello world")
     const width = 160
@@ -66,7 +56,7 @@ export default defineComponent({
         loginContent.title = "短信验证码登录"
       } else if (value === "phone") {
         loginContent.type = "account"
-        loginContent.title = "图书馆账号登录"
+        loginContent.title = `${config.shortTitle}账号登录`
       }
     }
 
@@ -87,30 +77,6 @@ export default defineComponent({
 .login {
   min-width: 800px;
 
-  &-header {
-    display: flex;
-    align-items: center;
-    height: 48px;
-    background: #f0f2f5;
-
-    .center {
-      width: 1200px;
-      padding: 0 20px;
-      margin: 0 auto;
-
-      img {
-        width: 20px;
-      }
-    }
-
-    .title {
-      margin: 0 0 0 10px;
-      font-size: 16px;
-      font-weight: 700;
-      color: @titleColor;
-    }
-  }
-
   &-title {
     padding: 80px 0 64px;
     font-size: 25.6px;
@@ -118,17 +84,6 @@ export default defineComponent({
   }
 
   &-main {
-    .divider {
-      height: 240px;
-      margin: 0 48px;
-      background: #d9d9d9;
-    }
-
-    &-right,
-    &-left {
-      width: 360px;
-    }
-
     &-left-footer {
       margin: 50px 0 0;
       font-size: 12px;

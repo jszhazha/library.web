@@ -35,15 +35,22 @@ export interface RouteMeta {
   ignoreTab?: boolean
 }
 
-export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
-  meta: RouteMeta;
-  children?: AppRouteRecordRaw[];
-  props?: unknown;
+export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta' | 'name'> {
+
+  name: string
+
+  meta: RouteMeta
+
+  children?: AppRouteRecordRaw[]
+
+  props?: unknown
 }
 
 
 export interface AppRouteModule {
+  
   layout: AppRouteRecordRaw;
+
   routes: AppRouteRecordRaw[];
 }
 
@@ -69,7 +76,7 @@ export interface Menu extends RouteMeta {
 export interface FlatMenu {
   path: string
 
-  title?: string
+  name: string | symbol;
 
-  name?: string | symbol;
+  meta?: RouteMeta
 }

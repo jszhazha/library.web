@@ -33,7 +33,7 @@ function flatMenus(router: AppRouteRecordRaw[], parentPath = ''): FlatMenu[] {
   let result: FlatMenu[] = []
   router.forEach((el) => {
     const currPath = `${parentPath}/${el.path}`.replace(/[/]{2,}/, '/')
-    result.push({ name: el.name, path: currPath, title: el.meta.title })
+    result.push({ name: el.name as string, path: currPath, meta: el.meta })
     if (routerHasChildren(el)) {
       result = result.concat(flatMenus(el.children!, currPath))
     }
@@ -46,7 +46,7 @@ function getMenuItem(menus: AppRouteRecordRaw[], parentPath = ''): MenuType[] {
   return menus.map((el: AppRouteRecordRaw) => {
     const { path, name, meta } = el
     const currPath = `${parentPath}/${path}`.replace(/[/]{2,}/, '/')
-    const item: MenuType = { path: currPath, name, ...meta  }
+    const item: MenuType = { path: currPath, name, ...meta }
     if (routerHasChildren(el)) {
       item.children = getMenuItem(el.children!, currPath)
     }

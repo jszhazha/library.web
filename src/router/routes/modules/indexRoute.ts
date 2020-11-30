@@ -8,7 +8,6 @@ export const LoginRoutes: AppRouteRecordRaw[] = [
     component: (): unknown => import('/@/views/frame/login/index.vue'),
     meta: {
       title: '登录',
-      ignoreTab: true
     },
   },
   {
@@ -17,7 +16,7 @@ export const LoginRoutes: AppRouteRecordRaw[] = [
     component: (): unknown => import('/@/views/frame/login/choose-account/index.vue'),
     meta: {
       title: '选择登录帐号',
-      ignoreTab: true
+
     },
   }
 ]

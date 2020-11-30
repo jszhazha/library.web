@@ -5,9 +5,8 @@ import { tabStore, TabItem } from "/@/store/modules/tab"
 import { Tabs, Dropdown, Menu } from "ant-design-vue"
 import { closeTab, useCacheTabs, useTabDropdown } from "/@/hooks/web/useTab"
 import { getActions } from "./tab.data"
+import { getFlatMenus } from "/@/utils/helper/menu";
 import Icon from "/@/components/Icon"
-
-import router from "/@/router"
 
 export default defineComponent({
   setup() {
@@ -57,7 +56,7 @@ export default defineComponent({
      * @description: 设置固定tabs
      */
     function addAffixTabs(): void {
-      const affixTabs = filterAffixTabs((router.getRoutes() as unknown) as AppRouteRecordRaw[])
+      const affixTabs = filterAffixTabs((getFlatMenus() as unknown) as AppRouteRecordRaw[])
       const cacheTabs = readCacheTabs()
       if (cacheTabs) {
         for (const tab of cacheTabs) {
@@ -70,9 +69,9 @@ export default defineComponent({
       }
     }
 
-    // 获取全部路由设置 防止不存在路由添加
+    // 获取全部路由设置 防止不存在路由添加 也只有菜单路由添加进去
     function addRouteSet() {
-      const routes = router.getRoutes()
+      const routes = getFlatMenus()
       routes.forEach((item) => routeSet.add(item.name))
     }
 

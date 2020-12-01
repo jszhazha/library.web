@@ -8,10 +8,10 @@ import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant'
 
 const routers: AppRouteModule = {
   layout: {
-    path: '/account-manage',
+    path: 'account-manage',
     name: 'account-manage',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/account-manage/center',
+    redirect: { name: 'center' },
     meta: {
       title: '个人管理',
       icon: 'ant-design:user-outlined'

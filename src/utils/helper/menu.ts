@@ -24,9 +24,9 @@ export function getFlatMenus(): FlatMenu[] {
 }
 
 // 获取全部父级路由
-export function getAllParentPath(treeData: FlatMenu[], path: string): string[] {
-  const menuList = findPath(treeData, path)
-  return menuList.map(el => el.path)
+export function getAllParentPathName(treeData: FlatMenu[], name: string): string[] {
+  const menuList = findPathName(treeData, name)
+  return menuList.map(el => el.name as string)
 }
 
 function flatMenus(router: AppRouteRecordRaw[], parentPath = ''): FlatMenu[] {
@@ -55,7 +55,7 @@ function getMenuItem(menus: AppRouteRecordRaw[], parentPath = ''): MenuType[] {
 }
 
 
-function findPath(tree: FlatMenu[], path: string) {
-  return tree.filter((el) => new RegExp(el.path!).test(path))
+function findPathName(tree: FlatMenu[], name: string) {
+  return tree.filter((el) => new RegExp(el.name).test(name))
 }
 

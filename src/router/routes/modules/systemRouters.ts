@@ -6,10 +6,10 @@ import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant'
 
 const routers: AppRouteModule = {
   layout: {
-    path: '/system-manage',
+    path: 'system-manage',
     name: 'system-manage',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/system-manage/user-manage-list-page',
+    redirect: { name: 'user-manage-list-page' },
     meta: {
       title: '系统管理',
       icon: 'ant-design:setting-outlined'

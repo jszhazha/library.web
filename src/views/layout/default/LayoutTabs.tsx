@@ -8,6 +8,9 @@ import { getActions } from "./tab.data"
 import { getFlatMenus } from "/@/utils/helper/menu";
 import Icon from "/@/components/Icon"
 
+
+import router from '/@/router'
+
 export default defineComponent({
   setup() {
     let isAddAffix = false

@@ -52,9 +52,7 @@ export default defineComponent({
     // 点击标题
     function handleItemClick(item: AppRouteRecordRaw) {
       const { redirect } = item
-      if (redirect) {
-        go(redirect as string)
-      }
+      redirect && go(redirect)
     }
 
     // 监听路由发生变化

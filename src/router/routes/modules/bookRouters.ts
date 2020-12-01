@@ -6,10 +6,10 @@ import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant'
 
 const routers: AppRouteModule = {
   layout: {
-    path: '/book-manage',
+    path: 'book-manage',
     name: 'book-manage',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/book-manage/subject-category-list-page',
+    redirect: { name: 'subject-category-list-page' },
     meta: {
       title: '图书管理',
       icon: 'ion:book-outline'
@@ -22,7 +22,8 @@ const routers: AppRouteModule = {
       name: 'subject-category-list-page',
       component: (): unknown => import(`/@/views/pages/book-manage/subject-category/data-list/list-page.vue`),
       meta: {
-        title: '学科类别'
+        title: '学科类别',
+
       },
     },
     {

@@ -5,7 +5,6 @@ import GlobalInput from "/@/components/GlobalInput.vue"
 import GlobalTable from '/@/components/GlobalTable.vue'
 import GlobalDataPage from '/@/components/GlobalDataPage.vue'
 import GlobalCard from '/@/components/GlobalCard.vue'
-import GlobalPopconfirm from '/@/components/GlobalPopconfirm.vue'
 import TableList from '/@/components/TableList/index.vue'
 import ImportModal from '/@/components/ImportModal.vue'
 import DownOutButton from '/@/components/DownOutButton.vue'
@@ -17,7 +16,7 @@ export default class ComponentRegisterPlugin {
     app.component('Icon', Icon).component('InputWrap', InputWrap)
     app.component('GlobalCard', GlobalCard).component('GlobalInput', GlobalInput)
     app.component("GlobalTable", GlobalTable).component('GlobalButton', GlobalButton)
-    app.component('GlobalDataPage', GlobalDataPage).component('GlobalPopconfirm', GlobalPopconfirm)
+    app.component('GlobalDataPage', GlobalDataPage)
     app.component('TableList', TableList).component('ImportModal', ImportModal)
     app.component("OperationInfoPanel", OperationInfoPanel).component('DownOutButton', DownOutButton)
 

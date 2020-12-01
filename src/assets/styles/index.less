@@ -1,6 +1,6 @@
 @import "./transition/index.less";
 @import "./help/distance.less";
-@import './scrollbar.less';
+@import "./scrollbar.less";
 @import "./ant.less";
 @import "./public.less";
 
@@ -43,17 +43,31 @@
   }
 
   &-operation {
-    & > span:not(:last-of-type) {
+    span:not(:last-of-type) {
       margin: 0 10px 0 0;
     }
 
-    & > span {
+    span {
       color: @selectBefore;
       cursor: pointer;
     }
 
-    & > span:hover {
+    span:hover {
       color: @selectAfter;
+    }
+
+    div[disabled="disabled"] {
+      color: rgba(0, 0, 0, 0.25);
+      cursor: default;
+
+      span {
+        color: inherit;
+        cursor: inherit;
+      }
+
+      &:hover {
+        color: rgba(0, 0, 0, 0.25);
+      }
     }
   }
 
@@ -132,7 +146,6 @@
   &-selected {
     color: @selectBefore;
   }
-
 
   &-msg-error {
     position: relative;

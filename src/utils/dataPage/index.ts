@@ -19,7 +19,7 @@ import './index.less'
 interface DataPageMix {
 
   // 页面底部方法
-  onPage: {
+  onDataMethods: {
     // 关闭触发
     onClosePage: () => void;
 
@@ -163,5 +163,5 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   // console.log(dataItem)
   // storage.set(name as string, dataItem)
 
-  return { onPage: { onClosePage, onRestPage, onEditpage }, pageInfo, validateInfos }
+  return { onDataMethods: { onClosePage, onRestPage, onEditpage }, pageInfo, validateInfos }
 }

@@ -7,7 +7,7 @@ interface ConfigProvideParameter {
 export function useConfigProvider(): ConfigProvideParameter {
   function transformCellText({ text }: { text: string }) {
     if (isNull(text) || isUnDef(text)) {
-      return ' - '
+      return ''
     }
     return text
   }

@@ -30,7 +30,7 @@ export const getRouteList = (): AppRouteRecordRaw[] => {
 
 // 主框架根路由
 export const RootRoute: AppRouteRecordRaw = {
-  path: '/admin',
+  path: '/',
   name: 'root-router',
   component: DEFAULT_LAYOUT_COMPONENT,
   redirect: { name: PageEnum.BASE_HOME },
@@ -41,4 +41,4 @@ export const RootRoute: AppRouteRecordRaw = {
 }
 
 
-export const basicRoutes = [...LoginRoutes, ForgetRoute, RootRoute, NoFountPage]
+export const basicRoutes = [ ...LoginRoutes, ForgetRoute, RootRoute, NoFountPage]

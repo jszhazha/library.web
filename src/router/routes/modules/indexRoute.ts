@@ -32,7 +32,7 @@ export const ForgetRoute: AppRouteRecordRaw = {
 
 
 /**
- * @description 首页
+ * @description 后台管理系统 首页
  */
 export const overviewPage: AppRouteRecordRaw = {
   path: 'overview-page',
@@ -45,8 +45,22 @@ export const overviewPage: AppRouteRecordRaw = {
   }
 }
 
+/**
+ * @description 系统首页
+ */
+export const IndexPage: AppRouteRecordRaw = {
+  path: '/',
+  name: 'index-page',
+  component: (): unknown => import('/@/views/pages/index-page/index.vue'),
+  meta: {
+    title: '首页',
+  }
+}
 
 
+/**
+ * @description 页面丢失
+ */
 export const NoFountPage: AppRouteRecordRaw = {
   path: '/:path(.*)*',
   name: 'no-fount-page',

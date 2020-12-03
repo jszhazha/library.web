@@ -40,6 +40,7 @@
 </template>
 
 <script lang="ts">
+import type { PropType } from "vue"
 import { defineComponent, ref, reactive, onBeforeUnmount } from "vue"
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons-vue"
 
@@ -73,37 +74,40 @@ export default defineComponent({
   props: {
     // 类型
     type: {
-      type: String,
-      default: "text"
+      type: String as PropType<string>,
+      default: "text",
+      validator: (v: string): boolean => {
+        return ["text", "password", "phone", "code"].includes(v)
+      }
     },
     // 提示文件
     placeholder: {
-      type: String,
+      type: String as PropType<string>,
       default: ""
     },
     // 值
     value: {
-      type: String,
+      type: String as PropType<string>,
       default: ""
     },
     // 最大长度
     maxlength: {
-      type: Number,
+      type: Number as PropType<number>,
       default: undefined
     },
     // code (验证码) 类型 禁止点击
     codeDisabled: {
-      type: Boolean,
+      type: Boolean as PropType<boolean>,
       default: false
     },
     // 错误边框
     errorBorder: {
-      type: Boolean,
+      type: Boolean as PropType<boolean>,
       default: false
     },
     // 输入框是否高亮
     focusHighlight: {
-      type: Boolean,
+      type: Boolean as PropType<boolean>,
       default: true
     }
   },

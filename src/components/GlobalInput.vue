@@ -74,49 +74,49 @@ export default defineComponent({
     // 类型
     type: {
       type: String,
-      default: "text",
+      default: "text"
     },
     // 提示文件
     placeholder: {
       type: String,
-      default: "",
+      default: ""
     },
     // 值
     value: {
       type: String,
-      default: "",
+      default: ""
     },
     // 最大长度
     maxlength: {
       type: Number,
-      default: undefined,
+      default: undefined
     },
     // code (验证码) 类型 禁止点击
     codeDisabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 错误边框
     errorBorder: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 输入框是否高亮
     focusHighlight: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   emits: ["update:value", "update:errorBorder", "on-enter"],
   setup(props, { emit }) {
     const userInput = reactive<UserInput>({
       type: InputTypeMap[props.type as InputTypeMap],
-      value: props.value,
+      value: props.value
     })
     const codeContent = reactive<CodeContent>({
       instance: null,
       tip: "获取验证码",
-      time: 0,
+      time: 0
     })
     const passwordType = ref<boolean>(true)
     const borderColor = ref<string>("")
@@ -200,9 +200,9 @@ export default defineComponent({
       handleFocus,
       handleInput,
       handleEnter,
-      handleSwitch,
+      handleSwitch
     }
-  },
+  }
 })
 </script>
 

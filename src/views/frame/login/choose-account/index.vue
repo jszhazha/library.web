@@ -23,7 +23,7 @@ export default defineComponent({
   components: { publicLayout },
   setup() {
     return {}
-  },
+  }
 })
 </script>
 

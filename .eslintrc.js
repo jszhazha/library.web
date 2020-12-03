@@ -5,18 +5,18 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: {
-      tsx: true,
-      jsx: true,
-    },
+      jsx: true
+    }
   },
   extends: [
     'plugin:vue/vue3-recommended',
-    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended'
   ],
   rules: {
     '@typescript-eslint/no-non-null-assertion': 'off',
     'vue/max-attributes-per-line': 'off',
     "semi": ["error", "never"],
-    "@typescript-eslint/semi": ["error", "never"]
+    "@typescript-eslint/semi": ["error", "never"],
+    "comma-dangle": ["error", "never"]
   }
 }

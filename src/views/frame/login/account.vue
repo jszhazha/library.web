@@ -45,12 +45,12 @@ export default defineComponent({
   setup(_props, { emit }) {
     const formData = reactive({
       account: "",
-      password: "",
+      password: ""
     })
     // 错误信息
     const error = reactive({
       msg: "",
-      is: false,
+      is: false
     })
 
     // 点击短信登录
@@ -68,9 +68,9 @@ export default defineComponent({
       disabled,
       formData,
       onEnter,
-      onChange,
+      onChange
     }
-  },
+  }
 })
 </script>
 

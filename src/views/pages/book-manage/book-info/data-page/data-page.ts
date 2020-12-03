@@ -7,46 +7,46 @@ export const holdInfoColumns: TableColumn[] = [
     dataIndex: "number",
     align: "center",
     ellipsis: true,
-    slots: { customRender: 'number' },
+    slots: { customRender: 'number' }
   },
   {
     title: "存放位置",
     dataIndex: "location",
     align: "center",
     ellipsis: true,
-    slots: { customRender: 'location' },
+    slots: { customRender: 'location' }
   },
   {
     title: "馆藏状态",
     dataIndex: "state",
     align: "center",
-    ellipsis: true,
+    ellipsis: true
   },
   {
     title: "应还时间",
     dataIndex: "time",
     align: "center",
-    ellipsis: true,
+    ellipsis: true
   },
   {
     title: "借阅次数",
     dataIndex: "state",
     align: "center",
-    ellipsis: true,
+    ellipsis: true
   },
   {
     title: "续借次数",
     dataIndex: "state",
     align: "center",
-    ellipsis: true,
+    ellipsis: true
   },
   {
     title: "操作",
     dataIndex: "operation",
     align: "center",
     width: 120,
-    slots: { customRender: 'operation' },
-  },
+    slots: { customRender: 'operation' }
+  }
 ]
 
 
@@ -55,14 +55,14 @@ export const formRules: FromRules = {
     {
       required: true,
       whitespace: true,
-      message: '不允许为空',
-    },
+      message: '不允许为空'
+    }
   ],
   author: [
     {
       required: true,
       whitespace: true,
-      message: '不允许为空',
-    },
-  ],
+      message: '不允许为空'
+    }
+  ]
 }

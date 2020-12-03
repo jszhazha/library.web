@@ -24,16 +24,16 @@ export default defineComponent({
   props: {
     value: {
       type: String as PropType<string>,
-      default: "",
+      default: ""
     },
     readonly: {
       type: Boolean as PropType<boolean>,
-      default: false,
+      default: false
     },
     placeholder: {
       type: String,
-      default: "请输入",
-    },
+      default: "请输入"
+    }
   },
   emits: ["update:value"],
   setup(props, { emit }) {
@@ -55,7 +55,7 @@ export default defineComponent({
     )
 
     return { currentValue, inputReadonly, onChange }
-  },
+  }
 })
 </script>
 

@@ -36,7 +36,7 @@ export default defineComponent({
         code: "210-113-232",
         isbn: "90-333",
         author: "张三",
-        press: "人民邮电出版社",
+        press: "人民邮电出版社"
       })
     }
 
@@ -58,9 +58,9 @@ export default defineComponent({
       onBatchImport,
       onNewDataItem,
       onViewDataItem,
-      onEditDataItem,
+      onEditDataItem
     }
-  },
+  }
 })
 </script>
 

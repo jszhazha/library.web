@@ -41,9 +41,9 @@ export default defineComponent({
     // 短标题
     const shortTitle = config.shortTitle
     return {
-      shortTitle,
+      shortTitle
     }
-  },
+  }
 })
 </script>
 

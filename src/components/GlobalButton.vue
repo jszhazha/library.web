@@ -17,8 +17,8 @@ export default defineComponent({
   props: {
     disabled: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   setup(props) {
     const button = ref<HTMLElement | null>(null)
@@ -39,7 +39,7 @@ export default defineComponent({
       console.log(ripples)
     }
     return { handleClick, button }
-  },
+  }
 })
 </script>
 

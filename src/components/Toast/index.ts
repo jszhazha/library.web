@@ -30,7 +30,7 @@ const cacheDefault: ToastOptions = {
 
 const api = {
   error: open('error', errorDefault),
-  cache: open('info', cacheDefault),
+  cache: open('info', cacheDefault)
 }
 
 export default api

@@ -15,7 +15,7 @@ const routers: AppRouteModule = {
     meta: {
       title: '个人管理',
       icon: 'ant-design:user-outlined'
-    },
+    }
   },
 
   routes: [
@@ -25,7 +25,7 @@ const routers: AppRouteModule = {
       component: (): unknown => import(`/@/views/pages/account-mange/center/index.vue`),
       meta: {
         title: '个人中心'
-      },
+      }
     },
     {
       path: "setting",
@@ -33,8 +33,8 @@ const routers: AppRouteModule = {
       component: (): unknown => import(`/@/views/pages/account-mange/setting/index.vue`),
       meta: {
         title: '个人设置'
-      },
-    },
+      }
+    }
   ]
 }
 

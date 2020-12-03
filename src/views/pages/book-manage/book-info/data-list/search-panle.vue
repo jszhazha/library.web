@@ -54,7 +54,7 @@ export default defineComponent({
     const queryData = reactive<PagerQueryData>({
       pageSize: 10,
       page: 0,
-      sorts: [],
+      sorts: []
     })
     // 返回查询条件
     const getCurQueryData = (): PagerQueryData => queryData
@@ -66,9 +66,9 @@ export default defineComponent({
       queryData,
       onOpen,
       onResetData,
-      getCurQueryData,
+      getCurQueryData
     }
-  },
+  }
 })
 </script>
 

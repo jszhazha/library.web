@@ -13,7 +13,7 @@ const routers: AppRouteModule = {
     meta: {
       title: '系统管理',
       icon: 'ant-design:setting-outlined'
-    },
+    }
   },
 
   routes: [
@@ -23,7 +23,7 @@ const routers: AppRouteModule = {
       component: (): unknown => import(`/@/views/pages/system-manage/user-manage/data-list/list-page.vue`),
       meta: {
         title: '用户管理'
-      },
+      }
     },
     {
       path: "user-manage-data-page",
@@ -33,7 +33,7 @@ const routers: AppRouteModule = {
         title: '用户详情',
         hideInMenu: true,
         ignoreKeepAlive: true
-      },
+      }
     },
     {
       path: 'role-manage-list-page',
@@ -41,7 +41,7 @@ const routers: AppRouteModule = {
       component: (): unknown => import(`/@/views/pages/system-manage/role-manage/data-list/list-page.vue`),
       meta: {
         title: '角色管理'
-      },
+      }
     },
     {
       path: 'role-manage-data-page',
@@ -51,8 +51,8 @@ const routers: AppRouteModule = {
         title: '角色详情',
         hideInMenu: true,
         ignoreKeepAlive: true
-      },
-    },
+      }
+    }
   ]
 }
 

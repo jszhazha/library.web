@@ -40,12 +40,12 @@ export default defineComponent({
   setup(_props, { emit }) {
     const formData = reactive({
       phone: "",
-      code: "",
+      code: ""
     })
     // 错误信息
     const error = reactive({
       code: false,
-      phone: false,
+      phone: false
     })
     const onChange = () => emit("on-change", "phone")
 
@@ -57,7 +57,7 @@ export default defineComponent({
     }
 
     return { formData, error, onEnter, onChange, disabled }
-  },
+  }
 })
 </script>
 

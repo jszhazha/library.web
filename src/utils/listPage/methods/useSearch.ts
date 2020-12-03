@@ -38,6 +38,6 @@ export function useSearch({ queryData, isOpen }: Parameter): UseSearch {
 
   return {
     onOpen,
-    onResetData,
+    onResetData
   }
 }

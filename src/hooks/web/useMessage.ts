@@ -18,6 +18,6 @@ export interface NotifyApi {
 
 export const useMessage = (): { notification: NotifyApi } => {
   return {
-    notification: notification as NotifyApi,
+    notification: notification as NotifyApi
   }
 }

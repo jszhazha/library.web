@@ -8,7 +8,7 @@ export const tableColumns: TableColumn[] = [
     title: '题名',
     dataIndex: 'name',
     align: 'center',
-    ellipsis: true,
+    ellipsis: true
 
   },
   {
@@ -16,46 +16,46 @@ export const tableColumns: TableColumn[] = [
     dataIndex: 'author',
     align: 'center',
     width: 100,
-    ellipsis: true,
+    ellipsis: true
   },
   {
     title: '学科类别',
     dataIndex: 'subjectCategory',
     align: 'center',
-    ellipsis: true,
+    ellipsis: true
   },
   {
     title: '语种',
     dataIndex: 'language',
     align: 'center',
     width: 110,
-    ellipsis: true,
+    ellipsis: true
   },
   {
     title: '国际标准书号',
     dataIndex: 'isbn',
     align: 'center',
-    ellipsis: true,
+    ellipsis: true
   },
   {
     title: '出版社',
     dataIndex: 'press',
     align: 'center',
-    ellipsis: true,
+    ellipsis: true
   },
   {
     title: '总数量',
     dataIndex: 'count',
     align: 'center',
     width: 100,
-    ellipsis: true,
+    ellipsis: true
   },
   {
     title: '在馆数量',
     dataIndex: 'number',
     align: 'center',
     width: 100,
-    ellipsis: true,
+    ellipsis: true
   },
   {
     title: '操作',
@@ -63,7 +63,7 @@ export const tableColumns: TableColumn[] = [
     width: 170,
     ellipsis: true,
     dataIndex: 'operation',
-    slots: { customRender: 'operation' },
+    slots: { customRender: 'operation' }
   }
 ]
 
@@ -71,7 +71,7 @@ export const importColumns: TableColumn[] = [
   {
     title: '题名',
     dataIndex: 'name',
-    align: 'center',
+    align: 'center'
 
   },
   {
@@ -94,16 +94,16 @@ export const importColumns: TableColumn[] = [
   {
     title: '国际标准书号',
     dataIndex: 'isbn',
-    align: 'center',
+    align: 'center'
   },
   {
     title: '出版时间',
     dataIndex: 'publicationDate',
-    align: 'center',
+    align: 'center'
   },
   {
     title: '出版社',
     dataIndex: 'press',
     align: 'center'
-  },
+  }
 ]

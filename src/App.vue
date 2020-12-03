@@ -21,8 +21,8 @@ export default defineComponent({
 
     return {
       zhCN,
-      transformCellText,
+      transformCellText
     }
-  },
+  }
 })
 </script>

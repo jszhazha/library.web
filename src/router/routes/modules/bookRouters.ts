@@ -13,7 +13,7 @@ const routers: AppRouteModule = {
     meta: {
       title: '图书管理',
       icon: 'ion:book-outline'
-    },
+    }
   },
 
   routes: [
@@ -22,9 +22,9 @@ const routers: AppRouteModule = {
       name: 'subject-category-list-page',
       component: (): unknown => import(`/@/views/pages/book-manage/subject-category/data-list/list-page.vue`),
       meta: {
-        title: '学科类别',
+        title: '学科类别'
 
-      },
+      }
     },
     {
       path: "subject-category-data-page",
@@ -34,7 +34,7 @@ const routers: AppRouteModule = {
         title: '学科类别详情',
         hideInMenu: true,
         ignoreKeepAlive: true
-      },
+      }
     },
     {
       path: 'book-info-list-page',
@@ -42,7 +42,7 @@ const routers: AppRouteModule = {
       component: (): unknown => import(`/@/views/pages/book-manage/book-info/data-list/list-page.vue`),
       meta: {
         title: '图书信息'
-      },
+      }
     },
     {
       path: 'book-info-data-page',
@@ -52,8 +52,8 @@ const routers: AppRouteModule = {
         title: '图书信息详情',
         hideInMenu: true,
         ignoreKeepAlive: true
-      },
-    },
+      }
+    }
   ]
 }
 

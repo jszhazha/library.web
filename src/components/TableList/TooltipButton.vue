@@ -18,8 +18,8 @@ export default defineComponent({
   props: {
     title: {
       type: String as PropType<string>,
-      default: "",
-    },
+      default: ""
+    }
   },
   emits: ["on-click"],
   setup(_props, { emit }) {
@@ -31,9 +31,9 @@ export default defineComponent({
     const visible = ref<boolean>(false)
     return {
       visible,
-      onClick,
+      onClick
     }
-  },
+  }
 })
 </script>
 

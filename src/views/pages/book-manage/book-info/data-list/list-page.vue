@@ -32,7 +32,7 @@ export default defineComponent({
       // 导入对话框实例
       importInstance: null,
       // 搜索实例
-      searchInstance: null,
+      searchInstance: null
     })
 
     // 批量导入数据集合
@@ -53,9 +53,9 @@ export default defineComponent({
     return {
       dataSource,
       importColumns,
-      ...toRefs(instance),
+      ...toRefs(instance)
     }
-  },
+  }
 })
 </script>
 

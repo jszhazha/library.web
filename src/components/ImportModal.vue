@@ -40,7 +40,7 @@ export default defineComponent({
       onChange: (selectedRowKeys: number[], selectedRows: unknown[]) => {
         selectedData.selectedRows = selectedRows
         selectedData.selectedRowKeys = selectedRowKeys
-      },
+      }
     }
 
     onMounted(() => (browserSize.value = browserClient()))
@@ -49,7 +49,7 @@ export default defineComponent({
     const openModal = () => (visible.value = true)
 
     return { visible, browserSize, rowSelection, openModal, ...toRefs(selectedData) }
-  },
+  }
 })
 </script>
 

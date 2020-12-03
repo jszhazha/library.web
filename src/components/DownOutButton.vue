@@ -21,9 +21,9 @@ export default defineComponent({
   props: {
     isOpen: {
       type: Boolean as PropType<boolean>,
-      default: false,
-    },
-  },
+      default: false
+    }
+  }
 })
 </script>
 

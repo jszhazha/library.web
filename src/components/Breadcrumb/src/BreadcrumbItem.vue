@@ -14,20 +14,20 @@ export default defineComponent({
   props: {
     isLink: {
       type: Boolean,
-      default: false,
+      default: false
     },
     isDivider: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   setup() {
     const parent = inject("breadcrumb") as { separator: string }
 
     return {
-      separator: parent.separator,
+      separator: parent.separator
     }
-  },
+  }
 })
 </script>
 

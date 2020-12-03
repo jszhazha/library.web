@@ -12,6 +12,6 @@ export function useConfigProvider(): ConfigProvideParameter {
     return text
   }
   return {
-    transformCellText,
+    transformCellText
   }
 }

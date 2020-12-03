@@ -9,7 +9,7 @@ import config from '/@/config/index'
 
 const router = createRouter({
   history: createWebHistory(config.publicPath),
-  routes: basicRoutes as RouteRecordRaw[],
+  routes: basicRoutes as RouteRecordRaw[]
 })
 
 export function setupRouter(app: App<Element>): void {

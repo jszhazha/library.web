@@ -97,9 +97,9 @@ export default defineComponent({
       readonly,
       dataItem,
       validateInfos,
-      ...onDataMethods,
+      ...onDataMethods
     }
-  },
+  }
 })
 </script>
 

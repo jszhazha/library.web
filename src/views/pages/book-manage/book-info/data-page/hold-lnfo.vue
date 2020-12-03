@@ -50,8 +50,8 @@ export default defineComponent({
   props: {
     readonly: {
       type: Boolean as PropType<boolean>,
-      default: false,
-    },
+      default: false
+    }
   },
   setup() {
     // 全部数据
@@ -66,7 +66,7 @@ export default defineComponent({
         location: "54-" + i,
         number: "323" + i,
         time: Math.random(),
-        id: i,
+        id: i
       })
     }
 
@@ -96,9 +96,9 @@ export default defineComponent({
       editingIndex,
       onEditData,
       onSvaeEditData,
-      onCancelEditData,
+      onCancelEditData
     }
-  },
+  }
 })
 </script>
 

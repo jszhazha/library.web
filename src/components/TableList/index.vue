@@ -46,14 +46,14 @@ import {
   reactive,
   computed,
   onMounted,
-  defineComponent,
+  defineComponent
 } from "vue"
 import { tableListProps, TableColumn } from "/@/lib/props/TableList"
 import { browserClient, elementOffset } from "/@/utils/elelment"
 import {
   ExpandOutlined,
   CompressOutlined,
-  VerticalAlignBottomOutlined,
+  VerticalAlignBottomOutlined
 } from "@ant-design/icons-vue"
 import listSetting from "./listSetting.vue"
 import TooltipButton from "./TooltipButton.vue"
@@ -65,7 +65,7 @@ export default defineComponent({
     TooltipButton,
     ExpandOutlined,
     CompressOutlined,
-    VerticalAlignBottomOutlined,
+    VerticalAlignBottomOutlined
   },
   props: tableListProps,
   setup(props) {
@@ -73,7 +73,7 @@ export default defineComponent({
     const fullScreen = ref<boolean>(false)
     // table 滚动条高度
     const scroll = reactive<{ y?: number | true; x?: number | true }>({
-      x: true,
+      x: true
     })
     // 标签
     const tableRef = ref<HTMLElement | null>(null)
@@ -81,7 +81,7 @@ export default defineComponent({
     let browserSize: { width?: number; height?: number } = {}
     // 偏移量
     const transform = reactive<{ translate: string }>({
-      translate: "(0px,0px)",
+      translate: "(0px,0px)"
     })
     // table 表头数据
     const tableColumns = (ref(unref(props).columns) as unknown) as Ref<
@@ -132,7 +132,7 @@ export default defineComponent({
 
     provideTable({
       getColumns: () => props.columns,
-      setColumns,
+      setColumns
     })
 
     return {
@@ -141,9 +141,9 @@ export default defineComponent({
       wrapStyle,
       fullScreen,
       onFullScreen,
-      getTableColumns,
+      getTableColumns
     }
-  },
+  }
 })
 </script>
 

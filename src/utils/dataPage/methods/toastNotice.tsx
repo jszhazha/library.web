@@ -7,14 +7,14 @@ export default defineComponent({
   setup(_props, { emit }) {
     // 处理 点击取消
     function handleClickCancel() {
-      emit("removeItem");
-      emit("close-toast");
+      emit("removeItem")
+      emit("close-toast")
     }
     // 处理 点击确认
     function handleClickConfirm() {
-      emit("confirmToast");
-      emit("removeItem");
-      emit("close-toast");
+      emit("confirmToast")
+      emit("removeItem")
+      emit("close-toast")
     }
 
     return () => (

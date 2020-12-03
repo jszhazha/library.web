@@ -5,8 +5,8 @@ export default defineComponent({
   props: {
     mainClass: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
   setup(props, { attrs }) {
     return () => (

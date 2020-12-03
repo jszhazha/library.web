@@ -6,9 +6,9 @@ import { tabStore } from '/@/store/modules/tab'
 
 
 export interface QueryRoute {
-  id?: string;
+  id?: string
 
-  mode: string;
+  mode: string
 }
 
 

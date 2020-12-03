@@ -24,7 +24,7 @@ export const IndexPage: AppRouteRecordRaw = {
   name: 'index-page',
   component: (): unknown => import('/@/views/pages/index-page/index.vue'),
   meta: {
-    title: '首页',
+    title: '首页'
   }
 }
 
@@ -39,5 +39,5 @@ export const NoFountPage: AppRouteRecordRaw = {
   meta: {
     title: '404',
     ignoreTab: true
-  },
+  }
 }

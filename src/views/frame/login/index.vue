@@ -44,7 +44,7 @@ export default defineComponent({
 
     onMounted(async () => {
       const url = await toDataURL(renderValue, {
-        width,
+        width
       })
       qrcode.value!.src = url
     })
@@ -64,9 +64,9 @@ export default defineComponent({
       qrcode,
       config,
       loginContent,
-      loginTypeChange,
+      loginTypeChange
     }
-  },
+  }
 })
 </script>
 

@@ -11,12 +11,12 @@ export default defineComponent({
   props: {
     separator: {
       type: String as PropType<string>,
-      default: "/",
-    },
+      default: "/"
+    }
   },
   setup(props) {
     provide("breadcrumb", props)
-  },
+  }
 })
 </script>
 

@@ -49,7 +49,7 @@ export default defineComponent({
       indeterminate: false,
       checkAll: true,
       checkedList: [],
-      defaultCheckList: [],
+      defaultCheckList: []
     })
 
     // 初始化数据
@@ -58,7 +58,7 @@ export default defineComponent({
       table.getColumns().forEach((item) => {
         result.push({
           label: item.title as string,
-          value: (item.dataIndex || item.title) as string,
+          value: (item.dataIndex || item.title) as string
         })
       })
       plainOptions = result
@@ -92,7 +92,7 @@ export default defineComponent({
     }
 
     return { plainOptions, ...toRefs(state), onCheckAllChange, onCheckChange }
-  },
+  }
 })
 </script>
 

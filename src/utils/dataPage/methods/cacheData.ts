@@ -15,15 +15,15 @@ export function checkCacheData<T>(name: string, storage: CreateStorage, callback
           // 从缓存中读取数据
           confirmToast: () => callback(data),
           // 删除数据 不主动删除数据
-          removeItem: () => storage.remove(name),
-        },
-      },
+          removeItem: () => storage.remove(name)
+        }
+      }
     )
   }
 }
 
 
 // 缓存数据
-export function cacheData<T>(name: string, storage: CreateStorage, dataItem: T,): void {
+export function cacheData<T>(name: string, storage: CreateStorage, dataItem: T): void {
   storage.set(name, dataItem)
 }

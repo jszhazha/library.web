@@ -26,7 +26,7 @@
       登录
     </GlobalButton>
     <div class="login-account-link">
-      <router-link to="/forget">
+      <router-link :to="{ name: 'reset-password' }">
         忘记密码
       </router-link>
       <a-divider type="vertical" />

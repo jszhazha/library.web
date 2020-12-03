@@ -31,7 +31,7 @@ const viteConfig: UserConfig = {
 
   // 别名
   alias: {
-    '/@/': pathResolve('src'),
+    '/@/': pathResolve('src')
   },
 
   /**
@@ -66,11 +66,11 @@ const viteConfig: UserConfig = {
       'ant-design-vue/es/locale/zh_CN',
       '@ant-design/icons-vue',
       '@ant-design-vue/use'
-    ],
+    ]
   },
 
   // 本地跨域代理
-  proxy: createProxy(VITE_PROXY),
+  proxy: createProxy(VITE_PROXY)
 }
 
 

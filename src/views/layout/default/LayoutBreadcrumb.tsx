@@ -18,7 +18,7 @@ interface ItemList {
 export default defineComponent({
   setup() {
     const { currentRoute } = useRouter()
-    const go = useGo()
+    const pageGo = useGo()
     const itemList = reactive<ItemList>({
       value: [],
       length: 0,
@@ -52,7 +52,7 @@ export default defineComponent({
     // 点击标题
     function handleItemClick(item: AppRouteRecordRaw) {
       const { redirect } = item
-      redirect && go(redirect)
+      redirect && pageGo(redirect)
     }
 
     // 监听路由发生变化

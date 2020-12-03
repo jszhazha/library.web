@@ -2,8 +2,6 @@ import type { Ref } from 'vue'
 import type { CreateStorage } from "/@/utils/storage/Storage"
 import type { FromRules } from '/@/lib/interface/From'
 import { unref, onBeforeUnmount, onMounted, watch, reactive, toRef } from "vue"
-import { useRouter } from "vue-router"
-import { assign } from 'lodash-es'
 import { provideDataPage } from './methods/useDepend'
 import { checkCacheData, cacheData } from './methods/cacheData'
 import { checkDataRouter, QueryRoute } from './methods/dataRouter'
@@ -11,6 +9,8 @@ import { createStorage } from "/@/utils/storage/"
 import { PageMode } from "/@/utils/helper/breadcrumb"
 import { useToast } from "vue-toastification"
 import { useForm } from "@ant-design-vue/use"
+import { useRouter } from "vue-router"
+import { assign } from 'lodash-es'
 
 
 import './index.less'
@@ -88,8 +88,11 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
 
 
 export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): DataPageMix {
+  // 获取方法 当前路由
   const { back, replace, currentRoute } = useRouter()
+  // 获取当前页面 查询条件
   const { query, name } = unref(currentRoute)
+  // 获取 对话框 实例
   const toast = useToast()
   const { validateInfos, resetFields } = useForm(dataItem, rules)
   const pageInfo = reactive<PageInfo>({

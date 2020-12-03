@@ -1,14 +1,13 @@
 import type { AppRouteRecordRaw } from '/@/router/types'
 
 
-export const loginRoutes: AppRouteRecordRaw[] = [
+export const LoginRoutes: AppRouteRecordRaw[] = [
   {
     path: '/login',
     name: 'login',
     component: (): unknown => import('/@/views/frame/login/index.vue'),
     meta: {
       title: '登录',
-      ignoreTab: true
     },
   },
   {
@@ -17,12 +16,12 @@ export const loginRoutes: AppRouteRecordRaw[] = [
     component: (): unknown => import('/@/views/frame/login/choose-account/index.vue'),
     meta: {
       title: '选择登录帐号',
-      ignoreTab: true
+
     },
   }
 ]
 
-export const forgetRoute: AppRouteRecordRaw = {
+export const ForgetRoute: AppRouteRecordRaw = {
   path: '/forget',
   name: 'forget',
   component: () => import('/@/views/frame/forget/index.vue'),
@@ -33,7 +32,7 @@ export const forgetRoute: AppRouteRecordRaw = {
 
 
 /**
- * @description 首页
+ * @description 后台管理系统 首页
  */
 export const overviewPage: AppRouteRecordRaw = {
   path: 'overview-page',
@@ -44,4 +43,30 @@ export const overviewPage: AppRouteRecordRaw = {
     affix: true,
     icon: "ant-design:home-outlined"
   }
+}
+
+/**
+ * @description 系统首页
+ */
+export const IndexPage: AppRouteRecordRaw = {
+  path: '/',
+  name: 'index-page',
+  component: (): unknown => import('/@/views/pages/index-page/index.vue'),
+  meta: {
+    title: '首页',
+  }
+}
+
+
+/**
+ * @description 页面丢失
+ */
+export const NoFountPage: AppRouteRecordRaw = {
+  path: '/:path(.*)*',
+  name: 'no-fount-page',
+  component: (): unknown => import("/@/views/pages/exception/404.vue"),
+  meta: {
+    title: '404',
+    ignoreTab: true
+  },
 }

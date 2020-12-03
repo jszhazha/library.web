@@ -24,16 +24,16 @@ export function getFlatMenus(): FlatMenu[] {
 }
 
 // 获取全部父级路由
-export function getAllParentPath(treeData: FlatMenu[], path: string): string[] {
-  const menuList = findPath(treeData, path)
-  return menuList.map(el => el.path)
+export function getAllParentPathName(treeData: FlatMenu[], name: string): string[] {
+  const menuList = findPathName(treeData, name)
+  return menuList.map(el => el.name as string)
 }
 
 function flatMenus(router: AppRouteRecordRaw[], parentPath = ''): FlatMenu[] {
   let result: FlatMenu[] = []
   router.forEach((el) => {
     const currPath = `${parentPath}/${el.path}`.replace(/[/]{2,}/, '/')
-    result.push({ name: el.name, path: currPath, title: el.meta.title })
+    result.push({ name: el.name as string, path: currPath, meta: el.meta })
     if (routerHasChildren(el)) {
       result = result.concat(flatMenus(el.children!, currPath))
     }
@@ -46,7 +46,7 @@ function getMenuItem(menus: AppRouteRecordRaw[], parentPath = ''): MenuType[] {
   return menus.map((el: AppRouteRecordRaw) => {
     const { path, name, meta } = el
     const currPath = `${parentPath}/${path}`.replace(/[/]{2,}/, '/')
-    const item: MenuType = { path: currPath, name, ...meta  }
+    const item: MenuType = { path: currPath, name, ...meta }
     if (routerHasChildren(el)) {
       item.children = getMenuItem(el.children!, currPath)
     }
@@ -55,7 +55,7 @@ function getMenuItem(menus: AppRouteRecordRaw[], parentPath = ''): MenuType[] {
 }
 
 
-function findPath(tree: FlatMenu[], path: string) {
-  return tree.filter((el) => new RegExp(el.path!).test(path))
+function findPathName(tree: FlatMenu[], name: string) {
+  return tree.filter((el) => new RegExp(el.name).test(name))
 }
 

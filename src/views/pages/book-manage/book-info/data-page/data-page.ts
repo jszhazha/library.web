@@ -7,12 +7,14 @@ export const holdInfoColumns: TableColumn[] = [
     dataIndex: "number",
     align: "center",
     ellipsis: true,
+    slots: { customRender: 'number' },
   },
   {
     title: "存放位置",
-    dataIndex: "number",
+    dataIndex: "location",
     align: "center",
     ellipsis: true,
+    slots: { customRender: 'location' },
   },
   {
     title: "馆藏状态",
@@ -22,7 +24,7 @@ export const holdInfoColumns: TableColumn[] = [
   },
   {
     title: "应还时间",
-    dataIndex: "state",
+    dataIndex: "time",
     align: "center",
     ellipsis: true,
   },
@@ -42,7 +44,8 @@ export const holdInfoColumns: TableColumn[] = [
     title: "操作",
     dataIndex: "operation",
     align: "center",
-    width: 100
+    width: 120,
+    slots: { customRender: 'operation' },
   },
 ]
 

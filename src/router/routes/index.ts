@@ -1,9 +1,9 @@
 import type { AppRouteRecordRaw, AppRouteModule } from '/@/router/types'
-import { genRouteModule } from '/@/utils/helper/route'
+import { getRouteModule } from '/@/utils/helper/route'
 import { PageEnum } from '/@/enums/pageEnum'
 
 import { DEFAULT_LAYOUT_COMPONENT } from '../constant'
-import { loginRoutes, forgetRoute, overviewPage } from './modules/indexRoute'
+import { LoginRoutes, ForgetRoute, overviewPage, NoFountPage } from './modules/indexRoute'
 
 // 路由
 import systemRouters from './modules/systemRouters'
@@ -16,7 +16,7 @@ const routeModuleList: AppRouteModule[] = [
   accountRouters
 ]
 
-const routeList = [overviewPage, ...genRouteModule(routeModuleList)]
+const routeList = [overviewPage, ...getRouteModule(routeModuleList)]
 
 
 // 获取菜单 树级
@@ -41,4 +41,4 @@ export const RootRoute: AppRouteRecordRaw = {
 }
 
 
-export const basicRoutes = [...loginRoutes, forgetRoute, RootRoute]
+export const basicRoutes = [ ...LoginRoutes, ForgetRoute, RootRoute, NoFountPage]

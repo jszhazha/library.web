@@ -14,7 +14,7 @@
         :scroll="{ y: browserSize.height - 345 }"
       />
     </div>
-    <div v-show=" selectedRows.length">
+    <div v-show="selectedRows.length">
       已选择 <a style="font-weight: 600;">{{ selectedRows?.length }}</a> 项
     </div>
   </a-modal>
@@ -27,8 +27,7 @@ import { browserClient } from "/@/utils/elelment"
 
 export default defineComponent({
   props: importProps,
-  emits: ["on-instance"],
-  setup(_props, { emit }) {
+  setup() {
     // 视图大小
     const browserSize = ref<{ width?: number; height?: number }>({})
     // 对话框是否可见
@@ -49,10 +48,7 @@ export default defineComponent({
     // 打开对话框
     const openModal = () => (visible.value = true)
 
-    // 向父级传递实例
-    emit("on-instance", { openModal })
-
-    return { visible, browserSize, rowSelection, ...toRefs(selectedData) }
+    return { visible, browserSize, rowSelection, openModal, ...toRefs(selectedData) }
   },
 })
 </script>

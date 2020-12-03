@@ -89,15 +89,15 @@ export default defineComponent({
   setup() {
     const dataItem = reactive<BookInfo>({})
     const rules = reactive(formRules)
-    const { pageInfo, onPage, validateInfos } = dataPageMix<BookInfo>({ dataItem, rules })
+    const { pageInfo, onDataMethods, validateInfos } = dataPageMix<BookInfo>({ dataItem, rules })
     const { mode, readonly } = toRefs(pageInfo)
 
     return {
       mode,
       readonly,
       dataItem,
-      ...onPage,
       validateInfos,
+      ...onDataMethods,
     }
   },
 })

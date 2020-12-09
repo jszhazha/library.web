@@ -14,6 +14,7 @@
       placeholder="手机号"
       :maxlength="20"
       @on-enter="onEnter"
+      @on-blur="onPhoneBlur"
     />
     <GlobalInput
       v-model:value="formData.code"
@@ -21,19 +22,20 @@
       class="login-phone-code"
       type="code"
       placeholder="短信验证码"
-      :code-disabled="formData.phone && error.phone"
+      :code-disabled="!telephoneRegex.test(formData.phone)"
       :maxlength="8"
       @on-enter="onEnter"
     />
     <span class="login-phone-change-link" @click="onChange"> 密码登录 </span>
-    <GlobalButton class="login-phone-button" :disabled="disabled">
+    <GlobalButton class="login-phone-button" :disabled="!(!!formData.phone && !!formData.code)">
       登录
     </GlobalButton>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed } from "vue"
+import { defineComponent, reactive } from "vue"
+import { telephoneRegex  } from "/@/utils/regex"
 
 export default defineComponent({
   emits: ["on-change"],
@@ -49,14 +51,21 @@ export default defineComponent({
     })
     const onChange = () => emit("on-change", "phone")
 
-    // 点击登录按键
-    const disabled = computed(() => !(!!formData.phone && !!formData.code))
-
+    // 按下 Enter
     const onEnter = () => {
       // console.log(formData)
     }
 
-    return { formData, error, onEnter, onChange, disabled }
+    // 输入电话失去焦点
+    const onPhoneBlur = () => {
+      if (telephoneRegex.test(formData.phone)) {
+        error.phone = false
+      } else {
+        error.phone = true
+      }
+    }
+
+    return { formData, error, telephoneRegex, onEnter, onChange, onPhoneBlur }
   }
 })
 </script>

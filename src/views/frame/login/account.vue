@@ -22,7 +22,10 @@
       @on-enter="onEnter"
     />
     <span class="login-account-change-link" @click="onChange"> 短信验证码登录 </span>
-    <GlobalButton class="login-account-button" :disabled="disabled">
+    <GlobalButton
+      class="login-account-button"
+      :disabled="!(!!formData.account && !!formData.password)"
+    >
       登录
     </GlobalButton>
     <div class="login-account-link">
@@ -38,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive } from "vue"
+import { defineComponent, reactive } from "vue"
 
 export default defineComponent({
   emits: ["on-change"],
@@ -56,16 +59,12 @@ export default defineComponent({
     // 点击短信登录
     const onChange = () => emit("on-change", "account")
 
-    // 点击登录按键
-    const disabled = computed(() => !(!!formData.account && !!formData.password))
-
     const onEnter = () => {
       // console.log(formData)
     }
 
     return {
       error,
-      disabled,
       formData,
       onEnter,
       onChange

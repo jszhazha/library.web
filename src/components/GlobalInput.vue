@@ -111,7 +111,7 @@ export default defineComponent({
       default: true
     }
   },
-  emits: ["update:value", "update:errorBorder", "on-enter"],
+  emits: ["update:value", "update:errorBorder", "on-enter", "on-blur"],
   setup(props, { emit }) {
     const userInput = reactive<UserInput>({
       type: InputTypeMap[props.type as InputTypeMap],
@@ -135,13 +135,7 @@ export default defineComponent({
     // 失去焦点
     function handleBlur() {
       borderColor.value = ""
-      if (props.type === TypeMap.phone) {
-        if (/^1\d{10}$/.test(userInput.value)) {
-          emit("update:errorBorder", false)
-        } else {
-          emit("update:errorBorder", true)
-        }
-      }
+      emit("on-blur")
     }
 
     // 获得焦点
@@ -153,7 +147,7 @@ export default defineComponent({
 
     // 输入内容
     function handleInput() {
-      if (props.type === TypeMap.phone || props.type === TypeMap.code) {
+      if (props.type === TypeMap.phone) {
         userInput.value = userInput.value.replace(/[^0-9]+/g, "")
       }
       emit("update:value", userInput.value)

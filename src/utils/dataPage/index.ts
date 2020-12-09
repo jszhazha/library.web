@@ -66,7 +66,7 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
     }
   }
   // 查看缓存中是否有数据
-  checkCacheData<T>(name, storage, (data: T) => assign(dataItem, data))
+  checkCacheData<T>(name, storage, (data: T) => (console.log(data), assign(dataItem, data)))
 
   /**
    * 刷新页面 不会走生命周期 , 同时监听刷新和卸载时 进行缓存数据
@@ -90,8 +90,10 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
 export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): DataPageMix {
   // 获取方法 当前路由
   const { back, replace, currentRoute } = useRouter()
+
   // 获取当前页面 查询条件
   const { query, name } = unref(currentRoute)
+
   // 获取 对话框 实例
   const toast = useToast()
   const { validateInfos, resetFields } = useForm(dataItem, rules)

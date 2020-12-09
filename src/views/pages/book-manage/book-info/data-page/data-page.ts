@@ -45,6 +45,7 @@ export const holdInfoColumns: TableColumn[] = [
     dataIndex: "operation",
     align: "center",
     width: 120,
+    ellipsis: true,
     slots: { customRender: 'operation' }
   }
 ]

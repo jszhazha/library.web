@@ -4,17 +4,22 @@
       <a-row>
         <a-col :xs="24" :lg="9" class="pl-4 pr-4">
           <a-form-item label="索书号">
-            <InputWrap />
+            <InputWrap v-model:value="dataItem.number" />
           </a-form-item>
         </a-col>
         <a-col :xs="24" :lg="9" class="pl-4 pr-4">
           <a-form-item label="存放位置">
-            <InputWrap />
+            <InputWrap v-model:value="dataItem.location" />
           </a-form-item>
         </a-col>
       </a-row>
     </a-form>
-    <GlobalTable class="m-4" :data-source="dataSource" :columns="holdInfoColumns">
+    <GlobalTable
+      class="m-4"
+      :data-source="dataSource"
+      :columns="holdInfoColumns"
+      :scroll="{ x: true }"
+    >
       <template v-for="key in ['number', 'location']" #[key]="{ text, record, index }" :key="key">
         <a-input v-if="index === editingIndex" v-model:value="record[key]" />
         <template v-else>
@@ -60,12 +65,13 @@ export default defineComponent({
     const editingIndex = ref<number | null>(null)
     // 编辑数据
     let cacheData: holdInfo = {}
+    // 输入数据
+    let dataItem = reactive<holdInfo>({})
 
     for (let i = 0; i < 2; i++) {
       dataSource.push({
         location: "54-" + i,
         number: "323" + i,
-        time: Math.random(),
         id: i
       })
     }
@@ -91,8 +97,9 @@ export default defineComponent({
     }
 
     return {
-      holdInfoColumns,
+      dataItem,
       dataSource,
+      holdInfoColumns,
       editingIndex,
       onEditData,
       onSvaeEditData,

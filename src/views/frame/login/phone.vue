@@ -22,7 +22,7 @@
       class="login-phone-code"
       type="code"
       placeholder="短信验证码"
-      :code-disabled="!telephoneRegex.test(formData.phone)"
+      :code-disabled="!validData(formData.phone, 'telephone')"
       :maxlength="8"
       @on-enter="onEnter"
     />
@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from "vue"
-import { telephoneRegex  } from "/@/utils/regex"
+import { validData } from "/@/utils/regExp"
 
 export default defineComponent({
   emits: ["on-change"],
@@ -58,14 +58,14 @@ export default defineComponent({
 
     // 输入电话失去焦点
     const onPhoneBlur = () => {
-      if (telephoneRegex.test(formData.phone)) {
+      if (validData(formData.phone, "telephone")) {
         error.phone = false
       } else {
         error.phone = true
       }
     }
 
-    return { formData, error, telephoneRegex, onEnter, onChange, onPhoneBlur }
+    return { formData, error, validData, onEnter, onChange, onPhoneBlur }
   }
 })
 </script>

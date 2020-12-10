@@ -48,14 +48,14 @@ enum InputTypeMap {
   text = "text",
   password = "password",
   phone = "text",
-  code = "text",
+  code = "text"
 }
 
 enum TypeMap {
   text = "text",
   password = "password",
   phone = "phone",
-  code = "code",
+  code = "code"
 }
 
 interface UserInput {
@@ -224,6 +224,10 @@ export default defineComponent({
     background: transparent;
     border: none;
     outline: none;
+  }
+
+  ::v-deep(input::placeholder) {
+    color: #ccc;
   }
 
   &-password {

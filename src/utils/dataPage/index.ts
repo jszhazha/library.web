@@ -21,13 +21,16 @@ interface DataPageMix {
   // 页面底部方法
   onDataMethods: {
     // 关闭触发
-    onClosePage: () => void;
+    onClosePage: () => void
 
     // 重置触发
-    onRestPage: () => void;
+    onRestPage: () => void
 
     // 编辑触发
-    onEditpage: () => void
+    onEditPage: () => void
+
+    // 保存数据
+    onSavePage: () => void
   }
   // 页面信息
   pageInfo: PageInfo
@@ -84,6 +87,15 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
   })
 }
 
+/**
+ * 数据初始化
+ */
+function dataItemInit<T>(dataItem: T, ruleKeys: string[]) {
+  ruleKeys.forEach(key => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (dataItem as any)[key] = ''
+  })
+}
 
 
 
@@ -96,7 +108,15 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
 
   // 获取 对话框 实例
   const toast = useToast()
-  const { validateInfos, resetFields } = useForm(dataItem, rules)
+
+  // 规则 key 数组
+  const ruleKeys: string[] = Object.keys(rules)
+
+  // 数据初始化
+  dataItemInit<T>(dataItem, ruleKeys)
+
+  // 获取 ant 表单规则 
+  const { validateInfos, resetFields, validate } = useForm(dataItem, rules)
   const pageInfo = reactive<PageInfo>({
     mode: checkDataRouter((query as unknown) as QueryRoute, name as string),
     readonly: false,
@@ -135,19 +155,33 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
    * 页面点击重置触发的函数
    */
   const onRestPage = () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Object.keys(dataItem).forEach((key) => (dataItem as any)[key] = '')
+    Object.keys(dataItem).forEach(key => {
+      if (!ruleKeys.includes(key)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (dataItem as any)[key] = ''
+      }
+    })
+
     resetFields()
   }
 
   /**
    * 页面点击编辑触发的函数
    */
-  const onEditpage = () => {
+  const onEditPage = () => {
     pageInfo.mode = PageMode.edit
     pageInfo.readonly = false
-
     replace({ query: { mode: PageMode[PageMode.edit], id: pageInfo.query.id } })
+  }
+
+  /**
+   * 页面点击保存触发的函数
+   */
+  const onSavePage = async () => {
+    try {
+      await validate()
+    } catch (err) {
+    }
   }
 
   //  push({ query: { mode: PageMode[PageMode.edit] } })
@@ -161,12 +195,17 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
 
 
 
-
-
+  // 数据方法
+  const onDataMethods = {
+    onRestPage,
+    onEditPage,
+    onSavePage,
+    onClosePage
+  }
 
 
   // console.log(dataItem)
   // storage.set(name as string, dataItem)
 
-  return { onDataMethods: { onClosePage, onRestPage, onEditpage }, pageInfo, validateInfos }
+  return { onDataMethods, pageInfo, validateInfos }
 }

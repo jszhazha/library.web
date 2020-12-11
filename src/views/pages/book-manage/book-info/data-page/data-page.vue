@@ -29,7 +29,7 @@
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="出版社">
-              <InputWrap />
+              <InputWrap v-model:value="dataItem.press" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
@@ -67,10 +67,10 @@
       <a-button v-show="!readonly" @click="onRestPage">
         重置
       </a-button>
-      <a-button v-show="readonly" type="primary" @click="onEditpage">
+      <a-button v-show="readonly" type="primary" @click="onEditPage">
         编辑
       </a-button>
-      <a-button v-show="!readonly" type="primary">
+      <a-button v-show="!readonly" type="primary" @click="onSavePage">
         保存
       </a-button>
     </template>
@@ -103,6 +103,4 @@ export default defineComponent({
 })
 </script>
 
-
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

@@ -7,6 +7,7 @@ import config from "/@/config/"
 import { MenuState } from "./type"
 import router from "/@/router"
 import { getMenus, getFlatMenus, getAllParentPathName, menuHasChildren } from "/@/utils/helper/menu"
+import { ruleMap } from "/@/utils/regExp"
 import MenuContent from "./MenuContent"
 
 export default defineComponent({
@@ -19,7 +20,7 @@ export default defineComponent({
       mode: "inline",
       isAppMenu: true,
       openKeys: [],
-      collapsedOpenKeys: [],
+      collapsedOpenKeys: []
     })
 
     // 处理点击菜单 -> 导航 跳转
@@ -35,7 +36,7 @@ export default defineComponent({
       const findMenu = flatItems.find((menu) => menu.name === unref(currentRoute).name)
       if (findMenu) {
         menuState.openKeys = getAllParentPathName(flatItems, findMenu.name as string)
-        menuState.selectedKeys = [findMenu.name.replace(/data-page$/, "list-page")]
+        menuState.selectedKeys = [findMenu.name.replace(ruleMap.dataPage, "list-page")]
       }
     }
 
@@ -66,7 +67,7 @@ export default defineComponent({
           return (
             <Menu.Item key={name as string} title={index === 1 && !showTitle ? title : ""}>
               {() => [
-                <MenuContent icon={icon} level={index} title={title} showTitle={showTitle} />,
+                <MenuContent icon={icon} level={index} title={title} showTitle={showTitle} />
               ]}
             </Menu.Item>
           )
@@ -75,9 +76,9 @@ export default defineComponent({
           <Menu.SubMenu key={name as string} class="layout-sider-menu-sub">
             {{
               title: () => [
-                <MenuContent icon={icon} level={index} title={title} showTitle={showTitle} />,
+                <MenuContent icon={icon} level={index} title={title} showTitle={showTitle} />
               ],
-              default: () => renderMenuItem(menu.children, index + 1),
+              default: () => renderMenuItem(menu.children, index + 1)
             }}
           </Menu.SubMenu>
         )
@@ -146,5 +147,5 @@ export default defineComponent({
         </Layout.Sider>
       )
     }
-  },
+  }
 })

@@ -2,17 +2,17 @@ import type { AppRouteRecordRaw } from "/@/router/types"
 import type { RouteLocationMatched } from "vue-router"
 import { defineComponent, watch, unref, TransitionGroup, reactive } from "vue"
 import { Breadcrumb, BreadcrumbItem } from "/@/components/Breadcrumb/"
-import { parsePageModeFromString, ParsePageModeFromString } from "/@/utils/helper/breadcrumb"
+import { parsePageModeFromString } from "/@/utils/helper/breadcrumb"
 import { useRouter } from "vue-router"
 import { PageEnum } from "/@/enums/pageEnum"
-import { isBoolean } from "/@/utils/is"
 import { useGo } from "/@/hooks/web/usePage"
+import { validData } from "/@/utils/regExp"
 import router from "/@/router"
 
 interface ItemList {
   value: AppRouteRecordRaw[]
   length: number
-  pageMode: ParsePageModeFromString | boolean
+  queryMode: string
 }
 
 export default defineComponent({
@@ -22,7 +22,7 @@ export default defineComponent({
     const itemList = reactive<ItemList>({
       value: [],
       length: 0,
-      pageMode: false,
+      queryMode: ""
     })
 
     // 路由发送变换
@@ -34,7 +34,7 @@ export default defineComponent({
       if (result) {
         matchedList.shift()
       }
-      itemList.pageMode = parsePageModeFromString(query.mode as string)
+      itemList.queryMode = query.mode as string
       itemList.length = matchedList.length - 1
       itemList.value = (matchedList as unknown) as AppRouteRecordRaw[]
     }
@@ -62,7 +62,7 @@ export default defineComponent({
         getBreadcrumb()
       },
       {
-        immediate: true,
+        immediate: true
       }
     )
 
@@ -72,11 +72,19 @@ export default defineComponent({
           <TransitionGroup name="breadcrumb">
             {() =>
               itemList.value.map((el, index) => {
+
                 const isLink = !!el.redirect
-                const { length, pageMode } = itemList
+
+                const { length, queryMode } = itemList
+
                 const isDivider = length !== index
-                const mode =
-                  length === index && !isBoolean(pageMode) ? `- ${pageMode.modeName}` : ""
+
+                let mode = ""
+
+                if (validData(el.path, "dataPage")) {
+                  const pageMode = parsePageModeFromString(queryMode)
+                  mode = `- ${pageMode.modeName}`
+                }
 
                 return (
                   <BreadcrumbItem
@@ -94,5 +102,5 @@ export default defineComponent({
         )}
       </Breadcrumb>
     )
-  },
+  }
 })

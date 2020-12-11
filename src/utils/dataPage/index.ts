@@ -117,9 +117,14 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
 
   // 获取 ant 表单规则 
   const { validateInfos, resetFields, validate } = useForm(dataItem, rules)
+
+  // 页面模式
+  const mode = checkDataRouter((query as unknown) as QueryRoute, name as string)
+
+  // 获取页面信息
   const pageInfo = reactive<PageInfo>({
-    mode: checkDataRouter((query as unknown) as QueryRoute, name as string),
-    readonly: false,
+    mode: mode,
+    readonly: mode === -1 ? true : false,
     query: (query as unknown) as QueryRoute
   })
 

@@ -64,13 +64,13 @@
       <a-button @click="onClosePage">
         返回
       </a-button>
-      <a-button v-show="!readonly" @click="onRestPage">
+      <a-button v-if="!readonly" @click="onRestPage">
         重置
       </a-button>
-      <a-button v-show="readonly" type="primary" @click="onEditPage">
+      <a-button v-if="readonly && mode !== -1" type="primary" @click="onEditPage">
         编辑
       </a-button>
-      <a-button v-show="!readonly" type="primary" @click="onSavePage">
+      <a-button v-if="!readonly" type="primary" @click="onSavePage">
         保存
       </a-button>
     </template>

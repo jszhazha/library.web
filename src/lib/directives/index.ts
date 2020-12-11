@@ -7,6 +7,7 @@ export default class DirectivesRegisterPlugin {
     // 设置 标题
     setupTitle(app)
 
+
     // 检测单击事件是否在元素外部发生
     // clickAway(app)
   }

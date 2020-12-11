@@ -1,13 +1,16 @@
+
 /**
  * @description 添加新的页面枚举 变量 需要同时添加 PageMode 和 pageModeName 和 list
  */
 
 
+
 // 页面的模式枚举
 export enum PageMode {
+  error = -1,
   view,
   edit,
-  new
+  new,
 }
 
 // 模块对应的中文名称
@@ -24,7 +27,7 @@ export interface ParsePageModeFromString {
  * 从字串取得页面模式
  * @param mode 模式字串 
  */
-export function parsePageModeFromString(mode: string): ParsePageModeFromString | boolean {
+export function parsePageModeFromString(mode: string): ParsePageModeFromString {
   const list: Array<PageMode> = [PageMode.view, PageMode.edit, PageMode.new]
 
   for (let i = 0; i < list.length; i++) {
@@ -33,5 +36,6 @@ export function parsePageModeFromString(mode: string): ParsePageModeFromString |
       return { modeName: pageModeName[i], mode: i }
     }
   }
-  return false
+
+  return { modeName: '错误', mode: PageMode.error }
 }

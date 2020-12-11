@@ -28,7 +28,7 @@ export function useSearch({ queryData, isOpen }: Parameter): UseSearch {
   function onResetData() {
     const ignoreData = ['page', 'pageSize', 'sorts']
     for (const key in queryData) {
-      !ignoreData.some((value) => value === key) && delete queryData[key]
+      !ignoreData.some((value) => value === key) && Reflect.deleteProperty(queryData, key)
     }
   }
 

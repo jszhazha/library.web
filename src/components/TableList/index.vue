@@ -16,10 +16,7 @@
         <TooltipButton title="下载导入模板">
           <VerticalAlignBottomOutlined />
         </TooltipButton>
-        <TooltipButton
-          :title="fullScreen ? '退出全屏' : '全屏'"
-          @on-click="onFullScreen"
-        >
+        <TooltipButton :title="fullScreen ? '退出全屏' : '全屏'" @on-click="onFullScreen">
           <CompressOutlined v-if="fullScreen" />
           <ExpandOutlined v-else />
         </TooltipButton>
@@ -40,14 +37,7 @@
 
 <script lang="ts">
 import type { Ref } from "vue"
-import {
-  ref,
-  unref,
-  reactive,
-  computed,
-  onMounted,
-  defineComponent
-} from "vue"
+import { ref, unref, reactive, computed, onMounted, defineComponent } from "vue"
 import { tableListProps, TableColumn } from "/@/lib/props/TableList"
 import { browserClient, elementOffset } from "/@/utils/elelment"
 import {
@@ -84,12 +74,8 @@ export default defineComponent({
       translate: "(0px,0px)"
     })
     // table 表头数据
-    const tableColumns = (ref(unref(props).columns) as unknown) as Ref<
-      TableColumn[]
-    >
-    const cacheTableColumns = (ref(unref(props).columns) as unknown) as Ref<
-      TableColumn[]
-    >
+    const tableColumns = (ref(unref(props).columns) as unknown) as Ref<TableColumn[]>
+    const cacheTableColumns = (ref(unref(props).columns) as unknown) as Ref<TableColumn[]>
     // 获取 table 表头数据
     const getTableColumns = computed(() => {
       return tableColumns.value
@@ -106,12 +92,12 @@ export default defineComponent({
     function onFullScreen() {
       if (fullScreen.value) {
         // 切换为非全屏
-        delete scroll.y
+        Reflect.deleteProperty(scroll, "y")
         scroll.x = true
         transform.translate = `(0px,0px)`
       } else {
         // 切换为全屏
-        delete scroll.x
+        Reflect.deleteProperty(scroll, "x")
         const offset = elementOffset(unref(tableRef))
         transform.translate = `(-${offset.left - 16}px,-${offset.top}px)`
         scroll.y = browserSize.height! - 200
@@ -146,7 +132,6 @@ export default defineComponent({
   }
 })
 </script>
-
 
 <style lang="less" scoped>
 .table-list {

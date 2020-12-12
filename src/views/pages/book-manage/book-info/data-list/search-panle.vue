@@ -27,7 +27,7 @@
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <div class="index-table-search-button">
+        <div class="index-button-right">
           <a-button type="primary">
             查询
           </a-button>

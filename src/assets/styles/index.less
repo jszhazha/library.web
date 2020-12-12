@@ -87,32 +87,8 @@
       font-size: 12px;
     }
 
-    &-button {
-      margin: 0 0 24px 0;
-      text-align: right;
-
-      button:not(:last-of-type) {
-        margin: 0 10px 0 0;
-      }
-    }
-
     &-col {
       padding: 0 16px;
-    }
-
-    .ant-form-item {
-      &-label {
-        line-height: 32px;
-      }
-
-      &-control {
-        height: 32px;
-        line-height: 32px;
-
-        &-wrapper {
-          flex: 1;
-        }
-      }
     }
   }
 
@@ -141,6 +117,16 @@
   &-button {
     color: @selectBefore;
     cursor: pointer;
+  }
+
+  
+  &-button-right {
+    margin: 0 0 24px 0;
+    text-align: right;
+
+    button:not(:last-of-type) {
+      margin: 0 10px 0 0;
+    }
   }
 
   &-selected {

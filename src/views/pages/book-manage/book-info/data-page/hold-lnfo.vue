@@ -14,9 +14,9 @@
         </a-col>
         <a-col class="pl-4 pr-4" flex="auto">
           <div class="index-button-right">
-            <a-button type="primary">
+            <!-- <a-button type="primary">
               添加
-            </a-button>
+            </a-button> -->
           </div>
         </a-col>
       </a-row>

@@ -12,6 +12,13 @@
             <InputWrap v-model:value="dataItem.location" />
           </a-form-item>
         </a-col>
+        <a-col class="pl-4 pr-4" flex="auto">
+          <div class="index-button-right">
+            <a-button type="primary">
+              添加
+            </a-button>
+          </div>
+        </a-col>
       </a-row>
     </a-form>
     <GlobalTable

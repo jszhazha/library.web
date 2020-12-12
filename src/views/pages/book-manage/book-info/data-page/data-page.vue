@@ -1,5 +1,5 @@
 <template>
-  <GlobalDataPage>
+  <GlobalDataPage :mode="mode">
     <a-form :label-col="{ flex: '100px' }" :wrapper-col="{ flex: 'auto' }">
       <GlobalCard title="基本信息">
         <a-row>
@@ -61,13 +61,10 @@
 
     <!-- 操作 -->
     <template #footer-block>
-      <a-button @click="onClosePage">
-        返回
-      </a-button>
-      <a-button v-if="!readonly" @click="onRestPage">
+      <a-button v-if="!readonly " @click="onRestPage">
         重置
       </a-button>
-      <a-button v-if="readonly && mode !== -1" type="primary" @click="onEditPage">
+      <a-button v-if="readonly" type="primary" @click="onEditPage">
         编辑
       </a-button>
       <a-button v-if="!readonly" type="primary" @click="onSavePage">

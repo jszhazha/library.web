@@ -20,9 +20,6 @@ interface DataPageMix {
 
   // 页面底部方法
   onDataMethods: {
-    // 关闭触发
-    onClosePage: () => void
-
     // 重置触发
     onRestPage: () => void
 
@@ -49,7 +46,7 @@ interface DataPageMixParameter<T> {
 
 // 页面信息
 interface PageInfo {
-  // 模式
+  // 模式 出错 -1 查看 0 编辑 1 新增 2
   mode: number
 
   // 只能读取
@@ -145,11 +142,6 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   }
 
   /**
-   * 页面点击关闭触发函数
-   */
-  const onClosePage = () => back()
-
-  /**
    * 监听路由变化 关闭对话框
    */
   watch(() => currentRoute.value, () => {
@@ -204,8 +196,7 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   const onDataMethods = {
     onRestPage,
     onEditPage,
-    onSavePage,
-    onClosePage
+    onSavePage
   }
 
 

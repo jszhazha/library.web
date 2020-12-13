@@ -27,8 +27,12 @@
       :columns="holdInfoColumns"
       :scroll="{ x: true }"
     >
-      <template v-for="key in ['number', 'location']" #[key]="{ text, record, index }" :key="key">
-        <a-input v-if="index === editingIndex" v-model:value="record[key]" />
+      <template v-for="col in ['number', 'location']" #[col]="{ text, record }" :key="col">
+        <a-input
+          v-if="record.editable"
+          :value="text"
+          @change="(e) => handleEditChange(e.target.value, record, col)"
+        />
         <template v-else>
           {{ text }}
         </template>
@@ -36,13 +40,13 @@
       <template #operation="{ record, index }">
         <div class="index-operation">
           <div v-if="index === editingIndex">
-            <span @click="onSvaeEditData(index)">保存</span>
-            <a-popconfirm title="确定取消吗?" @confirm="onCancelEditData(index)">
+            <span @click="handleSvaeEdit(record)">保存</span>
+            <a-popconfirm title="确定取消吗?" @confirm="handleCancelEdit(record)">
               <span>取消</span>
             </a-popconfirm>
           </div>
           <div v-else v-bind="editingIndex !== null ? { disabled: 'disabled' } : {}">
-            <span @click="onEditData(record, index)">编辑</span>
+            <span @click="handleClickEdit(record, index)">编辑</span>
             <span>删除</span>
           </div>
         </div>
@@ -53,10 +57,9 @@
 
 <script lang="ts">
 import type { holdInfo } from "/@/api/book-manage/hold-lnfo"
-import { defineComponent, PropType, reactive, ref } from "vue"
+import { defineComponent, PropType, reactive } from "vue"
 import { holdInfoColumns } from "./data-page"
-import { cloneDeep } from "lodash-es"
-import { isNull } from "/@/utils/is"
+import { useTableEdit } from "/@/hooks/web/useTableEdit"
 
 export default defineComponent({
   props: {
@@ -68,10 +71,7 @@ export default defineComponent({
   setup() {
     // 全部数据
     const dataSource = reactive<holdInfo[]>([])
-    // 编辑下标
-    const editingIndex = ref<number | null>(null)
-    // 编辑数据
-    let cacheData: holdInfo = {}
+
     // 输入数据
     let dataItem = reactive<holdInfo>({})
 
@@ -83,39 +83,15 @@ export default defineComponent({
       })
     }
 
-    // 处理编辑
-    function onEditData(record: holdInfo, index: number) {
-      if (!isNull(editingIndex.value)) return
-      editingIndex.value = index
-      cacheData = cloneDeep(record)
-    }
-
-    // 保存编辑数据
-    function onSvaeEditData(index: number) {
-      cacheData = {}
-      editingIndex.value = null
-      console.log(index)
-    }
-
-    // 取消编辑数据
-    function onCancelEditData(index: number) {
-      editingIndex.value = null
-      dataSource[index] = cacheData
-    }
-
     return {
       dataItem,
       dataSource,
       holdInfoColumns,
-      editingIndex,
-      onEditData,
-      onSvaeEditData,
-      onCancelEditData
+      ...useTableEdit()
     }
   }
 })
 </script>
-
 
 <style lang="less" scoped>
 </style>

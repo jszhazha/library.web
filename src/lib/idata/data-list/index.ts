@@ -1,5 +1,5 @@
 import { onMounted } from 'vue'
-import { provideListPage } from '/@/utils/listPage/methods/useDepend'
+import { provideListPage } from './methods/useDepend'
 
 
 

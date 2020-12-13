@@ -44,7 +44,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue"
 import { PagerQueryData } from "/@/lib/http/axios/types"
-import { useSearch, SearchInstance } from "/@/utils/listPage/methods/useSearch"
+import { useSearch, SearchInstance } from "/@/lib/idata/data-list/methods/useSearch"
 
 export default defineComponent({
   setup(): SearchInstance {

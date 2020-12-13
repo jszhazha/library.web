@@ -17,7 +17,7 @@
 import { defineComponent, reactive, toRefs } from "vue"
 import { BookInfo } from "/@/api/book-manage/book-info"
 import { Instance } from "/@/lib/interface/ListPage"
-import { listPageMix } from "/@/utils/listPage/"
+import { listPageMix } from "/@/lib/idata/data-list/"
 import { importColumns } from "./data-list"
 import searchPanle from "./search-panle.vue"
 import listView from "./list-view.vue"

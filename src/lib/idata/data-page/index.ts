@@ -98,7 +98,7 @@ function dataItemInit<T>(dataItem: T, ruleKeys: string[]) {
 
 export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): DataPageMix {
   // 获取方法 当前路由
-  const { back, replace, currentRoute } = useRouter()
+  const { replace, currentRoute } = useRouter()
 
   // 获取当前页面 查询条件
   const { query, name } = unref(currentRoute)

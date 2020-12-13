@@ -22,7 +22,7 @@
 import { computed, defineComponent, toRefs, unref } from "vue"
 import { Table } from "ant-design-vue"
 import { tableProps } from "/@/lib/props/TableList"
-import { injectDatapage } from "/@/utils/dataPage/methods/useDepend"
+import { injectDatapage } from "/@/lib/idata/data-page/methods/useDepend"
 import { cloneDeep } from "lodash-es"
 
 export default defineComponent({

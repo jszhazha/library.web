@@ -61,7 +61,7 @@
 
     <!-- 操作 -->
     <template #footer-block>
-      <a-button v-if="!readonly " @click="onRestPage">
+      <a-button v-if="!readonly" @click="onRestPage">
         重置
       </a-button>
       <a-button v-if="readonly" type="primary" @click="onEditPage">
@@ -76,7 +76,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue"
-import { dataPageMix } from "/@/utils/dataPage/"
+import { dataPageMix } from "/@/lib/idata/data-page/"
 import { BookInfo } from "/@/api/book-manage/book-info"
 import { formRules } from "./data-page"
 import holdInfo from "./hold-lnfo.vue"

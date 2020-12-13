@@ -51,7 +51,7 @@ const viteConfig: UserConfig = {
    * Transpile target for esbuild.
    * @default 'es2020'
    */
-  esbuildTarget: 'es2019',
+  esbuildTarget: 'es2020',
 
   /**
    * Whether to log asset info to console

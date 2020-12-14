@@ -7,7 +7,7 @@ import config from "/@/config/"
 import { MenuState } from "./type"
 import router from "/@/router"
 import { getMenus, getFlatMenus, getAllParentPathName, menuHasChildren } from "/@/utils/helper/menu"
-import { ruleMap } from "/@/utils/regExp"
+import { rules } from "/@/utils/regExp"
 import MenuContent from "./MenuContent"
 
 export default defineComponent({
@@ -36,7 +36,7 @@ export default defineComponent({
       const findMenu = flatItems.find((menu) => menu.name === unref(currentRoute).name)
       if (findMenu) {
         menuState.openKeys = getAllParentPathName(flatItems, findMenu.name as string)
-        menuState.selectedKeys = [findMenu.name.replace(ruleMap.dataPage, "list-page")]
+        menuState.selectedKeys = [findMenu.name.replace(rules.dataPage, "list-page")]
       }
     }
 

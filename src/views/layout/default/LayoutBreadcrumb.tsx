@@ -72,7 +72,6 @@ export default defineComponent({
           <TransitionGroup name="breadcrumb">
             {() =>
               itemList.value.map((el, index) => {
-
                 const isLink = !!el.redirect
 
                 const { length, queryMode } = itemList
@@ -81,7 +80,7 @@ export default defineComponent({
 
                 let mode = ""
 
-                if (validData(el.path, "dataPage")) {
+                if (validData({ data: el.path, rule: "dataPage" })) {
                   const pageMode = parsePageModeFromString(queryMode)
                   mode = `- ${pageMode.modeName}`
                 }

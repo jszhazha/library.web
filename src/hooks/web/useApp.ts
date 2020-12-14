@@ -1,10 +1,10 @@
 import { isUnDef, isNull } from '/@/utils/is'
 
-interface ConfigProvideParameter {
+interface ConfigProvide {
   transformCellText: ({ text }: { text: string }) => string
 }
 
-export function useConfigProvider(): ConfigProvideParameter {
+export function useConfigProvider(): ConfigProvide {
   function transformCellText({ text }: { text: string }) {
     if (isNull(text) || isUnDef(text)) {
       return ''

@@ -1,6 +1,7 @@
 import type { Ref } from 'vue'
 import { ref } from "vue"
 import { assign, cloneDeep } from "lodash-es"
+import { isNull } from '/@/utils/is'
 
 
 interface Record {
@@ -42,6 +43,7 @@ export function useTableEdit(): UseTableEdit {
   }
 
   function handleClickEdit(record: Record, index: number): void {
+    if (!isNull(editingIndex.value)) return
     editingIndex.value = index
     cacheRecord = cloneDeep(record)
     record.editable = true

@@ -60,7 +60,7 @@ export function provideListPage<T extends { id?: number }>({ name, deleteDataFro
       title: '删除数据',
       content: '确定要删除该数据吗？',
       okText: '确定',
-      okType: 'danger',
+      okType: 'primary',
       cancelText: '取消',
       onOk() {
         return new Promise(async (resolve) => {

@@ -1,7 +1,7 @@
 
 import type { App } from 'vue'
 
-import { Button, Divider, Form, Input, Modal, Pagination, Row, Col, Checkbox, notification, Popover, Popconfirm } from 'ant-design-vue'
+import { Button, Divider, Form, Input, Modal, Pagination, Row, Col, Checkbox, notification, Popover, Popconfirm, message } from 'ant-design-vue'
 
 // 导入 Icon
 import { PlusOutlined, SettingOutlined, DownOutlined, InfoCircleFilled } from '@ant-design/icons-vue'
@@ -15,8 +15,10 @@ import '/@/assets/styles/index.less'
 
 
 // 设置 通知提醒框
-notification.config({ placement: 'topRight', duration: 6 })
+notification.config({ placement: 'topRight', duration: 3 })
 
+
+message.config({  duration: 3 })
 
 
 

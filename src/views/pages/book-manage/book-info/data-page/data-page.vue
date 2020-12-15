@@ -86,8 +86,25 @@ export default defineComponent({
   setup() {
     const dataItem = reactive<BookInfo>({})
     const rules = reactive(formRules)
-    const { pageInfo, onDataMethods, validateInfos } = dataPageMix<BookInfo>({ dataItem, rules })
+    const onServerMethods = { onNewData, onSaveData, onLoadDataById }
+    const parameter = { rules, dataItem, onServerMethods }
+    const { pageInfo, onDataMethods, validateInfos } = dataPageMix<BookInfo>(parameter)
     const { mode, readonly } = toRefs(pageInfo)
+
+    // 通过ID加载数据
+    async function onLoadDataById(id: number) {
+      console.log(id, "onLoadDataById")
+    }
+
+    // 保存数据
+    async function onSaveData(id: number) {
+      console.log(id, "onSaveData")
+    }
+
+    // 新增数据
+    async function onNewData() {
+      console.log("onNewData")
+    }
 
     return {
       mode,

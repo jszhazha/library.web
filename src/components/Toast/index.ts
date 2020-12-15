@@ -12,6 +12,13 @@ const open = (type: 'error' | 'success' | 'info', optionDefault = {}) => {
   }
 }
 
+const clear = () => {
+  return (): void => {
+    const toast = useToast()
+    toast.clear()
+  }
+}
+
 
 const errorDefault: ToastOptions = {
   toastClassName: ["toast-custom", "toast-custom-error"],
@@ -30,7 +37,8 @@ const cacheDefault: ToastOptions = {
 
 const api = {
   error: open('error', errorDefault),
-  cache: open('info', cacheDefault)
+  cache: open('info', cacheDefault),
+  clear: clear()
 }
 
 export default api

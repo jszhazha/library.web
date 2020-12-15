@@ -7,10 +7,10 @@ import { checkCacheData, cacheData } from './methods/cacheData'
 import { checkDataRouter, QueryRoute } from './methods/dataRouter'
 import { createStorage } from "/@/utils/storage/"
 import { PageMode } from "/@/utils/helper/breadcrumb"
-import { useToast } from "vue-toastification"
 import { useForm } from "@ant-design-vue/use"
 import { useRouter } from "vue-router"
 import { assign } from 'lodash-es'
+import useToast from "/@/components/Toast"
 
 
 import './index.less'
@@ -39,10 +39,22 @@ interface DataPageMix {
 
 interface DataPageMixParameter<T> {
   // 数据
-  dataItem: T;
+  dataItem: T
 
   // 规则
   rules: FromRules
+
+  // 请求服务器方法
+  onServerMethods: {
+    // 新增数据
+    onNewData: () => Promise<void>
+
+    // 保存数据
+    onSaveData: (id: number) => Promise<void>
+
+    // 通过ID加载数据
+    onLoadDataById: (id: number) => Promise<void>
+  }
 }
 
 // 页面信息
@@ -98,7 +110,7 @@ function dataItemInit<T>(dataItem: T, ruleKeys: string[]) {
 
 
 
-export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): DataPageMix {
+export function dataPageMix<T>({ dataItem, rules, onServerMethods }: DataPageMixParameter<T>): DataPageMix {
   // 获取方法 当前路由
   const { replace, currentRoute } = useRouter()
 
@@ -106,7 +118,7 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   const { query, name } = unref(currentRoute)
 
   // 获取 对话框 实例
-  const toast = useToast()
+  // const toast = useToast()
 
   // 规则 key 数组
   const ruleKeys: string[] = Object.keys(rules)
@@ -131,11 +143,16 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   // 设置缓存
   const storage = createStorage(sessionStorage)
 
-
+  // 以 id 加载数据
+  const onLoadDataById = async () => {
+    await onServerMethods.onLoadDataById(parseInt(pageInfo.query.id!))
+  }
 
   // 页面为查看模式, 输入框 设置为只读模式
   if (pageInfo.mode === PageMode.view) {
     pageInfo.readonly = true
+    // 请求数据
+    onLoadDataById()
   }
 
   // 页面为新建模式 
@@ -143,11 +160,17 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
     newModeInit<T>(dataItem, toRef(pageInfo, 'mode'), name as string, storage)
   }
 
+  // 页面为编辑模式
+  if (pageInfo.mode === PageMode.edit) {
+    // 请求数据
+    onLoadDataById()
+  }
+
   /**
    * 监听路由变化 关闭对话框
    */
   watch(() => currentRoute.value, () => {
-    toast.clear()
+    useToast.clear()
   })
 
   /**
@@ -159,7 +182,6 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
         (dataItem as any)[key] = ''
       }
     })
-
     resetFields()
   }
 
@@ -178,7 +200,14 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   const onSavePage = async () => {
     try {
       await validate()
+      if (pageInfo.mode === PageMode.new) {
+        await onServerMethods.onNewData()
+      } else if (pageInfo.mode === PageMode.edit) {
+        await onServerMethods.onSaveData(parseInt(pageInfo.query.id!))
+      }
     } catch (err) {
+      useToast.clear()
+      useToast.error('数据校验失败，请检查！')
     }
   }
 

@@ -1,5 +1,3 @@
-
-
 import { notification } from 'ant-design-vue'
 import { ArgsProps, ConfigProps } from 'ant-design-vue/lib/notification'
 

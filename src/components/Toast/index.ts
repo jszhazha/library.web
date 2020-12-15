@@ -13,8 +13,8 @@ const open = (type: 'error' | 'success' | 'info', optionDefault = {}) => {
 }
 
 const clear = () => {
+  const toast = useToast()
   return (): void => {
-    const toast = useToast()
     toast.clear()
   }
 }

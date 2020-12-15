@@ -14,6 +14,7 @@ import { assign } from 'lodash-es'
 
 
 import './index.less'
+import { isUnDef } from '/@/utils/is'
 
 
 interface DataPageMix {
@@ -89,8 +90,9 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
  */
 function dataItemInit<T>(dataItem: T, ruleKeys: string[]) {
   ruleKeys.forEach(key => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (dataItem as any)[key] = ''
+    if (isUnDef((dataItem as any)[key])) {
+      (dataItem as any)[key] = ''
+    }
   })
 }
 
@@ -154,7 +156,6 @@ export function dataPageMix<T>({ dataItem, rules }: DataPageMixParameter<T>): Da
   const onRestPage = () => {
     Object.keys(dataItem).forEach(key => {
       if (!ruleKeys.includes(key)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (dataItem as any)[key] = ''
       }
     })

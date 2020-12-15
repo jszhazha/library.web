@@ -46,7 +46,7 @@ export function isFunction(val: unknown): boolean {
   return typeof val === 'function'
 }
 
-export function isArray(val: unknown): boolean {
+export function isArray(val: any): boolean {
   return val && Array.isArray(val)
 }
 

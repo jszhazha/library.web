@@ -1,5 +1,6 @@
 export const rules = {
   telephone: /^1\d{10}$/,
+  
   dataPage: /data-page$/
 }
 

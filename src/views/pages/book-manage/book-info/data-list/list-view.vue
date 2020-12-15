@@ -12,7 +12,7 @@
       <div class="index-operation">
         <span @click="onViewDataItem(record)">查看</span>
         <span @click="onEditDataItem(record)">编辑</span>
-        <span>删除</span>
+        <span @click="onDeleteDataItem(record)">删除</span>
       </div>
     </template>
   </TableList>
@@ -46,6 +46,8 @@ export default defineComponent({
     const onViewDataItem = (record: BookInfo) => dataPage.onViewDataItem(record)
     // 编辑数据
     const onEditDataItem = (record: BookInfo) => dataPage.onEditDataItem(record)
+    // 删除数据
+    const onDeleteDataItem = (record: BookInfo) => dataPage.onDeleteDataItem(record)
 
     // 批量导入
     function onBatchImport() {
@@ -58,12 +60,11 @@ export default defineComponent({
       onBatchImport,
       onNewDataItem,
       onViewDataItem,
-      onEditDataItem
+      onEditDataItem,
+      onDeleteDataItem
     }
   }
 })
 </script>
 
-
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

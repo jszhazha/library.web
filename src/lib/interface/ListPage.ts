@@ -1,7 +1,5 @@
 import { ImportInstance } from "/@/lib/props/ImportModal"
-import { SearchInstance } from "/@/utils/listPage/methods/useSearch"
-
-
+import { SearchInstance } from "/@/lib/idata/data-list/methods/useSearch"
 export interface Instance {
   importInstance?: ImportInstance | null
 

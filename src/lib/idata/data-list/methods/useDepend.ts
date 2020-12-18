@@ -23,11 +23,11 @@ interface DataPage<T> {
   onDeleteDataItem: (record: T) => void
 }
 
-interface Options {
+interface Options<T> {
   name: string
 
   // 从服务器删除数据
-  deleteDataFromServer: () => Promise<void>
+  deleteDataFromServer: (record: T) => Promise<void>
 }
 
 
@@ -39,7 +39,7 @@ interface Options {
  * @description 页面跳转进入的函数
  * @param name dataPage 页面 name 名称
  */
-export function provideListPage<T extends { id?: number }>({ name, deleteDataFromServer }: Options): void {
+export function provideListPage<T extends { id?: number }>({ name, deleteDataFromServer }: Options<T>): void {
   const pageGo = useGo()
 
   function onNewDataItem() {
@@ -54,7 +54,7 @@ export function provideListPage<T extends { id?: number }>({ name, deleteDataFro
     pageGo({ name, query: { mode: PageMode[PageMode.edit], id: record.id } })
   }
 
-  function onDeleteDataItem() {
+  function onDeleteDataItem(record: T) {
     Modal.confirm({
       icon: createVNode(ExclamationCircleOutlined),
       title: '删除数据',
@@ -64,7 +64,7 @@ export function provideListPage<T extends { id?: number }>({ name, deleteDataFro
       cancelText: '取消',
       onOk() {
         return new Promise(async (resolve) => {
-          await deleteDataFromServer()
+          await deleteDataFromServer(record)
           resolve('')
         })
       }

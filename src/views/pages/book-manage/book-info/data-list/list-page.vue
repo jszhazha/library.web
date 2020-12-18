@@ -47,13 +47,13 @@ export default defineComponent({
     listPageMix<BookInfo>(DATA_PAGE_NAME, options)
 
     // 从服务器取得数据
-    function fetchDataFromServer(): void {
+    async function fetchDataFromServer() {
       console.log(instance.searchInstance?.getCurQueryData())
     }
 
     // 从服务器删除数据
-    async function deleteDataFromServer() {
-      console.log(123)
+    async function deleteDataFromServer(record: BookInfo) {
+      console.log(record)
     }
 
     // 打开对话框

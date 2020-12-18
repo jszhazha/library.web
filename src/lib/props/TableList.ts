@@ -28,6 +28,10 @@ export const tableProps = {
   rowSelection: {
     type: Object,
     default: undefined,
+  },
+  loading: {
+    type: Boolean as PropType<boolean>,
+    default: false
   }
 }
 

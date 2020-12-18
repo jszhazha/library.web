@@ -35,6 +35,7 @@ export default defineComponent({
       searchInstance: null
     })
 
+    // 配置信息
     const options = {
       fetchDataFromServer,
 
@@ -44,16 +45,17 @@ export default defineComponent({
     // 批量导入数据集合
     const dataSource = reactive<BookInfo[]>([])
 
-    listPageMix<BookInfo>(DATA_PAGE_NAME, options)
+    const { onFetchData } = listPageMix<BookInfo>(DATA_PAGE_NAME, options)
 
     // 从服务器取得数据
     async function fetchDataFromServer() {
       console.log(instance.searchInstance?.getCurQueryData())
     }
 
-    // 从服务器删除数据
+    // 删除数据, 刷新数据
     async function deleteDataFromServer(record: BookInfo) {
       console.log(record)
+      onFetchData()
     }
 
     // 打开对话框

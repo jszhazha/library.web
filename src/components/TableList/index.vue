@@ -23,6 +23,7 @@
       </div>
     </div>
     <GlobalTable
+      :loading="loading"
       :columns="getTableColumns"
       :data-source="dataSource"
       :scroll="scroll"
@@ -40,14 +41,14 @@ import type { Ref } from "vue"
 import { ref, unref, reactive, computed, onMounted, defineComponent } from "vue"
 import { tableListProps, TableColumn } from "/@/lib/props/TableList"
 import { browserClient, elementOffset } from "/@/utils/elelment"
+import listSetting from "./listSetting.vue"
+import TooltipButton from "./TooltipButton.vue"
+import { provideTable } from "./useDepend"
 import {
   ExpandOutlined,
   CompressOutlined,
   VerticalAlignBottomOutlined
 } from "@ant-design/icons-vue"
-import listSetting from "./listSetting.vue"
-import TooltipButton from "./TooltipButton.vue"
-import { provideTable } from "./useDepend"
 
 export default defineComponent({
   components: {

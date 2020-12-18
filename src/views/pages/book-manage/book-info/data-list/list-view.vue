@@ -1,5 +1,5 @@
 <template>
-  <TableList title="图书列表" :columns="tableColumns" :data-source="dataSource">
+  <TableList title="图书列表" :loading="loading" :columns="tableColumns" :data-source="dataSource">
     <template #header-left>
       <a-button @click="onBatchImport">
         批量导入
@@ -27,7 +27,7 @@ import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
 export default defineComponent({
   setup() {
     const dataSource = reactive<BookInfo[]>([])
-    const dataPage = injectListPage<BookInfo>()
+    const listPage = injectListPage<BookInfo>()
 
     for (let i = 0; i < 24; i++) {
       dataSource.push({
@@ -39,24 +39,28 @@ export default defineComponent({
         press: "人民邮电出版社"
       })
     }
-
+    // 数据加载
+    const loading = listPage.loading
     // 添加新的数据
-    const onNewDataItem = () => dataPage.onNewDataItem()
+    const onNewDataItem = () => listPage.onNewDataItem()
     // 查看数据
-    const onViewDataItem = (record: BookInfo) => dataPage.onViewDataItem(record)
+    const onViewDataItem = (record: BookInfo) => listPage.onViewDataItem(record)
     // 编辑数据
-    const onEditDataItem = (record: BookInfo) => dataPage.onEditDataItem(record)
+    const onEditDataItem = (record: BookInfo) => listPage.onEditDataItem(record)
     // 删除数据
-    const onDeleteDataItem = (record: BookInfo) => dataPage.onDeleteDataItem(record)
+    const onDeleteDataItem = (record: BookInfo) => listPage.onDeleteDataItem(record)
 
     // 批量导入
     function onBatchImport() {
       // emit("open-import-modal");
     }
 
+
+
     return {
-      tableColumns,
+      loading,
       dataSource,
+      tableColumns,
       onBatchImport,
       onNewDataItem,
       onViewDataItem,

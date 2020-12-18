@@ -1,4 +1,4 @@
-
+import type { Ref } from 'vue'
 import { provide, inject, createVNode } from 'vue'
 import { Modal } from 'ant-design-vue'
 import { useGo } from "/@/hooks/web/usePage"
@@ -10,6 +10,9 @@ import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 const key = Symbol('listPage')
 
 interface DataPage<T> {
+  // 数据加载
+  loading: Ref<boolean>
+
   // 添加数据 
   onNewDataItem: () => void
 
@@ -28,6 +31,9 @@ interface Options<T> {
 
   // 从服务器删除数据
   deleteDataFromServer: (record: T) => Promise<void>
+
+  // 数据加载
+  loading: Ref<boolean>
 }
 
 
@@ -39,7 +45,10 @@ interface Options<T> {
  * @description 页面跳转进入的函数
  * @param name dataPage 页面 name 名称
  */
-export function provideListPage<T extends { id?: number }>({ name, deleteDataFromServer }: Options<T>): void {
+export function provideListPage<T extends { id?: number }>(options: Options<T>): void {
+
+  const { name, deleteDataFromServer, loading } = options
+
   const pageGo = useGo()
 
   function onNewDataItem() {
@@ -71,7 +80,7 @@ export function provideListPage<T extends { id?: number }>({ name, deleteDataFro
     })
   }
 
-  const instance: DataPage<T> = { onNewDataItem, onViewDataItem, onEditDataItem, onDeleteDataItem }
+  const instance: DataPage<T> = { loading, onNewDataItem, onViewDataItem, onEditDataItem, onDeleteDataItem }
 
   provide(key, instance)
 }

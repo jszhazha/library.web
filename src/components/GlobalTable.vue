@@ -2,6 +2,7 @@
   <Table
     class="global-table"
     bordered
+    :loading="loading"
     :row-key="rowKey"
     :columns="tableColumns"
     :data-source="dataSource"

@@ -7,7 +7,7 @@ export function menuHasChildren(menuTreeItem: MenuType): boolean {
   return (
     Reflect.has(menuTreeItem, 'children') &&
     !!menuTreeItem.children &&
-    menuTreeItem.children.length > 0
+    menuTreeItem.children.some((el) => !el.hideInMenu)
   )
 }
 

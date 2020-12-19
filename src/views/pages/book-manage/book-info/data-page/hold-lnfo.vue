@@ -75,13 +75,6 @@ export default defineComponent({
     // 输入数据
     let dataItem = reactive<holdInfo>({})
 
-    for (let i = 0; i < 2; i++) {
-      dataSource.push({
-        location: "54-" + i,
-        number: "323" + i,
-        id: i
-      })
-    }
 
     return {
       dataItem,

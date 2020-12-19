@@ -61,7 +61,7 @@ export function useCacheTabs(): { setCacheTabs: () => void, readCacheTabs: () =>
   }
   // 添加过滤缓存标签
   function filterTabs(routes: TabItem[]) {
-    return routes.filter((route) => !route.meta?.ignoreKeepAlive)
+    return routes.filter((route) => !route.meta?.ignoreTabKeepAlive)
   }
 
   // 读取缓存数据

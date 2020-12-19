@@ -9,7 +9,7 @@ export default defineComponent({
         {{
           default: ({ Component, route }: { Component: any; route: RouteLocation }) => {
             return (
-              <Transition name="fade-slide" mode="out-in">
+              <Transition mode="out-in">
                 {() => <Component key={route.path} />}
               </Transition>
             )

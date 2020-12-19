@@ -32,7 +32,7 @@ const routers: AppRouteModule = {
       meta: {
         title: '用户详情',
         hideInMenu: true,
-        ignoreKeepAlive: true
+        ignoreTabKeepAlive: true
       }
     },
     {
@@ -50,7 +50,7 @@ const routers: AppRouteModule = {
       meta: {
         title: '角色详情',
         hideInMenu: true,
-        ignoreKeepAlive: true
+        ignoreTabKeepAlive: true
       }
     }
   ]

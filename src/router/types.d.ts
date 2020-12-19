@@ -17,10 +17,13 @@ export interface RouteMeta {
   keepAlive?: boolean,
 
   // 忽略标签缓存
-  ignoreKeepAlive?: boolean;
+  ignoreTabKeepAlive?: boolean;
 
   // 菜单隐藏
   hideInMenu?: boolean
+
+  // 隐藏标签
+  hideInTab?: boolean
 
   // 页面重定向
   redirect?: string

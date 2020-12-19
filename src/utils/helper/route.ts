@@ -8,7 +8,9 @@ export function routerHasChildren(routerItem: AppRouteRecordRaw): boolean {
   )
 }
 
-
+/**
+ * 获取路由模块
+ */
 export function getRouteModule(moduleList: AppRouteModule[]): AppRouteRecordRaw[] {
   const ret: AppRouteRecordRaw[] = []
   for (const routeMod of moduleList) {
@@ -21,6 +23,9 @@ export function getRouteModule(moduleList: AppRouteModule[]): AppRouteRecordRaw[
   return ret as AppRouteRecordRaw[]
 }
 
+/**
+ * 子路由
+ */
 function childroutes(routes: AppRouteRecordRaw[], parentName: string) {
   return routes.map((route) => {
     route.name = `${parentName}-${route.name as string}`

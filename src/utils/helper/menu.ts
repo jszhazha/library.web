@@ -23,11 +23,18 @@ export function getFlatMenus(): FlatMenu[] {
   return flatMenus(routeList, '')
 }
 
-// 获取全部父级路由
+// 获取全部父级路由名称
 export function getAllParentPathName(treeData: FlatMenu[], name: string): string[] {
   const menuList = findPathName(treeData, name)
   return menuList.map(el => el.name as string)
 }
+
+// 获取全部父级路由
+
+export function getAllParentPath(treeData: FlatMenu[], name: string): FlatMenu[] {
+  return findPathName(treeData, name)
+}
+
 
 function flatMenus(router: AppRouteRecordRaw[], parentPath = ''): FlatMenu[] {
   let result: FlatMenu[] = []

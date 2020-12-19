@@ -5,9 +5,8 @@ import { tabStore, TabItem } from "/@/store/modules/tab"
 import { Tabs, Dropdown, Menu } from "ant-design-vue"
 import { closeTab, useCacheTabs, useTabDropdown } from "/@/hooks/web/useTab"
 import { getActions } from "./tab.data"
-import { getFlatMenus } from "/@/utils/helper/menu";
+import { getAllParentPath, getFlatMenus } from "/@/utils/helper/menu"
 import Icon from "/@/components/Icon"
-
 
 export default defineComponent({
   setup() {
@@ -37,13 +36,19 @@ export default defineComponent({
         if (!isAddAffix) {
           addRouteSet()
           addAffixTabs()
-
           isAddAffix = true
         }
-        const lastChangeRoute = unref(value)
-        activeKey.value = value.name as string
-        const result = validateRoute(lastChangeRoute)
-        result && tabStore.commitAddTab(lastChangeRoute)
+
+        let route: any = unref(value)
+        const flatItems = getFlatMenus()
+        if (route.meta?.hideInTab) {
+          const parentPath = getAllParentPath(flatItems, value.name as string).reverse()
+          route = parentPath.find((el) => !el.meta?.hideInTab)
+        }
+
+        activeKey.value = route.name as string
+        const result = validateRoute(route)
+        result && tabStore.commitAddTab(route)
       },
       { immediate: true }
     )
@@ -111,7 +116,7 @@ export default defineComponent({
         return (
           <Tabs.TabPane key={key} closable={!item.meta!.affix}>
             {{
-              tab: () => item.meta!.title,
+              tab: () => item.meta!.title
             }}
           </Tabs.TabPane>
         )
@@ -142,7 +147,7 @@ export default defineComponent({
             default: () => (
               <Icon icon="radix-icons:caret-down" class="default-dropdown-icon" size="20" />
             ),
-            overlay: () => <Menu onClick={handelMenuClick}>{() => renderMenu()}</Menu>,
+            overlay: () => <Menu onClick={handelMenuClick}>{() => renderMenu()}</Menu>
           }}
         </Dropdown>
       )
@@ -163,5 +168,5 @@ export default defineComponent({
         </Tabs>
       </div>
     )
-  },
+  }
 })

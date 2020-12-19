@@ -36,7 +36,14 @@ export default defineComponent({
       const findMenu = flatItems.find((menu) => menu.name === unref(currentRoute).name)
       if (findMenu) {
         menuState.openKeys = getAllParentPathName(flatItems, findMenu.name as string)
-        menuState.selectedKeys = [findMenu.name.replace(rules.dataPage, "list-page")]
+        if (rules.dataPage.test(findMenu.name)) {
+          menuState.selectedKeys = [findMenu.name.replace(rules.dataPage, "list-page")]
+        } else if (!findMenu.meta?.hideInMenu) {
+          menuState.selectedKeys = [findMenu.name]
+        } else {
+          const parentMenus = flatItems.filter((el) => menuState.openKeys?.includes(el.name)).reverse()
+          menuState.selectedKeys = [parentMenus.find((el) => !el.meta?.hideInMenu)?.name as string]
+        }
       }
     }
 

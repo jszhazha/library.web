@@ -33,7 +33,7 @@ const routers: AppRouteModule = {
       meta: {
         title: '学科类别详情',
         hideInMenu: true,
-        ignoreKeepAlive: true
+        ignoreTabKeepAlive: true
       }
     },
     {
@@ -51,7 +51,7 @@ const routers: AppRouteModule = {
       meta: {
         title: '图书信息详情',
         hideInMenu: true,
-        ignoreKeepAlive: true
+        ignoreTabKeepAlive: true
       }
     }
   ]

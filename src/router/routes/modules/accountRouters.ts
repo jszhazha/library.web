@@ -33,7 +33,50 @@ const routers: AppRouteModule = {
       component: (): unknown => import(`/@/views/pages/account-mange/setting/index.vue`),
       meta: {
         title: '个人设置'
-      }
+      },
+      redirect: { name: 'account-manage-setting-base' },
+      children: [
+        {
+          path: "base",
+          name: 'base',
+          component: (): unknown => import(`/@/views/pages/account-mange/setting/components/base.vue`),
+          meta: {
+            title: '基本设置',
+            hideInMenu: true,
+            hideInTab: true
+          }
+        },
+        {
+          path: "security",
+          name: 'security',
+          component: (): unknown => import(`/@/views/pages/account-mange/setting/components/security.vue`),
+          meta: {
+            title: '安全设置',
+            hideInMenu: true,
+            hideInTab: true
+          }
+        },
+        {
+          path: "custom",
+          name: 'custom',
+          component: (): unknown => import(`/@/views/pages/account-mange/setting/components/custom.vue`),
+          meta: {
+            title: '个性化设置',
+            hideInMenu: true,
+            hideInTab: true
+          }
+        },
+        {
+          path: "binding",
+          name: 'binding',
+          component: (): unknown => import(`/@/views/pages/account-mange/setting/components/binding.vue`),
+          meta: {
+            title: '账户绑定',
+            hideInMenu: true,
+            hideInTab: true
+          }
+        }
+      ]
     }
   ]
 }

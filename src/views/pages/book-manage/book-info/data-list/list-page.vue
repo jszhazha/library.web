@@ -3,12 +3,12 @@
     <div class="index-table-search index-card">
       <search-panle ref="searchInstance" />
     </div>
-    <list-view />
+    <list-view ref="listInstance" />
     <ImportModal
       ref="importInstance"
       title="批量导入"
       :columns="importColumns"
-      :data-source="dataSource"
+      :data-source="importData"
     />
   </div>
 </template>
@@ -28,11 +28,13 @@ export default defineComponent({
   components: { listView, searchPanle },
   setup() {
     // 实例
-    const instance = reactive<Instance>({
+    const instance = reactive<Instance<BookInfo>>({
       // 导入对话框实例
       importInstance: null,
       // 搜索实例
-      searchInstance: null
+      searchInstance: null,
+      // 列表实例
+      listInstance: null
     })
 
     // 配置信息
@@ -43,12 +45,13 @@ export default defineComponent({
     }
 
     // 批量导入数据集合
-    const dataSource = reactive<BookInfo[]>([])
+    const importData = reactive<BookInfo[]>([])
 
     const { onFetchData } = listPageMix<BookInfo>(DATA_PAGE_NAME, options)
 
-    // 从服务器取得数据
+    // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
+      // instance.listInstance?.setDataSource(data)
       console.log(instance.searchInstance?.getCurQueryData())
     }
 
@@ -64,7 +67,7 @@ export default defineComponent({
     // }
 
     return {
-      dataSource,
+      importData,
       importColumns,
       ...toRefs(instance)
     }

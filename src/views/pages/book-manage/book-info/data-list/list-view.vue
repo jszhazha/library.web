@@ -29,16 +29,7 @@ export default defineComponent({
     const dataSource = reactive<BookInfo[]>([])
     const listPage = injectListPage<BookInfo>()
 
-    for (let i = 0; i < 24; i++) {
-      dataSource.push({
-        id: i,
-        name: "深入浅出 Vue.js",
-        code: "210-113-232",
-        isbn: "90-333",
-        author: "张三",
-        press: "人民邮电出版社"
-      })
-    }
+
     // 数据加载
     const loading = listPage.loading
     // 添加新的数据
@@ -55,8 +46,6 @@ export default defineComponent({
       // emit("open-import-modal");
     }
 
-
-
     return {
       loading,
       dataSource,
@@ -66,6 +55,12 @@ export default defineComponent({
       onViewDataItem,
       onEditDataItem,
       onDeleteDataItem
+    }
+  },
+  methods: {
+    // 设置数据源
+    setDataSource(data: BookInfo[]) {
+      this.dataSource = data
     }
   }
 })

@@ -1,22 +1,25 @@
 <template>
   <div class="wrap ml-4 mr-4 mb-4 pt-4 pb-4 pr-4">
     <div class="left">
-      <a-menu v-model:selectedKeys="selectedKeys" @click="handleClick">
+      <a-menu v-model:selectedKeys="selectedKeys" mode="inline" @click="handleClick">
         <a-menu-item key="base">
-          基本设置
+          {{ stateMap['base'] }}
         </a-menu-item>
         <a-menu-item key="security">
-          安全设置
+          {{ stateMap['security'] }}
         </a-menu-item>
         <a-menu-item key="custom">
-          个性化设置
+          {{ stateMap['custom'] }}
         </a-menu-item>
         <a-menu-item key="binding">
-          账户绑定
+          {{ stateMap['binding'] }}
         </a-menu-item>
       </a-menu>
     </div>
-    <div class="right">
+    <div class="right pl-4 pr-4">
+      <div class="right-header mb-3">
+        {{ stateMap[selectedKeys] }}
+      </div>
       <router-view />
     </div>
   </div>
@@ -35,6 +38,12 @@ export default defineComponent({
     const { currentRoute } = useRouter()
     const currentName = currentRoute.value.name as string
     const pageGo = useGo()
+    const stateMap = {
+      base: "基本设置",
+      security: "安全设置",
+      custom: "个性化设置",
+      binding: "账户绑定"
+    }
     selectedKeys.value = [currentName.replace(new RegExp(`${INDEX_NAME}-`), "")]
 
     // 处理菜单点击
@@ -44,6 +53,7 @@ export default defineComponent({
     }
 
     return {
+      stateMap,
       selectedKeys,
       handleClick
     }
@@ -65,10 +75,10 @@ export default defineComponent({
 
 .right {
   flex: 1;
-}
 
-.ant-menu-item-selected::after {
-  opacity: 1;
-  transform: scaleY(1);
+  &-header{
+    font-size: 20px;
+    color: #000;
+  }
 }
 </style>

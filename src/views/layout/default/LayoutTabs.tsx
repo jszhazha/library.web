@@ -22,10 +22,13 @@ export default defineComponent({
     const getTabsState = computed(() => {
       return tabStore.getTabsState
     })
+
     // 使用缓存
     const { setCacheTabs, readCacheTabs } = useCacheTabs()
+
     // 使用下拉菜单
-    const { handelMenuClick } = useTabDropdown()
+    const { handelMenuClick } = useTabDropdown(activeKey)
+
     // 设置缓存
     setCacheTabs()
 

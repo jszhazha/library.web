@@ -1,3 +1,4 @@
+import type { Ref } from 'vue'
 import { unref, computed } from 'vue'
 import router from '/@/router'
 import { tabStore, TabItem } from "/@/store/modules/tab"
@@ -74,17 +75,15 @@ export function useCacheTabs(): { setCacheTabs: () => void, readCacheTabs: () =>
 
 
 
-export function useTabDropdown(): { handelMenuClick: ({ key }: { key: menuEnum }) => void } {
-
-  const { currentRoute } = router
+export function useTabDropdown(activeKey: Ref<string>): { handelMenuClick: ({ key }: { key: menuEnum }) => void } {
 
   const pageGo = useGo()
 
   function closeLeft(): void {
-    tabStore.commitSliceCloseTab({ start: 0, end: unref(currentRoute) })
+    tabStore.commitSliceCloseTab({ start: 0, end: { name: activeKey.value } })
   }
   function closeRight(): void {
-    tabStore.commitSliceCloseTab({ start: unref(currentRoute), startBase: 1 })
+    tabStore.commitSliceCloseTab({ start: { name: activeKey.value }, startBase: 1 })
   }
   function closeAll(): void {
     tabStore.commitSliceCloseTab({ start: 0 })
@@ -94,7 +93,7 @@ export function useTabDropdown(): { handelMenuClick: ({ key }: { key: menuEnum }
   // 关闭所有页面时，跳转页面
   function gotoPage() {
     const len = unref(tabStore.getTabsState).length
-    const { name } = unref(currentRoute)
+    const name = activeKey.value
 
     let toPageName: PageEnum | string = PageEnum.BASE_HOME
 

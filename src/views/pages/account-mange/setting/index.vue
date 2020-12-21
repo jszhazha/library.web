@@ -36,7 +36,7 @@ export default defineComponent({
       binding: "账户绑定"
     }
     selectedKeys.value = [currentName.replace(new RegExp(`${INDEX_NAME}-`), "")]
-    console.log(234)
+    
     // 处理菜单点击
     function handleClick({ keyPath }: { keyPath: string[] }) {
       selectedKeys.value = keyPath

@@ -50,7 +50,7 @@ export default class Tab extends VuexModule {
   @Mutation
   commitAddTab(route: TabItem): void {
     const { path, name, meta, params, query } = route
-    
+
     if (meta?.ignoreTab) return
     let updateIndex = -1
     const hasTab = this.tabsState.some((tab, index) => {
@@ -85,7 +85,7 @@ export default class Tab extends VuexModule {
   @Mutation
   commitSliceCloseTab({ start, end, startBase = 0 }: SliceCloseParameter): void {
     // 将 TabItem  找到下标 
-    const findIndex = (route: TabItem,) => {
+    const findIndex = (route: TabItem) => {
       const { name } = route
       return this.tabsState.findIndex((item) => item.name === name)
     }

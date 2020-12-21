@@ -69,6 +69,7 @@ const viteConfig: UserConfig = {
     ]
   },
 
+
   // 本地跨域代理
   proxy: createProxy(VITE_PROXY)
 }

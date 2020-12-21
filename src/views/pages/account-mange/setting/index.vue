@@ -2,23 +2,14 @@
   <div class="wrap ml-4 mr-4 mb-4 pt-4 pb-4 pr-4">
     <div class="left">
       <a-menu v-model:selectedKeys="selectedKeys" mode="inline" @click="handleClick">
-        <a-menu-item key="base">
-          {{ stateMap['base'] }}
-        </a-menu-item>
-        <a-menu-item key="security">
-          {{ stateMap['security'] }}
-        </a-menu-item>
-        <a-menu-item key="custom">
-          {{ stateMap['custom'] }}
-        </a-menu-item>
-        <a-menu-item key="binding">
-          {{ stateMap['binding'] }}
+        <a-menu-item v-for="(item, key) in menuList" :key="key">
+          {{ item }}
         </a-menu-item>
       </a-menu>
     </div>
     <div class="right pl-4 pr-4">
       <div class="right-header mb-3">
-        {{ stateMap[selectedKeys] }}
+        {{ menuList[selectedKeys] }}
       </div>
       <router-view />
     </div>
@@ -38,14 +29,14 @@ export default defineComponent({
     const { currentRoute } = useRouter()
     const currentName = currentRoute.value.name as string
     const pageGo = useGo()
-    const stateMap = {
+    const menuList = {
       base: "基本设置",
       security: "安全设置",
       custom: "个性化设置",
       binding: "账户绑定"
     }
     selectedKeys.value = [currentName.replace(new RegExp(`${INDEX_NAME}-`), "")]
-
+    console.log(234)
     // 处理菜单点击
     function handleClick({ keyPath }: { keyPath: string[] }) {
       selectedKeys.value = keyPath
@@ -53,7 +44,7 @@ export default defineComponent({
     }
 
     return {
-      stateMap,
+      menuList,
       selectedKeys,
       handleClick
     }
@@ -76,7 +67,7 @@ export default defineComponent({
 .right {
   flex: 1;
 
-  &-header{
+  &-header {
     font-size: 20px;
     color: #000;
   }

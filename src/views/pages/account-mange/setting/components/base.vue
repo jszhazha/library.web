@@ -1,6 +1,6 @@
 <template>
   <a-row>
-    <a-col :span="10">
+    <a-col :span="24" :lg="{ span: 12 }">
       <a-form layout="vertical">
         <a-form-item label="昵称">
           <a-input />
@@ -18,7 +18,4 @@ import { defineComponent } from "vue"
 export default defineComponent({})
 </script>
 
-
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

@@ -6,7 +6,11 @@
           <a-input />
         </a-form-item>
         <a-form-item label="个人介绍">
-          <a-textarea :maxlength="100" placeholder="最多输入 100 字" />
+          <a-textarea
+            placeholder="最多输入 100 字"
+            :maxlength="100"
+            :auto-size="{ minRows: 2, maxRows: 5 }"
+          />
         </a-form-item>
         <a-form-item>
           <a-button type="primary">

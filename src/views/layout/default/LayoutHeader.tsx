@@ -1,8 +1,9 @@
 import { defineComponent } from "vue"
-import { Layout } from "ant-design-vue"
+import { Layout, Dropdown, Menu } from "ant-design-vue"
 import LayoutBreadcrumb from "./LayoutBreadcrumb"
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue"
 import { menuStore } from "/@/store/modules/menu"
+import { UserOutlined, SettingOutlined, LogoutOutlined } from "@ant-design/icons-vue"
 
 export default defineComponent({
   name: "DefaultLayoutHeader",
@@ -17,6 +18,22 @@ export default defineComponent({
         }
       }
 
+      // 渲染下拉菜单
+      function renderMenu() {
+        return (
+          <Menu>
+            {() => (
+              <>
+                <Menu.Item>{() => [<UserOutlined />, "个人中心"]}</Menu.Item>
+                <Menu.Item>{() => [<SettingOutlined />, "个人设置"]}</Menu.Item>
+                <Menu.Divider />
+                <Menu.Item>{() => [<LogoutOutlined />, "退出登录"]}</Menu.Item>
+              </>
+            )}
+          </Menu>
+        )
+      }
+
       return (
         <Layout.Header class="layout-header">
           {() => (
@@ -28,11 +45,16 @@ export default defineComponent({
                 </div>
                 <LayoutBreadcrumb />
               </div>
-              <div>admin</div>
+              <Dropdown placement="bottomCenter">
+                {{
+                  default: () => <div class="layout-header-right-action">admin</div>,
+                  overlay: () => renderMenu()
+                }}
+              </Dropdown>
             </div>
           )}
         </Layout.Header>
       )
     }
-  },
+  }
 })

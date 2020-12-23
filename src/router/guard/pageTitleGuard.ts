@@ -13,9 +13,9 @@ const setDocumentTitle = (title: string) => {
 export function createPageTitleGuard(router: Router): void {
   router.beforeEach((to) => {
     setTimeout(() => {
-      if (to.meta.title) {
-        setDocumentTitle(useTitle(to.meta.title))
-      }
+
+      setDocumentTitle(useTitle(to.meta.title))
+
     }, 30)
   })
 }

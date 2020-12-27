@@ -16,8 +16,8 @@ import recordRouters from './modules/recordRouters'
 const routeModuleList: AppRouteModule[] = [
   bookRouters,
   borrowRouter,
-  systemRouters,
   recordRouters,
+  systemRouters,
   accountRouters
 ]
 

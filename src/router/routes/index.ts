@@ -11,11 +11,13 @@ import systemRouters from './modules/systemRouters'
 import bookRouters from './modules/bookRouters'
 import accountRouters from './modules/accountRouters'
 import borrowRouter from './modules/borrowRouter'
+import recordRouters from './modules/recordRouters'
 
 const routeModuleList: AppRouteModule[] = [
   bookRouters,
   borrowRouter,
   systemRouters,
+  recordRouters,
   accountRouters
 ]
 

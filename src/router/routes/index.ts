@@ -10,9 +10,11 @@ import { LoginRoutes, ResetPasswordRoute } from './modules/frameRouter'
 import systemRouters from './modules/systemRouters'
 import bookRouters from './modules/bookRouters'
 import accountRouters from './modules/accountRouters'
+import borrowRouter from './modules/borrowRouter'
 
 const routeModuleList: AppRouteModule[] = [
   bookRouters,
+  borrowRouter,
   systemRouters,
   accountRouters
 ]

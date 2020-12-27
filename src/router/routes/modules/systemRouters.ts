@@ -52,6 +52,14 @@ const routers: AppRouteModule = {
         hideInMenu: true,
         ignoreTabKeepAlive: true
       }
+    },
+    {
+      path: 'module-manage-data-page',
+      name: 'module-manage-data-page',
+      component: (): unknown => import(`/@/views/pages/system-manage/role-manage/data-page/data-page.vue`),
+      meta: {
+        title: '模块管理'
+      }
     }
   ]
 }

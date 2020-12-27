@@ -22,7 +22,7 @@ export const overviewPage: AppRouteRecordRaw = {
 export const IndexPage: AppRouteRecordRaw = {
   path: '/',
   name: 'index-page',
-  component: (): unknown => import('/@/views/pages/index-page/index.vue'),
+  component: (): unknown => import('/@/views/frame/index-page/index.vue'),
   meta: {
     title: '首页'
   }

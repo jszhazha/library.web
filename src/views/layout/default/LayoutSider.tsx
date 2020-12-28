@@ -9,6 +9,7 @@ import router from "/@/router"
 import { getMenus, getFlatMenus, getAllParentPathName, menuHasChildren } from "/@/utils/helper/menu"
 import { rules } from "/@/utils/regExp"
 import MenuContent from "./MenuContent"
+import { Scrollbar } from "/@/components/Scrollbar"
 
 export default defineComponent({
   name: "DefaultLayoutSider",
@@ -41,7 +42,9 @@ export default defineComponent({
         } else if (!findMenu.meta?.hideInMenu) {
           menuState.selectedKeys = [findMenu.name]
         } else {
-          const parentMenus = flatItems.filter((el) => menuState.openKeys?.includes(el.name)).reverse()
+          const parentMenus = flatItems
+            .filter((el) => menuState.openKeys?.includes(el.name))
+            .reverse()
           menuState.selectedKeys = [parentMenus.find((el) => !el.meta?.hideInMenu)?.name as string]
         }
       }
@@ -148,7 +151,7 @@ export default defineComponent({
                   {config.title}
                 </div>
               </div>
-              <div>{renderMenu()}</div>
+              <Scrollbar class="layout-sider-scrollbar">{() => renderMenu()}</Scrollbar>
             </>
           )}
         </Layout.Sider>

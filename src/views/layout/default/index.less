@@ -1,4 +1,4 @@
-@height: 48px;
+@header-height: 48px;
 @tabHeight: 32px;
 
 .default-layout {
@@ -10,14 +10,14 @@
   }
 
   .layout-header {
-    height: @height;
+    height: @header-height;
     padding: 0 50px 0 0;
-    line-height: @height;
+    line-height: @header-height;
     background: #fff;
     border-bottom: 1px solid #e8e8e8;
 
     .header-trigger {
-      height: @height;
+      height: @header-height;
       padding: 0 24px;
       margin: 0 10px 0 0;
       font-size: 16px;
@@ -48,13 +48,12 @@
   }
 
   .layout-sider {
-    overflow: hidden;
     border-right: 1px solid #e8e8e8;
 
     &-header {
-      height: @height;
+      height: @header-height;
       overflow: hidden;
-      line-height: @height;
+      line-height: @header-height;
 
       &-logo {
         width: 26px;
@@ -65,6 +64,10 @@
         font-size: 18px;
         color: #fff;
       }
+    }
+
+    &-scrollbar {
+      height: calc(100% - @header-height);
     }
 
     &-menu {

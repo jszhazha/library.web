@@ -15,6 +15,9 @@ interface Options<T> {
 interface onFetchData {
   // 刷新数据
   onFetchData: () => void
+
+  // 搜索数据
+  onSearchData: () => void
 }
 
 
@@ -39,11 +42,18 @@ export function listPageMix<T>(dataPageName: string, options: Options<T>): onFet
     loading.value = true
     await fetchDataFromServer()
     loading.value = false
+  }
 
+  /**
+   * 搜索数据
+   */
+  async function onSearchData() {
+    await onFetchData()
   }
 
   return {
-    onFetchData
+    onFetchData,
+    onSearchData
   }
 }
 

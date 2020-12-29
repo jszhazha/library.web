@@ -37,7 +37,10 @@ export const tableProps = {
 
 export const tableListProps = {
   ...tableProps,
-
+  download: {
+    type: Boolean,
+    default: false,
+  },
   title: {
     type: String,
     default: ""

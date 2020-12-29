@@ -13,7 +13,7 @@
         <a-divider type="vertical" />
         <slot name="header-right" />
         <listSetting />
-        <TooltipButton title="下载导入模板">
+        <TooltipButton v-if="download" title="下载导入模板">
           <VerticalAlignBottomOutlined />
         </TooltipButton>
         <TooltipButton :title="fullScreen ? '退出全屏' : '全屏'" @on-click="onFullScreen">
@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import type { Ref } from "vue"
+import { Ref, watch } from "vue"
 import { ref, unref, reactive, computed, onMounted, defineComponent } from "vue"
 import { tableListProps, TableColumn } from "/@/lib/props/TableList"
 import { browserClient, elementOffset } from "/@/utils/elelment"
@@ -63,9 +63,7 @@ export default defineComponent({
     // 全屏 标志位
     const fullScreen = ref<boolean>(false)
     // table 滚动条高度
-    const scroll = reactive<{ y?: number | true; x?: number | true }>({
-      x: true
-    })
+    const scroll = reactive<{ y?: number | true; x?: number | true }>({})
     // 标签
     const tableRef = ref<HTMLElement | null>(null)
     // 视图大小
@@ -77,6 +75,7 @@ export default defineComponent({
     // table 表头数据
     const tableColumns = (ref(unref(props).columns) as unknown) as Ref<TableColumn[]>
     const cacheTableColumns = (ref(unref(props).columns) as unknown) as Ref<TableColumn[]>
+
     // 获取 table 表头数据
     const getTableColumns = computed(() => {
       return tableColumns.value
@@ -87,6 +86,7 @@ export default defineComponent({
       return `transform:translate${transform.translate};`
     })
 
+
     onMounted(() => (browserSize = browserClient()))
 
     // 处理全屏
@@ -94,7 +94,9 @@ export default defineComponent({
       if (fullScreen.value) {
         // 切换为非全屏
         Reflect.deleteProperty(scroll, "y")
-        scroll.x = true
+        if (props.dataSource.length) {
+          scroll.x = true
+        }
         transform.translate = `(0px,0px)`
       } else {
         // 切换为全屏

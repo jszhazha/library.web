@@ -1,7 +1,7 @@
 <template>
   <div class="index-content">
     <div class="index-table-search index-card">
-      <search-panle ref="searchInstance" />
+      <search-panle ref="searchInstance" @onSearch="onSearchData" />
     </div>
     <list-view ref="listInstance" />
     <ImportModal
@@ -47,7 +47,7 @@ export default defineComponent({
     // 批量导入数据集合
     const importData = reactive<BookInfo[]>([])
 
-    const { onFetchData } = listPageMix<BookInfo>(DATA_PAGE_NAME, options)
+    const { onFetchData, onSearchData } = listPageMix<BookInfo>(DATA_PAGE_NAME, options)
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
@@ -69,6 +69,7 @@ export default defineComponent({
     return {
       importData,
       importColumns,
+      onSearchData,
       ...toRefs(instance)
     }
   }

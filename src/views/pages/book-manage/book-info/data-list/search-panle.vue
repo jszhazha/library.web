@@ -28,7 +28,7 @@
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <div class="index-button-right">
-          <a-button type="primary">
+          <a-button type="primary" @click="onSearchData">
             查询
           </a-button>
           <a-button @click="onResetData">
@@ -47,7 +47,8 @@ import { PagerQueryData } from "/@/lib/http/axios/types"
 import { useSearch, SearchInstance } from "/@/lib/idata/data-list/methods/useSearch"
 
 export default defineComponent({
-  setup(): SearchInstance {
+  emits: ["onSearch"],
+  setup(_props, { emit }): SearchInstance {
     // 搜索是否展开
     const isOpen = ref<boolean>(false)
     // 数据搜索
@@ -58,6 +59,9 @@ export default defineComponent({
     })
     // 返回查询条件
     const getCurQueryData = (): PagerQueryData => queryData
+    
+    // 查询数据
+    const onSearchData = () => emit("onSearch")
 
     const { onResetData, onOpen } = useSearch({ queryData, isOpen })
 
@@ -66,12 +70,11 @@ export default defineComponent({
       queryData,
       onOpen,
       onResetData,
+      onSearchData,
       getCurQueryData
     }
   }
 })
 </script>
 
-
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

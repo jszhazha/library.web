@@ -1,5 +1,5 @@
 <template>
-  <TableList title="图书列表" :loading="loading" :columns="tableColumns" :data-source="dataSource">
+  <TableList title="图书列表" download :loading="loading" :columns="tableColumns" :data-source="dataSource">
     <template #header-left>
       <a-button @click="onBatchImport">
         批量导入

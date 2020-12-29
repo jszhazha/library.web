@@ -19,7 +19,7 @@ export default defineComponent({
     const menuState = reactive<Partial<MenuState>>({
       selectedKeys: [],
       mode: "inline",
-      isAppMenu: true,
+      isAppMenu: false,
       openKeys: [],
       collapsedOpenKeys: []
     })
@@ -57,7 +57,7 @@ export default defineComponent({
     // 处理打开菜单
     function handleOpenChange(openKeys: string[]): void {
       if (!menuStore.getCollapsedState) {
-        menuState.openKeys = openKeys
+        menuState.openKeys = openKeys.slice(-1)
       } else {
         menuState.collapsedOpenKeys = openKeys
       }

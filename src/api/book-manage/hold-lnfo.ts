@@ -1,7 +1,7 @@
 
 
 
-export interface holdInfo {
+export interface HoldInfo {
 
   //  主键
   id?: number

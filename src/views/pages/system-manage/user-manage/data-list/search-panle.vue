@@ -1,28 +1,18 @@
 <template>
   <a-form :label-col="{ flex: '100px' }">
-    <a-row>
+    <a-row type="flex" justify="end">
       <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="题名">
+        <a-form-item label="登录账户">
           <a-input v-model:value="queryData.name" placeholder="请输入" />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="作者">
+        <a-form-item label="手机号码">
           <a-input v-model:value="queryData.author" placeholder="请输入" />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="出版社">
-          <a-input placeholder="请输入" />
-        </a-form-item>
-      </a-col>
-      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="学科类别">
-          <a-input placeholder="请输入" />
-        </a-form-item>
-      </a-col>
-      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="国际标准书号">
+        <a-form-item label="用户状态">
           <a-input placeholder="请输入" />
         </a-form-item>
       </a-col>

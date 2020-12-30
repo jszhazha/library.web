@@ -1,9 +1,6 @@
 <template>
-  <TableList title="图书列表" download :loading="loading" :columns="tableColumns" :data-source="dataSource">
+  <TableList title="模块列表" :loading="loading" :columns="tableColumns" :data-source="dataSource">
     <template #header-left>
-      <a-button @click="onBatchImport">
-        批量导入
-      </a-button>
       <a-button type="primary" @click="onNewDataItem">
         新增
       </a-button>
@@ -41,16 +38,10 @@ export default defineComponent({
     // 删除数据
     const onDeleteDataItem = (record: BookInfo) => listPage.onDeleteDataItem(record)
 
-    // 批量导入
-    function onBatchImport() {
-      // emit("open-import-modal");
-    }
-
     return {
       loading,
       dataSource,
       tableColumns,
-      onBatchImport,
       onNewDataItem,
       onViewDataItem,
       onEditDataItem,

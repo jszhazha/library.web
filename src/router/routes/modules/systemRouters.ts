@@ -54,9 +54,9 @@ const routers: AppRouteModule = {
       }
     },
     {
-      path: 'module-manage-data-page',
-      name: 'module-manage-data-page',
-      component: (): unknown => import(`/@/views/pages/system-manage/role-manage/data-page/data-page.vue`),
+      path: 'module-manage-list-page',
+      name: 'module-manage-list-page',
+      component: (): unknown => import(`/@/views/pages/system-manage/module-manage/index.vue`),
       meta: {
         title: '模块管理'
       }

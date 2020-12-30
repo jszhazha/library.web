@@ -1,17 +1,16 @@
 import { Ref } from "vue"
 import { PagerQueryData } from "/@/lib/http/axios/types"
 
-interface UseSearch {
+interface UseSearchBase {
   // 重置数据
   onResetData: () => void
+}
 
+interface UseSearch extends UseSearchBase {
   // 展开 收起
   onOpen: () => void
 }
-interface Parameter {
-  queryData: PagerQueryData,
-  isOpen?: Ref<boolean>
-}
+
 
 export interface SearchInstance {
   // 获取当前查询数据
@@ -20,9 +19,9 @@ export interface SearchInstance {
   [prop: string]: unknown
 }
 
-
-
-export function useSearch({ queryData, isOpen }: Parameter): UseSearch {
+export function useSearch(queryData: PagerQueryData): UseSearchBase;
+export function useSearch(queryData: PagerQueryData, isOpen: Ref<boolean>): UseSearch;
+export function useSearch(queryData: PagerQueryData, isOpen?: Ref<boolean>): any {
 
 
   function onResetData() {

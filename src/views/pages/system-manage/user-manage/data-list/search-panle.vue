@@ -59,11 +59,11 @@ export default defineComponent({
     })
     // 返回查询条件
     const getCurQueryData = (): PagerQueryData => queryData
-    
+
     // 查询数据
     const onSearchData = () => emit("onSearch")
 
-    const { onResetData, onOpen } = useSearch({ queryData, isOpen })
+    const { onResetData, onOpen } = useSearch(queryData, isOpen)
 
     return {
       isOpen,

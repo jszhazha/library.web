@@ -19,7 +19,7 @@ export default defineComponent({
     const menuState = reactive<Partial<MenuState>>({
       selectedKeys: [],
       mode: "inline",
-      isAppMenu: false,
+      isAppMenu: true,
       openKeys: [],
       collapsedOpenKeys: []
     })

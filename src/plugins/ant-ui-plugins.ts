@@ -1,7 +1,7 @@
 
 import type { App } from 'vue'
 
-import { Button, Divider, Form, Input, Modal, Pagination, Row, Col, Checkbox, notification, Popover, Popconfirm, message ,Menu} from 'ant-design-vue'
+import { Button, Divider, Form, Input, Modal, Pagination, Row, Col, Checkbox, notification, Popover, Popconfirm, message, Menu, List } from 'ant-design-vue'
 
 // 导入 Icon
 import { PlusOutlined, SettingOutlined, DownOutlined, InfoCircleFilled } from '@ant-design/icons-vue'
@@ -18,14 +18,14 @@ import '/@/assets/styles/index.less'
 notification.config({ placement: 'topRight', duration: 3 })
 
 
-message.config({  duration: 3 })
+message.config({ duration: 3 })
 
 
 
 export default class AntUiPlugins {
   static init(app: App<Element>): void {
     app.use(Button).use(Divider).use(Form).use(Input).use(Modal).use(Pagination)
-    app.use(Row).use(Col).use(Checkbox).use(Popover).use(Popconfirm).use(Menu)
+    app.use(Row).use(Col).use(Checkbox).use(Popover).use(Popconfirm).use(Menu).use(List)
     app.component('PlusOutlined', PlusOutlined)
     app.component("DownOutlined", DownOutlined)
     app.component('SettingOutlined', SettingOutlined)

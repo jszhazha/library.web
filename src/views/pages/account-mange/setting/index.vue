@@ -1,7 +1,12 @@
 <template>
   <div class="wrap ml-4 mr-4 mb-4 pt-4 pb-4 pr-4">
     <div class="left">
-      <a-menu v-model:selectedKeys="selectedKeys" mode="inline" @click="handleClick">
+      <a-menu
+        v-model:selectedKeys="selectedKeys"
+        class="left-menu"
+        mode="inline"
+        @click="handleClick"
+      >
         <a-menu-item v-for="(item, key) in menuList" :key="key">
           {{ item }}
         </a-menu-item>
@@ -36,7 +41,7 @@ export default defineComponent({
       binding: "账户绑定"
     }
     selectedKeys.value = [currentName.replace(new RegExp(`${INDEX_NAME}-`), "")]
-    
+
     // 处理菜单点击
     function handleClick({ keyPath }: { keyPath: string[] }) {
       selectedKeys.value = keyPath
@@ -62,6 +67,10 @@ export default defineComponent({
 .left {
   width: 224px;
   border-right: 1px solid #e8e8e8;
+
+  &-menu {
+    border-width: 0;
+  }
 }
 
 .right {

@@ -61,7 +61,7 @@ export default class SecurityService {
   // 获取用户信息和token
   static getAccountInfo(): Promise<Result<Security>> {
     return request<Result<Security>>({
-      url: 'api/user/me',
+      url: '/api/user/me',
       method: 'get'
     })
   }

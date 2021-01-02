@@ -9,43 +9,60 @@
   </button>
 </template>
 
-
 <script lang="ts">
 import { defineComponent, ref } from "vue"
+import { isNumber } from "/@/utils/is"
 
 export default defineComponent({
   props: {
     disabled: {
       type: Boolean,
       default: false
+    },
+    size: {
+      type: Number,
+      default: undefined
     }
   },
-  setup(props) {
+  emits: ["on-click"],
+  setup(props, { emit }) {
     const button = ref<HTMLElement | null>(null)
+    const ripples: HTMLElement[] = []
+
     // 处理动画
-    const handleAnimation = (event: MouseEvent): HTMLElement => {
-      const x = event.offsetX
-      const y = event.offsetY
-      const ripples = document.createElement("span")
-      ripples.style.left = `${x}px`
-      ripples.style.top = `${y}px`
-      button.value!.appendChild(ripples)
-      return ripples
+    const handleAnimation = (x?: number, y?: number): HTMLElement => {
+      // const x = event.offsetX
+      // const y = event.offsetY
+      const span = document.createElement("span")
+      span.style.left = x ? `${x}px` : "50%"
+      span.style.top = y ? `${y}px` : "50%"
+      button.value!.appendChild(span)
+      return span
     }
     // 处理点击
     const handleClick = (event: MouseEvent) => {
       if (props.disabled) return
-      const ripples = handleAnimation(event)
-      console.log(ripples)
+      emit("on-click", event)
     }
-    return { handleClick, button }
+
+    const startAnimation = (x?: number, y?: number) => {
+      if (isNumber(props.size) && ripples.length >= props.size) return
+      const span = handleAnimation(x, y)
+      ripples.push(span)
+    }
+
+    const stopAnimation = () => {
+      console.log(333)
+      const span = ripples.shift()
+      span?.remove()
+    }
+
+    return { handleClick, button, startAnimation, stopAnimation }
   }
 })
 </script>
 
-
-
-<style  lang="less">
+<style lang="less">
 .globla-button {
   position: relative;
   width: 100%;

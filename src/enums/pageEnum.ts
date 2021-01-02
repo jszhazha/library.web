@@ -5,5 +5,8 @@ export enum PageEnum {
   BASE_HOME = 'overview-page',
 
   // 页面丢失
-  BASE_NOT_FOUND = 'no-fount-page'
+  BASE_NOT_FOUND = 'no-fount-page',
+
+  // 首页
+  INDEX_PAGE = 'index-page'
 }

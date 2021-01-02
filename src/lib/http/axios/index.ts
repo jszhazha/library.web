@@ -12,7 +12,7 @@ export default function request<T extends Result>(requestConfig: AxiosRequestCon
     axios.request(config).then((response) => {
       const res = response.data as T
       resolve(res)
-    }).then((err) => {
+    }).catch((err) => {
       reject(err)
     })
   })

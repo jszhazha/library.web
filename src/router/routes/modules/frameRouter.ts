@@ -7,7 +7,8 @@ export const LoginRoutes: AppRouteRecordRaw[] = [
     name: 'login',
     component: (): unknown => import('/@/views/frame/login/index.vue'),
     meta: {
-      title: '登录'
+      title: '登录',
+      ignoreAuth: true
     }
   },
   {
@@ -16,7 +17,6 @@ export const LoginRoutes: AppRouteRecordRaw[] = [
     component: (): unknown => import('/@/views/frame/login/choose-account/index.vue'),
     meta: {
       title: '选择登录帐号'
-
     }
   }
 ]
@@ -26,6 +26,6 @@ export const ResetPasswordRoute: AppRouteRecordRaw = {
   name: 'reset-password',
   component: () => import('/@/views/frame/reset-password/index.vue'),
   meta: {
-    ignoreTab: true
+    ignoreAuth: true
   }
 }

@@ -1,7 +1,7 @@
 import store from '/@/store/index'
 import { VuexModule, Mutation, Module, getModule, Action } from 'vuex-module-decorators'
-import { CSRF, UserInfo } from '/@/api/security'
-import SecurityService, { Security } from '/@/api/security'
+import SecurityService, { CSRF, UserInfo } from '/@/api/security'
+import { isNull } from '/@/utils/is'
 
 const NAME = 'user'
 
@@ -45,12 +45,25 @@ export default class User extends VuexModule {
   }
 
   @Action
-  async getAccountInfoAction(): Promise<Security> {
-    const { data: accountInfo } = await SecurityService.getAccountInfo()
-    const { user, _csrf } = accountInfo
-    this.commitUserInfoState(user)
-    this.commitTokenState(_csrf)
-    return accountInfo
+  async getUserInfoAction(): Promise<UserInfo> {
+
+    if (isNull(this.userInfoState)) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const { data: accountInfo } = await SecurityService.getAccountInfo()
+          const { user, _csrf } = accountInfo
+          this.commitUserInfoState(user)
+          this.commitTokenState(_csrf)
+          resolve(user)
+        } catch (err) {
+          reject(err)
+        }
+      })
+    }
+    
+    return new Promise((resolve) => {
+      resolve(this.userInfoState!)
+    })
   }
 
 

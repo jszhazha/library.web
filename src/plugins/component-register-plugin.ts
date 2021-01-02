@@ -9,6 +9,7 @@ import TableList from '/@/components/TableList/index.vue'
 import ImportModal from '/@/components/ImportModal.vue'
 import DownOutButton from '/@/components/DownOutButton.vue'
 import InputWrap from '/@/components/InputWrap.vue'
+import PublicHeader from '/@/components/PublicHeader/index'
 import Icon from '/@/components/Icon'
 
 export default class ComponentRegisterPlugin {
@@ -16,7 +17,7 @@ export default class ComponentRegisterPlugin {
     app.component('Icon', Icon).component('InputWrap', InputWrap)
     app.component('GlobalCard', GlobalCard).component('GlobalInput', GlobalInput)
     app.component("GlobalTable", GlobalTable).component('GlobalButton', GlobalButton)
-    app.component('GlobalDataPage', GlobalDataPage)
+    app.component('GlobalDataPage', GlobalDataPage).component("PublicHeader", PublicHeader)
     app.component('TableList', TableList).component('ImportModal', ImportModal)
     app.component("OperationInfoPanel", OperationInfoPanel).component('DownOutButton', DownOutButton)
 

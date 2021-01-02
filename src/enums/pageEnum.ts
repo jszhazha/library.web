@@ -3,4 +3,7 @@ export enum PageEnum {
   BASE_LOGIN = 'login',
   // 概述页面
   BASE_HOME = 'overview-page',
+
+  // 页面丢失
+  BASE_NOT_FOUND = 'no-fount-page'
 }

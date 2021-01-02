@@ -6,11 +6,13 @@ import {createRouteStateGuard} from './routeStateGuard'
 
 
 export function createGuard(router: Router): void {
-  // 路由拦截
-  createRouteStateGuard(router)
 
+  
   // 权限拦截
   createPermissionGuard(router)
+
+  // 路由拦截
+  createRouteStateGuard(router)
 
   // 加载
   createPageLoadingGuard(router)

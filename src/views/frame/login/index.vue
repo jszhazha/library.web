@@ -13,7 +13,7 @@
     </template>
     <template #right>
       <div v-show="loginContent.type === 'account'">
-        <account-login @on-change="loginTypeChange" />
+        <account-login @on-change="loginTypeChange" @on-success="loginSuccess" />
       </div>
       <div v-show="loginContent.type === 'phone'">
         <phone-login @on-change="loginTypeChange" />
@@ -23,12 +23,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, reactive } from "vue"
+import { defineComponent, ref, onMounted, reactive, unref } from "vue"
 import publicLayout from "/@/views/frame/components/publicLayout.vue"
 import accountLogin from "./account.vue"
 import phoneLogin from "./phone.vue"
 import config from "/@/config/"
 import { toDataURL } from "qrcode"
+import { useRouter } from "vue-router"
+import { PageEnum } from "/@/enums/pageEnum"
 
 // import useM essage from "@/hooks/web/useMessage";
 
@@ -36,10 +38,23 @@ export default defineComponent({
   name: "Login",
   components: { accountLogin, phoneLogin, publicLayout },
   setup() {
+    // 登录内容
     const loginContent = reactive({ type: "account", title: `${config.shortTitle}账号登录` })
+
+    // 二维码
     const qrcode = ref<null | HTMLImageElement>(null)
+
+    // 二维码内容
     const renderValue = String("Hello world")
+
+    // 二维码宽度
     const width = 160
+
+    // 当前路由
+    const { push, currentRoute } = useRouter()
+
+    const { query } = unref(currentRoute)
+
     // const { notification } = useMessage.init();
 
     onMounted(async () => {
@@ -60,16 +75,22 @@ export default defineComponent({
       }
     }
 
+    // 登录成功
+    const loginSuccess = () => {
+      const name = (query.redirect as string) || PageEnum.BASE_HOME
+      push({ name })
+    }
+
     return {
       qrcode,
       config,
       loginContent,
+      loginSuccess,
       loginTypeChange
     }
   }
 })
 </script>
-
 
 <style lang="less" scoped>
 @titleColor: #191919;

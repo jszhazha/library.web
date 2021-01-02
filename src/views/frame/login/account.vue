@@ -7,7 +7,7 @@
       </div>
     </div>
     <GlobalInput
-      v-model:value="formData.account"
+      v-model:value="formData.username"
       v-model:errorBorder="error.is"
       type="text"
       placeholder="手机号/邮件地址/图书馆账号"
@@ -23,8 +23,11 @@
     />
     <span class="login-account-change-link" @click="onChange"> 短信验证码登录 </span>
     <GlobalButton
+      ref="buttonInstance"
       class="login-account-button"
-      :disabled="!(!!formData.account && !!formData.password)"
+      :size="1"
+      :disabled="!(!!formData.username && !!formData.password)"
+      @on-click="onButtonClick"
     >
       登录
     </GlobalButton>
@@ -41,33 +44,49 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue"
+import { defineComponent, reactive, ref } from "vue"
+import { Instance } from "/@/lib/interface/GlobalButton"
+import { userStore } from "/@/store/modules/user"
 
 export default defineComponent({
-  emits: ["on-change"],
+  emits: ["on-change", "on-success"],
   setup(_props, { emit }) {
-    const formData = reactive({
-      account: "",
-      password: ""
-    })
+    const buttonInstance = ref<Instance | null>(null)
+
+    const formData = reactive({ username: "", password: "" })
+
     // 错误信息
-    const error = reactive({
-      msg: "",
-      is: false
-    })
+    const error = reactive({ msg: "", is: false })
 
     // 点击短信登录
     const onChange = () => emit("on-change", "account")
 
-    const onEnter = () => {
-      // console.log(formData)
+    const onEnter = () => handleUserLogin()
+
+    const onButtonClick = (event: MouseEvent) => handleUserLogin(event.offsetX, event.offsetY)
+
+    async function handleUserLogin(x?: number, y?: number) {
+      if (!formData.username || !formData.password) {
+        return
+      }
+      buttonInstance.value?.startAnimation(x, y)
+      try {
+        await userStore.login(formData)
+        emit('on-success')
+      } catch (err) {
+        error.is = true
+        error.msg = err.msg
+        buttonInstance.value?.stopAnimation()
+      }
     }
 
     return {
       error,
       formData,
       onEnter,
-      onChange
+      onChange,
+      onButtonClick,
+      buttonInstance
     }
   }
 })

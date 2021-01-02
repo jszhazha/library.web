@@ -1,7 +1,9 @@
 import store from '/@/store/index'
 import { VuexModule, Mutation, Module, getModule, Action } from 'vuex-module-decorators'
-import SecurityService, { CSRF, UserInfo } from '/@/api/security'
+import Service, { UserInfo, LoginParams, Security } from '/@/api/security'
 import { isNull } from '/@/utils/is'
+
+
 
 const NAME = 'user'
 
@@ -14,14 +16,14 @@ const NAME = 'user'
 export default class User extends VuexModule {
   private userInfoState: UserInfo | null = null
 
-  private tokenState: CSRF | null = null
+  private tokenState = ''
 
   // 获取用户信息
   get getUserInfoState(): UserInfo | null {
     return this.userInfoState
   }
 
-  get getTokenState(): CSRF | null {
+  get getTokenState(): string | null {
     return this.tokenState
   }
 
@@ -29,7 +31,7 @@ export default class User extends VuexModule {
   @Mutation
   commitResetState(): void {
     this.userInfoState = null
-    this.tokenState = null
+    this.tokenState = ''
   }
 
 
@@ -40,29 +42,66 @@ export default class User extends VuexModule {
 
 
   @Mutation
-  commitTokenState(info: CSRF): void {
+  commitTokenState(info: string): void {
     this.tokenState = info
   }
 
+  /**
+   * 获取用户信息
+   */
   @Action
   async getUserInfoAction(): Promise<UserInfo> {
 
     if (isNull(this.userInfoState)) {
       return new Promise(async (resolve, reject) => {
         try {
-          const { data: accountInfo } = await SecurityService.getAccountInfo()
-          const { user, _csrf } = accountInfo
-          this.commitUserInfoState(user)
-          this.commitTokenState(_csrf)
+          const { user } = await this.getAccountInfoAction()
+
+        
           resolve(user)
         } catch (err) {
           reject(err)
         }
       })
     }
-    
+
     return new Promise((resolve) => {
       resolve(this.userInfoState!)
+    })
+  }
+
+  /**
+   * 获取账户信息
+   */
+  @Action
+  async getAccountInfoAction(): Promise<Security> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { data: accountInfo } = await Service.getAccountInfo()
+        const { user, _csrf: { token } } = accountInfo
+        this.commitUserInfoState(user)
+        this.commitTokenState(token)
+        resolve(accountInfo)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  /**
+   * 用户登录
+   */
+  @Action
+  login(params: LoginParams): Promise<null> {
+    return new Promise(async (reslove, reject) => {
+      try {
+        await Service.loginApi(params)
+        await this.getAccountInfoAction()   
+        reslove(null)
+      } catch (err) {
+        reject(err)
+      }
+
     })
   }
 

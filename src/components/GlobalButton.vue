@@ -52,7 +52,6 @@ export default defineComponent({
     }
 
     const stopAnimation = () => {
-      console.log(333)
       const span = ripples.shift()
       span?.remove()
     }

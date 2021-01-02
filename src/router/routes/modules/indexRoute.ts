@@ -22,9 +22,10 @@ export const overviewPage: AppRouteRecordRaw = {
 export const IndexPage: AppRouteRecordRaw = {
   path: '/',
   name: 'index-page',
-  component: (): unknown => import('/@/views/frame/index-page/index.vue'),
+  component: (): unknown => import('/@/views/frame/index-page/index-page.vue'),
   meta: {
-    title: '首页'
+    title: '首页',
+    ignoreAuth: true
   }
 }
 
@@ -38,6 +39,7 @@ export const NoFountPage: AppRouteRecordRaw = {
   component: (): unknown => import("/@/views/pages/exception/404.vue"),
   meta: {
     title: '404',
-    ignoreTab: true
+    ignoreTab: true,
+    ignoreAuth: true
   }
 }

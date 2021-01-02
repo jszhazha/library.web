@@ -1,6 +1,6 @@
 import type { Result } from '/@/lib/http/axios/types'
 import request from '/@/lib/http/axios/'
-
+import { ContentTypeEnum } from '../enums/httpEnum'
 
 export interface UserInfo {
 
@@ -38,13 +38,13 @@ export interface UserInfo {
 
 export interface CSRF {
   // 用户标识符
-  token?: string
+  token: string
 
   // 参数名称
-  parameterName?: string
+  parameterName: string
 
   // 请求头名称
-  headerName?: string
+  headerName: string
 
 }
 
@@ -54,15 +54,33 @@ export interface Security {
   _csrf: CSRF
 }
 
+export interface LoginParams {
+  password: string,
+
+  username: string
+}
 
 
 
-export default class SecurityService {
+
+export default class Service {
   // 获取用户信息和token
   static getAccountInfo(): Promise<Result<Security>> {
     return request<Result<Security>>({
       url: '/api/user/me',
       method: 'get'
+    })
+  }
+
+  // 登录
+  static loginApi(data: LoginParams): Promise<Result<null>> {
+    return request<Result<null>>({
+      url: '/api/user/login',
+      method: 'post',
+      data: data,
+      headers: {
+        'Content-Type':  ContentTypeEnum.FORM_URLENCODED
+      }
     })
   }
 }

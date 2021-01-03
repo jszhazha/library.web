@@ -1,26 +1,49 @@
 <template>
   <div class="header-right-action">
     <slot />
-    <Button type="primary" class="ml-8" @click="onLoginButton">
-      登 录
-    </Button>
+    <div class="ml-8">
+      <div v-if="userIsLogin">
+        <drop-menu>
+          <router-link :to="{ name: PageEnum.BASE_HOME }" class="header-title">
+            {{ userInfo?.username }}
+          </router-link>
+        </drop-menu>
+      </div>
+      <Button v-else type="primary" @click="onLoginButton">
+        登 录
+      </Button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
-import { Button } from "/@/lib/UI/"
+import { defineComponent, computed } from "vue"
+import { Button } from "/@/lib/UI/index"
 import { useGo } from "/@/hooks/web/usePage"
 import { PageEnum } from "/@/enums/pageEnum"
+import { userStore } from "/@/store/modules/user"
+import { isNull } from "/@/utils/is"
+import dropMenu from "./dropMenu.vue"
 
 export default defineComponent({
-  components: { Button },
+  components: { Button, dropMenu },
   setup() {
     const go = useGo()
+
+    // 页面跳转
     function onLoginButton() {
       go({ name: PageEnum.BASE_LOGIN })
     }
-    return { onLoginButton }
+
+    const userIsLogin = computed(() => {
+      return !isNull(userStore.getUserInfoState?.id)
+    })
+
+    const userInfo = computed(() => {
+      return userStore.getUserInfoState
+    })
+
+    return { PageEnum, userIsLogin, userInfo,onLoginButton }
   }
 })
 </script>

@@ -1,18 +1,15 @@
 import { defineComponent } from "vue"
-import { Layout, Dropdown, Menu } from "ant-design-vue"
+import { Layout } from "ant-design-vue"
 import LayoutBreadcrumb from "./LayoutBreadcrumb"
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue"
 import { menuStore } from "/@/store/modules/menu"
-import { UserOutlined, SettingOutlined, LogoutOutlined } from "@ant-design/icons-vue"
+import DropMenu from "/@/components/PublicHeader/dropMenu.vue"
 import { userStore } from "/@/store/modules/user"
-import { useGo } from "/@/hooks/web/usePage"
-import { PageEnum } from "/@/enums/pageEnum"
 
 export default defineComponent({
   name: "DefaultLayoutHeader",
   setup() {
     return () => {
-      const go = useGo()
 
       // 处理点击折叠
       function handleTriggerClick() {
@@ -23,38 +20,7 @@ export default defineComponent({
         }
       }
 
-      function handlemenuClick({ key }: { key: string }) {
-        switch (key) {
-          case "logout":
-            userStore
-              .logout()
-              .then(() => {
-                userStore.commitResetState()
-                go({ name: PageEnum.BASE_LOGIN })
-              })
-              .catch(() => {})
-            break
-          default:
-            break
-        }
-      }
-
-      // 渲染下拉菜单
-      function renderMenu() {
-        return (
-          <Menu onClick={handlemenuClick}>
-            {() => (
-              <>
-                <Menu.Item key="center">{() => [<UserOutlined />, "个人中心"]}</Menu.Item>
-                <Menu.Item key="setting">{() => [<SettingOutlined />, "个人设置"]}</Menu.Item>
-                <Menu.Divider />
-                <Menu.Item key="logout">{() => [<LogoutOutlined />, "退出登录"]}</Menu.Item>
-              </>
-            )}
-          </Menu>
-        )
-      }
-
+      
       return (
         <Layout.Header class="layout-header">
           {() => (
@@ -66,16 +32,15 @@ export default defineComponent({
                 </div>
                 <LayoutBreadcrumb />
               </div>
-              <Dropdown placement="bottomCenter">
+              <DropMenu placement="bottomCenter">
                 {{
                   default: () => (
                     <div class="layout-header-right-action">
                       {userStore.getUserInfoState?.username}
                     </div>
                   ),
-                  overlay: () => renderMenu()
                 }}
-              </Dropdown>
+              </DropMenu>
             </div>
           )}
         </Layout.Header>

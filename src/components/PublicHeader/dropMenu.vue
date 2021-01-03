@@ -36,6 +36,7 @@ export default defineComponent({
     // 处理菜单点击
     async function handlemenuClick({ key }: { key: string }) {
       switch (key) {
+        // 退出
         case "logout":
           try {
             await userStore.logout()

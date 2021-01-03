@@ -35,10 +35,12 @@ export default defineComponent({
       go({ name: PageEnum.BASE_LOGIN })
     }
 
+    // 用户是否登录
     const userIsLogin = computed(() => {
       return !isNull(userStore.getUserInfoState?.id)
     })
 
+    // 用户信息
     const userInfo = computed(() => {
       return userStore.getUserInfoState
     })

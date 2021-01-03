@@ -12,7 +12,7 @@ export default defineComponent({
   name: "DefaultLayoutHeader",
   setup() {
     return () => {
-      const pageGo = useGo()
+      const go = useGo()
 
       // 处理点击折叠
       function handleTriggerClick() {
@@ -30,7 +30,7 @@ export default defineComponent({
               .logout()
               .then(() => {
                 userStore.commitResetState()
-                pageGo({ name: PageEnum.BASE_LOGIN })
+                go({ name: PageEnum.BASE_LOGIN })
               })
               .catch(() => {})
             break

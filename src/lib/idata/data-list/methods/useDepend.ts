@@ -49,18 +49,18 @@ export function provideListPage<T extends { id?: number }>(options: Options<T>):
 
   const { name, deleteDataFromServer, loading } = options
 
-  const pageGo = useGo()
+  const go = useGo()
 
   function onNewDataItem() {
-    pageGo({ name, query: { mode: PageMode[PageMode.new] } })
+    go({ name, query: { mode: PageMode[PageMode.new] } })
   }
 
   function onViewDataItem(record: T) {
-    pageGo({ name, query: { mode: PageMode[PageMode.view], id: record.id } })
+    go({ name, query: { mode: PageMode[PageMode.view], id: record.id } })
   }
 
   function onEditDataItem(record: T) {
-    pageGo({ name, query: { mode: PageMode[PageMode.edit], id: record.id } })
+    go({ name, query: { mode: PageMode[PageMode.edit], id: record.id } })
   }
 
   function onDeleteDataItem(record: T) {

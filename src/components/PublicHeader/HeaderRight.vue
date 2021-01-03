@@ -16,9 +16,9 @@ import { PageEnum } from "/@/enums/pageEnum"
 export default defineComponent({
   components: { Button },
   setup() {
-    const pageGo = useGo()
+    const go = useGo()
     function onLoginButton() {
-      pageGo({ name: PageEnum.BASE_LOGIN })
+      go({ name: PageEnum.BASE_LOGIN })
     }
     return { onLoginButton }
   }

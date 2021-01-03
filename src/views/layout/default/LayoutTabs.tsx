@@ -16,7 +16,7 @@ export default defineComponent({
     // 当前激活标签
     const activeKey = ref<string>("")
     // 页面跳转
-    const pageGo = useGo()
+    const go = useGo()
 
     // 当前tab列表;
     const getTabsState = computed(() => {
@@ -100,7 +100,7 @@ export default defineComponent({
       activeKey.value = key
       const item = findItem(key)
       if (item) {
-        pageGo(item as any, false)
+        go(item as any, false)
       }
     }
 

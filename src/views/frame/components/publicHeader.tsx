@@ -11,9 +11,9 @@ export default defineComponent({
     }
   },
   setup(props, { attrs }) {
-    const pageGo = useGo()
+    const go = useGo()
 
-    const onTitleClick = () => pageGo({ name: PageEnum.INDEX_PAGE })
+    const onTitleClick = () => go({ name: PageEnum.INDEX_PAGE })
 
     return () => (
       <header class={[attrs.class, "index-middle", "pbulic-header"]}>

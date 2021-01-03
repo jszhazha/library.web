@@ -77,7 +77,7 @@ export function useCacheTabs(): { setCacheTabs: () => void, readCacheTabs: () =>
 
 export function useTabDropdown(activeKey: Ref<string>): { handelMenuClick: ({ key }: { key: menuEnum }) => void } {
 
-  const pageGo = useGo()
+  const go = useGo()
 
   function closeLeft(): void {
     tabStore.commitSliceCloseTab({ start: 0, end: { name: activeKey.value } })
@@ -105,7 +105,7 @@ export function useTabDropdown(activeKey: Ref<string>): { handelMenuClick: ({ ke
       }
     }
     // 跳到当前页面报错
-    name !== toPageName && pageGo({ name: toPageName }, true)
+    name !== toPageName && go({ name: toPageName }, true)
   }
 
   function handelMenuClick({ key }: { key: menuEnum }): void {

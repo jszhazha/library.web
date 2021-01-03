@@ -33,7 +33,7 @@ export default defineComponent({
     const selectedKeys = ref<string[]>()
     const { currentRoute } = useRouter()
     const currentName = currentRoute.value.name as string
-    const pageGo = useGo()
+    const go = useGo()
     const menuList = {
       base: "基本设置",
       security: "安全设置",
@@ -45,7 +45,7 @@ export default defineComponent({
     // 处理菜单点击
     function handleClick({ keyPath }: { keyPath: string[] }) {
       selectedKeys.value = keyPath
-      pageGo({ name: `${INDEX_NAME}-${keyPath[0]}` })
+      go({ name: `${INDEX_NAME}-${keyPath[0]}` })
     }
 
     return {

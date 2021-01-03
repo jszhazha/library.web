@@ -2,7 +2,7 @@ import type { Menu as MenuType } from "/@/router/types"
 import { defineComponent, reactive, unref, computed, watch } from "vue"
 import { Layout, Menu } from "ant-design-vue"
 import { menuStore } from "/@/store/modules/menu"
-import { useRouter } from "vue-router"
+import { useRouter, RouterLink } from "vue-router"
 import config from "/@/config/"
 import { MenuState } from "./type"
 import router from "/@/router"
@@ -10,6 +10,7 @@ import { getMenus, getFlatMenus, getAllParentPathName, menuHasChildren } from "/
 import { rules } from "/@/utils/regExp"
 import MenuContent from "./MenuContent"
 import { Scrollbar } from "/@/components/Scrollbar"
+import { PageEnum } from "/@/enums/pageEnum"
 
 export default defineComponent({
   name: "DefaultLayoutSider",
@@ -145,11 +146,13 @@ export default defineComponent({
         >
           {() => (
             <>
-              <div class="layout-sider-header index-center-middle index-hidden-newline">
-                <img src={config.logo} class="layout-sider-header-logo" />
-                <div class={["layout-sider-header-title", getCollapsedState && "index-hidden"]}>
-                  {config.title}
-                </div>
+              <div class="layout-sider-header index-center index-hidden-newline">
+                <RouterLink to={{ name: PageEnum.INDEX_PAGE }} class="index-center-middle-inline">
+                  <img src={config.logo} class="layout-sider-header-logo" />
+                  <div class={["layout-sider-header-title", getCollapsedState && "index-hidden"]}>
+                    {config.title}
+                  </div>
+                </RouterLink>
               </div>
               <Scrollbar class="layout-sider-scrollbar">{() => renderMenu()}</Scrollbar>
             </>

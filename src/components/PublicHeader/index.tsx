@@ -1,6 +1,6 @@
 import { defineComponent } from "vue"
-import HeaderLeft from "./headerLeft.vue"
-import HeaderRight from "./headerRight.vue"
+import HeaderLeft from "./HeaderLeft.vue"
+import HeaderRight from "./HeaderRight.vue"
 
 export default defineComponent({
   setup(_props, { slots }) {

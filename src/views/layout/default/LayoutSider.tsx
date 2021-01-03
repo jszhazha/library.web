@@ -148,10 +148,16 @@ export default defineComponent({
             <>
               <div class="layout-sider-header index-center index-hidden-newline">
                 <RouterLink to={{ name: PageEnum.INDEX_PAGE }} class="index-center-middle-inline">
-                  <img src={config.logo} class="layout-sider-header-logo" />
-                  <div class={["layout-sider-header-title", getCollapsedState && "index-hidden"]}>
-                    {config.title}
-                  </div>
+                  {() => (
+                    <>
+                      <img src={config.logo} class="layout-sider-header-logo" />
+                      <div
+                        class={["layout-sider-header-title", getCollapsedState && "index-hidden"]}
+                      >
+                        {config.title}
+                      </div>
+                    </>
+                  )}
                 </RouterLink>
               </div>
               <Scrollbar class="layout-sider-scrollbar">{() => renderMenu()}</Scrollbar>

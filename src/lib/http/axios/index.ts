@@ -4,6 +4,7 @@ import qs from 'qs'
 import { Result } from './types'
 import { ContentTypeEnum } from '/@/enums/httpEnum';
 import { userStore } from '/@/store/modules/user';
+import { isNull } from '/@/utils/is';
 
 
 
@@ -12,11 +13,11 @@ export default function request<T extends Result>(requestConfig: AxiosRequestCon
     // 设置用户的请求参数
     let config = requestConfig
 
-    const token = userStore.getTokenState
+    const tokenInfo = userStore.getTokenState
 
-    if (token) {
+    if (!isNull(tokenInfo)) {
       if (!config.headers) config.headers = {}
-      config.headers['AUTHORIZATION'] = token
+      config.headers[tokenInfo.headerName] = tokenInfo.token
     }
 
     if (config.headers && config.headers['Content-Type'] === ContentTypeEnum.FORM_URLENCODED) {

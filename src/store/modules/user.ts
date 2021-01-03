@@ -1,6 +1,6 @@
 import store from '/@/store/index'
 import { VuexModule, Mutation, Module, getModule, Action } from 'vuex-module-decorators'
-import Service, { UserInfo, LoginParams, Security } from '/@/api/security'
+import Service, { UserInfo, LoginParams, Security, CSRF } from '/@/api/security'
 import { isNull } from '/@/utils/is'
 
 
@@ -16,14 +16,14 @@ const NAME = 'user'
 export default class User extends VuexModule {
   private userInfoState: UserInfo | null = null
 
-  private tokenState = ''
+  private tokenState: CSRF | null = null
 
   // 获取用户信息
   get getUserInfoState(): UserInfo | null {
     return this.userInfoState
   }
 
-  get getTokenState(): string | null {
+  get getTokenState(): CSRF | null {
     return this.tokenState
   }
 
@@ -31,7 +31,7 @@ export default class User extends VuexModule {
   @Mutation
   commitResetState(): void {
     this.userInfoState = null
-    this.tokenState = ''
+    this.tokenState = null
   }
 
 
@@ -42,7 +42,7 @@ export default class User extends VuexModule {
 
 
   @Mutation
-  commitTokenState(info: string): void {
+  commitTokenState(info: CSRF): void {
     this.tokenState = info
   }
 
@@ -76,9 +76,9 @@ export default class User extends VuexModule {
     return new Promise(async (resolve, reject) => {
       try {
         const { data: accountInfo } = await Service.getAccountInfo()
-        const { user, _csrf: { token } } = accountInfo
+        const { user, _csrf } = accountInfo
         this.commitUserInfoState(user)
-        this.commitTokenState(token)
+        this.commitTokenState(_csrf)
         resolve(accountInfo)
       } catch (err) {
         reject(err)

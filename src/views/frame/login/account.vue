@@ -71,8 +71,8 @@ export default defineComponent({
       }
       buttonInstance.value?.startAnimation(x, y)
       try {
-        await userStore.login(formData)
-        emit('on-success')
+        const userInfo = await userStore.login(formData)
+        emit("on-success", userInfo)
       } catch (err) {
         error.is = true
         error.msg = err.msg

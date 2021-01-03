@@ -57,7 +57,7 @@ export default class User extends VuexModule {
         try {
           const { user } = await this.getAccountInfoAction()
 
-        
+
           resolve(user)
         } catch (err) {
           reject(err)
@@ -92,12 +92,12 @@ export default class User extends VuexModule {
    * 用户登录
    */
   @Action
-  login(params: LoginParams): Promise<null> {
+  login(params: LoginParams): Promise<UserInfo> {
     return new Promise(async (reslove, reject) => {
       try {
         await Service.loginApi(params)
-        await this.getAccountInfoAction()   
-        reslove(null)
+        const { user } = await this.getAccountInfoAction()
+        reslove(user)
       } catch (err) {
         reject(err)
       }

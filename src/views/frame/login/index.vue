@@ -28,9 +28,11 @@ import publicLayout from "/@/views/frame/components/publicLayout.vue"
 import accountLogin from "./account.vue"
 import phoneLogin from "./phone.vue"
 import config from "/@/config/"
+import { useMessage } from "/@/hooks/web/useMessage"
 import { toDataURL } from "qrcode"
 import { useRouter } from "vue-router"
 import { PageEnum } from "/@/enums/pageEnum"
+import { UserInfo } from "/@/api/security"
 
 // import useM essage from "@/hooks/web/useMessage";
 
@@ -55,7 +57,7 @@ export default defineComponent({
 
     const { query } = unref(currentRoute)
 
-    // const { notification } = useMessage.init();
+    const { notification } = useMessage()
 
     onMounted(async () => {
       const url = await toDataURL(renderValue, {
@@ -76,8 +78,13 @@ export default defineComponent({
     }
 
     // 登录成功
-    const loginSuccess = () => {
+    const loginSuccess = (userInfo: UserInfo) => {
       const name = (query.redirect as string) || PageEnum.BASE_HOME
+      notification.success({
+        message: "登录成功",
+        description: `欢迎回来: ${userInfo.username}`,
+        duration: 5
+      })
       push({ name })
     }
 

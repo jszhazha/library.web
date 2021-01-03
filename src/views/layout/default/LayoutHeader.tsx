@@ -4,11 +4,16 @@ import LayoutBreadcrumb from "./LayoutBreadcrumb"
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue"
 import { menuStore } from "/@/store/modules/menu"
 import { UserOutlined, SettingOutlined, LogoutOutlined } from "@ant-design/icons-vue"
+import { userStore } from "/@/store/modules/user"
+import { useGo } from "/@/hooks/web/usePage"
+import { PageEnum } from "/@/enums/pageEnum"
 
 export default defineComponent({
   name: "DefaultLayoutHeader",
   setup() {
     return () => {
+      const pageGo = useGo()
+
       // 处理点击折叠
       function handleTriggerClick() {
         if (menuStore.getCollapsedState) {
@@ -18,16 +23,32 @@ export default defineComponent({
         }
       }
 
+      function handlemenuClick({ key }: { key: string }) {
+        switch (key) {
+          case "logout":
+            userStore
+              .logout()
+              .then(() => {
+                userStore.commitResetState()
+                pageGo({ name: PageEnum.BASE_LOGIN })
+              })
+              .catch(() => {})
+            break
+          default:
+            break
+        }
+      }
+
       // 渲染下拉菜单
       function renderMenu() {
         return (
-          <Menu>
+          <Menu onClick={handlemenuClick}>
             {() => (
               <>
-                <Menu.Item>{() => [<UserOutlined />, "个人中心"]}</Menu.Item>
-                <Menu.Item>{() => [<SettingOutlined />, "个人设置"]}</Menu.Item>
+                <Menu.Item key="center">{() => [<UserOutlined />, "个人中心"]}</Menu.Item>
+                <Menu.Item key="setting">{() => [<SettingOutlined />, "个人设置"]}</Menu.Item>
                 <Menu.Divider />
-                <Menu.Item>{() => [<LogoutOutlined />, "退出登录"]}</Menu.Item>
+                <Menu.Item key="logout">{() => [<LogoutOutlined />, "退出登录"]}</Menu.Item>
               </>
             )}
           </Menu>
@@ -47,7 +68,11 @@ export default defineComponent({
               </div>
               <Dropdown placement="bottomCenter">
                 {{
-                  default: () => <div class="layout-header-right-action">admin</div>,
+                  default: () => (
+                    <div class="layout-header-right-action">
+                      {userStore.getUserInfoState?.username}
+                    </div>
+                  ),
                   overlay: () => renderMenu()
                 }}
               </Dropdown>

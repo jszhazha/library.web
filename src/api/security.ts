@@ -79,8 +79,16 @@ export default class Service {
       method: 'post',
       data: data,
       headers: {
-        'Content-Type':  ContentTypeEnum.FORM_URLENCODED
+        'Content-Type': ContentTypeEnum.FORM_URLENCODED
       }
+    })
+  }
+
+  // 退出
+  static logoutApi(): Promise<Result<null>> {
+    return request<Result<null>>({
+      url: "/api/user/logout",
+      method: 'post'
     })
   }
 }

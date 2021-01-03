@@ -56,8 +56,6 @@ export default class User extends VuexModule {
       return new Promise(async (resolve, reject) => {
         try {
           const { user } = await this.getAccountInfoAction()
-
-
           resolve(user)
         } catch (err) {
           reject(err)
@@ -102,6 +100,21 @@ export default class User extends VuexModule {
         reject(err)
       }
 
+    })
+  }
+
+  /**
+   * 用户退出
+   */
+  @Action
+  logout(): Promise<void> {
+    return new Promise(async (reslove, reject) => {
+      try {
+        await Service.logoutApi()
+        reslove()
+      } catch (err) {
+        reject(err)
+      }
     })
   }
 

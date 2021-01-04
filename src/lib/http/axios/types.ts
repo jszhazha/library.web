@@ -16,7 +16,7 @@ export interface Result<T = any> {
  */
 export interface PagerQueryData {
   page: number
-  pageSize: number
+  size: number
   sorts: Array<string>
   [prop: string]: any
 }
@@ -25,7 +25,7 @@ export interface PagerQueryData {
 /**
  * 分页服务回复
  */
-export interface PagerQueryData<T = any> {
+export interface ResponseData<T = any> {
   content: Array<T>,
   totalElements: number
   totalPages: number
@@ -35,6 +35,6 @@ export interface PagerQueryData<T = any> {
 /**
  * 分页数据结果
  */
-export interface PagerResponseData<T> extends Result<PagerQueryData<T>>{
+export interface PagerResponseData<T> extends Result<ResponseData<T>>{
 
 }

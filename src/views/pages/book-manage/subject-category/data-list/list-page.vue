@@ -40,6 +40,7 @@ export default defineComponent({
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
       const query = instance.searchInstance?.getCurQueryData()
+      console.log(query)
       try {
         const {
           data: { content }

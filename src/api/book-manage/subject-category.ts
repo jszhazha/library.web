@@ -28,7 +28,7 @@ export default class Service {
     return request<DataPager>({
       url: '/api/book-category',
       method: 'get',
-      data: query
+      params: query
     })
   }
 

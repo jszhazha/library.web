@@ -35,7 +35,7 @@ export default defineComponent({
   setup(_props, { emit }): SearchInstance {
     // 数据搜索
     const queryData = reactive<PagerQueryData>({
-      pageSize: 10,
+      size: 10,
       page: 0,
       sorts: []
     })

@@ -43,7 +43,7 @@ export default defineComponent({
     const isOpen = ref<boolean>(false)
     // 数据搜索
     const queryData = reactive<PagerQueryData>({
-      pageSize: 10,
+      size: 10,
       page: 0,
       sorts: []
     })

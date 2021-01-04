@@ -47,7 +47,7 @@ interface DataPageMixParameter<T> {
   // 请求服务器方法
   onServerMethods: {
     // 新增数据
-    onNewData: () => Promise<void>
+    onNewData: (success: (data: T) => void, fail: () => void) => Promise<void>
 
     // 保存数据
     onSaveData: (id: number) => Promise<void>
@@ -79,7 +79,7 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
     }
   }
   // 查看缓存中是否有数据
-  checkCacheData<T>(name, storage, (data: T) => (console.log(data), assign(dataItem, data)))
+  checkCacheData<T>(name, storage, (data: T) => assign(dataItem, data))
 
   /**
    * 刷新页面 不会走生命周期 , 同时监听刷新和卸载时 进行缓存数据
@@ -110,7 +110,10 @@ function dataItemInit<T>(dataItem: T, ruleKeys: string[]) {
 
 
 
-export function dataPageMix<T>({ dataItem, rules, onServerMethods }: DataPageMixParameter<T>): DataPageMix {
+export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixParameter<T>): DataPageMix {
+  // 参数解构
+  const { dataItem, rules, onServerMethods } = parameter
+
   // 获取方法 当前路由
   const { replace, currentRoute } = useRouter()
 
@@ -201,7 +204,14 @@ export function dataPageMix<T>({ dataItem, rules, onServerMethods }: DataPageMix
     try {
       await validate()
       if (pageInfo.mode === PageMode.new) {
-        await onServerMethods.onNewData()
+        await onServerMethods.onNewData((data: T) => {
+          // 成功调用
+          assign(dataItem, data)
+          pageInfo.mode = PageMode.edit
+          replace({ query: { mode: PageMode[PageMode.edit], id: dataItem.id } })
+        }, () => {
+          // 失败调用
+        })
       } else if (pageInfo.mode === PageMode.edit) {
         await onServerMethods.onSaveData(parseInt(pageInfo.query.id!))
       }

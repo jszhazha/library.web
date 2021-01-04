@@ -20,3 +20,21 @@ export interface PagerQueryData {
   sorts: Array<string>
   [prop: string]: any
 }
+
+
+/**
+ * 分页服务回复
+ */
+export interface PagerQueryData<T = any> {
+  content: Array<T>,
+  totalElements: number
+  totalPages: number
+}
+
+
+/**
+ * 分页数据结果
+ */
+export interface PagerResponseData<T> extends Result<PagerQueryData<T>>{
+
+}

@@ -22,8 +22,6 @@ export default defineComponent({
   setup() {
     // 实例
     const instance = reactive<Instance<BookInfo>>({
-      // 导入对话框实例
-      importInstance: null,
       // 搜索实例
       searchInstance: null,
       // 列表实例
@@ -37,8 +35,6 @@ export default defineComponent({
       deleteDataFromServer
     }
 
-    // 批量导入数据集合
-    const importData = reactive<BookInfo[]>([])
 
     const { onFetchData, onSearchData } = listPageMix<BookInfo>(DATA_PAGE_NAME, options)
 
@@ -56,7 +52,6 @@ export default defineComponent({
 
 
     return {
-      importData,
       onSearchData,
       ...toRefs(instance)
     }

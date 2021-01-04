@@ -1,12 +1,65 @@
 <template>
-  <div>学科类别</div>
+  <div class="index-content">
+    <div class="index-table-search index-card">
+      <search-panle ref="searchInstance" @onSearch="onSearchData" />
+    </div>
+    <list-view ref="listInstance" />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
-export default defineComponent({})
+import { defineComponent, reactive, toRefs } from "vue"
+import service, { SubjectCategory } from "/@/api/book-manage/subject-category"
+import { Instance } from "/@/lib/interface/ListPage"
+import { listPageMix } from "/@/lib/idata/data-list/"
+import searchPanle from "./search-panle.vue"
+import listView from "./list-view.vue"
+
+const DATA_PAGE_NAME = "book-manage-subject-category-data-page"
+
+export default defineComponent({
+  components: { listView, searchPanle },
+  setup() {
+    // 实例
+    const instance = reactive<Instance<SubjectCategory>>({
+      // 搜索实例
+      searchInstance: null,
+      // 列表实例
+      listInstance: null
+    })
+
+    // 配置信息
+    const options = {
+      fetchDataFromServer,
+
+      deleteDataFromServer
+    }
+
+    const { onFetchData, onSearchData } = listPageMix<SubjectCategory>(DATA_PAGE_NAME, options)
+
+    // 从服务器取得数据 设置列表数据
+    async function fetchDataFromServer() {
+      const query = instance.searchInstance?.getCurQueryData()
+      try {
+        const {
+          data: { content }
+        } = await service.fecthList(query)
+        instance.listInstance?.setDataSource(content)
+      } catch (err) {}
+    }
+
+    // 删除数据, 刷新数据
+    async function deleteDataFromServer(record: SubjectCategory) {
+      console.log(record)
+      onFetchData()
+    }
+
+    return {
+      onSearchData,
+      ...toRefs(instance)
+    }
+  }
+})
 </script>
 
-
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

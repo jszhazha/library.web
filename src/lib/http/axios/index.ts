@@ -5,6 +5,7 @@ import { Result } from './types'
 import { ContentTypeEnum } from '/@/enums/httpEnum';
 import { userStore } from '/@/store/modules/user';
 import { isNull } from '/@/utils/is';
+import { ResultEnum } from '/@/enums/httpEnum'
 
 
 
@@ -26,7 +27,15 @@ export default function request<T extends Result>(requestConfig: AxiosRequestCon
 
     axios.request(config).then((response) => {
       const res = response.data as T
-      resolve(res)
+
+      if (res.code === ResultEnum.SUCCESS && res.msg === ResultEnum.SUCCESSMSG) {
+        // 请求成功
+        resolve(res)
+      } else {
+        // 请求失败
+        reject(res)
+      }
+
     }).catch((err) => {
       reject(err?.response?.data)
     })

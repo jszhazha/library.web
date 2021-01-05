@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import type { holdInfo } from "/@/api/book-manage/hold-lnfo"
+import type { HoldInfo } from "/@/api/book-manage/hold-lnfo"
 import { defineComponent, PropType, reactive } from "vue"
 import { holdInfoColumns } from "./data-page"
 import { useTableEdit } from "/@/hooks/web/useTableEdit"
@@ -70,10 +70,10 @@ export default defineComponent({
   },
   setup() {
     // 全部数据
-    const dataSource = reactive<holdInfo[]>([])
+    const dataSource = reactive<HoldInfo[]>([])
 
     // 输入数据
-    let dataItem = reactive<holdInfo>({})
+    let dataItem = reactive<HoldInfo>({})
 
 
     return {

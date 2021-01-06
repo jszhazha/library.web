@@ -11,6 +11,8 @@ import DownOutButton from '/@/components/DownOutButton.vue'
 import InputWrap from '/@/components/InputWrap.vue'
 import PublicHeader from '/@/components/PublicHeader/index'
 import Icon from '/@/components/Icon'
+import SelectWrap from '/@/components/SelectWrap.vue'
+import SubjectCategorySearchSelect from '/@/components/SearchSelect/SubjectCategory.vue'
 
 export default class ComponentRegisterPlugin {
   static init(app: App): void {
@@ -20,6 +22,7 @@ export default class ComponentRegisterPlugin {
     app.component('GlobalDataPage', GlobalDataPage).component("PublicHeader", PublicHeader)
     app.component('TableList', TableList).component('ImportModal', ImportModal)
     app.component("OperationInfoPanel", OperationInfoPanel).component('DownOutButton', DownOutButton)
+    app.component("SelectWrap", SelectWrap).component('SubjectCategorySearchSelect', SubjectCategorySearchSelect)
 
   }
 }

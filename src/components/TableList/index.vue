@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { Ref, watch } from "vue"
+import { Ref } from "vue"
 import { ref, unref, reactive, computed, onMounted, defineComponent } from "vue"
 import { tableListProps, TableColumn } from "/@/lib/props/TableList"
 import { browserClient, elementOffset } from "/@/utils/elelment"

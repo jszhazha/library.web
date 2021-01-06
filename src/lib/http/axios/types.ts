@@ -13,11 +13,12 @@ export interface Result<T = any> {
 
 /**
  * 分页请求
+ * sort=firstname&srot=lastname,desc表示按firstname正序排序排列基础上按lastname倒序排列
  */
 export interface PagerQueryData {
   page: number
   size: number
-  sorts: Array<string>
+  sort: string
   [prop: string]: any
 }
 

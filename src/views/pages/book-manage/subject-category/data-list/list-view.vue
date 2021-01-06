@@ -1,5 +1,5 @@
 <template>
-  <TableList title="用户列表" :loading="loading" :columns="tableColumns" :data-source="dataSource">
+  <TableList title="类别列表" :loading="loading" :columns="tableColumns" :data-source="dataSource">
     <template #header-left>
       <a-button type="primary" @click="onNewDataItem">
         新增

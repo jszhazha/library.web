@@ -10,7 +10,7 @@
       </div>
       <div class="button">
         <slot name="header-left" />
-        <a-divider type="vertical" />
+        <a-divider v-if="Object.keys($slots).includes('header-left')" type="vertical" />
         <slot name="header-right" />
         <listSetting />
         <TooltipButton v-if="download" title="下载导入模板">

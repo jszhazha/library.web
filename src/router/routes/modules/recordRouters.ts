@@ -20,7 +20,7 @@ const routers: AppRouteModule = {
     {
       path: "login-record-list-page",
       name: 'login-record-list-page',
-      component: (): unknown => import(`/@/views/pages/system-manage/user-manage/data-list/list-page.vue`),
+      component: (): unknown => import(`/@/views/pages/record-manage/login-record/list-page.vue`),
       meta: {
         title: '登录日志'
       }

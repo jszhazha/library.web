@@ -1,5 +1,5 @@
 <template>
-  <TableList title="日志列表" :loading="loading" :columns="tableColumns" :data-source="dataSource" />
+  <TableList title="登录日志列表" :loading="loading" :columns="tableColumns" :data-source="dataSource" />
 </template>
 
 <script lang="ts">

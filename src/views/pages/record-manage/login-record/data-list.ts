@@ -53,10 +53,20 @@ export const tableColumns: TableColumn[] = [
     ellipsis: true
   },
   {
-    title: '登陆状态',
+    title: '登录状态',
     dataIndex: 'status',
     align: 'center',
-    ellipsis: true
+    ellipsis: true,
+    width: 90,
+    slots: { customRender: 'status' }
+
+  },
+  {
+    title: '登录日期',
+    dataIndex: 'createTime',
+    align: 'center',
+    ellipsis: true,
+    slots: { customRender: 'createTime' }
   }
 
 ]

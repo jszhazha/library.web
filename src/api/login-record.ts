@@ -32,6 +32,12 @@ export interface LoginRecord {
 
   // 登陆状态
   status?: string
+
+  // 创建时间
+  createTime?: string
+
+  // 更新时间
+  updateTime?: string
 }
 
 

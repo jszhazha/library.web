@@ -3,7 +3,7 @@ import { SearchInstance } from "/@/lib/idata/data-list/methods/useSearch"
 
 
 interface ListInstance<T> {
-  setDataSource: (data: T[]) => void
+  setDataSource: (data: T[], total: number) => void
   [prop: string]: unknown
 }
 

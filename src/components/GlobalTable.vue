@@ -9,6 +9,7 @@
     :pagination="{
       showTotal: (total) => `共 ${total} 条`,
       total: total,
+      onChange: onPageChange
     }"
     :scroll="scroll"
     :row-selection="rowSelection"
@@ -29,7 +30,8 @@ import { cloneDeep } from "lodash-es"
 export default defineComponent({
   components: { Table },
   props: tableProps,
-  setup(props) {
+  emits: ["on-page-change"],
+  setup(props, { emit }) {
     const { columns } = toRefs(props)
 
     const tableColumns = computed(() => {
@@ -38,10 +40,13 @@ export default defineComponent({
       if (readonly?.value) newColumns.pop()
       return newColumns
     })
-    return { tableColumns }
+
+    // 页面发生改变
+    const onPageChange = (page: number) => emit("on-page-change", page)
+
+    return { tableColumns, onPageChange }
   }
 })
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

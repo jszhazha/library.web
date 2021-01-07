@@ -27,8 +27,11 @@ export interface PagerQueryData {
  * 分页服务回复
  */
 export interface ResponseData<T = any> {
+  // 数据
   content: Array<T>,
+  // 总个数
   totalElements: number
+  // 总页数
   totalPages: number
 }
 

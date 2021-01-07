@@ -28,6 +28,7 @@
       :data-source="dataSource"
       :scroll="scroll"
       :total="total"
+      @on-page-change="onPageChange"
     >
       <template v-for="item in Object.keys($slots)" #[item]="data">
         <slot :name="item" v-bind="data" />
@@ -59,11 +60,12 @@ export default defineComponent({
     VerticalAlignBottomOutlined
   },
   props: tableListProps,
-  setup(props) {
+  emits: ["on-page-change"],
+  setup(props, { emit }) {
     // 全屏 标志位
     const fullScreen = ref<boolean>(false)
     // table 滚动条高度
-    const scroll = reactive<{ y?: number | true; x?: number | true }>({})
+    const scroll = reactive<{ y?: number | true; x?: number | true }>({ x: true })
     // 标签
     const tableRef = ref<HTMLElement | null>(null)
     // 视图大小
@@ -86,6 +88,8 @@ export default defineComponent({
       return `transform:translate${transform.translate};`
     })
 
+    // 分页发生变化
+    const onPageChange = (page: number) => emit("on-page-change", page)
 
     onMounted(() => (browserSize = browserClient()))
 
@@ -129,8 +133,9 @@ export default defineComponent({
       tableRef,
       wrapStyle,
       fullScreen,
-      onFullScreen,
-      getTableColumns
+      getTableColumns,
+      onPageChange,
+      onFullScreen
     }
   }
 })

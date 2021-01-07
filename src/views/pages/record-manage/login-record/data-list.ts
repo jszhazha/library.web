@@ -44,12 +44,14 @@ export const tableColumns: TableColumn[] = [
     title: '客户端',
     dataIndex: 'client',
     align: 'center',
+    width: 150,
     ellipsis: true
   },
   {
     title: '操作系统',
     dataIndex: 'operatingSystem',
     align: 'center',
+    width: 150,
     ellipsis: true
   },
   {
@@ -66,6 +68,7 @@ export const tableColumns: TableColumn[] = [
     dataIndex: 'createTime',
     align: 'center',
     ellipsis: true,
+    width: 200,
     slots: { customRender: 'createTime' }
   }
 

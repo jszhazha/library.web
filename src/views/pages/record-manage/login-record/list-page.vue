@@ -11,7 +11,7 @@
 import { defineComponent, reactive, toRefs } from "vue"
 import { Instance } from "/@/lib/interface/ListPage"
 import { listPageMix } from "/@/lib/idata/data-list/"
-import { message } from 'ant-design-vue'
+import { message } from "ant-design-vue"
 import service, { LoginRecord } from "/@/api/login-record"
 import searchPanle from "./search-panle.vue"
 import listView from "./list-view.vue"
@@ -36,17 +36,16 @@ export default defineComponent({
       deleteDataFromServer
     }
 
-
     const { onFetchData, onSearchData } = listPageMix<LoginRecord>(DATA_PAGE_NAME, options)
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
-       const query = instance.searchInstance?.getCurQueryData()
+      const query = instance.searchInstance?.getCurQueryData()
       try {
         const { data } = await service.fecthList(query)
-        instance.listInstance?.setDataSource(data.content)
+        instance.listInstance?.setDataSource(data.content, data.totalElements)
       } catch (err) {
-        message.error('数据获取失败')
+        message.error("数据获取失败")
       }
     }
 
@@ -54,7 +53,6 @@ export default defineComponent({
     async function deleteDataFromServer() {
       onFetchData()
     }
-
 
     return {
       onSearchData,

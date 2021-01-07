@@ -29,7 +29,7 @@ interface RulesOptions {
   type?: 'string' | 'number' | 'boolean' | 'method' | 'regexp' | 'integer' | 'float' | 'object' | 'enum' | 'date' | 'url' | 'hex' | 'email'
 
   // 自定义校验（注意，callback 必须被调用）
-  validator?: (rule: unknown, value: unknown, callback: (error?: string) => void) => void
+  validator?: (rule: unknown, value: unknown, callback: (error?: string) => void) => Promise<void>
 
   // 必选时，空格是否会被视为错误
   whitespace?: boolean

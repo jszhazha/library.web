@@ -3,12 +3,12 @@
     <a-row type="flex" justify="end">
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="类别名">
-          <a-input v-model:value="queryData.name" placeholder="请输入" />
+          <a-input v-model:value="queryData.name" placeholder="请输入" allow-clea />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="类别号">
-          <a-input v-model:value="queryData.code" placeholder="请输入" />
+          <a-input v-model:value="queryData.code" placeholder="请输入" allow-clea />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">

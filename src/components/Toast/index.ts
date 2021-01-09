@@ -26,6 +26,11 @@ const errorDefault: ToastOptions = {
   hideProgressBar: true
 }
 
+const successDefault: ToastOptions = {
+  toastClassName: ['toast-custom', "toast-custom-success"],
+  bodyClassName: ["toast-custom-body"]
+}
+
 const cacheDefault: ToastOptions = {
   toastClassName: ["toast-custom", "toast-custom-cache"],
   bodyClassName: ["toast-custom-body"],
@@ -38,7 +43,9 @@ const cacheDefault: ToastOptions = {
 const api = {
   error: open('error', errorDefault),
   cache: open('info', cacheDefault),
+  success: open('success', successDefault),
   clear: clear()
+
 }
 
 export default api

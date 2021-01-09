@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import type { CreateStorage } from "/@/utils/storage/Storage"
 import type { FromRules } from '/@/lib/interface/From'
-import { unref, onBeforeUnmount, onMounted, watch, reactive, toRef, ref } from "vue"
+import { unref, onBeforeUnmount, onMounted, reactive, toRef, ref } from "vue"
 import { provideDataPage } from './methods/useDepend'
 import { checkCacheData, cacheData } from './methods/cacheData'
 import { checkDataRouter, QueryRoute } from './methods/dataRouter'
@@ -186,9 +186,9 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
   }
 
   /**
-   * 监听路由变化 关闭对话框
+   * 卸载时 关闭对话框
    */
-  watch(() => currentRoute.value, () => {
+  onBeforeUnmount(() => {
     useToast.clear()
   })
 
@@ -221,15 +221,16 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
 
     try {
       loading.value = true
+      useToast.clear()
       if (pageInfo.mode === PageMode.new) {
         await onServerMethods.onNewData()
         pageInfo.mode = PageMode.edit
         replace({ query: { mode: PageMode[PageMode.edit], id: dataItem.id } })
       } else if (pageInfo.mode === PageMode.edit && !isEqual(dataItem, cacheData)) {
         await onServerMethods.onSaveData(parseInt(pageInfo.query.id!))
-      } else {
-        return
       }
+
+      useToast.success("数据保存成功")
       setCacheData()
     } catch (err) {
       useToast.error(err.msg)

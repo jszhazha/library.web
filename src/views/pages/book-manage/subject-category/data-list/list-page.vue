@@ -3,7 +3,7 @@
     <div class="index-table-search index-card">
       <search-panle ref="searchInstance" @onSearch="onSearchData" />
     </div>
-    <list-view ref="listInstance" />
+    <list-view ref="listInstance" @onPageChange="onFetchData" />
   </div>
 </template>
 
@@ -31,7 +31,7 @@ export default defineComponent({
 
     // 配置信息
     const options = {
-      name:DATA_PAGE_NAME,
+      name: DATA_PAGE_NAME,
 
       fetchDataFromServer,
 
@@ -40,7 +40,7 @@ export default defineComponent({
       instance
     }
 
-    const { onFetchData, onSearchData ,queryData} = listPageMix<SubjectCategory>(options)
+    const { onFetchData, onSearchData, queryData } = listPageMix<SubjectCategory>(options)
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
@@ -59,10 +59,7 @@ export default defineComponent({
       onFetchData()
     }
 
-    return {
-      onSearchData,
-      ...toRefs(instance)
-    }
+    return { onFetchData, onSearchData, ...toRefs(instance) }
   }
 })
 </script>

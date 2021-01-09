@@ -3,12 +3,12 @@
     <a-row type="flex" justify="end">
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="类别名">
-          <a-input v-model:value="queryData.name" placeholder="请输入" allow-clea />
+          <a-input v-model:value="queryData.name" placeholder="请输入" allow-clear />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="类别号">
-          <a-input v-model:value="queryData.code" placeholder="请输入" allow-clea />
+          <a-input v-model:value="queryData.code" placeholder="请输入" allow-clear />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
@@ -37,7 +37,7 @@ export default defineComponent({
     const queryData = reactive<PagerQueryData>({
       size: 10,
       page: 0,
-      sort: ''
+      sort: 'createTime,desc'
     })
     // 返回查询条件
     const getCurQueryData = (): PagerQueryData => queryData

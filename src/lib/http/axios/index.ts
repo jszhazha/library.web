@@ -1,11 +1,13 @@
 import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios'
 import qs from 'qs'
-import { Result } from './types'
+import { Result, ResponseError } from './types'
+import { checkRequestErrorMessage } from './error-message'
 import { ContentTypeEnum } from '/@/enums/httpEnum';
 import { userStore } from '/@/store/modules/user';
 import { isNull } from '/@/utils/is';
 import { ResultEnum } from '/@/enums/httpEnum'
+
 
 
 
@@ -37,7 +39,15 @@ export default function request<T extends Result>(requestConfig: AxiosRequestCon
       }
 
     }).catch((err) => {
-      reject(err?.response?.data)
+
+      const message = checkRequestErrorMessage(err.response.status)
+      
+      let error: ResponseError = {
+        code: err.response.code,
+        msg: message!
+      }
+
+      reject(error)
     })
   })
 }

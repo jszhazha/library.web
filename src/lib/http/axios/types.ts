@@ -35,6 +35,16 @@ export interface ResponseData<T = any> {
   totalPages: number
 }
 
+/**
+ * 服务器回复错误
+ */
+export interface ResponseError {
+  code:number
+  msg:string
+  headers?:any
+}
+
+
 
 /**
  * 分页数据结果

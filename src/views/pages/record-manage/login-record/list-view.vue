@@ -13,12 +13,19 @@
       {{ useFromatlll(record.createTime) }}
     </template>
 
+    <template #description="{ record }">
+      <span v-if="record.description">{{ record.description }}</span>
+      <span v-else>登录成功</span>
+    </template>
+
+    <template #location="{ record }">
+      <span v-if="record.country !== 'XX'">{{ record.country }}</span>
+      <span v-if="record.region !== 'XX'" class="ml-2">{{ record.region }}</span>
+      <span v-if="record.city !== 'XX'" class="ml-2">{{ record.city }}</span>
+    </template>
+
     <template #footer-right>
-      <PaginationWrap
-        v-model:current="current"
-        :total="totalElements"
-        @change="onPageChange"
-      />
+      <PaginationWrap v-model:current="current" :total="totalElements" @change="onPageChange" />
     </template>
   </TableList>
 </template>

@@ -7,17 +7,17 @@
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="IP">
+        <a-form-item label="登录地址">
           <a-input v-model:value="queryData.ip" placeholder="请输入" allow-clear />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="省">
+        <a-form-item label="登录省份">
           <a-input v-model:value="queryData.region" placeholder="请输入" allow-clear />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col" r>
-        <a-form-item label="市">
+        <a-form-item label="登录城市">
           <a-input v-model:value="queryData.city" placeholder="请输入" allow-clea />
         </a-form-item>
       </a-col>

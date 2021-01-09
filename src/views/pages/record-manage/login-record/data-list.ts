@@ -9,29 +9,19 @@ export const tableColumns: TableColumn[] = [
 
   },
   {
-    title: 'IP地址',
+    title: '登录地址',
     dataIndex: 'ip',
     align: 'center',
     width: 100,
     ellipsis: true
   },
   {
-    title: '国家',
-    dataIndex: 'country',
+    title: '登录地点',
+    dataIndex: 'location',
     align: 'center',
-    ellipsis: true
-  },
-  {
-    title: '省',
-    dataIndex: 'region',
-    align: 'center',
-    ellipsis: true
-  },
-  {
-    title: '市',
-    dataIndex: 'city',
-    align: 'center',
-    ellipsis: true
+    width: 130,
+    ellipsis: true,
+    slots: { customRender: 'location' }
   },
   {
     title: '运营商',
@@ -41,7 +31,7 @@ export const tableColumns: TableColumn[] = [
     ellipsis: true
   },
   {
-    title: '客户端',
+    title: '浏览器',
     dataIndex: 'client',
     align: 'center',
     width: 150,
@@ -54,6 +44,8 @@ export const tableColumns: TableColumn[] = [
     width: 150,
     ellipsis: true
   },
+
+
   {
     title: '登录状态',
     dataIndex: 'status',
@@ -62,6 +54,13 @@ export const tableColumns: TableColumn[] = [
     width: 90,
     slots: { customRender: 'status' }
 
+  },
+  {
+    title: '操作信息',
+    dataIndex: 'description',
+    align: 'center',
+    ellipsis: true,
+    slots: { customRender: 'description' }
   },
   {
     title: '登录日期',

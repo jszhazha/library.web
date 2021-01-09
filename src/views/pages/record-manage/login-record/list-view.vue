@@ -14,9 +14,8 @@
     </template>
 
     <template #footer-right>
-      <a-pagination
+      <PaginationWrap
         v-model:current="current"
-        :show-total="(total) => `共 ${total} 条`"
         :total="totalElements"
         @change="onPageChange"
       />

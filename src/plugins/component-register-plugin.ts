@@ -12,6 +12,7 @@ import InputWrap from '/@/components/InputWrap.vue'
 import PublicHeader from '/@/components/PublicHeader/index'
 import Icon from '/@/components/Icon'
 import SelectWrap from '/@/components/SelectWrap.vue'
+import PaginationWrap from '/@/components/PaginationWrap.vue'
 import SubjectCategorySearchSelect from '/@/components/SearchSelect/SubjectCategory.vue'
 
 export default class ComponentRegisterPlugin {
@@ -22,7 +23,8 @@ export default class ComponentRegisterPlugin {
     app.component('GlobalDataPage', GlobalDataPage).component("PublicHeader", PublicHeader)
     app.component('TableList', TableList).component('ImportModal', ImportModal)
     app.component("OperationInfoPanel", OperationInfoPanel).component('DownOutButton', DownOutButton)
-    app.component("SelectWrap", SelectWrap).component('SubjectCategorySearchSelect', SubjectCategorySearchSelect)
+    app.component("SelectWrap", SelectWrap).component("PaginationWrap", PaginationWrap)
+    app.component('SubjectCategorySearchSelect', SubjectCategorySearchSelect)
 
   }
 }

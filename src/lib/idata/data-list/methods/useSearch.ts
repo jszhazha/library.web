@@ -25,7 +25,7 @@ export function useSearch(queryData: PagerQueryData, isOpen?: Ref<boolean>): any
 
 
   function onResetData() {
-    const ignoreData = ['page', 'pageSize', 'sorts']
+    const ignoreData = ['page', 'pageSize', 'sort']
     for (const key in queryData) {
       !ignoreData.some((value) => value === key) && Reflect.deleteProperty(queryData, key)
     }

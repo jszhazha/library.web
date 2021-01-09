@@ -30,13 +30,16 @@ export default defineComponent({
 
     // 配置信息
     const options = {
+      name: DATA_PAGE_NAME,
+
       fetchDataFromServer,
 
-      deleteDataFromServer
+      deleteDataFromServer,
+
+      instance
     }
 
-
-    const { onFetchData, onSearchData } = listPageMix<BookInfo>(DATA_PAGE_NAME, options)
+    const { onFetchData, onSearchData } = listPageMix<BookInfo>(options)
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
@@ -49,7 +52,6 @@ export default defineComponent({
       console.log(record)
       onFetchData()
     }
-
 
     return {
       onSearchData,

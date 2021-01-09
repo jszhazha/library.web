@@ -12,18 +12,35 @@
         <span @click="onDeleteDataItem(record)">删除</span>
       </div>
     </template>
+
+    <template #footer-right>
+      <a-pagination
+        v-model:current="current"
+        :show-total="(total) => `共 ${total} 条`"
+        :total="totalElements"
+        @change="onPageChange"
+      />
+    </template>
   </TableList>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue"
+import { defineComponent, ref } from "vue"
 import { tableColumns } from "./data-list"
 import { SubjectCategory } from "/@/api/book-manage/subject-category"
 import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
+import { usePagination } from "/@/hooks/web/usePagination"
 
 export default defineComponent({
-  setup() {
-    const dataSource = reactive<SubjectCategory[]>([])
+  emits: ["on-page-change"],
+  setup(_props, { emit }) {
+
+    // 数据源
+    const dataSource = ref<SubjectCategory[]>([])
+
+    // 总数据
+    const totalElements = ref<number>(0)
+
     const listPage = injectListPage<SubjectCategory>()
 
     // 数据加载
@@ -37,10 +54,20 @@ export default defineComponent({
     // 删除数据
     const onDeleteDataItem = (record: SubjectCategory) => listPage.onDeleteDataItem(record)
 
+    const { current, setPagination, getPagination } = usePagination()
+
+    // 页面发生变化
+    const onPageChange = () => emit("on-page-change")
+
     return {
       loading,
+      current,
+      setPagination,
+      getPagination,
       dataSource,
+      totalElements,
       tableColumns,
+      onPageChange,
       onNewDataItem,
       onViewDataItem,
       onEditDataItem,
@@ -49,8 +76,9 @@ export default defineComponent({
   },
   methods: {
     // 设置数据源
-    setDataSource(data: SubjectCategory[]) {
+    setDataSource(data: SubjectCategory[], total: number) {
       this.dataSource = data
+      this.totalElements = total
     }
   }
 })

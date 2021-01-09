@@ -31,16 +31,20 @@ export default defineComponent({
 
     // 配置信息
     const options = {
+      name:DATA_PAGE_NAME,
+
       fetchDataFromServer,
 
-      deleteDataFromServer
+      deleteDataFromServer,
+
+      instance
     }
 
-    const { onFetchData, onSearchData } = listPageMix<SubjectCategory>(DATA_PAGE_NAME, options)
+    const { onFetchData, onSearchData ,queryData} = listPageMix<SubjectCategory>(options)
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
-      const query = instance.searchInstance?.getCurQueryData()
+      const query = queryData()
       try {
         const { data } = await service.fecthList(query)
         instance.listInstance?.setDataSource(data.content, data.totalElements)

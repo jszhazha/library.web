@@ -25,7 +25,6 @@ export const tableColumns: TableColumn[] = [
     title: '省',
     dataIndex: 'region',
     align: 'center',
-    width: 110,
     ellipsis: true
   },
   {
@@ -38,6 +37,7 @@ export const tableColumns: TableColumn[] = [
     title: '运营商',
     dataIndex: 'isp',
     align: 'center',
+    width: 100,
     ellipsis: true
   },
   {

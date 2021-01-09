@@ -3,7 +3,7 @@
     <div class="index-table-search index-card">
       <search-panle ref="searchInstance" @onSearch="onSearchData" />
     </div>
-    <list-view ref="listInstance" />
+    <list-view ref="listInstance" @onPageChange="onFetchData" />
   </div>
 </template>
 
@@ -33,14 +33,18 @@ export default defineComponent({
     const options = {
       fetchDataFromServer,
 
-      deleteDataFromServer
+      deleteDataFromServer,
+
+      instance,
+
+      name: DATA_PAGE_NAME
     }
 
-    const { onFetchData, onSearchData } = listPageMix<LoginRecord>(DATA_PAGE_NAME, options)
+    const { onFetchData, onSearchData, queryData } = listPageMix<LoginRecord>(options)
 
-    // 从服务器取得数据 设置列表数据
+    // 从服务器取得数据 设置列表数据 禁止直接调用 刷新数据通过 onFetchData
     async function fetchDataFromServer() {
-      const query = instance.searchInstance?.getCurQueryData()
+      const query = queryData()
       try {
         const { data } = await service.fecthList(query)
         instance.listInstance?.setDataSource(data.content, data.totalElements)
@@ -56,6 +60,7 @@ export default defineComponent({
 
     return {
       onSearchData,
+      onFetchData,
       ...toRefs(instance)
     }
   }

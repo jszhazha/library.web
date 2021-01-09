@@ -17,10 +17,6 @@ export const tableProps = {
     type: [String, Function] as PropType<string | ((record: unknown) => string)>,
     default: "id",
   },
-  total: {
-    type: Number,
-    default: undefined
-  },
   scroll: {
     type: Object as PropType<{ x: number | true; y: number }>,
     default: {},
@@ -32,7 +28,7 @@ export const tableProps = {
   loading: {
     type: Boolean as PropType<boolean>,
     default: false
-  }
+  },
 }
 
 export const tableListProps = {

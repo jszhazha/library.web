@@ -27,13 +27,19 @@
       :columns="getTableColumns"
       :data-source="dataSource"
       :scroll="scroll"
-      :total="total"
-      @on-page-change="onPageChange"
     >
       <template v-for="item in Object.keys($slots)" #[item]="data">
         <slot :name="item" v-bind="data" />
       </template>
     </GlobalTable>
+    <div class="index-space-between footer">
+      <div>
+        <slot name="footer-left" />
+      </div>
+      <div>
+        <slot name="footer-right" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -60,8 +66,7 @@ export default defineComponent({
     VerticalAlignBottomOutlined
   },
   props: tableListProps,
-  emits: ["on-page-change"],
-  setup(props, { emit }) {
+  setup(props) {
     // 全屏 标志位
     const fullScreen = ref<boolean>(false)
     // table 滚动条高度
@@ -88,8 +93,6 @@ export default defineComponent({
       return `transform:translate${transform.translate};`
     })
 
-    // 分页发生变化
-    const onPageChange = (page: number) => emit("on-page-change", page)
 
     onMounted(() => (browserSize = browserClient()))
 
@@ -134,7 +137,6 @@ export default defineComponent({
       wrapStyle,
       fullScreen,
       getTableColumns,
-      onPageChange,
       onFullScreen
     }
   }
@@ -174,5 +176,9 @@ export default defineComponent({
   height: 100% !important;
   margin: 0;
   border-radius: 0;
+}
+
+.footer{
+  margin: 20px 0 0;
 }
 </style>

@@ -4,6 +4,7 @@
     :loading="loading"
     :columns="tableColumns"
     :data-source="dataSource"
+    @on-refresh="onRefresh"
   >
     <template #status="{ record }">
       <span v-if="record.status === 'SUCCESS'" color="#19be6b"> 成功 </span>
@@ -39,7 +40,7 @@ import { useFromatlll } from "/@/utils/dateFormat"
 import { usePagination } from "/@/hooks/web/usePagination"
 
 export default defineComponent({
-  emits: ["on-page-change"],
+  emits: ["on-page-change", "on-refresh"],
   setup(_props, { emit }) {
     // 数据源
     const dataSource = ref<BookInfo[]>([])
@@ -58,6 +59,9 @@ export default defineComponent({
     // 页面发生变化
     const onPageChange = () => emit("on-page-change")
 
+    // 处理刷新
+    const onRefresh = () => emit("on-refresh")
+
     return {
       loading,
       current,
@@ -67,7 +71,8 @@ export default defineComponent({
       totalElements,
       tableColumns,
       useFromatlll,
-      onPageChange
+      onPageChange,
+      onRefresh
     }
   },
   methods: {

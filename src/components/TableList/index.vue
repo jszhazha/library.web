@@ -16,6 +16,9 @@
         <TooltipButton v-if="download" title="下载导入模板">
           <VerticalAlignBottomOutlined />
         </TooltipButton>
+        <TooltipButton title="刷新">
+          <SyncOutlined @click="onRefresh" />
+        </TooltipButton>
         <TooltipButton :title="fullScreen ? '退出全屏' : '全屏'" @on-click="onFullScreen">
           <CompressOutlined v-if="fullScreen" />
           <ExpandOutlined v-else />
@@ -52,6 +55,7 @@ import listSetting from "./listSetting.vue"
 import TooltipButton from "./TooltipButton.vue"
 import { provideTable } from "./useDepend"
 import {
+  SyncOutlined,
   ExpandOutlined,
   CompressOutlined,
   VerticalAlignBottomOutlined
@@ -60,13 +64,15 @@ import {
 export default defineComponent({
   components: {
     listSetting,
+    SyncOutlined,
     TooltipButton,
     ExpandOutlined,
     CompressOutlined,
     VerticalAlignBottomOutlined
   },
   props: tableListProps,
-  setup(props) {
+  emits: ["on-refresh"],
+  setup(props, { emit }) {
     // 全屏 标志位
     const fullScreen = ref<boolean>(false)
     // table 滚动条高度
@@ -93,6 +99,8 @@ export default defineComponent({
       return `transform:translate${transform.translate};`
     })
 
+    // 刷新
+    const onRefresh = () => emit("on-refresh")
 
     onMounted(() => (browserSize = browserClient()))
 
@@ -137,6 +145,7 @@ export default defineComponent({
       wrapStyle,
       fullScreen,
       getTableColumns,
+      onRefresh,
       onFullScreen
     }
   }
@@ -178,7 +187,7 @@ export default defineComponent({
   border-radius: 0;
 }
 
-.footer{
+.footer {
   margin: 20px 0 0;
 }
 </style>

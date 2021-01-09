@@ -1,5 +1,11 @@
 <template>
-  <TableList title="类别列表" :loading="loading" :columns="tableColumns" :data-source="dataSource">
+  <TableList
+    title="类别列表"
+    :loading="loading"
+    :columns="tableColumns"
+    :data-source="dataSource"
+    @onRefresh="onRefresh"
+  >
     <template #header-left>
       <a-button type="primary" @click="onNewDataItem">
         新增
@@ -14,11 +20,7 @@
     </template>
 
     <template #footer-right>
-      <PaginationWrap
-        v-model:current="current"
-        :total="totalElements"
-        @change="onPageChange"
-      />
+      <PaginationWrap v-model:current="current" :total="totalElements" @change="onPageChange" />
     </template>
   </TableList>
 </template>
@@ -31,9 +33,8 @@ import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
 import { usePagination } from "/@/hooks/web/usePagination"
 
 export default defineComponent({
-  emits: ["on-page-change"],
+  emits: ["on-page-change", "on-refresh"],
   setup(_props, { emit }) {
-
     // 数据源
     const dataSource = ref<SubjectCategory[]>([])
 
@@ -58,6 +59,9 @@ export default defineComponent({
     // 页面发生变化
     const onPageChange = () => emit("on-page-change")
 
+    // 处理刷新
+    const onRefresh = () => emit("on-refresh")
+
     return {
       loading,
       current,
@@ -66,6 +70,7 @@ export default defineComponent({
       dataSource,
       totalElements,
       tableColumns,
+      onRefresh,
       onPageChange,
       onNewDataItem,
       onViewDataItem,

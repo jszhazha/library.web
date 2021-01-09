@@ -12,14 +12,14 @@ export const tableColumns: TableColumn[] = [
     title: '登录地址',
     dataIndex: 'ip',
     align: 'center',
-    width: 100,
+    width: 130,
     ellipsis: true
   },
   {
     title: '登录地点',
     dataIndex: 'location',
     align: 'center',
-    width: 130,
+    width: 140,
     ellipsis: true,
     slots: { customRender: 'location' }
   },

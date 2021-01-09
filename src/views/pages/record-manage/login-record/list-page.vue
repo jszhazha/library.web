@@ -59,8 +59,8 @@ export default defineComponent({
     }
 
     return {
-      onSearchData,
       onFetchData,
+      onSearchData,
       ...toRefs(instance)
     }
   }

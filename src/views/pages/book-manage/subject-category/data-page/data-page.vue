@@ -11,7 +11,7 @@
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="类别号" v-bind="validateInfos.code">
-              <InputWrap v-model:value="dataItem.code" :maxlength="4" />
+              <InputWrap v-model:value="dataItem.code" :maxlength="4" :readonly="mode === 1" />
             </a-form-item>
           </a-col>
         </a-row>
@@ -19,7 +19,7 @@
     </a-form>
 
     <!-- 修改信息 -->
-    <OperationInfoPanel v-if="dataItem.id" />
+    <OperationInfoPanel v-if="dataItem.id" :data="dataItem" />
 
     <!-- 操作 -->
     <template #footer-block>
@@ -29,7 +29,7 @@
       <a-button v-if="readonly" type="primary" @click="onEditPage">
         编辑
       </a-button>
-      <a-button v-if="!readonly" type="primary" @click="onSavePage">
+      <a-button v-if="!readonly" type="primary" :loading="loading" @click="onSavePage">
         保存
       </a-button>
     </template>
@@ -42,6 +42,8 @@ import { dataPageMix } from "/@/lib/idata/data-page/"
 import { SubjectCategory } from "/@/api/book-manage/subject-category"
 import { formRules } from "./data-page"
 import service from "/@/api/book-manage/subject-category"
+import { assign } from "lodash-es"
+import { message } from "ant-design-vue"
 
 export default defineComponent({
   setup() {
@@ -49,33 +51,38 @@ export default defineComponent({
     const rules = reactive(formRules)
     const onServerMethods = { onNewData, onSaveData, onLoadDataById }
     const parameter = { rules, dataItem, onServerMethods }
-    const { pageInfo, onDataMethods, validateInfos } = dataPageMix<SubjectCategory>(parameter)
+    const { pageInfo, onDataMethods, validateInfos, loading } = dataPageMix<SubjectCategory>(
+      parameter
+    )
     const { mode, readonly } = toRefs(pageInfo)
 
     // 通过ID加载数据
     async function onLoadDataById(id: number) {
-      console.log(id, "onLoadDataById")
+      try {
+        const { data } = await service.getItemById(id)
+        assign(dataItem, data)
+      } catch (err) {
+        message.error(`数据加载失败: ${err.msg}`)
+      }
     }
 
     // 保存数据
     async function onSaveData(id: number) {
-      console.log(id, "onSaveData")
+      const { data } = await service.updateItem(id, dataItem)
+      assign(dataItem, data)
     }
 
     // 新增数据
-    async function onNewData(success: (data: SubjectCategory) => void, fail: () => void) {
-      try {
-        const { data } = await service.saveNewItem(dataItem)
-        success(data)
-      } catch (err) {
-        fail()
-      }
+    async function onNewData() {
+      const { data } = await service.saveNewItem(dataItem)
+      assign(dataItem, data)
     }
 
     return {
       mode,
       readonly,
       dataItem,
+      loading,
       validateInfos,
       ...onDataMethods
     }

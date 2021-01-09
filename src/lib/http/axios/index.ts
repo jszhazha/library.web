@@ -39,9 +39,18 @@ export default function request<T extends Result>(requestConfig: AxiosRequestCon
       }
 
     }).catch((err) => {
+      console.log()
+      if (err.message === 'Network Error') {
+        let error: ResponseError = {
+          code: 504,
+          msg: '网络暂时无法连接，请稍后再试'
+        }
+        reject(error)
+        return
+      }
 
       const message = checkRequestErrorMessage(err.response.status)
-      
+
       let error: ResponseError = {
         code: err.response.code,
         msg: message!

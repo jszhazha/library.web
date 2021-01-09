@@ -1,62 +1,85 @@
 <template>
-  <GlobalCard title="操作信息" class="operation">
-    <a-row :gutter="[12, 48]">
-      <a-col :offset="2" class="index-middle">
-        <UserOutlined class="operation-icon" />
-        <div class="operation-title">
-          创建人
+  <GlobalCard :title="title">
+    <div class="operation">
+      <div class="operation-left">
+        <div class="index-middle operation-box">
+          <UserOutlined class="operation-icon" />
+          <div class="operation-title">
+            创建者
+          </div>
+          <div>{{ data.createBy }}</div>
         </div>
-        <div>admin</div>
-      </a-col>
-      <a-col :offset="3" class="index-middle">
-        <CalendarOutlined class="operation-icon" />
-        <div class="operation-title">
-          创建时间
+        <div class="index-middle operation-box">
+          <UserOutlined class="operation-icon" />
+          <div class="operation-title">
+            更新者
+          </div>
+          <div>{{ data.updateBy }}</div>
         </div>
-        <div>2010-12-21</div>
-      </a-col>
-    </a-row>
-    <a-row :gutter="[12, 48]">
-      <a-col :offset="2" class="index-middle">
-        <UserOutlined class="operation-icon" />
-        <div class="operation-title">
-          创建人
+      </div>
+      <div class="operation-right">
+        <div class="index-middle operation-box">
+          <CalendarOutlined class="operation-icon" />
+          <div class="operation-title">
+            创建时间
+          </div>
+          <div>{{ useMoment(data.createTime) }}</div>
         </div>
-        <div>admin</div>
-      </a-col>
-      <a-col :offset="3" class="index-middle">
-        <CalendarOutlined class="operation-icon" />
-        <div class="operation-title">
-          创建时间
+        <div class="index-middle operation-box">
+          <CalendarOutlined class="operation-icon" />
+          <div class="operation-title">
+            更新时间
+          </div>
+          <div>{{ useMoment(data.updateTime) }}</div>
         </div>
-        <div>2010-12-21</div>
-      </a-col>
-    </a-row>
+      </div>
+    </div>
   </GlobalCard>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue"
 import { UserOutlined, CalendarOutlined } from "@ant-design/icons-vue"
+import { useMoment } from "/@/utils/dateFormat"
 
 export default defineComponent({
   components: { UserOutlined, CalendarOutlined },
   props: {
     title: {
       type: String,
-      default: ""
+      default: "操作信息"
+    },
+    data: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
+  },
+  setup() {
+    return { useMoment }
   }
 })
 </script>
 
-
 <style lang="less" scoped>
 .operation {
-  padding: 16px 0 32px;
+  display: flex;
+
+  &-left {
+    margin: 0 0 0 80px;
+  }
+
+  &-right {
+    margin: 0 0 0 80px;
+  }
+
+  &-box {
+    padding: 10px 0 10px;
+  }
 
   &-title {
-    margin: 0 0 0 20px;
+    margin: 0 0 0 15px;
   }
 
   &-title::after {

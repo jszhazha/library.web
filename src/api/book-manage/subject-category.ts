@@ -41,8 +41,25 @@ export default class Service {
     })
   }
 
+  // 通过ID取得数据
+  static getItemById(id: number): Promise<Result<SubjectCategory>> {
+    return request<Result<SubjectCategory>>({
+      url: '/api/book-category/' + id,
+      method: 'get'
+    })
+  }
+
+  // 更新数据到远程服务器
+  static updateItem(id: number, item: SubjectCategory): Promise<Result<SubjectCategory>> {
+    return request<Result<SubjectCategory>>({
+      url: '/api/book-category/' + id,
+      method: 'put',
+      data: item
+    })
+  }
+
   // 删除指定ID的数据
-  static deleteItemByIds (ids: Array<number>): Promise<Result<null>> {
+  static deleteItemByIds(ids: Array<number>): Promise<Result<null>> {
     return request<Result<null>>({
       url: '/api/book-category',
       method: 'delete',

@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import type { CreateStorage } from "/@/utils/storage/Storage"
 import type { FromRules } from '/@/lib/interface/From'
-import { unref, onBeforeUnmount, onMounted, watch, reactive, toRef } from "vue"
+import { unref, onBeforeUnmount, onMounted, watch, reactive, toRef, ref } from "vue"
 import { provideDataPage } from './methods/useDepend'
 import { checkCacheData, cacheData } from './methods/cacheData'
 import { checkDataRouter, QueryRoute } from './methods/dataRouter'
@@ -9,7 +9,7 @@ import { createStorage } from "/@/utils/storage/"
 import { PageMode } from "/@/utils/helper/breadcrumb"
 import { useForm } from "@ant-design-vue/use"
 import { useRouter } from "vue-router"
-import { assign } from 'lodash-es'
+import { assign, cloneDeep, isEqual } from 'lodash-es'
 import useToast from "/@/components/Toast"
 
 
@@ -35,6 +35,9 @@ interface DataPageMix {
 
   // 检测消息
   validateInfos: unknown
+
+  // 保存加载
+  loading: Ref<boolean>
 }
 
 interface DataPageMixParameter<T> {
@@ -47,7 +50,7 @@ interface DataPageMixParameter<T> {
   // 请求服务器方法
   onServerMethods: {
     // 新增数据
-    onNewData: (success: (data: T) => void, fail: () => void) => Promise<void>
+    onNewData: () => Promise<void>
 
     // 保存数据
     onSaveData: (id: number) => Promise<void>
@@ -117,11 +120,14 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
   // 获取方法 当前路由
   const { replace, currentRoute } = useRouter()
 
+  // 原始数据
+  let cacheData = {}
+
   // 获取当前页面 查询条件
   const { query, name } = unref(currentRoute)
 
-  // 获取 对话框 实例
-  // const toast = useToast()
+  // 保存按键加载
+  const loading = ref<boolean>(false)
 
   // 规则 key 数组
   const ruleKeys: string[] = Object.keys(rules)
@@ -143,12 +149,22 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
   })
 
 
+  /**
+   * 设置元素数据
+   */
+  const setCacheData = () => {
+    cacheData = cloneDeep(dataItem)
+  }
+
+
+
   // 设置缓存
   const storage = createStorage(sessionStorage)
 
   // 以 id 加载数据
   const onLoadDataById = async () => {
     await onServerMethods.onLoadDataById(parseInt(pageInfo.query.id!))
+    setCacheData()
   }
 
   // 页面为查看模式, 输入框 设置为只读模式
@@ -201,27 +217,41 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
    * 页面点击保存触发的函数
    */
   const onSavePage = async () => {
+    if (!await validItem()) return
+
+    try {
+      loading.value = true
+      if (pageInfo.mode === PageMode.new) {
+        await onServerMethods.onNewData()
+        pageInfo.mode = PageMode.edit
+        replace({ query: { mode: PageMode[PageMode.edit], id: dataItem.id } })
+      } else if (pageInfo.mode === PageMode.edit && !isEqual(dataItem, cacheData)) {
+        await onServerMethods.onSaveData(parseInt(pageInfo.query.id!))
+      } else {
+        return
+      }
+      setCacheData()
+    } catch (err) {
+      useToast.error(err.msg)
+    } finally {
+      loading.value = false
+    }
+
+  }
+
+  /**
+   * 检查数据
+   */
+  const validItem = async (): Promise<boolean> => {
     try {
       await validate()
-      if (pageInfo.mode === PageMode.new) {
-        await onServerMethods.onNewData((data: T) => {
-          // 成功调用
-          assign(dataItem, data)
-          pageInfo.mode = PageMode.edit
-          replace({ query: { mode: PageMode[PageMode.edit], id: dataItem.id } })
-        }, () => {
-          // 失败调用
-        })
-      } else if (pageInfo.mode === PageMode.edit) {
-        await onServerMethods.onSaveData(parseInt(pageInfo.query.id!))
-      }
+      return true
     } catch (err) {
       useToast.clear()
       useToast.error('数据校验失败，请检查！')
+      return false
     }
   }
-
-  //  push({ query: { mode: PageMode[PageMode.edit] } })
 
   /**
    * 注入依赖
@@ -240,8 +270,5 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
   }
 
 
-  // console.log(dataItem)
-  // storage.set(name as string, dataItem)
-
-  return { onDataMethods, pageInfo, validateInfos }
+  return { onDataMethods, pageInfo, validateInfos, loading }
 }

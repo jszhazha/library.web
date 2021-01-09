@@ -181,10 +181,12 @@ export default defineComponent({
 
 .full-screen {
   position: fixed;
+  z-index: 1000;
   width: 100% !important;
   height: 100% !important;
   margin: 0;
   border-radius: 0;
+  
 }
 
 .footer {

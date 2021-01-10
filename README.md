@@ -1,4 +1,4 @@
-# [智能图书馆信息系统](http://library.tibis.top/)
+# 智能图书馆信息系统
 
 > 智能图书馆信息系统基于人脸识别技术,实现提高图书馆管理的人性化,智能化，高效性。应用与图书馆门禁管理，借阅管理，座位管理等方面，有助于实现读者与图书馆系统的精准交互。
 
@@ -6,6 +6,13 @@
 
 # 前言
 > 你的本地环境需要安装 npm(yarn)、node 和 git
+
+
+# 演示地址
+[https://library.tibis.top/](https://library.tibis.top/)
+
+# 后端仓库
+[https://github.com/Abouerp/web-library](https://github.com/Abouerp/web-library)
 
 ## 启动项目
 `npm insert (yarn)`

@@ -33,6 +33,9 @@ export interface LoginRecord {
   // 登陆状态
   status?: string
 
+  // 描述
+  description?: string
+
   // 创建时间
   createTime?: string
 

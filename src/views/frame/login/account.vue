@@ -32,6 +32,10 @@
       登录
     </GlobalButton>
     <div class="login-account-link">
+      <router-link to="/login">
+        注册
+      </router-link>
+      <a-divider type="vertical" />
       <router-link :to="{ name: 'reset-password' }">
         忘记密码
       </router-link>
@@ -66,9 +70,7 @@ export default defineComponent({
     const onButtonClick = (event: MouseEvent) => handleUserLogin(event.offsetX, event.offsetY)
 
     async function handleUserLogin(x?: number, y?: number) {
-      if (!formData.username || !formData.password) {
-        return
-      }
+      if (!formData.username || !formData.password) return
       buttonInstance.value?.startAnimation(x, y)
       try {
         const userInfo = await userStore.login(formData)

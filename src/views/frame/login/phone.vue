@@ -58,7 +58,7 @@ export default defineComponent({
 
     // 输入电话失去焦点
     const onPhoneBlur = () => {
-      if (validData({ data: formData.phone, rule: "telephone" })) {
+      if (!formData.phone || validData({ data: formData.phone, rule: "telephone" })) {
         error.phone = false
       } else {
         error.phone = true

@@ -196,12 +196,18 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
    * 页面点击重置触发的函数
    */
   const onRestPage = () => {
-    Object.keys(dataItem).forEach(key => {
-      if (!ruleKeys.includes(key)) {
-        (dataItem as any)[key] = ''
-      }
-    })
-    resetFields()
+    if (pageInfo.mode === PageMode.new) {
+      Object.keys(dataItem).forEach(key => {
+        if (!ruleKeys.includes(key)) {
+          (dataItem as any)[key] = ''
+        }
+      })
+      resetFields()
+    } else if (pageInfo.mode === PageMode.edit) {
+      assign(dataItem, cacheData)
+    }
+
+
   }
 
   /**

@@ -28,7 +28,7 @@ const routers: AppRouteModule = {
     {
       path: "operate-record-list-page",
       name: 'operate-record-list-page',
-      component: (): unknown => import(`/@/views/pages/system-manage/user-manage/data-list/list-page.vue`),
+      component: (): unknown => import(`/@/views/pages/record-manage/operate-record/list-page.vue`),
       meta: {
         title: '操作日志'
       }

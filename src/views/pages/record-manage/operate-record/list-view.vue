@@ -10,9 +10,9 @@
       {{ useFromatlll(record.createTime) }}
     </template>
 
-    <template #action>
+    <template #action="{ record }">
       <div class="index-operation">
-        <span>详情</span>
+        <span @click="onDetailsDataItem(record)">详情</span>
       </div>
     </template>
 
@@ -26,33 +26,44 @@
       <PaginationWrap v-model:current="current" :total="totalElements" @change="onPageChange" />
     </template>
   </TableList>
+  <modal-details v-model:visible="dataDetails.visible" />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue"
+import { defineComponent, reactive, ref } from "vue"
 import { tableColumns } from "./data-list"
-import { BookInfo } from "/@/api/book-manage/book-info"
+import { OperatorRecord } from "/@/api/operator-record"
 import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
 import { useFromatlll } from "/@/utils/dateFormat"
 import { usePagination } from "/@/hooks/web/usePagination"
 import { queryModule } from "/@/utils/regExp"
+import modalDetails from "./components/modal-details.vue"
 
 export default defineComponent({
+  components: { modalDetails },
   emits: ["on-page-change", "on-refresh"],
   setup(_props, { emit }) {
     // 数据源
-    const dataSource = ref<BookInfo[]>([])
+    const dataSource = ref<OperatorRecord[]>([])
 
     // 总数据
     const totalElements = ref<number>(0)
 
+    // 对话框
+    const dataDetails = reactive<{visible:boolean,dataItem?:OperatorRecord}>({visible:false})
+
+
+    // 详情数据
+    // const detailsDataItem = 
+
     // 页面方法
-    const listPage = injectListPage<BookInfo>()
+    const listPage = injectListPage<OperatorRecord>()
 
     // 数据加载
     const loading = listPage.loading
 
-    const { current, setPagination, getPagination } = usePagination()
+    // 分页方法
+    const pagination = usePagination()
 
     // 页面发生变化
     const onPageChange = () => emit("on-page-change")
@@ -60,23 +71,29 @@ export default defineComponent({
     // 处理刷新
     const onRefresh = () => emit("on-refresh")
 
+    // 对话框处理
+    const onDetailsDataItem = (record: OperatorRecord) => {
+      console.log(record)
+      dataDetails.visible = true
+    }
+
     return {
       loading,
-      current,
       dataSource,
+      dataDetails,
       queryModule,
-      setPagination,
-      getPagination,
+      ...pagination,
       totalElements,
       tableColumns,
       useFromatlll,
+      onRefresh,
       onPageChange,
-      onRefresh
+      onDetailsDataItem
     }
   },
   methods: {
     // 设置数据源
-    setDataSource(data: BookInfo[], total: number) {
+    setDataSource(data: OperatorRecord[], total: number) {
       this.dataSource = data
       this.totalElements = total
     }

@@ -2,6 +2,13 @@ import type { TableColumn } from '/@/lib/props/TableList'
 
 export const tableColumns: TableColumn[] = [
   {
+    title: '日志编号',
+    dataIndex: 'id',
+    align: 'center',
+    width: 90,
+    ellipsis: true
+  },
+  {
     title: '操作人员',
     dataIndex: 'username',
     align: 'center',
@@ -59,12 +66,6 @@ export const tableColumns: TableColumn[] = [
 
   },
   {
-    title: '操作信息',
-    dataIndex: 'description',
-    align: 'center',
-    ellipsis: true
-  },
-  {
     title: '操作日期',
     dataIndex: 'createTime',
     align: 'center',
@@ -80,6 +81,6 @@ export const tableColumns: TableColumn[] = [
     width: 100,
     slots: { customRender: 'action' }
   }
-  
+
 
 ]

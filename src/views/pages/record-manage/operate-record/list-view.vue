@@ -26,7 +26,7 @@
       <PaginationWrap v-model:current="current" :total="totalElements" @change="onPageChange" />
     </template>
   </TableList>
-  <modal-details v-model:visible="dataDetails.visible" />
+  <modal-details v-model:visible="dataDetails.visible" :data="dataDetails.dataItem" />
 </template>
 
 <script lang="ts">
@@ -75,6 +75,7 @@ export default defineComponent({
     const onDetailsDataItem = (record: OperatorRecord) => {
       console.log(record)
       dataDetails.visible = true
+      dataDetails.dataItem = record
     }
 
     return {

@@ -12,8 +12,8 @@ export interface OperatorRecord {
   // ip
   ip?: string
 
-  // 国家
-  httpMethod?: 'get' | 'post' | 'put' | 'delete'
+  // 方法
+  httpMethod?: string
 
   // 参数
   param?: string

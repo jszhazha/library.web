@@ -23,6 +23,14 @@ export const tableColumns: TableColumn[] = [
     ellipsis: true
   },
   {
+    title: '系统模块',
+    dataIndex: 'systemModule',
+    align: 'center',
+    width: 100,
+    ellipsis: true,
+    slots: { customRender: 'systemModule' }
+  },
+  {
     title: '响应时间',
     dataIndex: 'executionTime',
     align: 'center',

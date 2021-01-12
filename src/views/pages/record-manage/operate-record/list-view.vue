@@ -15,6 +15,13 @@
         <span>详情</span>
       </div>
     </template>
+
+    <template #systemModule="{ record }">
+      <div>
+        {{ queryModule(record.path) }}
+      </div>
+    </template>
+
     <template #footer-right>
       <PaginationWrap v-model:current="current" :total="totalElements" @change="onPageChange" />
     </template>
@@ -28,6 +35,7 @@ import { BookInfo } from "/@/api/book-manage/book-info"
 import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
 import { useFromatlll } from "/@/utils/dateFormat"
 import { usePagination } from "/@/hooks/web/usePagination"
+import { queryModule } from "/@/utils/systemMoudle"
 
 export default defineComponent({
   emits: ["on-page-change", "on-refresh"],
@@ -55,9 +63,10 @@ export default defineComponent({
     return {
       loading,
       current,
+      dataSource,
+      queryModule,
       setPagination,
       getPagination,
-      dataSource,
       totalElements,
       tableColumns,
       useFromatlll,

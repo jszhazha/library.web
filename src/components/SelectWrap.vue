@@ -4,18 +4,14 @@
     class="select-wrap"
     :disabled="selectReadonly"
     :placeholder="selectReadonly ? '' : placeholder"
-    :filter-option="false"
-    :loading="loading"
     @change="onChange"
-    @search="onSearch"
   >
     <slot />
   </a-select>
 </template>
 
 <script lang="ts">
-import { ref, Ref } from "vue"
-import { debounce } from "lodash-es"
+import type { Ref } from "vue"
 import { defineComponent, PropType, computed, toRefs } from "vue"
 import { injectDatapage } from "/@/lib/idata/data-page/methods/useDepend"
 
@@ -41,29 +37,14 @@ export default defineComponent({
       default: "请输入"
     }
   },
-  emits: ["update:value", "on-search"],
+  emits: ["update:value"],
   setup(props, { emit }) {
     const { readonly } = toRefs(props)
-    const loading = ref<boolean>(false)
 
     // 内容发送变化触发
     const onChange = (_value: string, { key }: { key: number }) => {
       emit("update:value", key)
     }
-
-    // 设置加载
-    const setLoadState = (state: boolean) => (loading.value = state)
-
-    // 处理加载
-    const onSearch = (value: string) => {
-      setLoadState(true)
-      useDebugger(value)
-    }
-
-    const useDebugger = debounce(
-      (value: string) => emit("on-search", value, () => setLoadState(false)),
-      1000
-    )
 
     const selectReadonly = useSelectReadonly(readonly)
 
@@ -77,7 +58,7 @@ export default defineComponent({
     //   { immediate: true }
     // )
 
-    return { selectReadonly, loading, onChange, onSearch }
+    return { selectReadonly, onChange }
   }
 })
 </script>

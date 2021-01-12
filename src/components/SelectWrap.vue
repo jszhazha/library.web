@@ -1,5 +1,6 @@
 <template>
   <a-select
+    :value="value"
     show-search
     class="select-wrap"
     :disabled="selectReadonly"

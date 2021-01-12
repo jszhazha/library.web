@@ -4,7 +4,7 @@
       <GlobalCard title="基本信息">
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="题名" v-bind="validateInfos.name">
+            <a-form-item label="书名" v-bind="validateInfos.name">
               <InputWrap v-model:value="dataItem.name" />
             </a-form-item>
           </a-col>
@@ -16,37 +16,32 @@
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="语种">
-              <InputWrap />
-            </a-form-item>
-          </a-col>
-          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="价格">
-              <InputWrap />
+              <InputWrap v-model:value="dataItem.price" />
             </a-form-item>
           </a-col>
-        </a-row>
-        <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="出版社">
-              <InputWrap v-model:value="dataItem.press" />
-            </a-form-item>
-          </a-col>
-          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="学科类别">
-              <SubjectCategorySearchSelect v-model:value="dataItem.sunID" />
+              <InputWrap v-model:value="dataItem.publisher" />
             </a-form-item>
           </a-col>
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="出版时间">
-              <InputWrap />
+            <a-form-item label="学科类别">
+              <SubjectCategorySearchSelect v-model:value="dataItem.bookCategoryId" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
+            <a-form-item label="出版时间">
+              <InputWrap v-model:value="dataItem.publicationTime" />
+            </a-form-item>
+          </a-col>
+        </a-row>
+        <a-row>
+          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="国际标准书号">
-              <InputWrap />
+              <InputWrap v-model:value="dataItem.isbn" />
             </a-form-item>
           </a-col>
         </a-row>
@@ -54,10 +49,10 @@
     </a-form>
 
     <!-- 馆藏信息 -->
-    <hold-info />
+    <hold-info v-if="dataItem.id" />
 
     <!-- 修改信息 -->
-    <OperationInfoPanel />
+    <OperationInfoPanel v-if="dataItem.id" :data="dataItem" />
 
     <!-- 操作 -->
     <template #footer-block>
@@ -84,7 +79,7 @@ import holdInfo from "./hold-lnfo.vue"
 export default defineComponent({
   components: { holdInfo },
   setup() {
-    const dataItem = reactive<BookInfo>({})
+    const dataItem = reactive<BookInfo>({ bookCategoryId: 3 })
     const rules = reactive(formRules)
     const onServerMethods = { onNewData, onSaveData, onLoadDataById }
     const parameter = { rules, dataItem, onServerMethods }

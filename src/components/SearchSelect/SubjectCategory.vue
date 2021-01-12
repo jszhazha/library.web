@@ -1,6 +1,6 @@
 <template>
-  <SelectWrap>
-    <a-select-option v-for="item in options" :key="item.id" :value="`${item.name} ${item.code}`">
+  <SelectWrap :value="value">
+    <a-select-option v-for="item in options" :key="item.id" :value="`${item.id} ${item.name}`">
       {{ item.name }} ({{ item.code }})
     </a-select-option>
   </SelectWrap>

@@ -35,7 +35,7 @@ import { BookInfo } from "/@/api/book-manage/book-info"
 import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
 import { useFromatlll } from "/@/utils/dateFormat"
 import { usePagination } from "/@/hooks/web/usePagination"
-import { queryModule } from "/@/utils/systemMoudle"
+import { queryModule } from "/@/utils/regExp"
 
 export default defineComponent({
   emits: ["on-page-change", "on-refresh"],

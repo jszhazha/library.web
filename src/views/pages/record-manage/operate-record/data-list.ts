@@ -6,7 +6,6 @@ export const tableColumns: TableColumn[] = [
     dataIndex: 'username',
     align: 'center',
     ellipsis: true
-
   },
   {
     title: '主机',
@@ -26,7 +25,7 @@ export const tableColumns: TableColumn[] = [
     title: '系统模块',
     dataIndex: 'systemModule',
     align: 'center',
-    width: 100,
+    width: 150,
     ellipsis: true,
     slots: { customRender: 'systemModule' }
   },
@@ -58,6 +57,12 @@ export const tableColumns: TableColumn[] = [
     ellipsis: true,
     width: 90
 
+  },
+  {
+    title: '操作信息',
+    dataIndex: 'description',
+    align: 'center',
+    ellipsis: true
   },
   {
     title: '操作日期',

@@ -1,6 +1,10 @@
 <template>
-  <SelectWrap @on-search="handleSearch">
-    <a-select-option v-for="item in options" :key="item.id" :value="item.name">
+  <SelectWrap @on-change="handleChange">
+    <a-select-option
+      v-for="item in options"
+      :key="item.id"
+      :value="item.name + item.code"
+    >
       {{ item.name }} ({{ item.code }})
     </a-select-option>
   </SelectWrap>
@@ -14,7 +18,14 @@ import { defineComponent, ref } from "vue"
 import service, { SubjectCategory } from "/@/api/book-manage/subject-category"
 
 export default defineComponent({
-  setup() {
+  props: {
+    value: {
+      type: Number,
+      default: undefined
+    }
+  },
+  emits: ["update:value"],
+  setup(_props, { emit }) {
     const options = ref<SubjectCategory[]>([])
 
     // 加载数据
@@ -29,18 +40,17 @@ export default defineComponent({
 
     // 使用 loadData
     async function useLoadData(params = {}) {
-      await loadData(assign({ page: 0, size: 10, sort: "" }, params))
+      await loadData(assign({ page: 0, size: 1000, sort: "" }, params))
     }
 
-    // 处理搜索
-    async function handleSearch(value: string, callback: () => void) {
-      await useLoadData(value ? { name: value } : {})
-      callback()
+    // 内容改变
+    function handleChange(key: number) {
+      emit("update:value", key)
     }
 
     useLoadData()
 
-    return { options, handleSearch }
+    return { options, handleChange }
   }
 })
 </script>

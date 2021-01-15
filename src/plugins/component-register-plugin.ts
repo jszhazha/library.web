@@ -9,6 +9,7 @@ import TableList from '/@/components/TableList/index.vue'
 import ImportModal from '/@/components/ImportModal.vue'
 import DownOutButton from '/@/components/DownOutButton.vue'
 import InputWrap from '/@/components/InputWrap.vue'
+import TextareaWrap from '/@/components/TextareaWrap.vue'
 import PublicHeader from '/@/components/PublicHeader/index'
 import Icon from '/@/components/Icon'
 import SelectWrap from '/@/components/SelectWrap.vue'
@@ -25,6 +26,7 @@ export default class ComponentRegisterPlugin {
     app.component("OperationInfoPanel", OperationInfoPanel).component('DownOutButton', DownOutButton)
     app.component("SelectWrap", SelectWrap).component("PaginationWrap", PaginationWrap)
     app.component('SubjectCategorySearchSelect', SubjectCategorySearchSelect)
+    app.component('TextareaWrap', TextareaWrap)
 
   }
 }

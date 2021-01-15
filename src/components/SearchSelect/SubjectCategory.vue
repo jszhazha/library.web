@@ -45,6 +45,7 @@ export default defineComponent({
 
     // 内容改变
     function handleChange(key: number) {
+      console.log(typeof key)
       emit("update:value", key)
     }
 

@@ -73,7 +73,6 @@ export default defineComponent({
 
     // 对话框处理
     const onDetailsDataItem = (record: OperatorRecord) => {
-      console.log(record)
       dataDetails.visible = true
       dataDetails.dataItem = record
     }

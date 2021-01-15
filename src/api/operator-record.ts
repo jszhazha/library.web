@@ -1,7 +1,4 @@
-import type {
-  PagerQueryData,
-  PagerResponseData
-} from "/@/lib/http/axios/types"
+import type { PagerQueryData, PagerResponseData } from "/@/lib/http/axios/types"
 import request from "/@/lib/http/axios/"
 
 export interface OperatorRecord {

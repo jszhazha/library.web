@@ -1,3 +1,6 @@
+import type { Result, PagerQueryData, PagerResponseData } from "/@/lib/http/axios/types"
+import request from "/@/lib/http/axios/"
+
 export interface BookInfo {
   // 主键
   id?: number;
@@ -28,4 +31,57 @@ export interface BookInfo {
 
   // 学科分类 ID
   bookCategoryId?: number
+}
+
+
+
+/**
+ * 分页结果定义
+ */
+export type DataPager = PagerResponseData<BookInfo>
+
+export default class Service {
+  // 向服务查询数据并分页返回结果
+  static fecthList(query?: PagerQueryData): Promise<DataPager> {
+    return request<DataPager>({
+      url: "/api/book",
+      method: "get",
+      params: query
+    })
+  }
+
+  // 保存数据到远程服务器
+  static saveNewItem(item: BookInfo): Promise<Result<BookInfo>> {
+    return request<Result<BookInfo>>({
+      url: "/api/book",
+      method: "post",
+      data: item
+    })
+  }
+
+  // 通过ID取得数据
+  static getItemById(id: number): Promise<Result<BookInfo>> {
+    return request<Result<BookInfo>>({
+      url: "/api/book/" + id,
+      method: "get"
+    })
+  }
+
+  // 更新数据到远程服务器
+  static updateItem(id: number, item: BookInfo): Promise<Result<BookInfo>> {
+    return request<Result<BookInfo>>({
+      url: "/api/book/" + id,
+      method: "put",
+      data: item
+    })
+  }
+
+  // 删除指定ID的数据
+  static deleteItemByIds(id: number): Promise<Result<null>> {
+    return request<Result<null>>({
+      url: "/api/book",
+      method: "delete",
+      data: id
+    })
+  }
 }

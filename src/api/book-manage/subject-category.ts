@@ -1,8 +1,4 @@
-import type {
-  Result,
-  PagerQueryData,
-  PagerResponseData
-} from "/@/lib/http/axios/types"
+import type { Result, PagerQueryData, PagerResponseData } from "/@/lib/http/axios/types"
 import request from "/@/lib/http/axios/"
 
 export interface SubjectCategory {
@@ -49,10 +45,7 @@ export default class Service {
   }
 
   // 更新数据到远程服务器
-  static updateItem(
-    id: number,
-    item: SubjectCategory
-  ): Promise<Result<SubjectCategory>> {
+  static updateItem(id: number, item: SubjectCategory): Promise<Result<SubjectCategory>> {
     return request<Result<SubjectCategory>>({
       url: "/api/book-category/" + id,
       method: "put",

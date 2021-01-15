@@ -1,35 +1,31 @@
-
-
 export interface BookInfo {
-
   // 主键
-  id?: number
+  id?: number;
 
-  // 题名
-  name?: string
+  // 编码
+  code?: string;
 
-  // 存放位置
-  locationInfo?: string
-
-  // 索书号
-  code?: string
-
-  // 学科分类
-  subjectCategory?: string
+  // 书名
+  name?: string;
 
   // 国际标准书号(ISBN)
-  isbn?: string
+  isbn?: string;
 
   // 作者
-  author?: string
+  author?: string;
 
   // 出版社
-  press?: string
+  publisher?: string;
 
-  // 总数量
-  count?: string
+  // 描述
+  description?: string;
 
-  // 在馆数量
-  number?: string
+  // 价格
+  price?: number;
 
+  // 出版时间
+  publicationTime?: string;
+
+  // 学科分类 ID
+  bookCategoryId?: number
 }

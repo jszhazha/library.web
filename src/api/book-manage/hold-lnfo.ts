@@ -1,17 +1,13 @@
-
-
-
 export interface HoldInfo {
-
   //  主键
-  id?: number
+  id?: number;
 
   // 索书号
-  number?: string
+  number?: string;
 
   // 存放位置
-  location?: string
+  location?: string;
 
   // 应还时间
-  time?: number
+  time?: number;
 }

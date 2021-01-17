@@ -163,8 +163,12 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
 
   // 以 id 加载数据
   const onLoadDataById = async () => {
-    await onServerMethods.onLoadDataById(parseInt(pageInfo.query.id!))
-    setCacheData()
+    try {
+      await onServerMethods.onLoadDataById(parseInt(pageInfo.query.id!))
+      setCacheData()
+    } catch (err) {
+      useToast.error(err.msg)
+    }
   }
 
   // 页面为查看模式, 输入框 设置为只读模式

@@ -54,7 +54,7 @@ export default defineComponent({
     // 删除数据
     const onDeleteDataItem = (record: SubjectCategory) => listPage.onDeleteDataItem(record)
 
-    const { current, setPagination, getPagination } = usePagination()
+    const pagination = usePagination()
 
     // 页面发生变化
     const onPageChange = () => emit("on-page-change")
@@ -64,10 +64,8 @@ export default defineComponent({
 
     return {
       loading,
-      current,
-      setPagination,
-      getPagination,
       dataSource,
+      ...pagination,
       totalElements,
       tableColumns,
       onRefresh,

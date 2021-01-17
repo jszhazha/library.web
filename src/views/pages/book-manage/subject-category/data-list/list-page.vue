@@ -12,7 +12,6 @@ import { defineComponent, reactive, toRefs } from "vue"
 import service, { SubjectCategory } from "/@/api/book-manage/subject-category"
 import { Instance } from "/@/lib/interface/ListPage"
 import { listPageMix } from "/@/lib/idata/data-list/"
-import { message } from "ant-design-vue"
 import searchPanle from "./search-panle.vue"
 import listView from "./list-view.vue"
 
@@ -45,12 +44,8 @@ export default defineComponent({
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
       const query = queryData()
-      try {
-        const { data } = await service.fecthList(query)
-        instance.listInstance?.setDataSource(data.content, data.totalElements)
-      } catch (err) {
-        message.error("数据获取失败")
-      }
+      const { data } = await service.fecthList(query)
+      instance.listInstance?.setDataSource(data.content, data.totalElements)
     }
 
     // 删除数据, 刷新数据

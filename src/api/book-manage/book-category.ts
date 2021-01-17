@@ -66,11 +66,10 @@ export default class Service {
   }
 
   // 删除指定ID的数据
-  static deleteItemByIds(ids: Array<number>): Promise<Result<null>> {
+  static deleteItemById(id: number): Promise<Result<null>> {
     return request<Result<null>>({
-      url: "/api/book-category",
-      method: "delete",
-      data: ids
+      url: "/api/book-category/" + id,
+      method: "delete"
     })
   }
 }

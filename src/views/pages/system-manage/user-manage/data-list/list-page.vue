@@ -48,8 +48,8 @@ export default defineComponent({
     }
 
     // 删除数据, 刷新数据
-    async function deleteDataFromServer(record: BookInfo) {
-      console.log(record)
+    async function deleteDataFromServer(id: number) {
+      console.log(id)
       onFetchData()
     }
 

@@ -26,11 +26,11 @@ interface DataPage<T> {
   onDeleteDataItem: (record: T) => void
 }
 
-interface Options<T> {
+interface Options {
   name: string
 
   // 从服务器删除数据
-  deleteDataFromServer: (record: T) => Promise<void>
+  deleteDataFromServer: (id: number) => Promise<void>
 
   // 数据加载
   loading: Ref<boolean>
@@ -45,7 +45,7 @@ interface Options<T> {
  * @description 页面跳转进入的函数
  * @param name dataPage 页面 name 名称
  */
-export function provideListPage<T extends { id?: number }>(options: Options<T>): void {
+export function provideListPage<T extends { id?: number }>(options: Options): void {
 
   const { name, deleteDataFromServer, loading } = options
 
@@ -73,7 +73,7 @@ export function provideListPage<T extends { id?: number }>(options: Options<T>):
       cancelText: '取消',
       onOk() {
         return new Promise(async (resolve) => {
-          await deleteDataFromServer(record)
+          await deleteDataFromServer(record.id!)
           resolve('')
         })
       }

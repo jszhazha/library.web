@@ -12,7 +12,7 @@ interface Options<T> {
   fetchDataFromServer: () => Promise<void>
 
   // 删除数据
-  deleteDataFromServer: (record: T) => Promise<void>
+  deleteDataFromServer: (id: number) => Promise<void>
 
   instance: Instance<T>
 }
@@ -20,7 +20,7 @@ interface Options<T> {
 
 interface onFetchData {
   // 刷新数据
-  onFetchData: () => void
+  onFetchData: () => Promise<void>
 
   // 搜索数据
   onSearchData: () => void

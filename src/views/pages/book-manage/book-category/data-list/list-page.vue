@@ -49,8 +49,9 @@ export default defineComponent({
     }
 
     // 删除数据, 刷新数据
-    async function deleteDataFromServer(record: BookCategory) {
-      console.log(record)
+    async function deleteDataFromServer(id: number) {
+      // await service.deleteItemByIds([id])
+      console.log(id)
       onFetchData()
     }
 

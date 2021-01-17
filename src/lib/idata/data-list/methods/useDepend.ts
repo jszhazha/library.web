@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { provide, inject, createVNode } from 'vue'
-import { Modal } from 'ant-design-vue'
+import { message, Modal } from 'ant-design-vue'
 import { useGo } from "/@/hooks/web/usePage"
 import { PageMode } from "/@/utils/helper/breadcrumb"
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
@@ -73,8 +73,15 @@ export function provideListPage<T extends { id?: number }>(options: Options): vo
       cancelText: '取消',
       onOk() {
         return new Promise(async (resolve) => {
-          await deleteDataFromServer(record.id!)
-          resolve('')
+          try {
+            await deleteDataFromServer(record.id!)
+          } catch (err) {
+            message.error(`数据删除失败: ${err.msg}`)
+          } finally {
+            resolve(true)
+          }
+
+
         })
       }
     })

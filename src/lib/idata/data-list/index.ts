@@ -2,6 +2,7 @@ import { PagerQueryData } from "/@/lib/http/axios/types"
 import { onMounted, ref } from 'vue'
 import { provideListPage } from './methods/useDepend'
 import { Instance } from "/@/lib/interface/ListPage"
+import { message } from "ant-design-vue"
 
 
 interface Options<T> {
@@ -48,9 +49,16 @@ export function listPageMix<T>(options: Options<T>): onFetchData {
    * 刷新数据
    */
   async function onFetchData(): Promise<void> {
-    loading.value = true
-    await fetchDataFromServer()
-    loading.value = false
+    try {
+      loading.value = true
+      await fetchDataFromServer()
+    } catch (err) {
+      message.error(`数据获取失败: ${err.msg}`)
+    } finally {
+      loading.value = false
+    }
+
+
   }
 
   /**

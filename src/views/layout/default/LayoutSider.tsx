@@ -58,7 +58,7 @@ export default defineComponent({
     // 处理打开菜单
     function handleOpenChange(openKeys: string[]): void {
       if (!menuStore.getCollapsedState) {
-        menuState.openKeys = openKeys.slice(-1)
+        menuState.openKeys = openKeys
       } else {
         menuState.collapsedOpenKeys = openKeys
       }

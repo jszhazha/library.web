@@ -15,7 +15,7 @@ import { listPageMix } from "/@/lib/idata/data-list/"
 import searchPanle from "./search-panle.vue"
 import listView from "./list-view.vue"
 
-const DATA_PAGE_NAME = "book-manage-subject-category-data-page"
+const DATA_PAGE_NAME = "book-manage-book-category-data-page"
 
 export default defineComponent({
   components: { listView, searchPanle },

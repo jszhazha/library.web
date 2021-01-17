@@ -1,7 +1,8 @@
 <template>
-  <a-input
+  <a-input-number
     v-model:value="inputValue"
-    class="input-wrap"
+    :min="0"
+    class="input-number-wrap"
     :disabled="inputReadonly"
     :placeholder="inputReadonly ? '' : placeholder"
     @change="onChange"
@@ -33,6 +34,13 @@ export default defineComponent({
     placeholder: {
       type: String,
       default: "请输入"
+    },
+    type: {
+      tpye: String,
+      default: "text",
+      validator: (v: string): boolean => {
+        return ["text", "number"].includes(v)
+      }
     }
   },
   emits: ["update:value"],
@@ -41,7 +49,12 @@ export default defineComponent({
     const { readonly } = toRefs(props)
 
     // 内容发送变化触发
-    const onChange = () => emit("update:value", inputValue.value)
+    const onChange = () => {
+      if (props.type === "number") {
+        inputValue.value = Number((inputValue.value as string).replace(/[^0-9]+/g, ""))
+      }
+      emit("update:value", inputValue.value)
+    }
 
     const inputReadonly = useinputReadonly(readonly)
 
@@ -60,8 +73,13 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.input-wrap[disabled] {
+.input-number-wrap {
+  width: 100%;
   color: rgba(0, 0, 0, 0.65);
   cursor: default;
+
+  ::v-deep(input) {
+    cursor: default;
+  }
 }
 </style>

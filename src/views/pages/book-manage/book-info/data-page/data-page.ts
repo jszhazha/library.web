@@ -57,7 +57,7 @@ export const formRules: FromRules = {
 
   author: [{ required: true, whitespace: true, message: '不允许为空' }],
 
-  price: [{ type: 'number', required: true, whitespace: true, message: '不允许为空' }],
+  price: [{ type: 'number', message: '格式不正确' }, { type: 'number', required: true, whitespace: true, message: '不允许为空' }],
 
   publisher: [{ required: true, whitespace: true, message: '不允许为空' }],
 

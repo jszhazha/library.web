@@ -22,7 +22,7 @@
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="价格" v-bind="validateInfos.price">
-              <InputWrap v-model:value="dataItem.price" type="number" />
+              <InputNumberWrap v-model:value="dataItem.price" />
             </a-form-item>
           </a-col>
         </a-row>
@@ -105,7 +105,7 @@ export default defineComponent({
     const rules = reactive(formRules)
     const onServerMethods = { onNewData, onSaveData, onLoadDataById }
     const parameter = { rules, dataItem, onServerMethods }
-    const { pageInfo, onDataMethods, validateInfos } = dataPageMix<BookInfo>(parameter)
+    const { pageInfo, onDataMethods, validateInfos, loading } = dataPageMix<BookInfo>(parameter)
     const { mode, readonly } = toRefs(pageInfo)
 
     // 通过ID加载数据
@@ -129,6 +129,7 @@ export default defineComponent({
 
     return {
       mode,
+      loading,
       readonly,
       dataItem,
       validateInfos,

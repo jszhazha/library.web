@@ -41,7 +41,7 @@ import { defineComponent, reactive, toRefs } from "vue"
 import { dataPageMix } from "/@/lib/idata/data-page/"
 import { BookCategory } from "/@/api/book-manage/book-category"
 import { formRules } from "./data-page"
-import service from "/@/api/book-manage/subject-category"
+import service from "/@/api/book-manage/book-category"
 import { assign } from "lodash-es"
 
 export default defineComponent({

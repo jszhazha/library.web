@@ -89,7 +89,7 @@ export const importColumns: TableColumn[] = [
   },
   {
     title: '学科类别',
-    dataIndex: 'subjectCategory',
+    dataIndex: 'bookCategory',
     align: 'center'
   },
   {

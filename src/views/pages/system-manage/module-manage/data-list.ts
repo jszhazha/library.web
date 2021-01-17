@@ -20,7 +20,7 @@ export const tableColumns: TableColumn[] = [
   },
   {
     title: '请求地址',
-    dataIndex: 'subjectCategory',
+    dataIndex: 'bookCategory',
     align: 'center',
     ellipsis: true
   },
@@ -68,7 +68,7 @@ export const importColumns: TableColumn[] = [
   },
   {
     title: '学科类别',
-    dataIndex: 'subjectCategory',
+    dataIndex: 'bookCategory',
     align: 'center'
   },
   {

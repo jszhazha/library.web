@@ -17,7 +17,7 @@ export const tableColumns: TableColumn[] = [
   },
   {
     title: '手机号码',
-    dataIndex: 'subjectCategory',
+    dataIndex: 'bookCategory',
     align: 'center',
     ellipsis: true
   },

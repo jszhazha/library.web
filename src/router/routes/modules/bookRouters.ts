@@ -9,7 +9,7 @@ const routers: AppRouteModule = {
     path: 'book-manage',
     name: 'book-manage',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: { name: 'subject-category-list-page' },
+    redirect: { name: 'book-category-list-page' },
     meta: {
       title: '图书管理',
       icon: 'ant-design:book-outlined'
@@ -18,18 +18,18 @@ const routers: AppRouteModule = {
 
   routes: [
     {
-      path: "subject-category-list-page",
-      name: 'subject-category-list-page',
-      component: (): unknown => import(`/@/views/pages/book-manage/subject-category/data-list/list-page.vue`),
+      path: "book-category-list-page",
+      name: 'book-category-list-page',
+      component: (): unknown => import(`/@/views/pages/book-manage/book-category/data-list/list-page.vue`),
       meta: {
         title: '学科类别'
 
       }
     },
     {
-      path: "subject-category-data-page",
-      name: 'subject-category-data-page',
-      component: (): unknown => import(`/@/views/pages/book-manage/subject-category/data-page/data-page.vue`),
+      path: "book-category-data-page",
+      name: 'book-category-data-page',
+      component: (): unknown => import(`/@/views/pages/book-manage/book-category/data-page/data-page.vue`),
       meta: {
         title: '学科类别详情',
         hideInMenu: true,

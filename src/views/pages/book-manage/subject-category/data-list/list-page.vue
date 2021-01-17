@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue"
-import service, { SubjectCategory } from "/@/api/book-manage/subject-category"
+import service, { BookCategory } from "/@/api/book-manage/book-category"
 import { Instance } from "/@/lib/interface/ListPage"
 import { listPageMix } from "/@/lib/idata/data-list/"
 import searchPanle from "./search-panle.vue"
@@ -21,7 +21,7 @@ export default defineComponent({
   components: { listView, searchPanle },
   setup() {
     // 实例
-    const instance = reactive<Instance<SubjectCategory>>({
+    const instance = reactive<Instance<BookCategory>>({
       // 搜索实例
       searchInstance: null,
       // 列表实例
@@ -39,7 +39,7 @@ export default defineComponent({
       instance
     }
 
-    const { onFetchData, onSearchData, queryData } = listPageMix<SubjectCategory>(options)
+    const { onFetchData, onSearchData, queryData } = listPageMix<BookCategory>(options)
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
@@ -49,7 +49,7 @@ export default defineComponent({
     }
 
     // 删除数据, 刷新数据
-    async function deleteDataFromServer(record: SubjectCategory) {
+    async function deleteDataFromServer(record: BookCategory) {
       console.log(record)
       onFetchData()
     }

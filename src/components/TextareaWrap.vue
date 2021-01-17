@@ -59,10 +59,13 @@ export default defineComponent({
 })
 </script>
 
-
 <style lang="less" scoped>
-.textarea-wrap[disabled] {
-  color: rgba(0, 0, 0, 0.65);
-  cursor: default;
+.textarea-wrap {
+  // min-width: 505.5px;
+
+  ::v-deep(.ant-input[disabled]) {
+    color: rgba(0, 0, 0, 0.65);
+    cursor: default;
+  }
 }
 </style>

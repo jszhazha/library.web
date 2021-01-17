@@ -1,5 +1,7 @@
 import type { Result, PagerQueryData, PagerResponseData } from "/@/lib/http/axios/types"
+import { BookCategory } from "./book-category"
 import request from "/@/lib/http/axios/"
+
 
 export interface BookInfo {
   // 主键
@@ -31,6 +33,21 @@ export interface BookInfo {
 
   // 学科分类 ID
   bookCategoryId?: number
+
+  // 学科分类
+  bookCategory?: BookCategory
+
+  // 创建者
+  createBy?: string
+
+  // 更新者
+  updateBy?: string
+
+  // 创建时间
+  createTime?: string
+
+  //更新时间
+  updateTime?: string
 }
 
 

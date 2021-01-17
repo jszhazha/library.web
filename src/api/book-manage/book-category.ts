@@ -1,7 +1,7 @@
 import type { Result, PagerQueryData, PagerResponseData } from "/@/lib/http/axios/types"
 import request from "/@/lib/http/axios/"
 
-export interface SubjectCategory {
+export interface BookCategory {
   //  主键
   id?: number;
 
@@ -10,12 +10,24 @@ export interface SubjectCategory {
 
   // 类别号
   code?: string;
+
+  // 创建者
+  createBy?: string
+
+  // 更新者
+  updateBy?: string
+
+  // 创建时间
+  createTime?: string
+
+  //更新时间
+  updateTime?: string
 }
 
 /**
  * 分页结果定义
  */
-export type DataPager = PagerResponseData<SubjectCategory>
+export type DataPager = PagerResponseData<BookCategory>
 
 export default class Service {
   // 向服务查询数据并分页返回结果
@@ -28,8 +40,8 @@ export default class Service {
   }
 
   // 保存数据到远程服务器
-  static saveNewItem(item: SubjectCategory): Promise<Result<SubjectCategory>> {
-    return request<Result<SubjectCategory>>({
+  static saveNewItem(item: BookCategory): Promise<Result<BookCategory>> {
+    return request<Result<BookCategory>>({
       url: "/api/book-category",
       method: "post",
       data: item
@@ -37,16 +49,16 @@ export default class Service {
   }
 
   // 通过ID取得数据
-  static getItemById(id: number): Promise<Result<SubjectCategory>> {
-    return request<Result<SubjectCategory>>({
+  static getItemById(id: number): Promise<Result<BookCategory>> {
+    return request<Result<BookCategory>>({
       url: "/api/book-category/" + id,
       method: "get"
     })
   }
 
   // 更新数据到远程服务器
-  static updateItem(id: number, item: SubjectCategory): Promise<Result<SubjectCategory>> {
-    return request<Result<SubjectCategory>>({
+  static updateItem(id: number, item: BookCategory): Promise<Result<BookCategory>> {
+    return request<Result<BookCategory>>({
       url: "/api/book-category/" + id,
       method: "put",
       data: item

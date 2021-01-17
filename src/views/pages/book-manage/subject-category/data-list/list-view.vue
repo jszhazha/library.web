@@ -28,7 +28,7 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue"
 import { tableColumns } from "./data-list"
-import { SubjectCategory } from "/@/api/book-manage/subject-category"
+import { BookCategory } from "/@/api/book-manage/book-category"
 import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
 import { usePagination } from "/@/hooks/web/usePagination"
 
@@ -36,23 +36,23 @@ export default defineComponent({
   emits: ["on-page-change", "on-refresh"],
   setup(_props, { emit }) {
     // 数据源
-    const dataSource = ref<SubjectCategory[]>([])
+    const dataSource = ref<BookCategory[]>([])
 
     // 总数据
     const totalElements = ref<number>(0)
 
-    const listPage = injectListPage<SubjectCategory>()
+    const listPage = injectListPage<BookCategory>()
 
     // 数据加载
     const loading = listPage.loading
     // 添加新的数据
     const onNewDataItem = () => listPage.onNewDataItem()
     // 查看数据
-    const onViewDataItem = (record: SubjectCategory) => listPage.onViewDataItem(record)
+    const onViewDataItem = (record: BookCategory) => listPage.onViewDataItem(record)
     // 编辑数据
-    const onEditDataItem = (record: SubjectCategory) => listPage.onEditDataItem(record)
+    const onEditDataItem = (record: BookCategory) => listPage.onEditDataItem(record)
     // 删除数据
-    const onDeleteDataItem = (record: SubjectCategory) => listPage.onDeleteDataItem(record)
+    const onDeleteDataItem = (record: BookCategory) => listPage.onDeleteDataItem(record)
 
     const pagination = usePagination()
 
@@ -78,7 +78,7 @@ export default defineComponent({
   },
   methods: {
     // 设置数据源
-    setDataSource(data: SubjectCategory[], total: number) {
+    setDataSource(data: BookCategory[], total: number) {
       this.dataSource = data
       this.totalElements = total
     }

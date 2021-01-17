@@ -19,18 +19,19 @@ export const tableColumns: TableColumn[] = [
     ellipsis: true
   },
   {
-    title: '学科类别',
-    dataIndex: 'subjectCategory',
-    align: 'center',
-    ellipsis: true
-  },
-  {
-    title: '语种',
-    dataIndex: 'language',
+    title: '编码',
+    dataIndex: 'code',
     align: 'center',
     width: 110,
     ellipsis: true
   },
+  {
+    title: '学科类别',
+    dataIndex: 'bookCategory.name',
+    align: 'center',
+    ellipsis: true
+  },
+
   {
     title: '国际标准书号',
     dataIndex: 'isbn',
@@ -39,7 +40,7 @@ export const tableColumns: TableColumn[] = [
   },
   {
     title: '出版社',
-    dataIndex: 'press',
+    dataIndex: 'publisher',
     align: 'center',
     ellipsis: true
   },

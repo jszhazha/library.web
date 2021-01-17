@@ -15,10 +15,11 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue"
-import { BookInfo } from "/@/api/book-manage/book-info"
+import service, { BookInfo } from "/@/api/book-manage/book-info"
 import { Instance } from "/@/lib/interface/ListPage"
 import { listPageMix } from "/@/lib/idata/data-list/"
 import { importColumns } from "./data-list"
+import { message } from "ant-design-vue"
 import searchPanle from "./search-panle.vue"
 import listView from "./list-view.vue"
 
@@ -39,7 +40,7 @@ export default defineComponent({
 
     // 配置信息
     const options = {
-      name:DATA_PAGE_NAME,
+      name: DATA_PAGE_NAME,
 
       fetchDataFromServer,
 
@@ -51,12 +52,17 @@ export default defineComponent({
     // 批量导入数据集合
     const importData = reactive<BookInfo[]>([])
 
-    const { onFetchData, onSearchData } = listPageMix<BookInfo>(options)
+    const { onFetchData, onSearchData, queryData } = listPageMix<BookInfo>(options)
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
-      // instance.listInstance?.setDataSource(data)
-      console.log(instance.searchInstance?.getCurQueryData())
+      const query = queryData()
+      try {
+        const { data } = await service.fecthList(query)
+        instance.listInstance?.setDataSource(data.content, data.totalElements)
+      } catch (err) {
+        message.error("数据获取失败:" + err.msg)
+      }
     }
 
     // 删除数据, 刷新数据

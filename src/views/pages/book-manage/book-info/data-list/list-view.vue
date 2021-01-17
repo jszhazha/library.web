@@ -1,5 +1,11 @@
 <template>
-  <TableList title="图书列表" download :loading="loading" :columns="tableColumns" :data-source="dataSource">
+  <TableList
+    title="图书列表"
+    download
+    :loading="loading"
+    :columns="tableColumns"
+    :data-source="dataSource"
+  >
     <template #header-left>
       <a-button @click="onBatchImport">
         批量导入
@@ -15,20 +21,29 @@
         <span @click="onDeleteDataItem(record)">删除</span>
       </div>
     </template>
+    <template #footer-right>
+      <PaginationWrap v-model:current="current" :total="totalElements" @change="onPageChange" />
+    </template>
   </TableList>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue"
+import { defineComponent, ref } from "vue"
 import { tableColumns } from "./data-list"
 import { BookInfo } from "/@/api/book-manage/book-info"
 import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
+import { usePagination } from "/@/hooks/web/usePagination"
 
 export default defineComponent({
-  setup() {
-    const dataSource = reactive<BookInfo[]>([])
-    const listPage = injectListPage<BookInfo>()
+  emits: ["on-page-change", "on-refresh"],
+  setup(_props, { emit }) {
+    // 数据源
+    const dataSource = ref<BookInfo[]>([])
 
+    // 总数据
+    const totalElements = ref<number>(0)
+
+    const listPage = injectListPage<BookInfo>()
 
     // 数据加载
     const loading = listPage.loading
@@ -40,8 +55,17 @@ export default defineComponent({
     const onEditDataItem = (record: BookInfo) => listPage.onEditDataItem(record)
     // 删除数据
     const onDeleteDataItem = (record: BookInfo) => listPage.onDeleteDataItem(record)
+    
+    // 页面发生变换
+    const pagination = usePagination()
 
-    // 批量导入
+    // 页面发生变化
+    const onPageChange = () => emit("on-page-change")
+
+    // 处理刷新
+    const onRefresh = () => emit("on-refresh")
+
+     // 批量导入
     function onBatchImport() {
       // emit("open-import-modal");
     }
@@ -49,7 +73,11 @@ export default defineComponent({
     return {
       loading,
       dataSource,
+      ...pagination,
+      totalElements,
       tableColumns,
+      onRefresh,
+      onPageChange,
       onBatchImport,
       onNewDataItem,
       onViewDataItem,
@@ -59,8 +87,9 @@ export default defineComponent({
   },
   methods: {
     // 设置数据源
-    setDataSource(data: BookInfo[]) {
+    setDataSource(data: BookInfo[], total: number) {
       this.dataSource = data
+      this.totalElements = total
     }
   }
 })

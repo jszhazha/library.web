@@ -1,9 +1,13 @@
 <template>
-  <a-input
+  <a-date-picker
     v-model:value="inputValue"
-    class="input-wrap"
+    class="date-picker-wrap"
     :disabled="inputReadonly"
+    :get-calendar-container="(triggerNode) => triggerNode.parentNode"
     :placeholder="inputReadonly ? '' : placeholder"
+    :value-format="'YYYY年MM月DD日'"
+    :format="'YYYY年MM月DD日'"
+    :show-today="false"
     @change="onChange"
   />
 </template>
@@ -23,8 +27,8 @@ const useinputReadonly = (readonly: Ref<boolean>) => {
 export default defineComponent({
   props: {
     value: {
-      type: [String, Number],
-      default: ""
+      type: String as PropType<string>,
+      default: undefined
     },
     readonly: {
       type: Boolean as PropType<boolean>,
@@ -33,27 +37,15 @@ export default defineComponent({
     placeholder: {
       type: String,
       default: "请输入"
-    },
-    type: {
-      tpye: String,
-      default: "text",
-      validator: (v: string): boolean => {
-        return ["text", "number"].includes(v)
-      }
     }
   },
   emits: ["update:value"],
   setup(props, { emit }) {
-    const inputValue = ref<string | number>("")
+    const inputValue = ref<string>("")
     const { readonly } = toRefs(props)
 
     // 内容发送变化触发
-    const onChange = () => {
-      if (props.type === "number") {
-        inputValue.value = Number((inputValue.value as string).replace(/[^0-9]+/g, ""))
-      }
-      emit("update:value", inputValue.value)
-    }
+    const onChange = () => emit("update:value", inputValue.value)
 
     const inputReadonly = useinputReadonly(readonly)
 
@@ -72,8 +64,12 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.input-wrap[disabled] {
-  color: rgba(0, 0, 0, 0.65);
-  cursor: default;
+.date-picker-wrap {
+  width: 100%;
+
+  ::v-deep(.ant-input[disabled]) {
+    color: rgba(0, 0, 0, 0.65);
+    cursor: default;
+  }
 }
 </style>

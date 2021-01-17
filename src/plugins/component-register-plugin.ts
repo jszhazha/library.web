@@ -14,7 +14,8 @@ import PublicHeader from '/@/components/PublicHeader/index'
 import Icon from '/@/components/Icon'
 import SelectWrap from '/@/components/SelectWrap.vue'
 import PaginationWrap from '/@/components/PaginationWrap.vue'
-import SubjectCategorySearchSelect from '/@/components/SearchSelect/SubjectCategory.vue'
+import DatePickerWrap from '/@/components/DatePickerWrap.vue'
+import BookCategorySearchSelect from '/@/components/SearchSelect/BookCategory.vue'
 
 export default class ComponentRegisterPlugin {
   static init(app: App): void {
@@ -25,8 +26,8 @@ export default class ComponentRegisterPlugin {
     app.component('TableList', TableList).component('ImportModal', ImportModal)
     app.component("OperationInfoPanel", OperationInfoPanel).component('DownOutButton', DownOutButton)
     app.component("SelectWrap", SelectWrap).component("PaginationWrap", PaginationWrap)
-    app.component('SubjectCategorySearchSelect', SubjectCategorySearchSelect)
-    app.component('TextareaWrap', TextareaWrap)
+    app.component('BookCategorySearchSelect', BookCategorySearchSelect)
+    app.component('TextareaWrap', TextareaWrap).component('DatePickerWrap', DatePickerWrap)
 
   }
 }

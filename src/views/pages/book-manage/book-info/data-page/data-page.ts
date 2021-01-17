@@ -52,18 +52,18 @@ export const holdInfoColumns: TableColumn[] = [
 
 
 export const formRules: FromRules = {
-  name: [
-    {
-      required: true,
-      whitespace: true,
-      message: '不允许为空'
-    }
-  ],
-  author: [
-    {
-      required: true,
-      whitespace: true,
-      message: '不允许为空'
-    }
-  ]
+
+  name: [{ required: true, whitespace: true, message: '不允许为空' }],
+
+  author: [{ required: true, whitespace: true, message: '不允许为空' }],
+
+  price: [{ type: 'number', required: true, whitespace: true, message: '不允许为空' }],
+
+  publisher: [{ required: true, whitespace: true, message: '不允许为空' }],
+
+  bookCategoryId: [{ type: 'number', required: true, whitespace: true, message: '不允许为空' }],
+
+  isbn: [{ required: true, whitespace: true, message: '不允许为空' }],
+
+  publicationTime: [{ required: true, message: '不允许为空' }]
 }

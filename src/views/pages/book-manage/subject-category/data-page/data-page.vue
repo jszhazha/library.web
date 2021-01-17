@@ -39,31 +39,24 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue"
 import { dataPageMix } from "/@/lib/idata/data-page/"
-import { SubjectCategory } from "/@/api/book-manage/subject-category"
+import { BookCategory } from "/@/api/book-manage/book-category"
 import { formRules } from "./data-page"
 import service from "/@/api/book-manage/subject-category"
 import { assign } from "lodash-es"
-import { message } from "ant-design-vue"
 
 export default defineComponent({
   setup() {
-    const dataItem = reactive<SubjectCategory>({})
+    const dataItem = reactive<BookCategory>({})
     const rules = reactive(formRules)
     const onServerMethods = { onNewData, onSaveData, onLoadDataById }
     const parameter = { rules, dataItem, onServerMethods }
-    const { pageInfo, onDataMethods, validateInfos, loading } = dataPageMix<SubjectCategory>(
-      parameter
-    )
+    const { pageInfo, onDataMethods, validateInfos, loading } = dataPageMix<BookCategory>(parameter)
     const { mode, readonly } = toRefs(pageInfo)
 
     // 通过ID加载数据
     async function onLoadDataById(id: number) {
-      try {
-        const { data } = await service.getItemById(id)
-        assign(dataItem, data)
-      } catch (err) {
-        message.error(`数据加载失败: ${err.msg}`)
-      }
+      const { data } = await service.getItemById(id)
+      assign(dataItem, data)
     }
 
     // 保存数据

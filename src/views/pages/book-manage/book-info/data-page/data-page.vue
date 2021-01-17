@@ -118,7 +118,7 @@ export default defineComponent({
     // 保存数据
     async function onSaveData(id: number) {
       const { data } = await service.updateItem(id, dataItem)
-      assign(dataItem, data)``
+      assign(dataItem, data)
     }
 
     // 新增数据

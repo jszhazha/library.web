@@ -9,7 +9,7 @@ export const tableColumns: TableColumn[] = [
 
   },
   {
-    title: '类别号',
+    title: '编码',
     dataIndex: 'code',
     align: 'center',
     ellipsis: true

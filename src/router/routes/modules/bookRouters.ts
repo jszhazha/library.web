@@ -22,7 +22,7 @@ const routers: AppRouteModule = {
       name: 'book-category-list-page',
       component: (): unknown => import(`/@/views/pages/book-manage/book-category/data-list/list-page.vue`),
       meta: {
-        title: '学科类别'
+        title: '图书类别'
 
       }
     },
@@ -31,7 +31,7 @@ const routers: AppRouteModule = {
       name: 'book-category-data-page',
       component: (): unknown => import(`/@/views/pages/book-manage/book-category/data-page/data-page.vue`),
       meta: {
-        title: '学科类别详情',
+        title: '图书类别详情',
         hideInMenu: true,
         ignoreTabKeepAlive: true
       }

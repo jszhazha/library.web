@@ -26,12 +26,17 @@ export const tableColumns: TableColumn[] = [
     ellipsis: true
   },
   {
-    title: '学科类别',
+    title: '图书类别名称',
     dataIndex: 'bookCategory.name',
     align: 'center',
     ellipsis: true
   },
-
+  {
+    title: '图书类别编码',
+    dataIndex: 'bookCategory.code',
+    align: 'center',
+    ellipsis: true
+  },
   {
     title: '国际标准书号',
     dataIndex: 'isbn',
@@ -68,43 +73,8 @@ export const tableColumns: TableColumn[] = [
   }
 ]
 
-export const importColumns: TableColumn[] = [
-  {
-    title: '题名',
-    dataIndex: 'name',
-    align: 'center'
 
-  },
-  {
-    title: '作者',
-    dataIndex: 'author',
-    align: 'center',
-    width: 100
-  },
-  {
-    title: '语种',
-    dataIndex: 'language',
-    align: 'center',
-    width: 110
-  },
-  {
-    title: '学科类别',
-    dataIndex: 'bookCategory',
-    align: 'center'
-  },
-  {
-    title: '国际标准书号',
-    dataIndex: 'isbn',
-    align: 'center'
-  },
-  {
-    title: '出版时间',
-    dataIndex: 'publicationDate',
-    align: 'center'
-  },
-  {
-    title: '出版社',
-    dataIndex: 'press',
-    align: 'center'
-  }
+// 导入数据
+export const importColumns: TableColumn[] = [
+
 ]

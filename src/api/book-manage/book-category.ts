@@ -8,7 +8,7 @@ export interface BookCategory {
   // 类别名
   name?: string;
 
-  // 类别号
+  // 编码
   code?: string;
 
   // 创建者

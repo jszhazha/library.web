@@ -10,7 +10,7 @@
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="类别号" v-bind="validateInfos.code">
+            <a-form-item label="编码" v-bind="validateInfos.code">
               <InputWrap v-model:value="dataItem.code" :maxlength="4" :readonly="mode === 1" />
             </a-form-item>
           </a-col>

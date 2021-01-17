@@ -2,28 +2,28 @@
   <a-form :label-col="{ flex: '100px' }">
     <a-row>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="题名">
+        <a-form-item label="书名">
           <a-input v-model:value="queryData.name" placeholder="请输入" />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="作者">
-          <a-input v-model:value="queryData.author" placeholder="请输入" />
+        <a-form-item label="编码">
+          <a-input v-model:value="queryData.code" placeholder="请输入" />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="出版社">
-          <a-input placeholder="请输入" />
+          <a-input v-model:value="queryData.publisher" placeholder="请输入" />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="学科类别">
+        <a-form-item label="图书类别">
           <a-input placeholder="请输入" />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="国际标准书号">
-          <a-input placeholder="请输入" />
+          <a-input v-model:value="queryData.isbn" placeholder="请输入" />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">

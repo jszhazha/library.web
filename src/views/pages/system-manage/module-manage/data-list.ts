@@ -67,7 +67,7 @@ export const importColumns: TableColumn[] = [
     width: 110
   },
   {
-    title: '学科类别',
+    title: '图书类别',
     dataIndex: 'bookCategory',
     align: 'center'
   },

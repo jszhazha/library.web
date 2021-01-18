@@ -11,6 +11,17 @@
           <a-input v-model:value="queryData.code" placeholder="请输入" />
         </a-form-item>
       </a-col>
+      <a-col :xs="24" :lg="8" class="index-table-search-col">
+        <div class="index-button-right">
+          <a-button type="primary" @click="onSearchData">
+            查询
+          </a-button>
+          <a-button @click="onResetData">
+            重置
+          </a-button>
+          <DownOutButton :is-open="isOpen" @click="onOpen" />
+        </div>
+      </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="出版社">
           <a-input v-model:value="queryData.publisher" placeholder="请输入" />
@@ -25,17 +36,6 @@
         <a-form-item label="国际标准书号">
           <a-input v-model:value="queryData.isbn" placeholder="请输入" />
         </a-form-item>
-      </a-col>
-      <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <div class="index-button-right">
-          <a-button type="primary" @click="onSearchData">
-            查询
-          </a-button>
-          <a-button @click="onResetData">
-            重置
-          </a-button>
-          <DownOutButton :is-open="isOpen" @click="onOpen" />
-        </div>
       </a-col>
     </a-row>
   </a-form>

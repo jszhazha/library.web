@@ -33,7 +33,7 @@
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="学科类别" v-bind="validateInfos.bookCategoryId">
+            <a-form-item label="图书类别" v-bind="validateInfos.bookCategoryId">
               <BookCategorySearchSelect
                 v-model:value="dataItem.bookCategoryId"
                 :book-category="dataItem.bookCategory"

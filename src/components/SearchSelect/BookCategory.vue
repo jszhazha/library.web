@@ -1,5 +1,5 @@
 <template>
-  <SelectWrap :value="selectData" @on-change="handleChange" @on-search="handleSearch">
+  <SelectWrap v-model:value="selectData" @on-change="handleChange" @on-search="handleSearch">
     <a-select-option v-for="item in options" :key="item.id" :value="item.name">
       {{ item.name }} ({{ item.code }})
     </a-select-option>
@@ -10,8 +10,9 @@
 import type { PagerQueryData } from "/@/lib/http/axios/types"
 import { message } from "ant-design-vue"
 import { assign } from "lodash-es"
-import { defineComponent, PropType, ref, computed, toRefs } from "vue"
+import { defineComponent, PropType, ref, watch } from "vue"
 import service, { BookCategory } from "/@/api/book-manage/book-category"
+import { isNumber } from "/@/utils/is"
 
 export default defineComponent({
   props: {
@@ -28,16 +29,10 @@ export default defineComponent({
   },
   emits: ["update:value"],
   setup(props, { emit }) {
-    const { bookCategory } = toRefs(props)
     const options = ref<BookCategory[]>([])
 
     // 选中数据
-    const selectData = computed(() => {
-      if (bookCategory.value.id) {
-        return `${bookCategory.value.name} (${bookCategory.value.code})`
-      }
-      return undefined
-    })
+    const selectData = ref<string | undefined>()
 
     // 加载数据
     async function loadData(query: PagerQueryData) {
@@ -53,7 +48,7 @@ export default defineComponent({
       await loadData(assign({ page: 0, size: 10, sort: "" }, params))
     }
     // 处理搜索
-    async function handleSearch(value: string, callback: () => void) {
+    async function handleSearch(value = "", callback: () => void) {
       await useLoadData(value ? { name: value } : {})
       callback()
     }
@@ -62,6 +57,18 @@ export default defineComponent({
     function handleChange(value: number) {
       emit("update:value", value)
     }
+
+    watch(
+      () => props.value,
+      async (value) => {
+        !isNumber(value) && (selectData.value = undefined)
+      }
+    )
+
+    watch(
+      () => props.bookCategory,
+      (value) => (selectData.value = value.id ? `${value.name} (${value.code})` : undefined)
+    )
 
     return { options, selectData, handleSearch, handleChange }
   }

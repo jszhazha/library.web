@@ -11,6 +11,21 @@
           <a-input v-model:value="queryData.code" placeholder="请输入" />
         </a-form-item>
       </a-col>
+      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
+        <a-form-item label="出版社">
+          <a-input v-model:value="queryData.publisher" placeholder="请输入" />
+        </a-form-item>
+      </a-col>
+      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
+        <a-form-item label="图书类别">
+          <BookCategorySearchSelect v-model:value="queryData.bookCategoryId" />
+        </a-form-item>
+      </a-col>
+      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
+        <a-form-item label="国际标准书号">
+          <a-input v-model:value="queryData.isbn" placeholder="请输入" />
+        </a-form-item>
+      </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <div class="index-button-right">
           <a-button type="primary" @click="onSearchData">
@@ -21,21 +36,6 @@
           </a-button>
           <DownOutButton :is-open="isOpen" @click="onOpen" />
         </div>
-      </a-col>
-      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="出版社">
-          <a-input v-model:value="queryData.publisher" placeholder="请输入" />
-        </a-form-item>
-      </a-col>
-      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="图书类别">
-          <a-input placeholder="请输入" />
-        </a-form-item>
-      </a-col>
-      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="国际标准书号">
-          <a-input v-model:value="queryData.isbn" placeholder="请输入" />
-        </a-form-item>
       </a-col>
     </a-row>
   </a-form>
@@ -55,7 +55,7 @@ export default defineComponent({
     const queryData = reactive<PagerQueryData>({
       size: 10,
       page: 0,
-      sort: 'createTime,desc'
+      sort: "createTime,desc"
     })
     // 返回查询条件
     const getCurQueryData = (): PagerQueryData => queryData

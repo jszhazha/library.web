@@ -1,7 +1,6 @@
 <template>
   <Table
     class="global-table"
-    bordered
     :loading="loading"
     :row-key="rowKey"
     :columns="tableColumns"
@@ -36,10 +35,30 @@ export default defineComponent({
       return newColumns
     })
 
-
     return { tableColumns }
   }
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.global-table {
+
+  ::v-deep(.ant-table-body) {
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #bfbfbf;
+      border-radius: 1em;
+    }
+
+    .ant-table-thead > tr > th{
+      font-weight: bold;
+      background: var(--public-table-background);
+    }
+  }
+
+}
+</style>

@@ -42,7 +42,7 @@ const config: Config = {
   publicPath: publicPath,
 
   // 主题
-  theme: 'light',
+  theme: 'dark',
 
   // 菜单宽度
   menuWidth: 230,

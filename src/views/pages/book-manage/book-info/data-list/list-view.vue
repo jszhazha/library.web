@@ -5,6 +5,7 @@
     :loading="loading"
     :columns="tableColumns"
     :data-source="dataSource"
+    @onRefresh="onRefresh"
   >
     <template #header-left>
       <a-button @click="onBatchImport">

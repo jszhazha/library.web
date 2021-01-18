@@ -3,7 +3,7 @@
     <div class="index-table-search index-card">
       <search-panle ref="searchInstance" @onSearch="onSearchData" />
     </div>
-    <list-view ref="listInstance" />
+    <list-view ref="listInstance" @onPageChange="onFetchData" @onRefresh="onFetchData" />
     <ImportModal
       ref="importInstance"
       title="批量导入"
@@ -75,6 +75,7 @@ export default defineComponent({
       importData,
       importColumns,
       onSearchData,
+      onFetchData,
       ...toRefs(instance)
     }
   }

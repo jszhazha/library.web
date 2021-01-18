@@ -30,14 +30,5 @@ export default defineComponent({
     font-weight: 700;
     color: #2c3a61;
   }
-
-  // .ant-form-item-label {
-  //   text-align: justify;
-  //   text-align-last: justify;
-  // }
-
-  // .ant-form-item-label > label::after {
-  //   content: "";
-  // }
 }
 </style>

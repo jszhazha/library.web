@@ -22,9 +22,7 @@ export default defineComponent({
     },
     bookCategory: {
       type: Object as PropType<BookCategory>,
-      default: () => {
-        return {}
-      }
+      default: undefined
     }
   },
   emits: ["update:value"],
@@ -60,14 +58,12 @@ export default defineComponent({
 
     watch(
       () => props.value,
-      (value) => {
-        !isNumber(value) && (selectData.value = undefined)
-      }
+      (value) => !isNumber(value) && (selectData.value = undefined)
     )
 
     watch(
       () => props.bookCategory,
-      (value) => (selectData.value = value.id ? `${value.name} (${value.code})` : undefined)
+      (value) => (selectData.value = value?.id ? `${value.name} (${value.code})` : undefined)
     )
 
     return { options, selectData, handleSearch, handleChange }

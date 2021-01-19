@@ -70,7 +70,7 @@
     </a-form>
 
     <!-- 馆藏信息 -->
-    <hold-info v-if="dataItem.id" :mode="mode" />
+    <book-detail v-if="dataItem.id" :mode="mode" :book-id="dataItem.id" />
 
     <!-- 修改信息 -->
     <OperationInfoPanel v-if="dataItem.id" :data="dataItem" />
@@ -96,10 +96,10 @@ import { dataPageMix } from "/@/lib/idata/data-page/"
 import service, { BookInfo } from "/@/api/book-manage/book-info"
 import { formRules } from "./data-page"
 import { assign } from "lodash-es"
-import holdInfo from "./hold-lnfo.vue"
+import bookDetail from "./book-detail.vue"
 
 export default defineComponent({
-  components: { holdInfo },
+  components: { bookDetail },
   setup() {
     const dataItem = reactive<BookInfo>({})
     const rules = reactive(formRules)

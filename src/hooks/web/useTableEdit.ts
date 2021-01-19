@@ -31,7 +31,7 @@ interface UseTableEdit {
 
 
 
-export function useTableEdit(): UseTableEdit {
+export function useTableEdit(onSaveData: (record: Record) => void): UseTableEdit {
 
   const editingIndex = ref<number | null>(null)
 
@@ -60,6 +60,7 @@ export function useTableEdit(): UseTableEdit {
     cacheRecord = {}
     editingIndex.value = null
     Reflect.deleteProperty(record, 'editable')
+    onSaveData(record)
   }
 
 

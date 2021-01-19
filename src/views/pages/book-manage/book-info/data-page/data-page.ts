@@ -4,39 +4,39 @@ import type { FromRules } from '/@/lib/interface/From'
 export const holdInfoColumns: TableColumn[] = [
   {
     title: "索书号",
-    dataIndex: "number",
-    align: "center",
-    ellipsis: true,
-    slots: { customRender: 'number' }
-  },
-  {
-    title: "存放位置",
-    dataIndex: "location",
-    align: "center",
-    ellipsis: true,
-    slots: { customRender: 'location' }
-  },
-  {
-    title: "馆藏状态",
-    dataIndex: "state",
+    dataIndex: "searchCode",
     align: "center",
     ellipsis: true
   },
   {
+    title: "存放位置",
+    dataIndex: "address",
+    align: "center",
+    ellipsis: true,
+    slots: { customRender: 'address' }
+  },
+  {
+    title: "馆藏状态",
+    dataIndex: "status",
+    align: "center",
+    ellipsis: true,
+    slots: { customRender: 'status' }
+  },
+  {
     title: "应还时间",
-    dataIndex: "time",
+    dataIndex: "backTime",
     align: "center",
     ellipsis: true
   },
   {
     title: "借阅次数",
-    dataIndex: "state",
+    dataIndex: "borrowingTimes",
     align: "center",
     ellipsis: true
   },
   {
-    title: "续借次数",
-    dataIndex: "state",
+    title: "归还次数",
+    dataIndex: "renewalTimes",
     align: "center",
     ellipsis: true
   },
@@ -66,4 +66,10 @@ export const formRules: FromRules = {
   isbn: [{ required: true, whitespace: true, message: '不允许为空' }],
 
   publicationTime: [{ required: true, message: '不允许为空' }]
+}
+
+
+export const bookDetailRules: FromRules = {
+
+  address: [{ required: true, whitespace: true, message: '不允许为空' }]
 }

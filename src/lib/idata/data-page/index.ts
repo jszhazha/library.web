@@ -103,7 +103,8 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
 /**
  * 数据初始化
  */
-function dataItemInit<T>(dataItem: T, ruleKeys: string[]) {
+export function dataItemInit<T>(dataItem: T, rules: FromRules) {
+  const ruleKeys: string[] = Object.keys(rules)
   ruleKeys.forEach(key => {
     if (isUnDef((dataItem as any)[key])) {
       (dataItem as any)[key] = ''
@@ -133,7 +134,7 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
   const ruleKeys: string[] = Object.keys(rules)
 
   // 数据初始化
-  dataItemInit<T>(dataItem, ruleKeys)
+  dataItemInit<T>(dataItem, rules)
 
   // 获取 ant 表单规则 
   const { validateInfos, resetFields, validate } = useForm(dataItem, rules)

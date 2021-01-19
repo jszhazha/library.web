@@ -4,7 +4,9 @@ import { isString } from "./is"
 export const rules = {
   telephone: /^1\d{10}$/,
 
-  dataPage: /data-page$/
+  dataPage: /data-page$/,
+
+  whitespace: /^\s*|\s*$/g
 }
 
 

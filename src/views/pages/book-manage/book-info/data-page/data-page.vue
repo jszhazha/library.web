@@ -70,7 +70,7 @@
     </a-form>
 
     <!-- 馆藏信息 -->
-    <hold-info v-if="dataItem.id" />
+    <hold-info v-if="dataItem.id" :mode="mode" />
 
     <!-- 修改信息 -->
     <OperationInfoPanel v-if="dataItem.id" :data="dataItem" />

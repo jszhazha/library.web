@@ -60,7 +60,7 @@ export default defineComponent({
 
     watch(
       () => props.value,
-      async (value) => {
+      (value) => {
         !isNumber(value) && (selectData.value = undefined)
       }
     )

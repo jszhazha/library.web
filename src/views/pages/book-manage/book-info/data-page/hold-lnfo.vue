@@ -3,20 +3,15 @@
     <a-form :label-col="{ flex: '100px' }" :wrapper-col="{ flex: 'auto' }">
       <a-row>
         <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-          <a-form-item label="索书号">
-            <InputWrap v-model:value="dataItem.number" />
-          </a-form-item>
-        </a-col>
-        <a-col :xs="24" :lg="9" class="pl-4 pr-4">
           <a-form-item label="存放位置">
             <InputWrap v-model:value="dataItem.location" />
           </a-form-item>
         </a-col>
         <a-col class="pl-4 pr-4" flex="auto">
           <div class="index-button-right">
-            <!-- <a-button type="primary">
+            <a-button v-if="mode === 1" type="primary">
               添加
-            </a-button> -->
+            </a-button>
           </div>
         </a-col>
       </a-row>
@@ -52,6 +47,7 @@
         </div>
       </template>
     </GlobalTable>
+    <PaginationWrap class="index-right pr-4 pt-5" />
   </GlobalCard>
 </template>
 
@@ -60,12 +56,18 @@ import type { HoldInfo } from "/@/api/book-manage/hold-lnfo"
 import { defineComponent, PropType, reactive } from "vue"
 import { holdInfoColumns } from "./data-page"
 import { useTableEdit } from "/@/hooks/web/useTableEdit"
+import { PageMode } from "/@/utils/helper/breadcrumb"
 
 export default defineComponent({
   props: {
     readonly: {
       type: Boolean as PropType<boolean>,
       default: false
+    },
+    mode: {
+      // 出错 -1 查看 0 编辑 1 新增 2
+      type: Number as PropType<PageMode>,
+      default: undefined
     }
   },
   setup() {

@@ -1,38 +1,37 @@
-import type { Ref } from 'vue'
+import type { Ref } from "vue"
 import { ref } from "vue"
 import { assign, cloneDeep } from "lodash-es"
-import { isNull } from '/@/utils/is'
-
+import { isNull } from "/@/utils/is"
+import { difference } from "/@/utils/difference"
 
 interface Record {
-  editable: boolean
+  editable: boolean;
 
-  [key: string]: unknown
+  [key: string]: unknown;
 }
-
-
 
 interface UseTableEdit {
   // 编辑行
-  editingIndex: Ref<number | null>
+  editingIndex: Ref<number | null>;
 
   // 处理数据改变
-  handleEditChange: (value: string, record: Record, column: string) => void
+  handleEditChange: (value: string, record: Record, column: string) => void;
 
   // 处理点击编辑按键
-  handleClickEdit: (record: Record, index: number) => void
+  handleClickEdit: (record: Record, index: number) => void;
 
   // 处理点击取消按键
-  handleCancelEdit: (record: Record) => void
+  handleCancelEdit: (record: Record) => void;
 
   //处理点击保存按键
-  handleSvaeEdit: (record: Record) => void
+  handleSvaeEdit: (record: Record) => void;
+}
+// 参数
+interface Options {
+  onSaveData: (record: Record) => Promise<void>;
 }
 
-
-
-export function useTableEdit(onSaveData: (record: Record) => void): UseTableEdit {
-
+export function useTableEdit({ onSaveData }: Options): UseTableEdit {
   const editingIndex = ref<number | null>(null)
 
   // 编辑数据
@@ -57,12 +56,19 @@ export function useTableEdit(onSaveData: (record: Record) => void): UseTableEdit
   }
 
   function handleSvaeEdit(record: Record) {
+    Reflect.deleteProperty(record, 'editable')
+    console.log(difference(record,cacheRecord))
     cacheRecord = {}
     editingIndex.value = null
-    Reflect.deleteProperty(record, 'editable')
     onSaveData(record)
   }
 
+  return {
+    editingIndex,
+    handleSvaeEdit,
+    handleEditChange,
+    handleClickEdit,
+    handleCancelEdit
+  }
 
-  return { editingIndex, handleSvaeEdit, handleEditChange, handleClickEdit, handleCancelEdit }
 }

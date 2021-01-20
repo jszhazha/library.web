@@ -110,7 +110,7 @@ export default defineComponent({
     const loading = reactive<{ add?: boolean; table?: boolean }>({})
 
     // table 编辑
-    const tableEdit = useTableEdit(onSaveData)
+    const tableEdit = useTableEdit({ onSaveData })
 
     // 数据初始化
     dataItemInit<BookDetail>(dataItem, rules)

@@ -12,7 +12,7 @@
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="主机">
+        <a-form-item label="请求方式">
           <a-select v-model:value="queryData.httpMethod">
             <a-select-option value="">
               全部

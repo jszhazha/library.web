@@ -20,7 +20,7 @@ export const tableColumns: TableColumn[] = [
     ellipsis: true
   },
   {
-    title: '请求方法',
+    title: '请求方式',
     dataIndex: 'httpMethod',
     align: 'center',
     ellipsis: true

@@ -3,14 +3,28 @@
     <a-form :label-col="{ flex: '100px' }" :wrapper-col="{ flex: 'auto' }">
       <a-row>
         <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-          <a-form-item label="存放位置" v-bind="validateInfos.address">
-            <InputWrap v-model:value="dataItem.address" />
+          <a-form-item label="存放位置" :required="mode === 1">
+            <InputWrap v-model:value="dataItem.address" :readonly="false" />
+          </a-form-item>
+        </a-col>
+        <a-col v-if="mode === 0" :xs="24" :lg="9" class="pl-4 pr-4">
+          <a-form-item label="索书号">
+            <InputWrap v-model:value="dataItem.searchCode" :readonly="false" />
           </a-form-item>
         </a-col>
         <a-col class="pl-4 pr-4" flex="auto">
           <div class="index-button-right">
-            <a-button v-if="mode === 1" type="primary" :loading="loading.add" @click="onNewData">
+            <a-button
+              v-if="mode === 1"
+              type="primary"
+              :loading="loading.add"
+              :disabled="disabled"
+              @click="onNewData"
+            >
               添加
+            </a-button>
+            <a-button v-if="mode === 0" type="primary" @click="fetchDataFromServer">
+              查询
             </a-button>
           </div>
         </a-col>
@@ -75,16 +89,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive, ref } from 'vue'
-import { holdInfoColumns, bookDetailRules } from './data-page'
+import { defineComponent, PropType, reactive, ref, computed } from 'vue'
+import { holdInfoColumns } from './data-page'
 import service, { BookDetail } from '/@/api/book-manage/book-detail'
 import { useDeleteModal } from '/@/hooks/web/useDeleteModal'
 import { usePagination } from '/@/hooks/web/usePagination'
 import { useTableEdit } from '/@/hooks/web/useTableEdit'
-import { dataItemInit } from '/@/lib/idata/data-page/'
 import { PageMode } from '/@/utils/helper/breadcrumb'
-import { useForm } from '@ant-design-vue/use'
 import { message } from 'ant-design-vue'
+import { isEmpty } from '/@/utils/is'
 
 export default defineComponent({
   props: {
@@ -106,9 +119,6 @@ export default defineComponent({
     // 全部数据
     const dataSource = ref<BookDetail[]>([])
 
-    // 规则
-    const rules = reactive(bookDetailRules)
-
     // 输入数据
     const dataItem = reactive<BookDetail>({ bookId: props.bookId })
 
@@ -127,19 +137,15 @@ export default defineComponent({
     // 页面发生变化
     const onPageChange = () => fetchDataFromServer()
 
-    // 数据初始化
-    dataItemInit<BookDetail>(dataItem, rules)
-
-    // 获取规则
-    const { validate, validateInfos, resetFields } = useForm(dataItem, rules)
+    // 禁用标志
+    const disabled = computed(() => !isEmpty(dataItem.address))
 
     // 请求列表数据
     async function fetchDataFromServer() {
       try {
         loading.table = true
         const { page, size } = pagination.getPagination()
-        const query = { page, size, sort: '', bookId: props.bookId }
-        const { data } = await service.fecthList(query)
+        const { data } = await service.fecthList({ page, size, sort: '', ...dataItem })
         dataSource.value = data.content
         totalElements.value = data.totalElements
       } catch (err) {
@@ -151,26 +157,15 @@ export default defineComponent({
 
     // 新增数据
     async function onNewData() {
-      if (!validItem()) return
       try {
         loading.add = true
         await service.saveNewItem(dataItem)
+        dataItem.address = ''
         fetchDataFromServer()
-        resetFields()
       } catch (err) {
         message.error(`新增数据失败: ${err.msg}`)
       } finally {
         loading.add = false
-      }
-    }
-
-    // 检查数据
-    async function validItem() {
-      try {
-        await validate()
-        return true
-      } catch (err) {
-        return false
       }
     }
 
@@ -197,12 +192,13 @@ export default defineComponent({
 
     return {
       loading,
+      disabled,
       dataItem,
       dataSource,
-      validateInfos,
       totalElements,
       holdInfoColumns,
       handleClickDelete,
+      fetchDataFromServer,
       onNewData,
       onPageChange,
       ...tableEdit,

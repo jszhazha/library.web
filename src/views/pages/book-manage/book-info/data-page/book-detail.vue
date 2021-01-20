@@ -65,14 +65,15 @@
         </div>
       </template>
     </GlobalTable>
-    <PaginationWrap class="index-right pr-4 pt-5" />
+    <PaginationWrap v-model:current="current" class="index-right pr-4 pt-5" :total="totalElements" @change="onPageChange" />
   </GlobalCard>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from "vue"
+import { defineComponent, PropType, reactive, ref} from "vue"
 import { holdInfoColumns, bookDetailRules } from "./data-page"
 import service, { BookDetail } from "/@/api/book-manage/book-detail"
+import { usePagination } from "/@/hooks/web/usePagination"
 import { useTableEdit } from "/@/hooks/web/useTableEdit"
 import { dataItemInit } from "/@/lib/idata/data-page/"
 import { PageMode } from "/@/utils/helper/breadcrumb"
@@ -112,6 +113,17 @@ export default defineComponent({
     // table 编辑
     const tableEdit = useTableEdit({ onSaveData })
 
+     // 总数据
+    const totalElements = ref<number>(0)
+
+    // 页面发生变换
+    const pagination = usePagination()
+
+     // 页面发生变化
+    const onPageChange = () => {
+      // 
+    }
+
     // 数据初始化
     dataItemInit<BookDetail>(dataItem, rules)
 
@@ -124,6 +136,7 @@ export default defineComponent({
         loading.table = true
         const { data } = await service.fecthList()
         assign(dataSource, data.content)
+        totalElements.value = data.totalElements
       } catch (err) {
         message.error(`数据获取失败: ${err.msg}`)
       } finally {
@@ -169,9 +182,12 @@ export default defineComponent({
       dataItem,
       dataSource,
       validateInfos,
+      totalElements,
       holdInfoColumns,
       onNewData,
-      ...tableEdit
+      onPageChange,
+      ...tableEdit,
+      ...pagination
     }
   }
 })

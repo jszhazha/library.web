@@ -60,26 +60,31 @@
           </div>
           <div v-else v-bind="editingIndex !== null ? { disabled: 'disabled' } : {}">
             <span @click="handleClickEdit(record, index)">编辑</span>
-            <span>删除</span>
+            <span @click="handleClickDelete(record)">删除</span>
           </div>
         </div>
       </template>
     </GlobalTable>
-    <PaginationWrap v-model:current="current" class="index-right pr-4 pt-5" :total="totalElements" @change="onPageChange" />
+    <PaginationWrap
+      v-model:current="current"
+      class="index-right pr-4 pt-5"
+      :total="totalElements"
+      @change="onPageChange"
+    />
   </GlobalCard>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive, ref} from "vue"
-import { holdInfoColumns, bookDetailRules } from "./data-page"
-import service, { BookDetail } from "/@/api/book-manage/book-detail"
-import { usePagination } from "/@/hooks/web/usePagination"
-import { useTableEdit } from "/@/hooks/web/useTableEdit"
-import { dataItemInit } from "/@/lib/idata/data-page/"
-import { PageMode } from "/@/utils/helper/breadcrumb"
-import { useForm } from "@ant-design-vue/use"
-import { assign } from "lodash-es"
-import { message } from "ant-design-vue"
+import { defineComponent, PropType, reactive, ref } from 'vue'
+import { holdInfoColumns, bookDetailRules } from './data-page'
+import service, { BookDetail } from '/@/api/book-manage/book-detail'
+import { useDeleteModal } from '/@/hooks/web/useDeleteModal'
+import { usePagination } from '/@/hooks/web/usePagination'
+import { useTableEdit } from '/@/hooks/web/useTableEdit'
+import { dataItemInit } from '/@/lib/idata/data-page/'
+import { PageMode } from '/@/utils/helper/breadcrumb'
+import { useForm } from '@ant-design-vue/use'
+import { message } from 'ant-design-vue'
 
 export default defineComponent({
   props: {
@@ -99,7 +104,7 @@ export default defineComponent({
   },
   setup(props) {
     // 全部数据
-    const dataSource = reactive<BookDetail[]>([])
+    const dataSource = ref<BookDetail[]>([])
 
     // 规则
     const rules = reactive(bookDetailRules)
@@ -113,16 +118,14 @@ export default defineComponent({
     // table 编辑
     const tableEdit = useTableEdit({ onSaveData })
 
-     // 总数据
+    // 总数据
     const totalElements = ref<number>(0)
 
     // 页面发生变换
     const pagination = usePagination()
 
-     // 页面发生变化
-    const onPageChange = () => {
-      // 
-    }
+    // 页面发生变化
+    const onPageChange = () => fetchDataFromServer()
 
     // 数据初始化
     dataItemInit<BookDetail>(dataItem, rules)
@@ -134,8 +137,10 @@ export default defineComponent({
     async function fetchDataFromServer() {
       try {
         loading.table = true
-        const { data } = await service.fecthList()
-        assign(dataSource, data.content)
+        const { page, size } = pagination.getPagination()
+        const query = { page, size, sort: '', bookId: props.bookId }
+        const { data } = await service.fecthList(query)
+        dataSource.value = data.content
         totalElements.value = data.totalElements
       } catch (err) {
         message.error(`数据获取失败: ${err.msg}`)
@@ -162,7 +167,7 @@ export default defineComponent({
     // 检查数据
     async function validItem() {
       try {
-        validate()
+        await validate()
         return true
       } catch (err) {
         return false
@@ -170,9 +175,22 @@ export default defineComponent({
     }
 
     // 保存数据
-    async function onSaveData() {
-      // const { data } = await service.updateItem(id, dataItem)
-      // assign(dataItem, data)
+    async function onSaveData({ id }: BookDetail, contrast: BookDetail) {
+      try {
+        loading.table = true
+        await service.updateItem(id as number, contrast)
+        fetchDataFromServer()
+      } catch (err) {
+        message.error(`保存数据失败: ${err.msg}`)
+      }
+    }
+
+    // 数据删除
+    async function handleClickDelete({ id }: BookDetail) {
+      useDeleteModal(async () => {
+        await service.deleteItemById(id as number)
+        fetchDataFromServer()
+      })
     }
 
     fetchDataFromServer()
@@ -184,6 +202,7 @@ export default defineComponent({
       validateInfos,
       totalElements,
       holdInfoColumns,
+      handleClickDelete,
       onNewData,
       onPageChange,
       ...tableEdit,

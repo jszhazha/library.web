@@ -1,9 +1,8 @@
 import type { Ref } from 'vue'
-import { provide, inject, createVNode } from 'vue'
-import { message, Modal } from 'ant-design-vue'
+import { provide, inject } from 'vue'
 import { useGo } from "/@/hooks/web/usePage"
 import { PageMode } from "/@/utils/helper/breadcrumb"
-import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+import { useDeleteModal } from '/@/hooks/web/useDeleteModal'
 
 
 
@@ -64,27 +63,7 @@ export function provideListPage<T extends { id?: number }>(options: Options): vo
   }
 
   function onDeleteDataItem(record: T) {
-    Modal.confirm({
-      icon: createVNode(ExclamationCircleOutlined),
-      title: '删除数据',
-      content: '确定要删除该数据吗？',
-      okText: '确定',
-      okType: 'primary',
-      cancelText: '取消',
-      onOk() {
-        return new Promise(async (resolve) => {
-          try {
-            await deleteDataFromServer(record.id!)
-          } catch (err) {
-            message.error(`数据删除失败: ${err.msg}`)
-          } finally {
-            resolve(true)
-          }
-
-
-        })
-      }
-    })
+    useDeleteModal(async () => await deleteDataFromServer(record.id!))
   }
 
   const instance: DataPage<T> = { loading, onNewDataItem, onViewDataItem, onEditDataItem, onDeleteDataItem }

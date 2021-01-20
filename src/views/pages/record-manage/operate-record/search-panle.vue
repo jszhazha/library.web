@@ -11,17 +11,19 @@
           <a-input v-model:value="queryData.ip" placeholder="请输入" allow-clear />
         </a-form-item>
       </a-col>
-      <!-- <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="登录省份">
-          <a-input v-model:value="queryData.region" placeholder="请输入" allow-clear />
+      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
+        <a-form-item label="主机">
+          <a-select v-model:value="queryData.httpMethod">
+            <a-select-option value="">
+              全部
+            </a-select-option>
+            <a-select-option v-for="value in httpMethod" :key="value" :value="value">
+              {{ value }}
+            </a-select-option>
+          </a-select>
         </a-form-item>
       </a-col>
-      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col" r>
-        <a-form-item label="登录城市">
-          <a-input v-model:value="queryData.city" placeholder="请输入" allow-clea />
-        </a-form-item>
-      </a-col>
-      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col" /> -->
+      <!-- <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col" />  -->
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <div class="index-button-right">
           <a-button type="primary" @click="onSearchData">
@@ -30,7 +32,7 @@
           <a-button @click="onResetData">
             重置
           </a-button>
-          <!-- <DownOutButton :is-open="isOpen" @click="onOpen" /> -->
+          <DownOutButton :is-open="isOpen" @click="onOpen" />
         </div>
       </a-col>
     </a-row>
@@ -38,12 +40,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue"
-import { PagerQueryData } from "/@/lib/http/axios/types"
-import { useSearch, SearchInstance } from "/@/lib/idata/data-list/methods/useSearch"
+import { defineComponent, reactive, ref } from 'vue'
+import { PagerQueryData } from '/@/lib/http/axios/types'
+import { useSearch, SearchInstance } from '/@/lib/idata/data-list/methods/useSearch'
 
 export default defineComponent({
-  emits: ["onSearch"],
+  emits: ['onSearch'],
   setup(_props, { emit }): SearchInstance {
     // 搜索是否展开
     const isOpen = ref<boolean>(false)
@@ -57,7 +59,7 @@ export default defineComponent({
     const getCurQueryData = (): PagerQueryData => queryData
 
     // 查询数据
-    const onSearchData = () => emit("onSearch")
+    const onSearchData = () => emit('onSearch')
 
     const { onResetData, onOpen } = useSearch(queryData, isOpen)
 
@@ -68,6 +70,11 @@ export default defineComponent({
       onResetData,
       onSearchData,
       getCurQueryData
+    }
+  },
+  data() {
+    return {
+      httpMethod: ['GET', 'POST', 'PUT', 'DELETE']
     }
   }
 })

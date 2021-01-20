@@ -29,6 +29,7 @@ export function validData({ data, rule }: Parameter): boolean {
 export function queryModule(path: string): string {
   const mapState = {
     'book-category': '图书类别',
+    'book-detail': '图书详细信息',
     'book': "图书信息"
   }
   const mapKey = Reflect.ownKeys(mapState)

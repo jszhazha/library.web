@@ -2,14 +2,14 @@
   <GlobalCard title="馆藏信息">
     <a-form :label-col="{ flex: '100px' }" :wrapper-col="{ flex: 'auto' }">
       <a-row>
-        <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-          <a-form-item label="存放位置" :required="mode === 1">
-            <InputWrap v-model:value="dataItem.address" :readonly="false" />
-          </a-form-item>
-        </a-col>
         <a-col v-if="mode === 0" :xs="24" :lg="9" class="pl-4 pr-4">
           <a-form-item label="索书号">
             <InputWrap v-model:value="dataItem.searchCode" :readonly="false" />
+          </a-form-item>
+        </a-col>
+        <a-col :xs="24" :lg="9" class="pl-4 pr-4">
+          <a-form-item label="存放位置" :required="mode === 1">
+            <InputWrap v-model:value="dataItem.address" :readonly="false" />
           </a-form-item>
         </a-col>
         <a-col class="pl-4 pr-4" flex="auto">

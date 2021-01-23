@@ -21,11 +21,23 @@ export const LoginRoutes: AppRouteRecordRaw[] = [
   }
 ]
 
+// 密码重置
 export const ResetPasswordRoute: AppRouteRecordRaw = {
   path: '/reset-password',
   name: 'reset-password',
   component: () => import('/@/views/frame/reset-password/index.vue'),
   meta: {
+    ignoreAuth: true
+  }
+}
+
+// 密码重置
+export const EditorRoute: AppRouteRecordRaw = {
+  path: '/editor',
+  name: 'editor',
+  component: () => import('/@/views/frame/editor/index.vue'),
+  meta: {
+    title: '写问题',
     ignoreAuth: true
   }
 }

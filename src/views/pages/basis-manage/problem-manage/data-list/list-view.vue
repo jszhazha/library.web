@@ -12,13 +12,6 @@
       </a-button>
     </template>
 
-    <template #createTime="{ record }">
-      {{ useFromatlll(record.createTime) }}
-    </template>
-    <template #updateTime="{ record }">
-      {{ useFromatlll(record.updateTime) }}
-    </template>
-
     <template #show="{ record }">
       <span v-if="record.show">可见</span>
       <span v-else>不可见</span>
@@ -50,7 +43,6 @@ import { tableColumns } from './data-list'
 import { BookCategory } from '/@/api/book-manage/book-category'
 import { injectListPage } from '/@/lib/idata/data-list/methods/useDepend'
 import { usePagination } from '/@/hooks/web/usePagination'
-import { useFromatlll } from '/@/utils/dateFormat'
 
 export default defineComponent({
   emits: ['on-page-change', 'on-refresh'],
@@ -89,7 +81,6 @@ export default defineComponent({
       totalElements,
       tableColumns,
       onRefresh,
-      useFromatlll,
       onPageChange,
       onNewDataItem,
       onViewDataItem,

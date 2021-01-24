@@ -1,9 +1,9 @@
-@import "./transition/index.less";
-@import "./help/distance.less";
-@import "./scrollbar.less";
-@import "./ant.less";
-@import "./public.less";
-@import "./common.less";
+@import './transition/index.less';
+@import './help/distance.less';
+@import './scrollbar.less';
+@import './ant.less';
+@import './public.less';
+@import './common.less';
 
 @selectAfter: #096dd9;
 @selectBefore: #1890ff;
@@ -66,7 +66,7 @@
       color: @selectAfter;
     }
 
-    div[disabled="disabled"] {
+    div[disabled='disabled'] {
       color: rgba(0, 0, 0, 0.25);
       cursor: default;
 
@@ -174,5 +174,10 @@
         margin: 0 5px 0 0;
       }
     }
+  }
+
+  &-newline {
+    word-break: break-all;
+    word-wrap: break-word;
   }
 }

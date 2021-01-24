@@ -37,7 +37,6 @@ export const EditorRoute: AppRouteRecordRaw = {
   name: 'editor',
   component: () => import('/@/views/frame/editor/index.vue'),
   meta: {
-    title: '写问题',
-    ignoreAuth: true
+    title: '编辑'
   }
 }

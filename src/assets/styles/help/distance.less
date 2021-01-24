@@ -12,6 +12,11 @@
 // 最大生成
 @padding-size-max: 15;
 
+// 步长
+@base-size-base: 4;
+
+@base-size-max: 10;
+
 .distance() {
   .loop (p, padding, 1, @padding-size-base, @padding-size-max);
   .loop (pt, padding-top, 1, @padding-size-base, @padding-size-max);
@@ -23,4 +28,5 @@
   .loop (ml, margin-left, 1, @margin-size-base, @margin-size-max);
   .loop (mb, margin-bottom, 1, @margin-size-base, @margin-size-max);
   .loop (mr, margin-right, 1, @margin-size-base, @margin-size-max);
+  .loop (fs, font-size, 1, @base-size-base, @base-size-max);
 }

@@ -15,6 +15,18 @@ export const tableColumns: TableColumn[] = [
     ellipsis: true
   },
   {
+    title: '创建者',
+    dataIndex: 'createBy',
+    align: 'center',
+    ellipsis: true
+  },
+  {
+    title: '更新者',
+    dataIndex: 'updateBy',
+    align: 'center',
+    ellipsis: true
+  },
+  {
     title: '操作',
     align: 'center',
     width: 170,

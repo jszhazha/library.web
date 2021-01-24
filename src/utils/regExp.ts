@@ -30,7 +30,8 @@ export function queryModule(path: string): string {
   const mapState = {
     'book-category': '图书类别',
     'book-detail': '图书详细信息',
-    'book': "图书基本信息"
+    'book': "图书基本信息",
+    'problem-manage': '问题管理'
   }
   const mapKey = Reflect.ownKeys(mapState)
   const key = mapKey.find((value: string) => new RegExp(value).test(path))

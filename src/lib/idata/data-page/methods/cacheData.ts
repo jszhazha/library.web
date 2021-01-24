@@ -24,6 +24,6 @@ export function checkCacheData<T>(name: string, storage: CreateStorage, callback
 
 
 // 缓存数据
-export function cacheData<T>(name: string, storage: CreateStorage, dataItem: T): void {
+export function setCacheData<T>(name: string, storage: CreateStorage, dataItem: T): void {
   storage.set(name, dataItem)
 }

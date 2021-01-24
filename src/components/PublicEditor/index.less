@@ -1,24 +1,15 @@
-.flex-column() {
-  display: flex;
-  flex-direction: column;
-}
-
 .public-editor {
-  .flex-column();
-
-  .editor-toolbar,
-  .editor-statusbar {
-    display: none;
-  }
-  
-  .CodeMirror,
-  .editor-preview-side {
+  .vditor {
     border-width: 0;
-  }
 
-  .editor-preview-side{
-    border-left: 1px solid #ddd;
-  }
+    &-toolbar {
+      display: none;
+    }
 
+    &-preview {
+      &__action {
+        display: none;
+      }
+    }
+  }
 }
-

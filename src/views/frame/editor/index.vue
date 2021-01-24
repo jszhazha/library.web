@@ -10,6 +10,7 @@
       v-model:lineCount="lineCount"
       class="editor-content-area"
       :configs="configs"
+      :preview="true"
     />
 
     <div class="editor-footer">
@@ -32,11 +33,10 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
 import masterState from './masterState.vue'
-import PublicEditor from '/@/components/PublicEditor/index'
 import wordCount from '/@/utils/wordCount'
 
 export default defineComponent({
-  components: { PublicEditor, masterState },
+  components: { masterState },
   setup() {
     const configs = reactive({
       parsingConfig: {
@@ -51,7 +51,6 @@ export default defineComponent({
         singleLineBreaks: false,
         codeSyntaxHighlighting: true
       },
-      sideBySideFullscreen: false,
       placeholder: '开始描述您的问题'
     })
 

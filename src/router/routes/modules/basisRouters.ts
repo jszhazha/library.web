@@ -32,6 +32,24 @@ const routers: AppRouteModule = {
       meta: {
         title: '数据字典'
       }
+    },
+    {
+      path: "problem-manage-list-page",
+      name: 'problem-manage-list-page',
+      component: (): unknown => import(`/@/views/pages/basis-manage/problem-manage/data-list/list-page.vue`),
+      meta: {
+        title: '问题管理'
+      }
+    },
+    {
+      path: "problem-manage-data-page",
+      name: 'problem-manage-data-page',
+      component: (): unknown => import(`/@/views/pages/basis-manage/problem-manage/data-page/data-page.vue`),
+      meta: {
+        title: '问题管理详情',
+        hideInMenu: true,
+        ignoreTabKeepAlive: true
+      }
     }
   ]
 }

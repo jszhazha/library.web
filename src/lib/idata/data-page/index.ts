@@ -77,7 +77,6 @@ interface PageInfo {
 function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: CreateStorage, cacheData: T) {
   // 页面刷新前处理
   function updateHandler() {
-    console.log(isEqual(dataItem, cacheData), dataItem,cacheData)
     if (mode.value === PageMode.new && !isEqual(dataItem, cacheData)) {
       setCacheData(name, storage, dataItem)
     }

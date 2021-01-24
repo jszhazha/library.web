@@ -1,5 +1,11 @@
 <template>
-  <SelectWrap v-model:value="selectData" @on-change="handleChange" @on-search="handleSearch">
+  <SelectWrap
+    v-model:value="selectData"
+    :filter-option="false"
+    :not-found-content="null"
+    @on-change="handleChange"
+    @on-search="handleSearch"
+  >
     <a-select-option v-for="item in options" :key="item.id" :value="item.name">
       {{ item.name }} ({{ item.code }})
     </a-select-option>
@@ -7,12 +13,12 @@
 </template>
 
 <script lang="ts">
-import type { PagerQueryData } from "/@/lib/http/axios/types"
-import { message } from "ant-design-vue"
-import { assign } from "lodash-es"
-import { defineComponent, PropType, ref, watch } from "vue"
-import service, { BookCategory } from "/@/api/book-manage/book-category"
-import { isNumber } from "/@/utils/is"
+import type { PagerQueryData } from '/@/lib/http/axios/types'
+import { message } from 'ant-design-vue'
+import { assign } from 'lodash-es'
+import { defineComponent, PropType, ref, watch } from 'vue'
+import service, { BookCategory } from '/@/api/book-manage/book-category'
+import { isNumber } from '/@/utils/is'
 
 export default defineComponent({
   props: {
@@ -25,7 +31,7 @@ export default defineComponent({
       default: undefined
     }
   },
-  emits: ["update:value"],
+  emits: ['update:value'],
   setup(props, { emit }) {
     const options = ref<BookCategory[]>([])
 
@@ -38,22 +44,22 @@ export default defineComponent({
         const { data } = await service.fecthList(query)
         options.value = data.content
       } catch (err) {
-        message.error("加载数据失败")
+        message.error('加载数据失败')
       }
     }
     // 使用 loadData
     async function useLoadData(params = {}) {
-      await loadData(assign({ page: 0, size: 10, sort: "" }, params))
+      await loadData(assign({ page: 0, size: 10, sort: '' }, params))
     }
     // 处理搜索
-    async function handleSearch(value = "", callback: () => void) {
+    async function handleSearch(value = '', callback: () => void) {
       await useLoadData(value ? { name: value } : {})
       callback()
     }
 
     // 处理选中
     function handleChange(value: number) {
-      emit("update:value", value)
+      emit('update:value', value)
     }
 
     watch(

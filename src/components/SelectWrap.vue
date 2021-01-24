@@ -4,8 +4,6 @@
     class="select-wrap"
     :disabled="selectReadonly"
     :placeholder="selectReadonly ? '' : placeholder"
-    :filter-option="false"
-    :not-found-content="null"
     :get-popup-container="(triggerNode) => triggerNode.parentNode"
     @change="onChange"
     @search="onSearch"
@@ -63,15 +61,8 @@ export default defineComponent({
       1000
     )
     const selectReadonly = useSelectReadonly(readonly)
-    // watch(
-    //   () => props.value,
-    //   (newValue) => {
-    //     console.log(newValue)
-    //     // if (unref(selectValue) === newValue) return
-    //     // selectValue.value = newValue
-    //   },
-    //   { immediate: true }
-    // )
+
+
     return { selectReadonly, loading, onChange, onSearch }
   }
 })

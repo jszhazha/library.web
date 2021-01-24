@@ -1,82 +1,55 @@
-import Easymde from 'easymde'
-import { defineComponent, onMounted, PropType, ref, watch } from 'vue'
-import { assign } from 'lodash-es'
+import Vditor from 'vditor'
+import { defineComponent, onBeforeUnmount, onMounted, ref, unref, watch } from 'vue'
 
-import 'easymde/dist/easymde.min.css'
-
-import 'font-awesome/css/font-awesome.css'
+import 'vditor/dist/index.css'
 
 import './index.less'
 
-interface ChangeObj {
-  origin: string
-}
-
 export default defineComponent({
   props: {
-    value: {
-      type: String,
-      default: undefined
-    },
-    lineCount: {
-      type: Number,
-      default: undefined
-    },
     configs: {
       type: Object,
       default: () => {
         return {}
       }
     },
-    simplemde: {
-      type: Object as PropType<Easymde>,
-      default: () => {
-        return {}
-      }
+    value: {
+      type: String,
+      default: ''
     }
   },
-  emits: ['update:value', 'update:lineCount', 'update:simplemde'],
+  emits: ['update:value', 'update:lineCount', 'update:initialized'],
   setup(props, { emit }) {
-    const element = ref<HTMLElement>()
+    const elementRef = ref<HTMLElement>()
 
-    const root = ref<HTMLElement>()
+    const vditor = ref<Vditor | null>(null)
 
     const isValueUpdateFromInner = ref<Boolean>(false)
 
-    const simplemde = ref<Easymde>()
+    const initedRef = ref(false)
 
-    onMounted(() => initialize())
+    onMounted(() => {
+      initialize()
+    })
+
+    onBeforeUnmount(() => {
+      unref(vditor)?.destroy()
+    })
 
     // 实例化
     function initialize() {
-      const configs = {
-        element: element.value,
-        autoDownloadFontAwesome: false,
-        toolbarTips: false,
-        maxHeight: `${((root.value?.clientHeight||15) - 32)}px`
-      }
+      const element = unref(elementRef)
+      if (!element) return
 
-      assign(configs, props.configs)
-
-      simplemde.value = new Easymde(configs)
-
-      Easymde.toggleSideBySide(simplemde.value)
-
-      emit('update:simplemde', simplemde.value)
-
-      bindingEvents()
-    }
-
-    // 绑定事件
-    function bindingEvents() {
-      simplemde.value?.codemirror.on('change', (_instance: unknown, changeObj: ChangeObj) => {
-        if (changeObj.origin === 'setValue') {
-          return
-        }
-
-        handleInput(simplemde.value?.value() as string)
-
-        handleRowCount(simplemde.value?.codemirror.lineCount())
+      vditor.value = new Vditor(element, {
+        cache: { enable: false },
+        input: (v) => handleInput(v),
+        after: () => {
+          initedRef.value = true
+          unref(vditor)?.setValue(props.value)
+        },
+        preview: { actions: [], mode: 'both' },
+        ...props.configs
       })
     }
 
@@ -86,25 +59,20 @@ export default defineComponent({
       emit('update:value', val)
     }
 
-    // 统计行数
-    function handleRowCount(count: number) {
-      emit('update:lineCount', count)
-    }
-
     watch(
       () => props.value,
       (val) => {
         if (isValueUpdateFromInner.value) {
           isValueUpdateFromInner.value = false
         } else {
-          simplemde.value?.value(val)
+          initedRef.value && unref(vditor)?.setValue(val)
         }
       }
     )
 
     return () => (
-      <div ref={root} class="public-editor">
-        <textarea class="" ref={element} />
+      <div class="public-editor">
+        <div ref={elementRef} />
       </div>
     )
   }

@@ -3,7 +3,7 @@ import type { CreateStorage } from "/@/utils/storage/Storage"
 import type { FromRules } from '/@/lib/interface/From'
 import { unref, onBeforeUnmount, onMounted, reactive, toRef, ref } from "vue"
 import { provideDataPage } from './methods/useDepend'
-import { checkCacheData, cacheData } from './methods/cacheData'
+import { checkCacheData, setCacheData } from './methods/cacheData'
 import { checkDataRouter, QueryRoute } from './methods/dataRouter'
 import { createStorage } from "/@/utils/storage/"
 import { PageMode } from "/@/utils/helper/breadcrumb"
@@ -74,11 +74,12 @@ interface PageInfo {
 
 
 // 页面为新建模式  初始化
-function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: CreateStorage) {
+function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: CreateStorage, cacheData: T) {
   // 页面刷新前处理
   function updateHandler() {
-    if (mode.value === PageMode.new) {
-      cacheData(name, storage, dataItem)
+    console.log(isEqual(dataItem, cacheData), dataItem,cacheData)
+    if (mode.value === PageMode.new && !isEqual(dataItem, cacheData)) {
+      setCacheData(name, storage, dataItem)
     }
   }
   // 查看缓存中是否有数据
@@ -121,9 +122,6 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
   // 获取方法 当前路由
   const { replace, currentRoute } = useRouter()
 
-  // 原始数据
-  let cacheData = {}
-
   // 获取当前页面 查询条件
   const { query, name } = unref(currentRoute)
 
@@ -135,6 +133,9 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
 
   // 数据初始化
   dataItemInit<T>(dataItem, rules)
+
+  // 默认数据 和 原始数据
+  let cacheData = cloneDeep(dataItem) 
 
   // 获取 ant 表单规则 
   const { validateInfos, resetFields, validate } = useForm(dataItem, rules)
@@ -181,7 +182,7 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
 
   // 页面为新建模式 
   if (pageInfo.mode === PageMode.new) {
-    newModeInit<T>(dataItem, toRef(pageInfo, 'mode'), name as string, storage)
+    newModeInit<T>(dataItem, toRef(pageInfo, 'mode'), name as string, storage, cacheData)
   }
 
   // 页面为编辑模式

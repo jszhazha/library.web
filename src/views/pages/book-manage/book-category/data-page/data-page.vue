@@ -59,8 +59,8 @@ export default defineComponent({
     }
 
     // 保存数据
-    async function onSaveData(id: number) {
-      const { data } = await service.updateItem(id, dataItem)
+    async function onSaveData(id: number, contrast: BookCategory) {
+      const { data } = await service.updateItem(id, contrast)
       assign(dataItem, data)
     }
 

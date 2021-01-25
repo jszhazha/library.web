@@ -91,12 +91,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue"
-import { dataPageMix } from "/@/lib/idata/data-page/"
-import service, { BookInfo } from "/@/api/book-manage/book-info"
-import { formRules } from "./data-page"
-import { assign } from "lodash-es"
-import bookDetail from "./book-detail.vue"
+import { defineComponent, reactive, toRefs } from 'vue'
+import { dataPageMix } from '/@/lib/idata/data-page/'
+import service, { BookInfo } from '/@/api/book-manage/book-info'
+import { formRules } from './data-page'
+import { assign } from 'lodash-es'
+import bookDetail from './book-detail.vue'
 
 export default defineComponent({
   components: { bookDetail },
@@ -116,8 +116,8 @@ export default defineComponent({
     }
 
     // 保存数据
-    async function onSaveData(id: number) {
-      const { data } = await service.updateItem(id, dataItem)
+    async function onSaveData(id: number, contrast: BookInfo) {
+      const { data } = await service.updateItem(id, contrast)
       assign(dataItem, data)
     }
 

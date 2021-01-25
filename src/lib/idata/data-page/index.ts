@@ -10,6 +10,7 @@ import { PageMode } from "/@/utils/helper/breadcrumb"
 import { useForm } from "@ant-design-vue/use"
 import { useRouter } from "vue-router"
 import { assign, cloneDeep, isEqual } from 'lodash-es'
+import { difference } from "/@/utils/difference"
 import useToast from "/@/components/Toast"
 
 
@@ -53,7 +54,7 @@ interface DataPageMixParameter<T> {
     onNewData: () => Promise<void>
 
     // 保存数据
-    onSaveData: (id: number) => Promise<void>
+    onSaveData: (id: number, contrast: T) => Promise<void>
 
     // 通过ID加载数据
     onLoadDataById: (id: number) => Promise<void>
@@ -134,7 +135,7 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
   dataItemInit<T>(dataItem, rules)
 
   // 默认数据 和 原始数据
-  let cacheData = cloneDeep(dataItem) 
+  let cacheData = cloneDeep(dataItem)
 
   // 获取 ant 表单规则 
   const { validateInfos, resetFields, validate } = useForm(dataItem, rules)
@@ -238,7 +239,8 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
         pageInfo.mode = PageMode.edit
         replace({ query: { mode: PageMode[PageMode.edit], id: dataItem.id } })
       } else if (pageInfo.mode === PageMode.edit && !isEqual(dataItem, cacheData)) {
-        await onServerMethods.onSaveData(parseInt(pageInfo.query.id!))
+        const contrast = difference<T>(dataItem, cacheData)
+        await onServerMethods.onSaveData(parseInt(pageInfo.query.id!), contrast)
       }
 
       useToast.success("数据保存成功")

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export function difference<T>(base: T, other: T): unknown {
+export function difference<T>(base: T, other: T): T {
   // 深拷贝
   const deepClone = (value: unknown) => {
     if (typeof value !== "object" || value === null) {
@@ -82,5 +82,5 @@ export function difference<T>(base: T, other: T): unknown {
     return result
   }
 
-  return deepValid(base, other).value
+  return (deepValid(base, other).value as T)
 }

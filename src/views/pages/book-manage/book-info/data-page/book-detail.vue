@@ -4,12 +4,12 @@
       <a-row>
         <a-col v-if="mode === 0" :xs="24" :lg="9" class="pl-4 pr-4">
           <a-form-item label="索书号">
-            <InputWrap v-model:value="dataItem.searchCode" :readonly="false" />
+            <InputWrap v-model:value="dataItem.searchCode" :is-readonly="false" />
           </a-form-item>
         </a-col>
         <a-col :xs="24" :lg="9" class="pl-4 pr-4">
           <a-form-item label="存放位置" :required="mode === 1">
-            <InputWrap v-model:value="dataItem.address" :readonly="false" />
+            <InputWrap v-model:value="dataItem.address" :is-readonly="false" />
           </a-form-item>
         </a-col>
         <a-col class="pl-4 pr-4" flex="auto">

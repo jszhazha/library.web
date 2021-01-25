@@ -11,13 +11,12 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import { defineComponent, PropType, ref, unref, watch, computed, toRefs } from 'vue'
-import { isBoolean } from '../utils/is'
 import { injectDatapage } from '/@/lib/idata/data-page/methods/useDepend'
 
-const useinputReadonly = (readonly: Ref<boolean>) => {
+const useinputReadonly = (readonly: Ref<boolean>, isReadonly: Ref<boolean>) => {
   return computed(() => {
     const dataPage = injectDatapage()
-    return isBoolean(readonly.value) ? readonly.value : dataPage.readonly?.value
+    return readonly.value || (isReadonly.value && dataPage.readonly?.value)
   })
 }
 
@@ -31,6 +30,10 @@ export default defineComponent({
       type: Boolean as PropType<boolean>,
       default: undefined
     },
+    isReadonly: {
+      type: Boolean as PropType<boolean>,
+      default: true
+    },
     placeholder: {
       type: String,
       default: '请输入'
@@ -39,12 +42,12 @@ export default defineComponent({
   emits: ['update:value'],
   setup(props, { emit }) {
     const inputValue = ref<string | number>('')
-    const { readonly } = toRefs(props)
+    const { readonly, isReadonly } = toRefs(props)
 
     // 内容发送变化触发
     const onChange = () => emit('update:value', inputValue.value)
 
-    const inputReadonly = useinputReadonly(readonly)
+    const inputReadonly = useinputReadonly(readonly, isReadonly)
 
     watch(
       () => props.value,

@@ -2,12 +2,12 @@
   <a-form :label-col="{ flex: '100px' }">
     <a-row type="flex" justify="end">
       <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="类别名">
+        <a-form-item label="角色名称">
           <a-input v-model:value="queryData.name" placeholder="请输入" allow-clear />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="编码">
+        <a-form-item label="角色编号">
           <a-input v-model:value="queryData.code" placeholder="请输入" allow-clear />
         </a-form-item>
       </a-col>

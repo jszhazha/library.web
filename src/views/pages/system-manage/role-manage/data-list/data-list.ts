@@ -2,26 +2,27 @@ import type { TableColumn } from '/@/lib/props/TableList'
 
 export const tableColumns: TableColumn[] = [
   {
-    title: '类别名',
+    title: '角色编号',
     dataIndex: 'name',
     align: 'center',
     ellipsis: true
 
   },
   {
-    title: '编码',
+    title: '角色名称',
+    dataIndex: 'name',
+    align: 'center',
+    ellipsis: true
+
+  },
+  {
+    title: '角色状态',
     dataIndex: 'code',
     align: 'center',
     ellipsis: true
   },
   {
-    title: '创建者',
-    dataIndex: 'createBy',
-    align: 'center',
-    ellipsis: true
-  },
-  {
-    title: '更新者',
+    title: '创建时间',
     dataIndex: 'updateBy',
     align: 'center',
     ellipsis: true

@@ -11,14 +11,22 @@
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="状态" v-bind="validateInfos.show">
-              <a-radio-group v-model:value="dataItem.show">
-                <a-radio :value="1">
+              <SelectWrap v-model:value="dataItem.show">
+                <a-select-option :value="1">
                   可见
+                </a-select-option>
+                <a-select-option :value="0">
+                  不可见
+                </a-select-option>
+              </SelectWrap>
+              <!-- <a-radio-group >
+                <a-radio :value="1">
+                  
                 </a-radio>
                 <a-radio :value="0" class="ml-2">
-                  不可见
+                  
                 </a-radio>
-              </a-radio-group>
+              </a-radio-group> -->
             </a-form-item>
           </a-col>
         </a-row>

@@ -1,69 +1,47 @@
 <template>
   <a-select
-    show-search
     class="select-wrap"
-    :disabled="selectReadonly"
-    :placeholder="selectReadonly ? '' : placeholder"
-    :get-popup-container="(triggerNode) => triggerNode.parentNode"
-    @change="onChange"
-    @search="onSearch"
+    :disabled="inputReadonly"
+    :placeholder="inputReadonly ? '' : placeholder"
   >
-    <template #suffixIcon>
-      <LoadingOutlined v-if="loading" />
-      <SearchOutlined v-else />
-    </template>
     <slot />
   </a-select>
 </template>
 
 <script lang="ts">
-import { ref, Ref } from "vue"
-import { debounce } from "lodash-es"
-import { defineComponent, PropType, computed, toRefs } from "vue"
-import { injectDatapage } from "/@/lib/idata/data-page/methods/useDepend"
-import { SearchOutlined, LoadingOutlined } from "@ant-design/icons-vue"
+import type { Ref } from 'vue'
+import { defineComponent, PropType, computed, toRefs } from 'vue'
+import { injectDatapage } from '/@/lib/idata/data-page/methods/useDepend'
 
-const useSelectReadonly = (readonly: Ref<boolean>) => {
+const useinputReadonly = (readonly: Ref<boolean>, isReadonly: Ref<boolean>) => {
   return computed(() => {
     const dataPage = injectDatapage()
-    return readonly.value || dataPage.readonly?.value
+    return readonly.value || (isReadonly.value && dataPage.readonly?.value)
   })
 }
 
 export default defineComponent({
-  components: { SearchOutlined, LoadingOutlined },
   props: {
     readonly: {
       type: Boolean as PropType<boolean>,
-      default: false
+      default: undefined
+    },
+    isReadonly: {
+      type: Boolean as PropType<boolean>,
+      default: true
     },
     placeholder: {
       type: String,
-      default: "请输入"
+      default: '请输入'
     }
   },
-  emits: ["on-change", "on-search"],
-  setup(props, { emit }) {
-    const { readonly } = toRefs(props)
-    const loading = ref<boolean>(false)
-    // 内容发送变化触发
-    const onChange = (_value: string, { key }: { key: number }) => {
-      emit("on-change", key)
-    }
-    // 设置加载
-    const setLoadState = (state: boolean) => (loading.value = state)
-    // 处理加载
-    const onSearch = (value: string) => {
-      value && (setLoadState(true), useDebugger(value))
-    }
-    const useDebugger = debounce(
-      (value: string) => emit("on-search", value, () => setLoadState(false)),
-      1000
-    )
-    const selectReadonly = useSelectReadonly(readonly)
+  emits: ['update:value'],
+  setup(props) {
+    const { readonly, isReadonly } = toRefs(props)
 
+    const inputReadonly = useinputReadonly(readonly, isReadonly)
 
-    return { selectReadonly, loading, onChange, onSearch }
+    return { inputReadonly }
   }
 })
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <SelectWrap
+  <select-search
     v-model:value="selectData"
     :filter-option="false"
     :not-found-content="null"
@@ -9,7 +9,7 @@
     <a-select-option v-for="item in options" :key="item.id" :value="item.name">
       {{ item.name }} ({{ item.code }})
     </a-select-option>
-  </SelectWrap>
+  </select-search>
 </template>
 
 <script lang="ts">
@@ -19,8 +19,10 @@ import { assign } from 'lodash-es'
 import { defineComponent, PropType, ref, watch } from 'vue'
 import service, { BookCategory } from '/@/api/book-manage/book-category'
 import { isNumber } from '/@/utils/is'
+import SelectSearch from './SelectSearch.vue'
 
 export default defineComponent({
+  components: { SelectSearch },
   props: {
     value: {
       type: [String, Number],

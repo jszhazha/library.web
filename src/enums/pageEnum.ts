@@ -9,5 +9,12 @@ export enum PageEnum {
   BASE_NOT_FOUND = 'no-fount-page',
 
   // 首页
-  INDEX_PAGE = 'index-page'
+  INDEX_PAGE = 'index-page',
+
+  // 个人中心
+  PERSONAL_CENTER = "account-manage-center",
+
+  // 个人设置
+  PERSONAL_SETTING = "account-manage-setting",
+  
 }

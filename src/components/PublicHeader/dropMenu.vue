@@ -22,11 +22,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
-import { userStore } from "/@/store/modules/user"
-import { UserOutlined, SettingOutlined, LogoutOutlined } from "@ant-design/icons-vue"
-import { PageEnum } from "/@/enums/pageEnum"
-import { useGo } from "/@/hooks/web/usePage"
+import { defineComponent } from 'vue'
+import { userStore } from '/@/store/modules/user'
+import { UserOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons-vue'
+import { PageEnum } from '/@/enums/pageEnum'
+import { useGo } from '/@/hooks/web/usePage'
 
 export default defineComponent({
   components: { UserOutlined, SettingOutlined, LogoutOutlined },
@@ -37,19 +37,25 @@ export default defineComponent({
     async function handlemenuClick({ key }: { key: string }) {
       switch (key) {
         // 退出
-        case "logout":
+        case 'logout':
           try {
             await userStore.logout()
             userStore.commitResetState()
             go({ name: PageEnum.BASE_LOGIN })
           } catch (err) {}
           break
+        case 'center':
+          go({ name: PageEnum.PERSONAL_CENTER })
+          break
+        case 'setting':
+          go({ name: PageEnum.PERSONAL_SETTING })
+          break
         default:
           break
       }
     }
 
-    return {  handlemenuClick }
+    return { handlemenuClick }
   }
 })
 </script>

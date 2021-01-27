@@ -17,13 +17,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue"
-import { Button } from "/@/lib/UI/index"
-import { useGo } from "/@/hooks/web/usePage"
-import { PageEnum } from "/@/enums/pageEnum"
-import { userStore } from "/@/store/modules/user"
-import { isNull } from "/@/utils/is"
-import dropMenu from "./dropMenu.vue"
+import { defineComponent, computed } from 'vue'
+import { Button } from '/@/lib/UI/index'
+import { useGo } from '/@/hooks/web/usePage'
+import { PageEnum } from '/@/enums/pageEnum'
+import { userStore } from '/@/store/modules/user'
+import { isNull } from '/@/utils/is'
+import dropMenu from './dropMenu.vue'
 
 export default defineComponent({
   components: { Button, dropMenu },
@@ -45,7 +45,7 @@ export default defineComponent({
       return userStore.getUserInfoState
     })
 
-    return { PageEnum, userIsLogin, userInfo,onLoginButton }
+    return { PageEnum, userIsLogin, userInfo, onLoginButton }
   }
 })
 </script>
@@ -54,5 +54,10 @@ export default defineComponent({
 .header-right-action {
   display: inline-flex;
   align-items: center;
+}
+
+.header-title {
+  display: inline-block;
+  line-height: 24px;
 }
 </style>

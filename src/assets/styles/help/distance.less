@@ -15,7 +15,9 @@
 // 步长
 @base-size-base: 4;
 
-@base-size-max: 10;
+@base-size-max: 15;
+
+
 
 .distance() {
   .loop (p, padding, 1, @padding-size-base, @padding-size-max);
@@ -29,4 +31,6 @@
   .loop (mb, margin-bottom, 1, @margin-size-base, @margin-size-max);
   .loop (mr, margin-right, 1, @margin-size-base, @margin-size-max);
   .loop (fs, font-size, 1, @base-size-base, @base-size-max);
+  .loop (lh, line-height, 1, @base-size-base, @base-size-max);
+  .loop (h, height, 1, @base-size-base, @base-size-max);
 }

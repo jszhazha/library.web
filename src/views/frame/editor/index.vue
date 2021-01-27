@@ -17,7 +17,7 @@
       <div class="index-middle">
         <master-state />
       </div>
-      <div class="index-middle fs10">
+      <div class="index-middle fs-3">
         <div class="mr-2">
           <span class="mr-1">lines：</span>
           <span class="w20 inline-block">{{ lineCount }}</span>

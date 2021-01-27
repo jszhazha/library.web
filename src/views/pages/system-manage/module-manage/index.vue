@@ -1,83 +1,26 @@
 <template>
-  <div class="index-content">
-    <div class="index-table-search index-card">
-      <search-panle ref="searchInstance" @onSearch="onSearchData" />
-    </div>
-    <list-view ref="listInstance" />
-    <ImportModal
-      ref="importInstance"
-      title="批量导入"
-      :columns="importColumns"
-      :data-source="importData"
-    />
+  <div class="p-4 module-manage">
+    <menu-sider />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue"
-import { BookInfo } from "/@/api/book-manage/book-info"
-import { Instance } from "/@/lib/interface/ListPage"
-import { listPageMix } from "/@/lib/idata/data-list/"
-import { importColumns } from "./data-list"
-import searchPanle from "./search-panle.vue"
-import listView from "./list-panle.vue"
+import { defineComponent } from "vue"
+import menuSider from './menu-sider'
 
-const DATA_PAGE_NAME = "book-manage-book-info-data-page"
 
 export default defineComponent({
-  components: { listView, searchPanle },
+  components:{menuSider},
   setup() {
-    // 实例
-    const instance = reactive<Instance<BookInfo>>({
-      // 导入对话框实例
-      importInstance: null,
-      // 搜索实例
-      searchInstance: null,
-      // 列表实例
-      listInstance: null
-    })
-
-    // 配置信息
-    const options = {
-      name:DATA_PAGE_NAME,
-
-      fetchDataFromServer,
-
-      deleteDataFromServer,
-
-      instance
-    }
-
-    // 批量导入数据集合
-    const importData = reactive<BookInfo[]>([])
-
-    const { onFetchData, onSearchData } = listPageMix<BookInfo>( options)
-
-    // 从服务器取得数据 设置列表数据
-    async function fetchDataFromServer() {
-      // instance.listInstance?.setDataSource(data)
-      console.log(instance.searchInstance?.getCurQueryData())
-    }
-
-    // 删除数据, 刷新数据
-    async function deleteDataFromServer(id: number) {
-      console.log(id)
-      onFetchData()
-    }
-
-    // 打开对话框
-    // function openImportModal() {
-    //   unref(importInstance)!.openModal!();
-    // }
-
-    return {
-      importData,
-      importColumns,
-      onSearchData,
-      ...toRefs(instance)
-    }
+// 
   }
 })
 </script>
 
-<style lang="less" scoped></style>
+
+<style lang="less" scoped>
+.module-manage{
+  display: flex;
+  min-height: 100%;
+}
+</style>

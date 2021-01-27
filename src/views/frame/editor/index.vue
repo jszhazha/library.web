@@ -20,11 +20,11 @@
       <div class="index-middle fs-3">
         <div class="mr-2">
           <span class="mr-1">lines：</span>
-          <span class="w20 inline-block">{{ lineCount }}</span>
+          <span class="w-20 inline-block">{{ lineCount }}</span>
         </div>
         <div>
           <span class="mr-1">words：</span>
-          <span class="w20 inline-block">{{ wordCount(handbook) }}</span>
+          <span class="w-20 inline-block">{{ wordCount(handbook) }}</span>
         </div>
       </div>
     </div>

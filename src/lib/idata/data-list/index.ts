@@ -37,7 +37,7 @@ export function listPageMix<T>(options: Options<T>): onFetchData {
   const loading = ref<boolean>(false)
 
   // 设置实例
-  provideListPage<T>({ name: name, deleteDataFromServer, loading })
+  provideListPage<T>({ name, deleteDataFromServer, loading, onFetchData })
 
 
   onMounted(async () => {

@@ -3,17 +3,17 @@
     <a-row>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="书名">
-          <a-input v-model:value="queryData.name" placeholder="请输入" />
+          <InputSearch v-model:value="queryData.name" />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="编码">
-          <a-input v-model:value="queryData.code" placeholder="请输入" />
+          <InputSearch v-model:value="queryData.code" />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="出版社">
-          <a-input v-model:value="queryData.publisher" placeholder="请输入" />
+          <InputSearch v-model:value="queryData.publisher" />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
@@ -23,7 +23,7 @@
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="国际标准书号">
-          <a-input v-model:value="queryData.isbn" placeholder="请输入" />
+          <InputSearch v-model:value="queryData.isbn" />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">

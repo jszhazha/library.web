@@ -3,12 +3,12 @@
     <a-row type="flex" justify="end">
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="操作人员">
-          <a-input v-model:value="queryData.username" placeholder="请输入" allow-clear />
+          <InputSearch v-model:value="queryData.userName" />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="主机">
-          <a-input v-model:value="queryData.ip" placeholder="请输入" allow-clear />
+          <InputSearch v-model:value="queryData.ip" />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">

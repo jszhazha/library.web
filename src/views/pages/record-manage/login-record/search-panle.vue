@@ -3,22 +3,22 @@
     <a-row type="flex" justify="end">
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="登录账户">
-          <a-input v-model:value="queryData.username" placeholder="请输入" allow-clear />
+          <InputSearch v-model:value="queryData.userName" />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="登录地址">
-          <a-input v-model:value="queryData.ip" placeholder="请输入" allow-clear />
+          <InputSearch v-model:value="queryData.ip" />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="登录省份">
-          <a-input v-model:value="queryData.region" placeholder="请输入" allow-clear />
+          <InputSearch v-model:value="queryData.region" />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col" r>
         <a-form-item label="登录城市">
-          <a-input v-model:value="queryData.city" placeholder="请输入" allow-clea />
+          <InputSearch v-model:value="queryData.city" />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col" />

@@ -16,6 +16,7 @@ import SelectWrap from '/@/components/SelectWrap.vue'
 import PaginationWrap from '/@/components/PaginationWrap.vue'
 import DatePickerWrap from '/@/components/DatePickerWrap.vue'
 import InputNumberWrap from '/@/components/InputNumberWrap.vue'
+import InputSearch from '/@/components/InputSearch.vue'
 import PublicEditor from '/@/components/PublicEditor/index'
 import BookCategorySearchSelect from '/@/components/SearchSelect/BookCategory.vue'
 
@@ -31,6 +32,7 @@ export default class ComponentRegisterPlugin {
     app.component('BookCategorySearchSelect', BookCategorySearchSelect)
     app.component('TextareaWrap', TextareaWrap).component('DatePickerWrap', DatePickerWrap)
     app.component('InputNumberWrap', InputNumberWrap).component('PublicEditor', PublicEditor)
+    app.component('InputSearch', InputSearch)
 
   }
 }

@@ -12,6 +12,9 @@ interface DataPage<T> {
   // 数据加载
   loading: Ref<boolean>
 
+  // 从服务器获取数据
+  onFetchData: () => Promise<void>
+
   // 添加数据 
   onNewDataItem: () => void
 
@@ -31,6 +34,9 @@ interface Options {
   // 从服务器删除数据
   deleteDataFromServer: (id: number) => Promise<void>
 
+  // 从服务器获取数据
+  onFetchData: () => Promise<void>
+
   // 数据加载
   loading: Ref<boolean>
 }
@@ -46,7 +52,7 @@ interface Options {
  */
 export function provideListPage<T extends { id?: number }>(options: Options): void {
 
-  const { name, deleteDataFromServer, loading } = options
+  const { name, deleteDataFromServer, onFetchData, loading } = options
 
   const go = useGo()
 
@@ -66,7 +72,8 @@ export function provideListPage<T extends { id?: number }>(options: Options): vo
     useDeleteModal(async () => await deleteDataFromServer(record.id!))
   }
 
-  const instance: DataPage<T> = { loading, onNewDataItem, onViewDataItem, onEditDataItem, onDeleteDataItem }
+
+  const instance: DataPage<T> = { loading, onFetchData, onNewDataItem, onViewDataItem, onEditDataItem, onDeleteDataItem }
 
   provide(key, instance)
 }

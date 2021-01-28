@@ -9,21 +9,11 @@ export default defineComponent({
 
     function renderMenuItem(menuList: MenuType[]) {
       return menuList.map((el) => {
-        if (el.children) {
-          return (
-            <Tree.TreeNode>
-              {{
-                title: () => el.title,
-                default: () => renderMenuItem(el.children!)
-              }}
-            </Tree.TreeNode>
-          )
-        }
-
         return (
-          <Tree.TreeNode>
+          <Tree.TreeNode key={el.name}>
             {{
-              title: () => el.title
+              title: () => el.title,
+              default: () => renderMenuItem(el.children || [])
             }}
           </Tree.TreeNode>
         )
@@ -31,10 +21,10 @@ export default defineComponent({
     }
 
     return () => (
-      <div class="bg-white w-260 br-8 pt-2">
-        <Tree.DirectoryTree >
+      <div class="bg-white">
+        <Tree blockNode={true} showLine={true} defaultExpandAll={true}>
           {{ default: () => renderMenuItem(menuItem) }}
-        </Tree.DirectoryTree>
+        </Tree>
       </div>
     )
   }

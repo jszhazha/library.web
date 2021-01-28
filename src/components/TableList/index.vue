@@ -1,7 +1,7 @@
 <template>
   <div
     ref="tableRef"
-    :class="['index-card', 'table-list', fullScreen ? 'full-screen' : '']"
+    :class="['index-card', 'default-shadow', 'table-list', fullScreen ? 'full-screen' : '']"
     :style="wrapStyle"
   >
     <div class="table-list-header index-space-between">
@@ -47,19 +47,19 @@
 </template>
 
 <script lang="ts">
-import { Ref } from "vue"
-import { ref, unref, reactive, computed, onMounted, defineComponent } from "vue"
-import { tableListProps, TableColumn } from "/@/lib/props/TableList"
-import { browserClient, elementOffset } from "/@/utils/elelment"
-import listSetting from "./listSetting.vue"
-import TooltipButton from "./TooltipButton.vue"
-import { provideTable } from "./useDepend"
+import { Ref } from 'vue'
+import { ref, unref, reactive, computed, onMounted, defineComponent } from 'vue'
+import { tableListProps, TableColumn } from '/@/lib/props/TableList'
+import { browserClient, elementOffset } from '/@/utils/elelment'
+import listSetting from './listSetting.vue'
+import TooltipButton from './TooltipButton.vue'
+import { provideTable } from './useDepend'
 import {
   SyncOutlined,
   ExpandOutlined,
   CompressOutlined,
   VerticalAlignBottomOutlined
-} from "@ant-design/icons-vue"
+} from '@ant-design/icons-vue'
 
 export default defineComponent({
   components: {
@@ -71,7 +71,7 @@ export default defineComponent({
     VerticalAlignBottomOutlined
   },
   props: tableListProps,
-  emits: ["on-refresh"],
+  emits: ['on-refresh'],
   setup(props, { emit }) {
     // 全屏 标志位
     const fullScreen = ref<boolean>(false)
@@ -83,7 +83,7 @@ export default defineComponent({
     let browserSize: { width?: number; height?: number } = {}
     // 偏移量
     const transform = reactive<{ translate: string }>({
-      translate: "(0px,0px)"
+      translate: '(0px,0px)'
     })
     // table 表头数据
     const tableColumns = (ref(unref(props).columns) as unknown) as Ref<TableColumn[]>
@@ -100,7 +100,7 @@ export default defineComponent({
     })
 
     // 刷新
-    const onRefresh = () => emit("on-refresh")
+    const onRefresh = () => emit('on-refresh')
 
     onMounted(() => (browserSize = browserClient()))
 
@@ -108,14 +108,14 @@ export default defineComponent({
     function onFullScreen() {
       if (fullScreen.value) {
         // 切换为非全屏
-        Reflect.deleteProperty(scroll, "y")
+        Reflect.deleteProperty(scroll, 'y')
         if (props.dataSource.length) {
           scroll.x = true
         }
         transform.translate = `(0px,0px)`
       } else {
         // 切换为全屏
-        Reflect.deleteProperty(scroll, "x")
+        Reflect.deleteProperty(scroll, 'x')
         const offset = elementOffset(unref(tableRef))
         transform.translate = `(-${offset.left - 16}px,-${offset.top}px)`
         scroll.y = browserSize.height! - 200
@@ -186,7 +186,6 @@ export default defineComponent({
   height: 100% !important;
   margin: 0;
   border-radius: 0;
-  
 }
 
 .footer {

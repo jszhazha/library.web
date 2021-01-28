@@ -12,3 +12,24 @@
   }
 }
 
+@treeHeight: 35px;
+
+.ant-tree li {
+  .ant-tree-switcher {
+    transition: all 0.3s ease 0s;
+  }
+
+  .ant-tree-node-content-wrapper {
+    height: @treeHeight;
+    line-height: @treeHeight;
+    border-radius: 4px;
+  }
+
+  span.ant-tree {
+    &-iconEle,
+    &-switcher {
+      height: @treeHeight;
+      line-height: @treeHeight;
+    }
+  }
+}

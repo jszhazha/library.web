@@ -20,11 +20,13 @@ export default defineComponent({
       })
     }
 
+    function onSelect(selectedKeys: string[]) {
+      console.log(selectedKeys)
+    }
     return () => (
-      <Tree blockNode={true} showLine={false} defaultExpandAll={true}>
+      <Tree blockNode={false} showLine={false} showIcon={false} onSelect={onSelect}>
         {{ default: () => renderMenuItem(menuItem) }}
       </Tree>
-
     )
   }
 })

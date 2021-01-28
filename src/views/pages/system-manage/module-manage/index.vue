@@ -1,6 +1,6 @@
 <template>
-  <div class="p-4 module-manage">
-    <Scrollbar class="bg-white br-8">
+  <div class="p-4 pt-2 module-manage">
+    <Scrollbar class="bg-white br-8 default-shadow">
       <menu-sider class="menu-sider" />
     </Scrollbar>
     <div class="flex-item">
@@ -29,9 +29,9 @@ export default defineComponent({
 
   .menu-sider {
     flex: 1;
-    width: 260px;
+    width: 280px;
     height: 0;
-    padding: 16px 0 16px 8px;
+    padding: 16px 16px 16px 8px;
     border-radius: 8px;
   }
 }

@@ -21,11 +21,10 @@ export default defineComponent({
     }
 
     return () => (
-      <div class="bg-white">
-        <Tree blockNode={true} showLine={true} defaultExpandAll={true}>
-          {{ default: () => renderMenuItem(menuItem) }}
-        </Tree>
-      </div>
+      <Tree blockNode={true} showLine={false} defaultExpandAll={true}>
+        {{ default: () => renderMenuItem(menuItem) }}
+      </Tree>
+
     )
   }
 })

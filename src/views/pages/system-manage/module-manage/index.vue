@@ -1,8 +1,11 @@
 <template>
   <div class="p-4 module-manage">
-    <Scrollbar>
-      <menu-sider class="menu-sider scrollbar" />
+    <Scrollbar class="bg-white br-8">
+      <menu-sider class="menu-sider" />
     </Scrollbar>
+    <div class="flex-item">
+      123
+    </div>
   </div>
 </template>
 
@@ -22,7 +25,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .module-manage {
   display: flex;
-  // height: 100%;
+  height: 100%;
 
   .menu-sider {
     flex: 1;

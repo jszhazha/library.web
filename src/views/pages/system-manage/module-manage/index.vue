@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { Scrollbar } from '/@/components/Scrollbar'
-import menuSider from './menu-sider'
+import menuSider from './menu-sider.vue'
 
 export default defineComponent({
   components: { menuSider, Scrollbar },

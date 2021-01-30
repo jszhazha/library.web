@@ -1,11 +1,7 @@
 
 import type { App } from 'vue'
 
-<<<<<<< HEAD
 import { Button, Divider, Form, Input, Modal, Pagination, Row, Col, Checkbox, notification, Popover, Popconfirm, message, Menu, Dropdown, Select, Progress, DatePicker, InputNumber, Tag, Radio, Tree } from 'ant-design-vue'
-=======
-import { Button, Divider, Form, Input, Modal, Pagination, Row, Col, Checkbox, notification, Popover, Popconfirm, message, Menu, Dropdown, Select, Progress, DatePicker, InputNumber, Tag, Radio ,Tree} from 'ant-design-vue'
->>>>>>> cd6df3c7522a9173d1c16540960c8ce40d67a6f7
 
 // 导入 Icon
 import { PlusOutlined, SettingOutlined, DownOutlined, InfoCircleFilled } from '@ant-design/icons-vue'

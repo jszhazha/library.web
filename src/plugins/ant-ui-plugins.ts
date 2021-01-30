@@ -30,12 +30,8 @@ export default class AntUiPlugins {
   static init(app: App<Element>): void {
     app.use(Button).use(Divider).use(Form).use(Input).use(Modal).use(Pagination).use(Select)
     app.use(Row).use(Col).use(Checkbox).use(Popover).use(Popconfirm).use(Menu).use(Dropdown)
-<<<<<<< HEAD
     app.use(Progress).use(DatePicker).use(InputNumber).use(Tag).use(Radio)
     app.use(Tree)
-=======
-    app.use(Progress).use(DatePicker).use(InputNumber).use(Tag).use(Radio).use(Tree)
->>>>>>> cd6df3c7522a9173d1c16540960c8ce40d67a6f7
     app.component('PlusOutlined', PlusOutlined)
     app.component("DownOutlined", DownOutlined)
     app.component('SettingOutlined', SettingOutlined)

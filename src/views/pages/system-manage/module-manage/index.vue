@@ -78,7 +78,7 @@ export default defineComponent({
 
     &-title {
       font-weight: bold;
-      
+
       &::after {
         margin: 0 8px 0 2px;
         content: ':';

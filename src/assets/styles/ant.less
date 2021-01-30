@@ -14,20 +14,34 @@
 
 @treeHeight: 35px;
 
-.ant-tree li {
-  .ant-tree-switcher {
-    transition: all 0.3s ease 0s;
+.ant-tree {
+  li {
+    .ant-tree-node-content-wrapper {
+      height: @treeHeight;
+      line-height: @treeHeight;
+    }
+
+    span.ant-tree {
+      &-iconEle,
+      &-switcher {
+        height: @treeHeight;
+        line-height: @treeHeight;
+      }
+    }
   }
 
-  .ant-tree-node-content-wrapper {
-    height: @treeHeight;
-    line-height: @treeHeight;
-    border-radius: 4px;
-  }
+  &.ant-tree-directory {
+    .handleTree();
 
-  span.ant-tree {
-    &-iconEle,
-    &-switcher {
+    .ant-tree-child-tree {
+      .handleTree();
+    }
+  }
+}
+
+.handleTree() {
+  li span.ant-tree-node-content-wrapper {
+    &::before {
       height: @treeHeight;
       line-height: @treeHeight;
     }

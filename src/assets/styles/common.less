@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+.h100 {
+  height: 100%;
+}
+
 .cur-p {
   cursor: pointer;
 }
@@ -14,10 +18,6 @@
   width: 260px;
 }
 
-.br-8{
-  border-radius: 8px;
-}
-
 .inline-block {
   display: inline-block;
 }
@@ -26,11 +26,21 @@
   background: var(--color-background-override);
 }
 
-.flex-item{
-  flex: 1;
+.flex {
+  display: flex;
+
+  &-item {
+    flex: 1;
+  }
+
+  &-column{
+    flex-direction: column;
+  }
 }
 
-
+.fw-b {
+  font-weight: bold;
+}
 
 .default-shadow {
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);

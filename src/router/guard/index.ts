@@ -3,6 +3,7 @@ import { createPageLoadingGuard } from './pageLoadingGuard'
 import { createPageTitleGuard } from './pageTitleGuard'
 import { createPermissionGuard } from './permissionGuard'
 import { createRouteStateGuard } from './routeStateGuard'
+import { createPageSearchGuard } from './pageSearchGuard'
 
 
 export function createGuard(router: Router): void {
@@ -15,6 +16,9 @@ export function createGuard(router: Router): void {
 
   // 路由拦截
   createRouteStateGuard(router)
+
+  // 搜索页面拦截
+  createPageSearchGuard(router)
 
 
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="header-left-action">
     <slot />
   </div>
 </template>
@@ -10,5 +10,10 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+.header-left-action {
+  display: inline-flex;
+  align-items: center;
+}
+
 </style>

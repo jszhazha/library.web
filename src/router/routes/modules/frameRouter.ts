@@ -47,6 +47,7 @@ export const SearchRoute: AppRouteRecordRaw = {
   name: 'search',
   component: () => import('/@/views/frame/search-page/index.vue'),
   meta: {
-    title: '编辑'
+    title: '搜索',
+    ignoreAuth: true
   }
 }

@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="main-search-wrap">
-      <input-search class="main-search" />
+      <input-search class="main-search" @on-enter="handleEnter" />
       <div class="mt-5 main-tips">
         <input type="submit" class="main-submit" value="站内检索">
         <input type="submit" class="main-submit" value="智能检索">
@@ -16,15 +16,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
-import config from "/@/config/"
-import { InputSearch } from "/@/lib/UI/"
+import { defineComponent } from 'vue'
+import config from '/@/config/'
+import { PageEnum } from '/@/enums/pageEnum'
+import { useGo } from '/@/hooks/web/usePage'
+import { InputSearch } from '/@/lib/UI/'
 
 export default defineComponent({
   components: { InputSearch },
   setup() {
+    const go = useGo()
+
+    // 处理用户按下 enter
+    function handleEnter(val: string) {
+      val && go({ name: PageEnum.SEARCH_PAGE, query: { q: val } })
+    }
+
     return {
-      config
+      config,
+      handleEnter
     }
   }
 })
@@ -46,6 +56,7 @@ export default defineComponent({
 
     .main-search {
       width: 100%;
+      height: 44px;
     }
 
     .main-tips {

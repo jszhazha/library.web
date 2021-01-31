@@ -5,7 +5,7 @@ import HeaderRight from "./HeaderRight.vue"
 export default defineComponent({
   setup(_props, { slots }) {
     return () => (
-      <header class="index-space-between h-12 lh-12 pr-12 pl-4">
+      <header class="index-space-between h-12 pr-12 pl-4">
         <HeaderLeft>{() => slots.left && slots.left()}</HeaderLeft>
         <HeaderRight>{() => slots.right && slots.right()}</HeaderRight>
       </header>

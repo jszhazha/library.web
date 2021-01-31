@@ -1,6 +1,6 @@
 <template>
   <div class="ui-input-search-wrap" :class="{ 'query-box-foucs': queryBoxFoucs }">
-    <div class="ui-input-search ml-4 mr-4" @click="handleBoxClick">
+    <div class="ui-input-search" @click="handleBoxClick">
       <SearchOutlined v-if="prefix" class="ui-input-prefix mr-4" />
       <input
         ref="inputInstance"
@@ -11,9 +11,7 @@
         @blur="handleBlur"
         @keydown.enter="handleEnter"
       />
-      <div v-if="suffix" class="ui-input-suffix">
-        搜 索
-      </div>
+      <div v-if="suffix" class="ui-input-suffix">搜 索</div>
     </div>
     <!-- <div class="ui-input-box">
       <div class="ml-4 mr-4">
@@ -93,15 +91,18 @@ export default defineComponent({
 .ui-input-search-wrap {
   display: inline-block;
   padding: 0;
-  border: 1px solid #dfe1e5;
+  overflow: hidden;
+  // border: 1px solid #dfe1e5;
   border-radius: 24px;
+  box-shadow: 0 0 0 1px #dfe1e5;
   box-sizing: border-box;
 
   .ui-input-search {
     display: inline-flex;
-    width: calc(100% - 32px);
-    align-items: center;
+    width: 100%;
     height: 100%;
+    padding: 0 0 0 16px;
+    align-items: center;
   }
 
   &:hover {
@@ -122,10 +123,12 @@ export default defineComponent({
     border: none;
     outline: none;
 
-    &-suffix{
+    &-suffix {
+      padding: 0 0 0 20px;
+      margin: 0 20px;
       cursor: pointer;
+      border-left: 1px solid #dfe1e5;
     }
-
   }
 }
 @media screen and (max-width: 600px) {

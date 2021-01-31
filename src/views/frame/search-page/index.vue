@@ -1,5 +1,5 @@
 <template>
-  <PublicHeader class="search-page">
+  <PublicHeader class="search-page-header">
     <template #left>
       <router-link to="/">
         <img :src="config.logo" class="w-8 mr-4">
@@ -8,7 +8,7 @@
         v-model:value="searchValue"
         class="header-search"
         :prefix="true"
-        :suffix="false"
+        :suffix="true"
         @on-enter="handleEnter"
       />
     </template>
@@ -19,7 +19,7 @@
     </template>
   </PublicHeader>
   <div class="flex">
-    <searchList :data-source="dataSource" class="search-content" />
+    <searchList :data-source="dataSource" class="search-page-content" />
     <div />
   </div>
 </template>
@@ -27,14 +27,14 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import config from '/@/config'
 import { PageEnum } from '/@/enums/pageEnum'
 import { useGo } from '/@/hooks/web/usePage'
 import { InputSearch } from '/@/lib/UI/'
 import { rules } from '/@/utils/regExp'
+import { message } from 'ant-design-vue'
+import config from '/@/config'
 import service, { Search } from '/@/api/search'
 import searchList from './search-list.vue'
-import { message } from 'ant-design-vue'
 
 export default defineComponent({
   components: { InputSearch, searchList },
@@ -55,7 +55,7 @@ export default defineComponent({
     // 向服务器请求数据
     async function fetchDataFromServer() {
       const query = {
-        keyword: searchValue.value.replace(rules.whitespace, ''),
+        keyword: searchValue.value.replace(rules.whitespace, '').substr(0, 30),
         page: 0,
         size: 10
       }
@@ -63,7 +63,7 @@ export default defineComponent({
         const { data } = await service.fecthList(query)
         dataSource.value = data
       } catch (err) {
-        message.error(`数据获取失败: ${err.msg}`)
+        message.error(err.msg)
       }
     }
 
@@ -83,15 +83,20 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .search-page {
-  height: 60px;
-}
+  &-header {
+    height: 60px;
+    padding: 0 40px 0 110px;
+    border-bottom: 1px solid #eee;
+  }
 
-.search-content{
-  width: 800px;
+  &-content {
+    width: 800px;
+    padding: 0 0 0 130px;
+  }
 }
 
 .header-search {
-  width: 700px;
-  height: 44px;
+  width: 675px;
+  height: 40px;
 }
 </style>

@@ -48,8 +48,8 @@ export default defineComponent({
 <style lang="less" scoped>
 .search-list-box {
   margin: 30px 40px 0 30px;
-  border: 1px solid #eee;
   border-radius: 8px;
+  box-shadow: 0 0 0 1px #eee;
 
   &-header {
     padding: 10px 20px;

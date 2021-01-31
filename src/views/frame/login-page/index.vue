@@ -51,7 +51,7 @@ export default defineComponent({
     const width = 160
 
     // 当前路由
-    const { push, currentRoute } = useRouter()
+    const { replace, currentRoute } = useRouter()
 
     const { query } = unref(currentRoute)
 
@@ -78,7 +78,7 @@ export default defineComponent({
     // 登录成功
     const loginSuccess = () => {
       const name = (query.redirect as string) || PageEnum.BASE_HOME
-      push({ name })
+      replace({ name })
     }
 
     return {

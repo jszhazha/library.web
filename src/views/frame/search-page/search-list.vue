@@ -6,7 +6,7 @@
       <div class="search-list-box-main">
         <div class="search-list-box-main-row">
           <span class="search-list-box-main-row-title">作者</span>
-          <span>{{ item.author }}</span>
+          <span v-html="item.author" />
         </div>
         <div class="search-list-box-main-row">
           <span class="search-list-box-main-row-title">图书分类</span>
@@ -14,7 +14,7 @@
         </div>
         <div class="search-list-box-main-row">
           <span class="search-list-box-main-row-title">出版社</span>
-          <span>{{ item.publisher }}</span>
+          <span v-html="item.publisher" />
         </div>
         <div class="search-list-box-main-row">
           <span class="search-list-box-main-row-title">出版时间</span>
@@ -22,7 +22,7 @@
         </div>
         <div class="search-list-box-main-row">
           <span class="search-list-box-main-row-title">描述</span>
-          <span>{{ item.description }}</span>
+          <span v-html="item.description" />
         </div>
       </div>
     </div>
@@ -67,8 +67,8 @@ export default defineComponent({
       width: 50%;
       margin: 0 0 20px;
 
-      &:nth-last-of-type(2),
       &:last-of-type {
+        width: 100%;
         margin: 0;
       }
 

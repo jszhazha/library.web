@@ -60,7 +60,7 @@
               <TextareaWrap
                 v-model:value="dataItem.description"
                 show-count
-                :maxlength="100"
+                :maxlength="200"
                 :auto-size="{ minRows: 2, maxRows: 5 }"
               />
             </a-form-item>

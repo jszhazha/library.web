@@ -1,10 +1,10 @@
 <template>
   <div class="p-4 pt-2 module-manage">
     <Scrollbar class="bg-white br-2 default-shadow">
-      <tree-menu class="tree-menu" @on-select="handleSelect" />
+      <module-tree class="tree-menu" @on-select="handleSelect" />
     </Scrollbar>
     <div class="flex-item pl-4 index-column">
-      <div class="bg-white br-2">
+      <div class="bg-white br-2 default-shadow">
         <div class="fw-b fs-6 p-4">
           {{ selectMenu.meta.title }}
         </div>
@@ -21,10 +21,11 @@
           </div>
         </div>
       </div>
-      <div class="mt-4 br-2 p-4 flex-item bg-white">
-        <div class="fw-b fs-6">
+      <div class="mt-4 br-2 p-4 flex-item bg-white default-shadow">
+        <div class="fw-b fs-6 pb-5">
           模块权限设置
         </div>
+        <module-visit />
       </div>
     </div>
   </div>
@@ -35,11 +36,12 @@ import type { FlatMenu } from '/@/router/types'
 import { defineComponent, ref } from 'vue'
 import { Scrollbar } from '/@/components/Scrollbar'
 import { getFlatMenus } from '/@/utils/helper/menu'
-import treeMenu from './tree-menu.vue'
 import { PageEnum } from '/@/enums/pageEnum'
+import moduleTree from './module-tree.vue'
+import moduleVisit from './module-visit.vue'
 
 export default defineComponent({
-  components: { treeMenu, Scrollbar },
+  components: { moduleTree, Scrollbar, moduleVisit },
   setup() {
     // 查找菜单
     const findMenu = (key: string) => getFlatMenus().find((menu) => menu.name === key)
@@ -74,7 +76,7 @@ export default defineComponent({
   }
 
   .row {
-    padding: 10px 0 0 ;
+    padding: 10px 0 0;
 
     &-title {
       font-weight: bold;

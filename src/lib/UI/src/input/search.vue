@@ -92,7 +92,6 @@ export default defineComponent({
   display: inline-block;
   padding: 0;
   overflow: hidden;
-  // border: 1px solid #dfe1e5;
   border-radius: 24px;
   box-shadow: 0 0 0 1px #dfe1e5;
   box-sizing: border-box;

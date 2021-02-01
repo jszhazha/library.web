@@ -1,7 +1,11 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
   <div class="search-list">
-    <div v-for="item in dataSource" :key="item.id" class="search-list-box">
+    <div
+      v-for="item in dataSource"
+      :key="item.id"
+      class="search-list-box default-shadow"
+    >
       <div class="search-list-box-header" v-html="item.name" />
       <div class="search-list-box-main">
         <div class="search-list-box-main-row">
@@ -48,8 +52,8 @@ export default defineComponent({
 <style lang="less" scoped>
 .search-list-box {
   margin: 30px 40px 0 30px;
+  border: 1px solid #dfe1e5;
   border-radius: 8px;
-  box-shadow: 0 0 0 1px #eee;
 
   &-header {
     padding: 10px 20px;

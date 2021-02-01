@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, onBeforeUnmount, ref, unref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { PageEnum } from '/@/enums/pageEnum'
 import { useGo } from '/@/hooks/web/usePage'
@@ -54,12 +54,8 @@ export default defineComponent({
 
     // 向服务器请求数据
     async function fetchDataFromServer() {
-      const query = {
-        keyword: searchValue.value.replace(rules.whitespace, '').substr(0, 30),
-        page: 0,
-        size: 10
-      }
       try {
+        const query = queryData()
         const { data } = await service.fecthList(query)
         dataSource.value = data
       } catch (err) {
@@ -67,14 +63,28 @@ export default defineComponent({
       }
     }
 
-    watch(
-      () => currentRoute.value,
-      (val) => {
-        searchValue.value = val.query.q as string
-        fetchDataFromServer()
-      },
-      { immediate: true }
-    )
+    // 获取搜索数据
+    function queryData() {
+      const keyword = unref(searchValue)
+        .replace(rules.whitespace, '')
+        .substr(0, 30)
+
+      return {
+        keyword,
+        page: 0,
+        size: 10
+      }
+    }
+
+    // 路由发送变化
+    function routerChange() {
+      if (unref(currentRoute).name !== PageEnum.SEARCH_PAGE) return
+
+      searchValue.value = unref(currentRoute).query.q as string
+      fetchDataFromServer()
+    }
+
+    watchEffect(() => currentRoute.value && routerChange())
 
     return { config, dataSource, searchValue, handleEnter }
   }

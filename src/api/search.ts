@@ -1,34 +1,34 @@
-import type { Result } from "/@/lib/http/axios/types"
-import { BookCategory } from "./book-manage/book-category"
-import request from "/@/lib/http/axios/"
+import type { Result, PagerQueryData } from '/@/lib/http/axios/types'
+import { BookCategory } from './book-manage/book-category'
+import request from '/@/lib/http/axios/'
 
 export interface Search {
   // 主键
-  id?: number;
+  id?: number
 
   // 编码
-  code?: string;
+  code?: string
 
   // 书名
-  name?: string;
+  name?: string
 
   // 国际标准书号(ISBN)
-  isbn?: string;
+  isbn?: string
 
   // 作者
-  author?: string;
+  author?: string
 
   // 出版社
-  publisher?: string;
+  publisher?: string
 
   // 描述
-  description?: string;
+  description?: string
 
   // 价格
-  price?: number;
+  price?: number
 
   // 出版时间
-  publicationTime?: string;
+  publicationTime?: string
 
   // 学科分类
   bookCategory?: BookCategory
@@ -46,16 +46,12 @@ export interface Search {
   updateTime?: string
 }
 
-
-
-
-
 export default class Service {
   // 向服务查询数据并分页返回结果
-  static fecthList(query?: { keyword: string, page: number, size: number }): Promise<Result<Search[]>> {
+  static fecthList(query: Partial<PagerQueryData>): Promise<Result<Search[]>> {
     return request<Result<Search[]>>({
-      url: "/api/search/high",
-      method: "get",
+      url: '/api/search/high',
+      method: 'get',
       params: query
     })
   }

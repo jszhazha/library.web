@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, ref, unref, watchEffect } from 'vue'
+import { defineComponent, ref, unref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { PageEnum } from '/@/enums/pageEnum'
 import { useGo } from '/@/hooks/web/usePage'

@@ -19,7 +19,12 @@
     </template>
   </PublicHeader>
   <div class="flex">
-    <searchList :data-source="dataSource" class="search-page-content" />
+    <div class="search-page-main">
+      <search-list v-if="dataSource.length" :data-source="dataSource" />
+      <search-empty v-else>
+        {{ searchValue }}
+      </search-empty>
+    </div>
     <div />
   </div>
 </template>
@@ -35,15 +40,16 @@ import { message } from 'ant-design-vue'
 import config from '/@/config'
 import service, { Search } from '/@/api/search'
 import searchList from './search-list.vue'
+import searchEmpty from './search-empty.vue'
 
 export default defineComponent({
-  components: { InputSearch, searchList },
+  components: { InputSearch, searchList, searchEmpty },
   setup() {
     const { currentRoute } = useRouter()
 
     const searchValue = ref<string>('')
 
-    const dataSource = ref<Search[]>()
+    const dataSource = ref<Search[]>([])
 
     const go = useGo()
 
@@ -65,9 +71,7 @@ export default defineComponent({
 
     // 获取搜索数据
     function queryData() {
-      const keyword = unref(searchValue)
-        .replace(rules.whitespace, '')
-        .substr(0, 30)
+      const keyword = unref(searchValue).replace(rules.whitespace, '').substr(0, 30)
 
       return {
         keyword,
@@ -99,9 +103,9 @@ export default defineComponent({
     border-bottom: 1px solid #eee;
   }
 
-  &-content {
+  &-main {
     width: 800px;
-    padding: 0 0 0 130px;
+    padding: 30px 0 0 160px;
   }
 }
 

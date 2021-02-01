@@ -51,7 +51,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .search-list-box {
-  margin: 30px 40px 0 30px;
+  margin: 0 40px 30px 0;
   border: 1px solid #dfe1e5;
   border-radius: 8px;
 

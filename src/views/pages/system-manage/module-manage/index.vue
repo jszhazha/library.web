@@ -4,28 +4,28 @@
       <module-tree class="tree-menu" @on-select="handleSelect" />
     </Scrollbar>
     <div class="flex-item pl-4 index-column">
-      <div class="bg-white br-2 default-shadow">
-        <div class="fw-b fs-6 p-4">
+      <div class="bg-white br-2 p-4 default-shadow">
+        <div class="fw-b fs-6 pb-4">
           {{ selectMenu.meta.title }}
         </div>
-        <div class="pl-4 pr-4 pb-4">
-          <div class="row">
-            <span class="row-title">模块路径</span>
-            <router-link :to="selectMenu.path">
-              {{ selectMenu.path }}
-            </router-link>
-          </div>
-          <div class="row">
-            <span class="row-title">模块标识符</span>
-            <span>{{ selectMenu.name }}</span>
-          </div>
-        </div>
+        <GlobalTable
+          bordered
+          :columns="tableColumns"
+          :data-source="[selectMenu]"
+          :row-key="'name'"
+        />
       </div>
       <div class="mt-4 br-2 p-4 flex-item bg-white default-shadow">
-        <div class="fw-b fs-6 pb-5">
-          模块权限设置
+        <div class="index-space-between index-middle">
+          <div class="fw-b fs-6">
+            模块权限设置
+          </div>
+          <a-button type="link" @click="visible = true">
+            新增
+          </a-button>
         </div>
-        <module-visit />
+        <module-add-modal v-model:visible="visible" :name="selectMenu.name" />
+        <module-visit v-model:visible="visible" />
       </div>
     </div>
   </div>
@@ -39,10 +39,15 @@ import { getFlatMenus } from '/@/utils/helper/menu'
 import { PageEnum } from '/@/enums/pageEnum'
 import moduleTree from './module-tree.vue'
 import moduleVisit from './module-visit.vue'
+import moduleAddModal from './module-add-modal.vue'
+import { tableColumns } from './index'
 
 export default defineComponent({
-  components: { moduleTree, Scrollbar, moduleVisit },
+  components: { moduleTree, Scrollbar, moduleVisit, moduleAddModal },
   setup() {
+    // 对话框显示
+    const visible = ref<boolean>(false)
+
     // 查找菜单
     const findMenu = (key: string) => getFlatMenus().find((menu) => menu.name === key)
 
@@ -55,6 +60,8 @@ export default defineComponent({
     }
 
     return {
+      visible,
+      tableColumns,
       handleSelect,
       selectMenu
     }

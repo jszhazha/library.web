@@ -10,5 +10,5 @@ export default defineComponent({
         <Layout.Content class="layout-content scrollbar">{() => <RouterView />}</Layout.Content>
       )
     }
-  },
+  }
 })

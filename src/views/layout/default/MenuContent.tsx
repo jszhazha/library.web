@@ -6,20 +6,20 @@ export default defineComponent({
   props: {
     icon: {
       type: String,
-      default: "",
+      default: ""
     },
     title: {
       type: String,
-      default: "",
+      default: ""
     },
     showTitle: {
       type: Boolean,
-      default: true,
+      default: true
     },
     level: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   setup(props) {
     function renderIcon(icon: string) {
@@ -31,5 +31,5 @@ export default defineComponent({
       const show = level === 1 ? showTitle : true
       return [renderIcon(icon), <span class={!show && "index-hidden"}>{title}</span>]
     }
-  },
+  }
 })

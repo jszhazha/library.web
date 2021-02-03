@@ -21,7 +21,7 @@ export default defineComponent({
 
     const vditor = ref()
 
-    const isValueUpdateFromInner = ref<Boolean>(false)
+    const isValueUpdateFromInner = ref<boolean>(false)
 
     // 实例化
     function initialize() {

@@ -4,7 +4,9 @@
   "license": "MIT",
   "scripts": {
     "serve": "cross-env NODE_ENV=development vite",
-    "build": "cross-env NODE_ENV=production vite build"
+    "build": "cross-env NODE_ENV=production vite build",
+    "eslint": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "stylelint": "npx stylelint **/*.{css,vue} --fix"
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.2",

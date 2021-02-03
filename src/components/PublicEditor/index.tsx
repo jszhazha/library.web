@@ -24,7 +24,7 @@ export default defineComponent({
 
     const vditor = ref<Vditor | null>(null)
 
-    const isValueUpdateFromInner = ref<Boolean>(false)
+    const isValueUpdateFromInner = ref<boolean>(false)
 
     const initedRef = ref(false)
 

@@ -7,15 +7,16 @@ export default defineComponent({
   props: {
     icon: {
       type: String as PropType<string>,
-      required: true,
+      required: true
     },
     color: {
       type: String as PropType<string>,
+      default: '#333'
     },
     size: {
       type: [String, Number] as PropType<string | number>,
-      default: 14,
-    },
+      default: 14
+    }
   },
   setup(props, { attrs }) {
     const elRef = ref<HTMLElement | null>(null)
@@ -46,7 +47,7 @@ export default defineComponent({
       return {
         color,
         "font-size": `${parseInt(size.toString(), 10)}px`,
-        display: "inline-flex",
+        display: "inline-flex"
       }
     })
 
@@ -57,5 +58,5 @@ export default defineComponent({
     return () => (
       <div ref={elRef} class={[attrs.class, "app-iconify"]} style={unref(wrapStyleRef)} />
     )
-  },
+  }
 })

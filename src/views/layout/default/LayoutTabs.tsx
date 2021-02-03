@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { AppRouteRecordRaw } from "/@/router/types"
 import { defineComponent, computed, unref, watch, ref } from "vue"
 import { useGo } from "/@/hooks/web/usePage"

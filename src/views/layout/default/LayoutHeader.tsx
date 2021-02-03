@@ -38,7 +38,7 @@ export default defineComponent({
                     <div class="layout-header-right-action">
                       {userStore.getUserInfoState?.username}
                     </div>
-                  ),
+                  )
                 }}
               </DropMenu>
             </div>

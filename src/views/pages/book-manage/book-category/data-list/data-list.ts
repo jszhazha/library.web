@@ -32,6 +32,6 @@ export const tableColumns: TableColumn[] = [
     width: 170,
     ellipsis: true,
     dataIndex: 'operation',
-    slots: { customRender: 'operation' },
+    slots: { customRender: 'operation' }
   }
 ]

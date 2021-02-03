@@ -62,7 +62,7 @@
   "homepage": "https://github.com/PBOVE/library-webfront",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint:eslin && lint:stylelint"
+      "pre-commit": "npm run lint:eslin && npm run lint:stylelint"
     }
   }
 }

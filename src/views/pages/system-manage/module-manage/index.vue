@@ -72,7 +72,6 @@ export default defineComponent({
 <style lang="less" scoped>
 .module-manage {
   display: flex;
-  
   height: 100%;
 
   .tree-menu {

@@ -5,12 +5,15 @@
     :loading="loading"
     :columns="tableColumns"
     :data-source="dataSource"
+    :template-link="TemplateLink"
     @onRefresh="onRefresh"
   >
     <template #header-left>
-      <a-button @click="onBatchImport">
-        批量导入
-      </a-button>
+      <UploadButton
+        :action="UploadFileLink"
+        accept="application/vnd.ms-excel"
+        @on-batch-import="onBatchImport"
+      />
       <a-button type="primary" @click="onNewDataItem">
         新增
       </a-button>
@@ -29,14 +32,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue"
-import { tableColumns } from "./data-list"
-import { BookInfo } from "/@/api/book-manage/book-info"
-import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
-import { usePagination } from "/@/hooks/web/usePagination"
+import { defineComponent, ref } from 'vue'
+import { tableColumns } from './data-list'
+import { BookInfo, TemplateLink, UploadFileLink } from '/@/api/book-manage/book-info'
+import { injectListPage } from '/@/lib/idata/data-list/methods/useDepend'
+import { usePagination } from '/@/hooks/web/usePagination'
 
 export default defineComponent({
-  emits: ["on-page-change", "on-refresh"],
+  emits: ['on-page-change', 'on-refresh', 'on-batch-import'],
   setup(_props, { emit }) {
     // 数据源
     const dataSource = ref<BookInfo[]>([])
@@ -56,20 +59,18 @@ export default defineComponent({
     const onEditDataItem = (record: BookInfo) => listPage.onEditDataItem(record)
     // 删除数据
     const onDeleteDataItem = (record: BookInfo) => listPage.onDeleteDataItem(record)
-    
+
     // 页面发生变换
     const pagination = usePagination()
 
     // 页面发生变化
-    const onPageChange = () => emit("on-page-change")
+    const onPageChange = () => emit('on-page-change')
 
     // 处理刷新
-    const onRefresh = () => emit("on-refresh")
+    const onRefresh = () => emit('on-refresh')
 
-     // 批量导入
-    function onBatchImport() {
-      // emit("open-import-modal");
-    }
+    // 批量导入
+    const onBatchImport = (data: BookInfo[]) => emit('on-batch-import', data)
 
     return {
       loading,
@@ -83,7 +84,9 @@ export default defineComponent({
       onNewDataItem,
       onViewDataItem,
       onEditDataItem,
-      onDeleteDataItem
+      onDeleteDataItem,
+      TemplateLink,
+      UploadFileLink
     }
   },
   methods: {

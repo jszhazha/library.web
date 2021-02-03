@@ -40,6 +40,10 @@ export const tableListProps = {
   title: {
     type: String,
     default: ""
+  },
+  templateLink: {
+    type: String,
+    default: ""
   }
 }
 

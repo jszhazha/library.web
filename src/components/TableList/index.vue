@@ -8,13 +8,15 @@
       <div class="title">
         {{ title }}
       </div>
-      <div class="button">
+      <div class="button-wrap index-middle">
         <slot name="header-left" />
         <a-divider v-if="Object.keys($slots).includes('header-left')" type="vertical" />
         <slot name="header-right" />
         <listSetting />
         <TooltipButton v-if="download" title="下载导入模板">
-          <VerticalAlignBottomOutlined />
+          <a :href="templateLink">
+            <VerticalAlignBottomOutlined />
+          </a>
         </TooltipButton>
         <TooltipButton title="刷新">
           <SyncOutlined @click="onRefresh" />
@@ -165,7 +167,7 @@ export default defineComponent({
       color: #2c3a61;
     }
 
-    .button > ::v-deep(button) {
+    .button-wrap > ::v-deep(button) {
       margin: 0 5px;
     }
 

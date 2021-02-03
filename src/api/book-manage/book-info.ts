@@ -101,4 +101,21 @@ export default class Service {
       data: ids
     })
   }
+
+  // 上传excel文件解析数据
+  static getItemByUploadFile(data: FormData): Promise<Result<BookInfo[]>> {
+    return request<Result<BookInfo[]>>({
+      url: "/api/book/excel",
+      method: "post",
+      data: data,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+  }
 }
+
+
+// 模板链接
+export const TemplateLink = '/api/storage/download/book-model'
+
+//
+export const UploadFileLink = '/api/book/excel'

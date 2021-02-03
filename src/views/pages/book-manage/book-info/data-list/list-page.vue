@@ -3,26 +3,31 @@
     <div class="index-table-search index-card">
       <search-panle ref="searchInstance" @onSearch="onSearchData" />
     </div>
-    <list-view ref="listInstance" @onPageChange="onFetchData" @onRefresh="onFetchData" />
+    <list-view
+      ref="listInstance"
+      @onPageChange="onFetchData"
+      @onRefresh="onFetchData"
+      @onBatchImport="onBatchImport"
+    />
     <ImportModal
       ref="importInstance"
       title="批量导入"
       :columns="importColumns"
-      :data-source="importData"
+      :data-source="batchData"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue"
-import service, { BookInfo } from "/@/api/book-manage/book-info"
-import { Instance } from "/@/lib/interface/ListPage"
-import { listPageMix } from "/@/lib/idata/data-list/"
-import { importColumns } from "./data-list"
-import searchPanle from "./search-panle.vue"
-import listView from "./list-view.vue"
+import { defineComponent, reactive, toRefs, ref } from 'vue'
+import service, { BookInfo } from '/@/api/book-manage/book-info'
+import { Instance } from '/@/lib/interface/ListPage'
+import { listPageMix } from '/@/lib/idata/data-list/'
+import { importColumns } from './data-list'
+import searchPanle from './search-panle.vue'
+import listView from './list-view.vue'
 
-const DATA_PAGE_NAME = "book-manage-book-info-data-page"
+const DATA_PAGE_NAME = 'book-manage-book-info-data-page'
 
 export default defineComponent({
   components: { listView, searchPanle },
@@ -49,7 +54,7 @@ export default defineComponent({
     }
 
     // 批量导入数据集合
-    const importData = reactive<BookInfo[]>([])
+    const batchData = ref<BookInfo[]>([])
 
     const { onFetchData, onSearchData, queryData } = listPageMix<BookInfo>(options)
 
@@ -68,14 +73,24 @@ export default defineComponent({
 
     // 打开对话框
     // function openImportModal() {
-    //   unref(importInstance)!.openModal!();
+    //   instance.importInstance!.openModal!()
     // }
 
+    // 数据赋值
+    async function onBatchImport(file: FormData) {
+      const data = await service.getItemByUploadFile(file)
+      console.log(data)
+      // batchData.value = data
+      // openImportModal()
+      // console.log(batchData.value )
+    }
+
     return {
-      importData,
+      batchData,
       importColumns,
       onSearchData,
       onFetchData,
+      onBatchImport,
       ...toRefs(instance)
     }
   }

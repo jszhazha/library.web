@@ -23,7 +23,7 @@ import { debounce } from 'lodash-es'
 import { defineComponent, PropType, computed, toRefs } from 'vue'
 import { injectDatapage } from '/@/lib/idata/data-page/methods/useDepend'
 import { injectListPage } from '/@/lib/idata/data-list/methods/useDepend'
-import { SearchOutlined, LoadingOutlined } from '@ant-design/icons-vue'
+import { SearchOutlined } from '@ant-design/icons-vue'
 
 const useSelectReadonly = (readonly: Ref<boolean>) => {
   return computed(() => {
@@ -33,7 +33,7 @@ const useSelectReadonly = (readonly: Ref<boolean>) => {
 }
 
 export default defineComponent({
-  components: { SearchOutlined, LoadingOutlined },
+  components: { SearchOutlined },
   props: {
     readonly: {
       type: Boolean as PropType<boolean>,

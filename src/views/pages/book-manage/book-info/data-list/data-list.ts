@@ -5,7 +5,7 @@ import type { TableColumn } from '/@/lib/props/TableList'
 
 export const tableColumns: TableColumn[] = [
   {
-    title: '题名',
+    title: '书名',
     dataIndex: 'name',
     align: 'center',
     ellipsis: true
@@ -76,5 +76,48 @@ export const tableColumns: TableColumn[] = [
 
 // 导入数据
 export const importColumns: TableColumn[] = [
+  {
+    title: '书名',
+    dataIndex: 'name',
+    align: 'center',
+    ellipsis: true
 
+  },
+  {
+    title: 'ISBN',
+    dataIndex: 'isbn',
+    align: 'center',
+    ellipsis: true
+  },
+  {
+    title: '作者',
+    dataIndex: 'author',
+    align: 'center',
+    width: 100,
+    ellipsis: true
+  },
+  {
+    title: '出版社',
+    dataIndex: 'publisher',
+    align: 'center',
+    ellipsis: true
+  },
+  {
+    title: '描述',
+    dataIndex: 'description',
+    align: 'center',
+    ellipsis: true
+  },
+  {
+    title: '价格',
+    dataIndex: 'price',
+    align: 'center',
+    ellipsis: true
+  },
+  {
+    title: '出版时间',
+    dataIndex: 'publicationTime',
+    align: 'center',
+    ellipsis: true
+  }
 ]

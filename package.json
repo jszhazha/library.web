@@ -58,5 +58,8 @@
     "type": "git",
     "url": "git+https://github.com/PBOVE/library-webfront.git"
   },
-  "homepage": "https://github.com/PBOVE/library-webfront"
+  "homepage": "https://github.com/PBOVE/library-webfront",
+  "gitHooks": {
+    "pre-commit": "eslint --ext .js,.jsx,.ts,.tsx"
+  }
 }

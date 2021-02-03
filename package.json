@@ -5,8 +5,8 @@
   "scripts": {
     "serve": "cross-env NODE_ENV=development vite",
     "build": "cross-env NODE_ENV=production vite build",
-    "eslint": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "stylelint": "npx stylelint **/*.{css,vue} --fix"
+    "lint:eslin": "npx eslint . --ext \\src\\.js,.jsx,.ts,.tsx --fix",
+    "lint:stylelint:": "npx stylelint **/*.{css,vue} --fix"
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.2",
@@ -44,6 +44,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^7.0.1",
     "fs-extra": "^9.0.1",
+    "husky": "^4.3.8",
     "less": "^3.12.2",
     "prettier": "^2.2.0",
     "stylelint": "^13.8.0",
@@ -58,5 +59,10 @@
     "type": "git",
     "url": "git+https://github.com/PBOVE/library-webfront.git"
   },
-  "homepage": "https://github.com/PBOVE/library-webfront"
+  "homepage": "https://github.com/PBOVE/library-webfront",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:eslin"
+    }
+  }
 }

@@ -11,7 +11,7 @@ export default defineComponent({
     },
     color: {
       type: String as PropType<string>,
-      default: '#fff'
+      default: 'inherit'
     },
     size: {
       type: [String, Number] as PropType<string | number>,

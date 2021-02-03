@@ -13,9 +13,10 @@ export const tableColumns: TableColumn[] = [
   },
   {
     title: '权限项',
-    dataIndex: 'author',
+    dataIndex: 'authorities',
     align: 'center',
-    ellipsis: true
+    ellipsis: true,
+    slots: { customRender: 'authorities' }
   },
   {
     title: '操作',

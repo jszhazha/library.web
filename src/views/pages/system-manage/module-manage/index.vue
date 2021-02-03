@@ -20,12 +20,12 @@
           <div class="fw-b fs-6">
             模块权限设置
           </div>
-          <a-button type="link" @click="visible = true">
+          <a-button type="link">
             新增
           </a-button>
         </div>
-        <module-add-modal v-model:visible="visible" :name="selectMenu.name" />
-        <module-visit v-model:visible="visible" />
+        <module-add-modal :name="selectMenu.name" />
+        <module-visit :name="selectMenu.name" />
       </div>
     </div>
   </div>

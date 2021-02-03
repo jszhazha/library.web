@@ -66,7 +66,7 @@ export default class Service {
   }
 
   // 通过ID取得数据
-  static getItemById(name: string): Promise<Result<ModuleManage>> {
+  static getItemByName(name: string): Promise<Result<ModuleManage>> {
     return request<Result<ModuleManage>>({
       url: "/api/modular/" + name,
       method: "get"

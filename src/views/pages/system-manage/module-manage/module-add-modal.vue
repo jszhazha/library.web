@@ -32,10 +32,6 @@ export default defineComponent({
     name: {
       type: String,
       default: ''
-    },
-    title: {
-      type: String,
-      default: ''
     }
   },
   setup(props) {
@@ -82,11 +78,15 @@ export default defineComponent({
         authorities: sendBefore(dataItem.authorities!)
       }
 
-      confirmLoading.value = true
-
-      await service.saveNewItem(params)
-
-      confirmLoading.value = false
+      try {
+        confirmLoading.value = true
+        await service.saveNewItem(params)
+        resetFields()
+      } catch (err) {
+        message.error(`模块权限添加失败: ${err.msg}`)
+      } finally {
+        confirmLoading.value = false
+      }
     }
 
     async function validItem() {

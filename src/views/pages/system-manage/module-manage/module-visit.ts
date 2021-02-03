@@ -8,7 +8,7 @@ export const tableColumns: TableColumn[] = [
     title: '权限项名称',
     dataIndex: 'name',
     align: 'center',
-    ellipsis: true,
+    ellipsis: true
   },
   {
     title: '权限项',

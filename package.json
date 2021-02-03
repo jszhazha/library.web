@@ -6,7 +6,7 @@
     "serve": "cross-env NODE_ENV=development vite",
     "build": "cross-env NODE_ENV=production vite build",
     "lint:eslin": "npx eslint . --ext \\src\\.js,.jsx,.ts,.tsx --fix",
-    "lint:stylelint:": "npx stylelint **/*.{css,vue} --fix"
+    "lint:stylelint": "npx stylelint **/*.{css,vue} --fix"
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.2",
@@ -62,7 +62,7 @@
   "homepage": "https://github.com/PBOVE/library-webfront",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint:eslin"
+      "pre-commit": "npm run lint:eslin && lint:stylelint"
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <a-modal v-model:visible="visible" style="top: 50px" :width="width" @cancel="onCancel">
+  <a-modal v-model:visible="visible" style="top: 50px;" :width="width" @cancel="onCancel">
     <template #title>
       <slot name="title" />
     </template>

@@ -21,7 +21,7 @@
   <div class="flex">
     <div class="search-page-main">
       <search-list v-if="dataSource.length" :data-source="dataSource" />
-      <search-empty v-else>
+      <search-empty v-else-if="!loading">
         {{ searchValue }}
       </search-empty>
     </div>
@@ -51,6 +51,8 @@ export default defineComponent({
 
     const dataSource = ref<Search[]>([])
 
+    const loading = ref<boolean>(false)
+
     const go = useGo()
 
     // 按下 Enter 键
@@ -62,10 +64,13 @@ export default defineComponent({
     async function fetchDataFromServer() {
       try {
         const query = queryData()
+        loading.value = true
         const { data } = await service.fecthList(query)
         dataSource.value = data
       } catch (err) {
         message.error(err.msg)
+      } finally {
+        loading.value = false
       }
     }
 
@@ -73,11 +78,7 @@ export default defineComponent({
     function queryData() {
       const keyword = unref(searchValue).replace(rules.whitespace, '').substr(0, 30)
 
-      return {
-        keyword,
-        page: 0,
-        size: 10
-      }
+      return { keyword, page: 0, size: 10 }
     }
 
     // 路由发送变化
@@ -90,7 +91,7 @@ export default defineComponent({
 
     watchEffect(() => currentRoute.value && routerChange())
 
-    return { config, dataSource, searchValue, handleEnter }
+    return { config, loading, dataSource, searchValue, handleEnter }
   }
 })
 </script>

@@ -1,12 +1,6 @@
 <template>
   <div class="mr-1 ml-1" @click="openFile">
-    <input
-      ref="inputRef"
-      type="file"
-      class="display-none"
-      :accept="accept"
-      @change="handleFiles"
-    >
+    <input ref="inputRef" type="file" class="display-none" :accept="accept" @change="handleFiles">
     <a-button><LoadingOutlined v-if="loading" />{{ title }}</a-button>
   </div>
 </template>
@@ -28,7 +22,7 @@ export default defineComponent({
   },
   emits: ['on-batch-import'],
   setup(_props, { emit }) {
-    const inputRef = ref<{ click: () => void; files: Blob[] }>()
+    const inputRef = ref<{ click: () => void; files: Blob[]; value: string }>()
 
     const loading = ref<boolean>(false)
 
@@ -51,7 +45,10 @@ export default defineComponent({
       const formData = new FormData()
       formData.append('file', file as Blob)
       loading.value = true
-      emit('on-batch-import', formData, () => (loading.value = false))
+      emit('on-batch-import', formData, () => {
+        inputRef.value!.value = ''
+        loading.value = false
+      })
     }
 
     return { headers, inputRef, loading, openFile, handleFiles }

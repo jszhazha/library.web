@@ -52,7 +52,7 @@ export default function request<T extends Result>(requestConfig: AxiosRequestCon
       const message = checkRequestErrorMessage(err.response.status)
 
       let error: ResponseError = {
-        code: err.response.code,
+        code: err.response.status,
         msg: message!
       }
 

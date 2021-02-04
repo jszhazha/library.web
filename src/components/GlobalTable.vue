@@ -5,7 +5,7 @@
     :row-key="rowKey"
     :columns="tableColumns"
     :data-source="dataSource"
-    :pagination="false"
+    :pagination="pagination"
     :scroll="scroll"
     :row-selection="rowSelection"
   >

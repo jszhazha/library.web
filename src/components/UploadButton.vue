@@ -1,6 +1,12 @@
 <template>
-  <div @click="openFile">
-    <input ref="inputRef" type="file" :accept="accept" class="display-none" @change="handleFiles">
+  <div class="mr-1 ml-1" @click="openFile">
+    <input
+      ref="inputRef"
+      type="file"
+      class="display-none"
+      :accept="accept"
+      @change="handleFiles"
+    >
     <a-button><LoadingOutlined v-if="loading" />{{ title }}</a-button>
   </div>
 </template>
@@ -28,7 +34,9 @@ export default defineComponent({
 
     // 设置上传的请求头部
     const headers = computed(() => {
-      return { [userStore.getTokenState?.headerName as string]: userStore.getTokenState?.token }
+      return {
+        [userStore.getTokenState?.headerName as string]: userStore.getTokenState?.token
+      }
     })
 
     // 打开选中文件
@@ -36,12 +44,14 @@ export default defineComponent({
       inputRef.value?.click()
     }
 
-    // 出来文件
+    // 获取文件
     function handleFiles() {
       const file = inputRef.value?.files[0]
+      if (!file) return
       const formData = new FormData()
       formData.append('file', file as Blob)
-      emit('on-batch-import', formData)
+      loading.value = true
+      emit('on-batch-import', formData, () => (loading.value = false))
     }
 
     return { headers, inputRef, loading, openFile, handleFiles }

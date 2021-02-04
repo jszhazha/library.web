@@ -1,9 +1,6 @@
 import type { ColumnProps } from "ant-design-vue/lib/table/interface";
 import type { PropType } from "vue";
 
-
-
-
 export const tableProps = {
   columns: {
     type: [Array] as PropType<ColumnProps[]>,
@@ -29,6 +26,10 @@ export const tableProps = {
     type: Boolean as PropType<boolean>,
     default: false
   },
+  pagination: {
+    type: [Boolean, Object],
+    default: false
+  }
 }
 
 export const tableListProps = {

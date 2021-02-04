@@ -10,7 +10,6 @@
   >
     <template #header-left>
       <UploadButton
-        :action="UploadFileLink"
         accept="application/vnd.ms-excel"
         @on-batch-import="onBatchImport"
       />
@@ -34,7 +33,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { tableColumns } from './data-list'
-import { BookInfo, TemplateLink, UploadFileLink } from '/@/api/book-manage/book-info'
+import { BookInfo, TemplateLink } from '/@/api/book-manage/book-info'
 import { injectListPage } from '/@/lib/idata/data-list/methods/useDepend'
 import { usePagination } from '/@/hooks/web/usePagination'
 
@@ -70,7 +69,7 @@ export default defineComponent({
     const onRefresh = () => emit('on-refresh')
 
     // 批量导入
-    const onBatchImport = (data: BookInfo[]) => emit('on-batch-import', data)
+    const onBatchImport = (file: FormData, cb: () => void) => emit('on-batch-import', file, cb)
 
     return {
       loading,
@@ -85,8 +84,7 @@ export default defineComponent({
       onViewDataItem,
       onEditDataItem,
       onDeleteDataItem,
-      TemplateLink,
-      UploadFileLink
+      TemplateLink
     }
   },
   methods: {

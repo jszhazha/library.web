@@ -11,10 +11,14 @@
     />
     <ImportModal
       ref="importInstance"
-      title="批量导入"
+      row-key="isbn"
       :columns="importColumns"
       :data-source="batchData"
-    />
+    >
+      <template #title>
+        <BookCategorySearchSelect class="w-300" placeholder="请输入图书类别" />
+      </template>
+    </ImportModal>
   </div>
 </template>
 
@@ -26,6 +30,7 @@ import { listPageMix } from '/@/lib/idata/data-list/'
 import { importColumns } from './data-list'
 import searchPanle from './search-panle.vue'
 import listView from './list-view.vue'
+import { message } from 'ant-design-vue'
 
 const DATA_PAGE_NAME = 'book-manage-book-info-data-page'
 
@@ -56,7 +61,9 @@ export default defineComponent({
     // 批量导入数据集合
     const batchData = ref<BookInfo[]>([])
 
-    const { onFetchData, onSearchData, queryData } = listPageMix<BookInfo>(options)
+    const { onFetchData, onSearchData, queryData } = listPageMix<BookInfo>(
+      options
+    )
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
@@ -72,17 +79,21 @@ export default defineComponent({
     }
 
     // 打开对话框
-    // function openImportModal() {
-    //   instance.importInstance!.openModal!()
-    // }
+    function openImportModal() {
+      instance.importInstance!.openModal!()
+    }
 
-    // 数据赋值
-    async function onBatchImport(file: FormData) {
-      const data = await service.getItemByUploadFile(file)
-      console.log(data)
-      // batchData.value = data
-      // openImportModal()
-      // console.log(batchData.value )
+    // 上传excel文件解析数据
+    async function onBatchImport(file: FormData, cb: () => void) {
+      try {
+        const { data } = await service.getItemByUploadFile(file)
+        batchData.value = data
+        openImportModal()
+      } catch (err) {
+        message.error(`数据解析失败: ${err.msg}`)
+      } finally {
+        cb()
+      }
     }
 
     return {

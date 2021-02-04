@@ -8,6 +8,7 @@
     @change="onChange"
     @search="onSearch"
     @select="onSelect"
+    @focus="onFocus"
   >
     <template #suffixIcon>
       <LoadingOutlined v-if="loading" />
@@ -44,7 +45,7 @@ export default defineComponent({
       default: '请输入'
     }
   },
-  emits: ['on-change', 'on-search'],
+  emits: ['on-change', 'on-search','on-focus'],
   setup(props, { emit }) {
     const { readonly } = toRefs(props)
     // 加载
@@ -69,13 +70,16 @@ export default defineComponent({
 
     const onSelect = () => listPage.onFetchData?.()
 
-    return { selectReadonly, loading, onChange, onSearch, onSelect }
+    const onFocus = () => emit('on-focus')
+
+    return { selectReadonly, loading, onChange, onSearch, onSelect, onFocus }
   }
 })
 </script>
 
 <style lang="less" scoped>
 .select-search {
+  width: 100%;
   min-width: 181.8px;
 
   ::v-deep(.ant-select-selector) {

@@ -1,32 +1,30 @@
 <template>
-  <Tooltip v-model:visible="visible">
+  <a-tooltip v-model:visible="visible">
     <template #title>
       <span>{{ title }}</span>
     </template>
     <div class="tooltip-button" @click="onClick">
       <slot />
     </div>
-  </Tooltip>
+  </a-tooltip>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from "vue"
-import { Tooltip } from "ant-design-vue"
+import { defineComponent, PropType, ref } from 'vue'
 
 export default defineComponent({
-  components: { Tooltip },
   props: {
     title: {
       type: String as PropType<string>,
-      default: ""
+      default: ''
     }
   },
-  emits: ["on-click"],
+  emits: ['on-click'],
   setup(_props, { emit }) {
     // 点击按键触发
     function onClick() {
       visible.value = false
-      emit("on-click")
+      emit('on-click')
     }
     const visible = ref<boolean>(false)
     return {

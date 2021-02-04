@@ -9,7 +9,6 @@ export const tableColumns: TableColumn[] = [
     dataIndex: 'name',
     align: 'center',
     ellipsis: true
-
   },
   {
     title: '作者',
@@ -81,7 +80,6 @@ export const importColumns: TableColumn[] = [
     dataIndex: 'name',
     align: 'center',
     ellipsis: true
-
   },
   {
     title: 'ISBN',
@@ -93,7 +91,6 @@ export const importColumns: TableColumn[] = [
     title: '作者',
     dataIndex: 'author',
     align: 'center',
-    width: 100,
     ellipsis: true
   },
   {
@@ -112,6 +109,7 @@ export const importColumns: TableColumn[] = [
     title: '价格',
     dataIndex: 'price',
     align: 'center',
+    width: 100,
     ellipsis: true
   },
   {

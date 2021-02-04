@@ -76,6 +76,15 @@ export default class Service {
     })
   }
 
+  // 保存数据到远程服务器 批量导入数据
+  static saveNewBanch(id: number, data: BookInfo[]): Promise<Result<BookInfo>> {
+    return request<Result<BookInfo>>({
+      url: "/api/book/batch/" + id,
+      method: "post",
+      data: data
+    })
+  }
+
   // 通过ID取得数据
   static getItemById(id: number): Promise<Result<BookInfo>> {
     return request<Result<BookInfo>>({
@@ -102,7 +111,7 @@ export default class Service {
     })
   }
 
-  // 上传excel文件解析数据
+  // 上传 excel 文件解析数据
   static getItemByUploadFile(data: FormData): Promise<Result<BookInfo[]>> {
     return request<Result<BookInfo[]>>({
       url: "/api/book/excel",

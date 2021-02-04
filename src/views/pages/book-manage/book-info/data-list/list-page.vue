@@ -10,20 +10,26 @@
       @onBatchImport="onBatchImport"
     />
     <ImportModal
-      ref="importInstance"
-      row-key="isbn"
+      v-model:value="batch.visible"
+      row-key="index"
       :columns="importColumns"
-      :data-source="batchData"
+      :data-source="batch.data"
+      @onConfirm="onbatchConfirm"
     >
       <template #title>
-        <BookCategorySearchSelect class="w-300" placeholder="请输入图书类别" />
+        <BookCategorySearchSelect
+          v-model:value="batch.bookCategoryId"
+          placeholder="请输入图书类别"
+          :class="[batch.tip ? 'error-ui' : '', 'w-300']"
+          @on-focus="handleFocus"
+        />
       </template>
     </ImportModal>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, ref } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import service, { BookInfo } from '/@/api/book-manage/book-info'
 import { Instance } from '/@/lib/interface/ListPage'
 import { listPageMix } from '/@/lib/idata/data-list/'
@@ -31,16 +37,25 @@ import { importColumns } from './data-list'
 import searchPanle from './search-panle.vue'
 import listView from './list-view.vue'
 import { message } from 'ant-design-vue'
+import { isNumber } from '/@/utils/is'
 
 const DATA_PAGE_NAME = 'book-manage-book-info-data-page'
+
+interface Banch {
+  data?: BookInfo[]
+
+  visible?: boolean
+
+  bookCategoryId?: number
+
+  tip?: boolean
+}
 
 export default defineComponent({
   components: { listView, searchPanle },
   setup() {
     // 实例
     const instance = reactive<Instance<BookInfo>>({
-      // 导入对话框实例
-      importInstance: null,
       // 搜索实例
       searchInstance: null,
       // 列表实例
@@ -59,11 +74,9 @@ export default defineComponent({
     }
 
     // 批量导入数据集合
-    const batchData = ref<BookInfo[]>([])
+    const batch = reactive<Banch>({ tip: false })
 
-    const { onFetchData, onSearchData, queryData } = listPageMix<BookInfo>(
-      options
-    )
+    const { onFetchData, onSearchData, queryData } = listPageMix<BookInfo>(options)
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
@@ -78,30 +91,62 @@ export default defineComponent({
       onFetchData()
     }
 
-    // 打开对话框
-    function openImportModal() {
-      instance.importInstance!.openModal!()
-    }
-
     // 上传excel文件解析数据
-    async function onBatchImport(file: FormData, cb: () => void) {
+    async function onBatchImport(file: FormData, callback: Callback) {
       try {
         const { data } = await service.getItemByUploadFile(file)
-        batchData.value = data
-        openImportModal()
+        batch.data = validData(data)
+        batch.visible = true
       } catch (err) {
         message.error(`数据解析失败: ${err.msg}`)
       } finally {
-        cb()
+        callback()
       }
     }
 
+    // 有效数据
+    function validData(data: BookInfo[]) {
+      return data.map((el, index) => {
+        return { ...el, index }
+      })
+    }
+
+    // 批量处理数据确认
+    async function onbatchConfirm(selectedRows: BookInfo[], callback: Callback) {
+      if (!validBatchData(callback)) return
+      try {
+        await service.saveNewBanch(batch.bookCategoryId!, selectedRows)
+        batch.visible = false
+        onFetchData()
+      } catch (err) {
+        message.error(`批量导入失败: ${err.msg}`)
+      } finally {
+        callback()
+      }
+    }
+
+    // 导入数据检测
+    function validBatchData(callback: Callback) {
+      if (isNumber(batch.bookCategoryId)) {
+        return true
+      }
+      callback(), (batch.tip = true)
+      return false
+    }
+
+    // 处理获取焦点
+    function handleFocus() {
+      batch.tip = false
+    }
+
     return {
-      batchData,
+      batch,
       importColumns,
       onSearchData,
       onFetchData,
       onBatchImport,
+      onbatchConfirm,
+      handleFocus,
       ...toRefs(instance)
     }
   }

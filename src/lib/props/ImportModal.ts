@@ -19,12 +19,11 @@ export const importProps = {
   rowKey: {
     type: String as PropType<string>,
     default: 'id'
+  },
+  value:{
+    type: Boolean as PropType<boolean>,
+    default: false
   }
-}
-
-export interface ImportInstance {
-  // 对话框是否可见
-  openModal?: () => void
 }
 
 // 选中的数据

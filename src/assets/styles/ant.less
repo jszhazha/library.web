@@ -1,11 +1,4 @@
-:root {
-  --sider-dark-background: #191a23;
-  --sider-dark-sub-background: #101117;
-  --public-header-background: #f0f2f5;
-  --public-order-radius: 6px;
-  --public-table-background: #fff;
-}
-
+@treeHeight: 35px;
 
 .ant-table-wrapper {
   input {
@@ -13,7 +6,13 @@
   }
 }
 
-@treeHeight: 35px;
+.ant-table-tbody {
+  & > tr.ant-table-row-selected {
+    td {
+      background: var(--public-table-background);
+    }
+  }
+}
 
 .ant-tree {
   li {
@@ -46,5 +45,31 @@
       height: @treeHeight;
       line-height: @treeHeight;
     }
+  }
+}
+
+.error-ui {
+  .ant-input {
+    .errorStyle();
+  }
+
+  .ant-select-selector {
+    .errorStyle();
+  }
+
+  .errorStyle() {
+    border-color: var(--color-error) !important;
+  }
+
+  &.ant-select-focused .ant-select-selector {
+    .errorFocusStyle();
+  }
+
+  .errorFocusStyle() {
+    box-shadow: 0 0 0 2px rgba(245, 34, 45, 0.2) !important;
+  }
+
+  .ant-select-selection-placeholder {
+    color: var(--color-error);
   }
 }

@@ -1,15 +1,19 @@
 <template>
-  <select-search
-    v-model:value="selectData"
-    :filter-option="false"
-    :not-found-content="null"
-    @on-change="handleChange"
-    @on-search="handleSearch"
-  >
-    <a-select-option v-for="item in options" :key="item.id" :value="item.name">
-      {{ item.name }} ({{ item.code }})
-    </a-select-option>
-  </select-search>
+  <div>
+    <select-search
+      v-model:value="selectData"
+      :filter-option="false"
+      :not-found-content="null"
+      :placeholder="placeholder"
+      @on-change="handleChange"
+      @on-search="handleSearch"
+      @on-focus="onFocus"
+    >
+      <a-select-option v-for="item in options" :key="item.id" :value="item.name">
+        {{ item.name }} ({{ item.code }})
+      </a-select-option>
+    </select-search>
+  </div>
 </template>
 
 <script lang="ts">
@@ -31,14 +35,21 @@ export default defineComponent({
     bookCategory: {
       type: Object as PropType<BookCategory>,
       default: undefined
+    },
+    placeholder: {
+      type: String,
+      default: '请输入'
     }
   },
-  emits: ['update:value'],
+  emits: ['update:value', 'on-focus'],
   setup(props, { emit }) {
     const options = ref<BookCategory[]>([])
 
     // 选中数据
     const selectData = ref<string | undefined>()
+
+    // 获取焦点
+    const onFocus = () => emit('on-focus')
 
     // 加载数据
     async function loadData(query: PagerQueryData) {
@@ -54,7 +65,7 @@ export default defineComponent({
       await loadData(assign({ page: 0, size: 10, sort: '' }, params))
     }
     // 处理搜索
-    async function handleSearch(value = '', callback: () => void) {
+    async function handleSearch(value = '', callback: Callback) {
       await useLoadData(value ? { name: value } : {})
       callback()
     }
@@ -74,7 +85,7 @@ export default defineComponent({
       (value) => (selectData.value = value?.id ? `${value.name} (${value.code})` : undefined)
     )
 
-    return { options, selectData, handleSearch, handleChange }
+    return { options, selectData, onFocus, handleSearch, handleChange }
   }
 })
 </script>

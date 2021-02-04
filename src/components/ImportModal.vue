@@ -1,5 +1,5 @@
 <template>
-  <a-modal v-model:visible="visible" style="top: 50px;" :width="width">
+  <a-modal v-model:visible="visible" style="top: 50px" :width="width" @cancel="onCancel">
     <template #title>
       <slot name="title" />
     </template>
@@ -8,53 +8,110 @@
       <GlobalTable
         :columns="columns"
         :row-key="rowKey"
-        :pagination="{ showTotal: (total) => `共 ${total} 条` }"
+        :pagination="false"
         :data-source="dataSource"
         :row-selection="rowSelection"
-        :scroll="{ y: browserSize.height - 345 }"
+        :scroll="{ y: browserSize.height - 310 }"
       />
     </div>
-    <!-- <div v-show="selectedRows.length">
-      已选择 <a style="font-weight: 600;">{{ selectedRows?.length }}</a> 项
-    </div> -->
+
+    <template #footer>
+      <div class="index-space-between index-middle">
+        <div>
+          已选择 <a class="fw-b">{{ selectedRowKeys?.length }}</a> 项
+        </div>
+        <div>
+          <a-button @click="onCancel">
+            取消
+          </a-button>
+          <a-button type="primary" :loading="loading" @click="onConfirm">
+            创建
+          </a-button>
+        </div>
+      </div>
+    </template>
   </a-modal>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, toRefs, ref, reactive, computed} from "vue"
-import { importProps, SelectedData } from "/@/lib/props/ImportModal"
-import { browserClient } from "/@/utils/elelment"
+import { defineComponent, onMounted, toRefs, ref, reactive, computed, watch, unref } from 'vue'
+import { importProps, SelectedData } from '/@/lib/props/ImportModal'
+import { browserClient } from '/@/utils/elelment'
 
 export default defineComponent({
   props: importProps,
-  setup() {
+  emits: ['update:value', 'on-confirm'],
+  setup(props, { emit }) {
+    const { dataSource } = toRefs(props)
     // 视图大小
     const browserSize = ref<{ width?: number; height?: number }>({})
+
     // 对话框是否可见
     const visible = ref<boolean>(false)
+
+    // 加载
+    const loading = ref<boolean>(false)
+
     // 选中的数据
-    const selectedData = reactive<SelectedData>({ selectedRows: [] })
+    const selectedData = reactive<SelectedData>({ selectedRows: [], selectedRowKeys: [] })
+
+    const isValueUpdateFromInner = ref<boolean>(false)
 
     // 选择功能的配置
     const rowSelection = computed(() => {
       return {
         onChange: (selectedRowKeys: number[], selectedRows: unknown[]) => {
-          selectedData.selectedRows = selectedRows
           selectedData.selectedRowKeys = selectedRowKeys
-        }
+          selectedData.selectedRows = selectedRows
+        },
+        selectedRowKeys: selectedData.selectedRowKeys,
+
+        selectedRows: selectedData.selectedRows
       }
     })
 
     onMounted(() => (browserSize.value = browserClient()))
 
-    // 打开对话框
-    const openModal = () => (visible.value = true)
+    watch(
+      () => props.value,
+      (val) => {
+        if (isValueUpdateFromInner.value) {
+          isValueUpdateFromInner.value = false
+        } else if (val) {
+          // 打开对话框
+          visible.value = true
+          // 设置全选
+          selectedData.selectedRowKeys = [...new Array(unref(dataSource).length).keys()]
+          // 选中项目
+          selectedData.selectedRows = unref(dataSource)
+        } else {
+          visible.value = false
+        }
+      }
+    )
+
+    // 点击遮罩层或右上角叉或取消按钮的回调
+    function onCancel() {
+      visible.value = false
+      isValueUpdateFromInner.value = true
+      emit('update:value', false)
+    }
+
+    // 点击确定回调
+    function onConfirm() {
+      loading.value = true
+      emit('on-confirm', selectedData.selectedRows, () => {
+        loading.value = false
+      })
+    }
 
     return {
       visible,
+      loading,
       browserSize,
       rowSelection,
-      openModal,
+      onCancel,
+      onConfirm,
       ...toRefs(selectedData)
     }
   }

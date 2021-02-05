@@ -1,7 +1,7 @@
 <template>
   <a-modal v-model:visible="visible" style="top: 50px;" :width="width" @cancel="onCancel">
     <template #title>
-      <slot name="title" />
+      <slot name="header-title" />
     </template>
 
     <div :style="{ height: browserSize.height - 252 + 'px' }">

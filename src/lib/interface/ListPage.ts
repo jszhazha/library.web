@@ -1,9 +1,8 @@
-import { SearchInstance } from "/@/lib/idata/data-list/methods/useSearch"
-import { GetPagination } from "/@/hooks/web/usePagination"
-
+import { SearchInstance } from '/@/lib/idata/data-list/methods/useSearch'
+import { GetPagination } from '/@/hooks/web/usePagination'
 
 interface ListInstance<T> {
-  setDataSource: (data: T[], total: number) => void,
+  setDataSource: (data: T[], total: number) => void
 
   // 设置页码
   setPagination: (page?: number, size?: number) => void
@@ -14,8 +13,16 @@ interface ListInstance<T> {
   [prop: string]: unknown
 }
 
+interface BanchInstance<T> {
+  setDataSource: (data: T[]) => void
+
+  setModalState: (state: boolean) => void
+}
+
 export interface Instance<T> {
   searchInstance: SearchInstance | null
 
   listInstance: ListInstance<T> | null
+
+  banchInstance?: BanchInstance<T> | null
 }

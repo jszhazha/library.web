@@ -64,8 +64,9 @@ export default defineComponent({
           selectedData.selectedRowKeys = selectedRowKeys
           selectedData.selectedRows = selectedRows
         },
+        // 	指定选中项的 key 数组，需要和 onChange 进行配合
         selectedRowKeys: selectedData.selectedRowKeys,
-
+        // 	指定选中项的 key 数组，需要和 onChange 进行配合
         selectedRows: selectedData.selectedRows
       }
     })

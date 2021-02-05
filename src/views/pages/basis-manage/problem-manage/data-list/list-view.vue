@@ -1,6 +1,6 @@
 <template>
   <TableList
-    title="类别列表"
+    title="问题列表"
     :loading="loading"
     :columns="tableColumns"
     :data-source="dataSource"

@@ -6,15 +6,15 @@ import type { TableColumn } from '/@/lib/props/TableList'
 export const tableColumns: TableColumn[] = [
   {
     title: '权限项名称',
-    dataIndex: 'name',
+    dataIndex: 'description',
     align: 'center',
+    width: 200,
     ellipsis: true
   },
   {
     title: '权限项',
     dataIndex: 'authorities',
     align: 'center',
-    ellipsis: true,
     slots: { customRender: 'authorities' }
   },
   {

@@ -23,7 +23,6 @@ import { BookInfo } from '/@/api/book-manage/book-info'
 import { importColumns } from './data-list'
 import { isNumber } from '/@/utils/is'
 
-
 interface Banch {
   data?: BookInfo[]
 
@@ -39,7 +38,6 @@ export default defineComponent({
     // 批量导入数据集合
     const batchImport = reactive<Banch>({ tip: false })
 
-
     // 有效数据
     function validData(data: BookInfo[]) {
       return data.map((el, index) => {
@@ -48,7 +46,7 @@ export default defineComponent({
     }
 
     // 批量处理数据确认
-    async function onbatchConfirm(selectedRows: BookInfo[], callback: Callback ) {
+    async function onbatchConfirm(selectedRows: BookInfo[], callback: Callback) {
       if (!validBatchData(callback)) return
       console.log(selectedRows)
       // try {
@@ -73,12 +71,12 @@ export default defineComponent({
     }
 
     // 设置数据
-    function setDataSource(data: BookInfo[]){
+    function setDataSource(data: BookInfo[]) {
       batchImport.data = validData(data)
     }
 
     // 设置对话框状态
-    function setModalState(state:boolean){
+    function setModalState(state: boolean) {
       batchImport.tip = false
       batchImport.visible = state
     }

@@ -24,7 +24,6 @@
             新增
           </a-button>
         </div>
-        <module-add-modal :name="selectMenu.name" />
         <module-visit :name="selectMenu.name" />
       </div>
     </div>
@@ -39,11 +38,10 @@ import { getFlatMenus } from '/@/utils/helper/menu'
 import { PageEnum } from '/@/enums/pageEnum'
 import moduleTree from './module-tree.vue'
 import moduleVisit from './module-visit.vue'
-import moduleAddModal from './module-add-modal.vue'
 import { tableColumns } from './index'
 
 export default defineComponent({
-  components: { moduleTree, Scrollbar, moduleVisit, moduleAddModal },
+  components: { moduleTree, Scrollbar, moduleVisit  },
   setup() {
     // 对话框显示
     const visible = ref<boolean>(false)

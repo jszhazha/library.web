@@ -48,7 +48,7 @@ export default class Service {
   }
 
   // 向服务查询数据并分页返回结果
-  static fecthList(query?: PagerQueryData): Promise<DataPager> {
+  static fecthList(query?: Partial<PagerQueryData>): Promise<DataPager> {
     return request<DataPager>({
       url: "/api/modular",
       method: "get",

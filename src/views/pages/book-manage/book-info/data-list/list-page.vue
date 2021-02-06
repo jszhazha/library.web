@@ -7,10 +7,10 @@
       ref="listInstance"
       @onPageChange="onFetchData"
       @onRefresh="onFetchData"
-      @onBatchImport="onBatchImport"
+      @onFilePaeseData="onFilePaeseData"
     />
 
-    <banch-panle ref="banchInstance" />
+    <banch-panle ref="banchInstance" @on-batch="onbatchImportData" />
   </div>
 </template>
 
@@ -24,11 +24,7 @@ import banchPanle from './banch-panle.vue'
 import listView from './list-view.vue'
 import { message } from 'ant-design-vue'
 
-
-
 const DATA_PAGE_NAME = 'book-manage-book-info-data-page'
-
-
 
 export default defineComponent({
   components: { listView, searchPanle, banchPanle },
@@ -54,8 +50,9 @@ export default defineComponent({
       instance
     }
 
-
-    const { onFetchData, onSearchData, queryData } = listPageMix<BookInfo>(options)
+    const { onFetchData, onSearchData, queryData } = listPageMix<BookInfo>(
+      options
+    )
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
@@ -64,14 +61,14 @@ export default defineComponent({
       instance.listInstance?.setDataSource(data.content, data.totalElements)
     }
 
-    // 删除数据, 刷新数据
+    // 删除数据
     async function deleteDataFromServer(id: number) {
       await service.deleteItemByIds([id])
       onFetchData()
     }
 
-        // 上传excel文件解析数据
-    async function onBatchImport(file: FormData, callback: Callback) {
+    // 上传excel文件解析数据
+    async function onFilePaeseData(file: FormData, callback: Callback) {
       try {
         const { data } = await service.getItemByUploadFile(file)
         instance.banchInstance?.setDataSource(data)
@@ -83,11 +80,22 @@ export default defineComponent({
       }
     }
 
+    async function onbatchImportData(id:number, data: BookInfo[], callback: Callback) {
+      try {
+        await service.saveNewBanch(id!, data)
+        onFetchData()
+      } catch (err) {
+        message.error(`批量导入失败: ${err.msg}`)
+      } finally {
+        callback()
+      }
+    }
 
     return {
       onSearchData,
       onFetchData,
-      onBatchImport,
+      onFilePaeseData,
+      onbatchImportData,
       ...toRefs(instance)
     }
   }

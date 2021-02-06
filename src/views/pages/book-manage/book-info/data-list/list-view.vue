@@ -11,7 +11,7 @@
     <template #header-left>
       <UploadButton
         accept="application/vnd.ms-excel"
-        @on-batch-import="onBatchImport"
+        @on-batch-import="onFilePaeseData"
       />
       <a-button type="primary" @click="onNewDataItem">
         新增
@@ -38,7 +38,7 @@ import { injectListPage } from '/@/lib/idata/data-list/methods/useDepend'
 import { usePagination } from '/@/hooks/web/usePagination'
 
 export default defineComponent({
-  emits: ['on-page-change', 'on-refresh', 'on-batch-import'],
+  emits: ['on-page-change', 'on-refresh', 'on-file-paese-data'],
   setup(_props, { emit }) {
     // 数据源
     const dataSource = ref<BookInfo[]>([])
@@ -69,7 +69,7 @@ export default defineComponent({
     const onRefresh = () => emit('on-refresh')
 
     // 批量导入
-    const onBatchImport = (file: FormData, cb: () => void) => emit('on-batch-import', file, cb)
+    const onFilePaeseData = (file: FormData, cb: () => void) => emit('on-file-paese-data', file, cb)
 
     return {
       loading,
@@ -79,7 +79,7 @@ export default defineComponent({
       tableColumns,
       onRefresh,
       onPageChange,
-      onBatchImport,
+      onFilePaeseData,
       onNewDataItem,
       onViewDataItem,
       onEditDataItem,

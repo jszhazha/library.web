@@ -34,7 +34,8 @@ interface Banch {
 }
 
 export default defineComponent({
-  setup() {
+  emits: ['on-batch'],
+  setup(_props, { emit }) {
     // 批量导入数据集合
     const batchImport = reactive<Banch>({ tip: false })
 
@@ -48,16 +49,11 @@ export default defineComponent({
     // 批量处理数据确认
     async function onbatchConfirm(selectedRows: BookInfo[], callback: Callback) {
       if (!validBatchData(callback)) return
-      console.log(selectedRows)
-      // try {
-      //   await service.saveNewBanch(batchImport.bookCategoryId!, selectedRows)
-      //   batchImport.visible = false
-      //   onFetchData()
-      // } catch (err) {
-      //   message.error(`批量导入失败: ${err.msg}`)
-      // } finally {
-      //   callback()
-      // }
+      emit('on-batch', batchImport.bookCategoryId!, selectedRows, ()=>{
+        batchImport.visible = false
+        callback()
+      })
+      
     }
 
     // 导入数据检测

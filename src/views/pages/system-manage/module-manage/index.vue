@@ -5,7 +5,7 @@
     </Scrollbar>
     <div class="flex-item pl-4 index-column">
       <div class="bg-white br-2 p-4 default-shadow">
-        <div class="fw-b fs-6 pb-4">
+        <div class="fw-b fs-4 pb-4">
           {{ selectMenu.meta.title }}
         </div>
         <GlobalTable
@@ -15,17 +15,7 @@
           :row-key="'name'"
         />
       </div>
-      <div class="mt-4 br-2 p-4 flex-item bg-white default-shadow">
-        <div class="index-space-between index-middle">
-          <div class="fw-b fs-6">
-            模块权限设置
-          </div>
-          <a-button type="link">
-            新增
-          </a-button>
-        </div>
-        <module-visit :name="selectMenu.name" />
-      </div>
+      <module-visit :name="selectMenu.name" />
     </div>
   </div>
 </template>
@@ -43,8 +33,7 @@ import { tableColumns } from './index'
 export default defineComponent({
   components: { moduleTree, Scrollbar, moduleVisit  },
   setup() {
-    // 对话框显示
-    const visible = ref<boolean>(false)
+
 
     // 查找菜单
     const findMenu = (key: string) => getFlatMenus().find((menu) => menu.name === key)
@@ -58,7 +47,6 @@ export default defineComponent({
     }
 
     return {
-      visible,
       tableColumns,
       handleSelect,
       selectMenu
@@ -78,19 +66,6 @@ export default defineComponent({
     height: 0;
     padding: 16px 16px 16px 8px;
     border-radius: 8px;
-  }
-
-  .row {
-    padding: 10px 0 0;
-
-    &-title {
-      font-weight: bold;
-
-      &::after {
-        margin: 0 8px 0 2px;
-        content: ':';
-      }
-    }
   }
 }
 </style>

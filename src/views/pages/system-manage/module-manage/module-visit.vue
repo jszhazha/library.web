@@ -1,12 +1,27 @@
 <template>
-  <GlobalTable :columns="tableColumns" :data-source="dataSource">
-    <template #authorities="{ record }">
-      <a-tag v-for="item in record.authorities" :key="item" class="mb-2">
-        {{ item }}
-      </a-tag>
-    </template>
-  </GlobalTable>
-  <module-add-modal :name="name" />
+  <div class="mt-4 br-2 p-4 flex-item bg-white default-shadow">
+    <div class="index-space-between index-middle">
+      <div class="fw-b fs-4">
+        模块权限设置
+      </div>
+      <a-button type="link" @click="onClickNewItem">
+        新增
+      </a-button>
+    </div>
+    <GlobalTable :columns="tableColumns" :data-source="dataSource">
+      <template #authorities="{ record }">
+        <a-tag v-for="item in record.authorities" :key="item" class="mb-2">
+          {{ item }}
+        </a-tag>
+      </template>
+      <template #operation="{ record }">
+        <a-button type="link" @click="onDeleteAuth(record)">
+          删除
+        </a-button>
+      </template>
+    </GlobalTable>
+    <module-add-modal v-model:visible="visible" :name="name" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -15,6 +30,7 @@ import { defineComponent, ref } from 'vue'
 import { tableColumns } from './module-visit'
 import service, { ModuleManage } from '/@/api/system-manage/module-manage'
 import moduleAddModal from './module-add-modal.vue'
+import { useDeleteModal } from '/@/hooks/web/useDeleteModal'
 
 export default defineComponent({
   components: { moduleAddModal },
@@ -25,7 +41,13 @@ export default defineComponent({
     }
   },
   setup(props) {
+    // 对话框显示
+    const visible = ref<boolean>(false)
+
     const dataSource = ref<ModuleManage[]>()
+
+    // 新增数据
+    const onClickNewItem = () => (visible.value = true)
 
     // 请求数据
     async function fetchDataFromServer() {
@@ -50,11 +72,26 @@ export default defineComponent({
       })
     }
 
+    // 删除权限
+    function onDeleteAuth(record: ModuleManage) {
+      useDeleteModal(async () => {
+        try {
+          await service.deleteItemById(record.id!)
+          fetchDataFromServer()
+        } catch (err) {
+          message.error(`删除失败: ${err.msg}`)
+        }
+      })
+    }
+
     fetchDataFromServer()
 
     return {
+      visible,
       dataSource,
-      tableColumns
+      tableColumns,
+      onDeleteAuth,
+      onClickNewItem
     }
   }
 })

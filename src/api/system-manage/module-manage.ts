@@ -74,9 +74,9 @@ export default class Service {
   }
 
   // 更新数据到远程服务器
-  static updateItem(name: string, item: ModuleManage): Promise<Result<ModuleManage>> {
+  static updateItem(id: number, item: ModuleManage): Promise<Result<ModuleManage>> {
     return request<Result<ModuleManage>>({
-      url: "/api/modular/" + name,
+      url: "/api/modular/" + id,
       method: "put",
       data: item
     })
@@ -85,7 +85,7 @@ export default class Service {
   // 删除指定ID的数据
   static deleteItemById(id: number): Promise<Result<null>> {
     return request<Result<null>>({
-      url: "/api/problem-manage/" + id,
+      url: "/api/modular/" + id,
       method: "delete"
     })
   }

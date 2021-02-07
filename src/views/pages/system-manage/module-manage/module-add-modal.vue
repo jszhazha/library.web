@@ -70,14 +70,13 @@ export default defineComponent({
 
     // 添加新的数据
     async function onNewData() {
-      if (!validItem()) return
+      if (!await validItem()) return
 
       const params: ModuleManage = {
         name: props.name,
         description: dataItem.description,
         authorities: sendBefore(dataItem.authorities!)
       }
-
       try {
         confirmLoading.value = true
         await service.saveNewItem(params)

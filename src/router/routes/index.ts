@@ -4,7 +4,7 @@ import { PageEnum } from '/@/enums/pageEnum'
 
 import { DEFAULT_LAYOUT_COMPONENT } from '../constant'
 import { overviewPage, NoFountPage, IndexPage } from './modules/indexRoute'
-import { LoginRoutes, ResetPasswordRoute, SearchRoute } from './modules/frameRouter'
+import { LoginRoutes, ResetPasswordRoute, SearchRoute, ProblemRoute } from './modules/frameRouter'
 
 // 路由
 import systemRouters from './modules/systemRouters'
@@ -48,4 +48,6 @@ export const RootRoute: AppRouteRecordRaw = {
 }
 
 
-export const basicRoutes = [...LoginRoutes, ResetPasswordRoute, SearchRoute, IndexPage, RootRoute, NoFountPage]
+const frameRouter = [...LoginRoutes, ResetPasswordRoute, SearchRoute, ProblemRoute]
+
+export const basicRoutes = [...frameRouter, IndexPage, RootRoute, NoFountPage]

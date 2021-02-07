@@ -14,7 +14,7 @@
         <slot name="header-right" />
         <listSetting />
         <TooltipButton v-if="download" title="下载导入模板">
-          <a :href="templateLink">
+          <a :href="templateLink" class="default-color">
             <VerticalAlignBottomOutlined />
           </a>
         </TooltipButton>

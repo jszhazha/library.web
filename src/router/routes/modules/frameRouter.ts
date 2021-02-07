@@ -51,3 +51,15 @@ export const SearchRoute: AppRouteRecordRaw = {
     ignoreAuth: true
   }
 }
+
+
+// 编辑
+export const ProblemRoute: AppRouteRecordRaw = {
+  path: '/problem',
+  name: 'problem',
+  component: () => import('/@/views/frame/problem-page/index.vue'),
+  meta: {
+    title: '遇到',
+    ignoreAuth: true
+  }
+}

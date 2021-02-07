@@ -54,7 +54,8 @@ export const tableColumns: TableColumn[] = [
     title: '操作状态',
     dataIndex: 'status',
     align: 'center',
-    ellipsis: true
+    ellipsis: true,
+    slots: { customRender: 'status' }
   },
   {
     title: '操作日期',

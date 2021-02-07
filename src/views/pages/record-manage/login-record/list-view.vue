@@ -8,7 +8,7 @@
   >
     <template #status="{ record }">
       <span v-if="record.status === 'SUCCESS'" color="#19be6b"> 成功 </span>
-      <span v-else color="#ed4014"> 失败 </span>
+      <span v-else-if="record.status === 'FAIL'" color="#ed4014"> 失败 </span>
     </template>
     <template #createTime="{ record }">
       {{ useFromatlll(record.createTime) }}

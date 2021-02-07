@@ -10,6 +10,12 @@
       {{ useFromatlll(record.createTime) }}
     </template>
 
+    <template #status="{ record }">
+      <span v-if="record.status === 'SUCCESS'" color="#19be6b"> 成功 </span>
+      <span v-else-if="record.status === 'FAIL'" color="#ed4014"> 失败 </span>
+      <span v-else color="#ed4014"> - </span>
+    </template>
+
     <template #action="{ record }">
       <div class="index-operation">
         <span @click="onDetailsDataItem(record)">详情</span>

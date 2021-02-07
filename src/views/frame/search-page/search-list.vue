@@ -1,16 +1,12 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
   <div class="search-list">
-    <div
-      v-for="item in dataSource"
-      :key="item.id"
-      class="search-list-box default-shadow"
-    >
-      <div class="search-list-box-header" v-html="item.name" />
+    <div v-for="item in dataSource" :key="item.id" class="search-list-box default-shadow">
+      <div class="search-list-box-header" v-html="highlight(item.name)" />
       <div class="search-list-box-main">
         <div class="search-list-box-main-row">
           <span class="search-list-box-main-row-title">作者</span>
-          <span v-html="item.author" />
+          <span v-html="highlight(item.author)" />
         </div>
         <div class="search-list-box-main-row">
           <span class="search-list-box-main-row-title">图书分类</span>
@@ -18,7 +14,7 @@
         </div>
         <div class="search-list-box-main-row">
           <span class="search-list-box-main-row-title">出版社</span>
-          <span v-html="item.publisher" />
+          <span v-html="highlight(item.publisher)" />
         </div>
         <div class="search-list-box-main-row">
           <span class="search-list-box-main-row-title">出版时间</span>
@@ -26,7 +22,7 @@
         </div>
         <div class="search-list-box-main-row">
           <span class="search-list-box-main-row-title">描述</span>
-          <span v-html="item.description" />
+          <span v-html="highlight(item.description)" />
         </div>
       </div>
     </div>
@@ -36,22 +32,40 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { Search } from '/@/api/search'
+import xss from 'xss'
+import { isString } from '/@/utils/is'
 
 export default defineComponent({
   props: {
     dataSource: {
       type: Object as PropType<Search>,
       default: () => {
-        return {}
+        return []
       }
+    },
+    searchValue: {
+      type: String,
+      default: ''
     }
+  },
+  setup(props) {
+    // 高亮
+    function highlight(value: string) {
+      if (!isString(value)) return
+      let result = xss(value, { whiteList: {} })
+      for (let val of props.searchValue) {
+        result = result.replace(new RegExp(val, 'gi'), "<span style='color:red;'>$&</span>")
+      }
+      return value
+    }
+    return { highlight }
   }
 })
 </script>
 
 <style lang="less" scoped>
 .search-list-box {
-  margin: 0 40px 30px 0;
+  margin: 0 0 30px 0;
   border: 1px solid #dfe1e5;
   border-radius: 8px;
 

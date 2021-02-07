@@ -55,8 +55,6 @@ export default defineComponent({
         const query = { name: props.name }
         const { data } = await service.fecthList(query)
         dataSource.value = dataParse(data.content)
-        console.log(data)
-        // dataSource.value = data
       } catch (err) {
         message.error(`模块权限数据获取失败: ${err.msg}`)
       }

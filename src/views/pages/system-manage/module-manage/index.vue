@@ -43,7 +43,6 @@ export default defineComponent({
 
     function handleSelect(selectedKey: string) {
       selectMenu.value = findMenu(selectedKey)
-      console.log(selectedKey)
     }
 
     return {

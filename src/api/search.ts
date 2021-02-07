@@ -46,13 +46,29 @@ export interface Search {
   updateTime?: string
 }
 
+export interface Hot{
+  // 数量
+  count?: number
+
+  // 名称
+  name?: string
+}
+
 export default class Service {
   // 向服务查询数据并分页返回结果
   static fecthList(query: Partial<PagerQueryData>): Promise<Result<Search[]>> {
     return request<Result<Search[]>>({
-      url: '/api/search/high',
+      url: '/epi/search/high',
       method: 'get',
       params: query
+    })
+  }
+
+  // 向服务查询数据并分页返回结果
+  static fecthHotList(): Promise<Result<Hot[]>> {
+    return request<Result<Hot[]>>({
+      url: '/epi/search/hot',
+      method: 'get'
     })
   }
 }

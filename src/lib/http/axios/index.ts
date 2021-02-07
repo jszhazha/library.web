@@ -39,7 +39,6 @@ export default function request<T extends Result>(requestConfig: AxiosRequestCon
       }
 
     }).catch((err) => {
-      console.log()
       if (err.message === 'Network Error') {
         let error: ResponseError = {
           code: 504,

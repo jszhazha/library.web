@@ -13,7 +13,12 @@
           class="mr-2 fw-b search-hot-item-index inline-block"
           :class="'search-hot-' + (index + 1)"
         >{{ index + 1 }}</span>
-        <span class="search-hot-item-name">{{ item.name }}</span>
+        <router-link
+          :to="{ path: '/search', query: { q: item.name } }"
+          class="search-hot-item-name"
+        >
+          {{ item.name }}
+        </router-link>
       </div>
       <div class="gray">
         {{ item.count }}
@@ -52,8 +57,13 @@ export default defineComponent({
   }
 
   &-name {
-    color: #771caa;
+    color: var(--theme-search-color);
     cursor: pointer;
+
+    &:hover {
+      color: var(--theme-search-hover-color);
+      text-decoration: underline;
+    }
   }
 }
 

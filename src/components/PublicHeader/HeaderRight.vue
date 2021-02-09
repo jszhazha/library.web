@@ -54,6 +54,7 @@ export default defineComponent({
 .header-right-action {
   display: inline-flex;
   align-items: center;
+  min-width: 114px;
 }
 
 .header-title {

@@ -135,12 +135,13 @@ export default defineComponent({
     padding: 90px 0 0;
 
     &-left {
-      width: 780px;
+      max-width: 780px;
+      min-width: 780px;
       padding: 0 40px 0 150px;
     }
 
     &-right {
-      padding: 20px 0 0 80px;
+      padding: 20px 20px 0 80px;
     }
 
     &-footer {

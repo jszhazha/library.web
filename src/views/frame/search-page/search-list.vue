@@ -1,11 +1,7 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
   <div class="search-list">
-    <div
-      v-for="item in dataSource"
-      :key="item.id"
-      class="search-list-box default-shadow"
-    >
+    <div v-for="item in dataSource" :key="item.id" class="search-list-box default-shadow">
       <div class="search-list-box-header" v-html="highlight(item.name)" />
       <div class="search-list-box-main">
         <div class="search-list-box-main-row">
@@ -52,17 +48,14 @@ export default defineComponent({
       default: ''
     }
   },
-  setup(props) {
+  setup() {
     // 高亮
     function highlight(value: string) {
       if (!isString(value)) return
-      let result = xss(value, { whiteList: {} })
-      result = result.replace(
-        new RegExp(props.searchValue, 'gi'),
-        "<span style='color:red;'>$&</span>"
-      )
+      let result = xss(value, { whiteList: { } })
       return result
     }
+
     return { highlight }
   }
 })
@@ -73,6 +66,11 @@ export default defineComponent({
   margin: 0 0 30px 0;
   border: 1px solid #dfe1e5;
   border-radius: 8px;
+
+  ::v-deep(em) {
+    font-style: normal;
+    color: red;
+  }
 
   &-header {
     padding: 10px 20px;

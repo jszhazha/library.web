@@ -52,8 +52,9 @@ export default defineComponent({
     // 高亮
     function highlight(value: string) {
       if (!isString(value)) return
-      let result = xss(value, { whiteList: { } })
-      return result
+      let result = xss(value, { whiteList: {} })
+
+      return result.replace(/&lt;em data="([^"]+)"&gt;&lt;\/em&gt;/g, '<em>$1</em>')
     }
 
     return { highlight }

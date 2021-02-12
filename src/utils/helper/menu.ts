@@ -24,11 +24,11 @@ export function getFlatMenus(): FlatMenu[] {
 }
 
 
-// 获取深层过滤不显示扁平化菜单
-export function getFilterFlatMenus(): FlatMenu[] {
+// 获取深层过滤不显示扁平化菜单 
+export function getFilterIconFlatMenus(): FlatMenu[] {
   const flatMenus = getFlatMenus()
-
-  return flatMenus.filter(el => !el.meta!.hideInMenu)
+  
+  return flatMenus.filter(el => !el.meta!.hideInMenu && !el.meta?.icon)
 }
 
 // 获取全部父级路由名称

@@ -24,9 +24,9 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch } from 'vue'
-import { SearchOutlined, CloseOutlined, ClockCircleOutlined } from '@ant-design/icons-vue'
+import { CloseOutlined, ClockCircleOutlined } from '@ant-design/icons-vue'
 export default defineComponent({
-  components: { SearchOutlined, CloseOutlined, ClockCircleOutlined },
+  components: { CloseOutlined, ClockCircleOutlined },
   props: {
     value: {
       type: String,

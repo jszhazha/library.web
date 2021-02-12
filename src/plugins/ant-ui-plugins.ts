@@ -1,10 +1,10 @@
 
 import type { App } from 'vue'
 
-import { Button, Divider, Form, Input, Modal, Pagination, Row, Col, Checkbox, notification, Popover, Popconfirm,Tooltip, message, Menu, Dropdown, Select, Progress, DatePicker, InputNumber, Tag, Tree, Upload } from 'ant-design-vue'
+import { Button, Divider, Form, Input, Modal, Pagination, Row, Col, Checkbox, notification, Popover, Popconfirm, Tooltip, message, Menu, Dropdown, Select, Progress, DatePicker, InputNumber, Tag, Tree, Upload } from 'ant-design-vue'
 
 // 导入 Icon
-import { PlusOutlined, SettingOutlined, DownOutlined, InfoCircleFilled, LoadingOutlined } from '@ant-design/icons-vue'
+import { PlusOutlined, SettingOutlined, DownOutlined, InfoCircleFilled, LoadingOutlined, SearchOutlined } from '@ant-design/icons-vue'
 
 import 'ant-design-vue/dist/antd.css'
 
@@ -32,5 +32,6 @@ export default class AntUiPlugins {
     app.component('SettingOutlined', SettingOutlined)
     app.component('InfoCircleFilled', InfoCircleFilled)
     app.component("LoadingOutlined", LoadingOutlined)
+    app.component("SearchOutlined", SearchOutlined)
   }
 }

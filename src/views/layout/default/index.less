@@ -30,10 +30,13 @@
     }
 
     &-search {
-      height: 32px;
-      border: none;
-      border-bottom: 1px solid #d9d9d9;
-      outline: none;
+      .ant-select-selector {
+        padding: 0;
+
+        .ant-select-selection-search {
+          inset: 0;
+        }
+      }
     }
 
     &-right {

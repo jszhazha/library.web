@@ -13,14 +13,14 @@
     </template>
 
     <template #show="{ record }">
-      <span v-if="record.show">可见</span>
-      <span v-else>不可见</span>
-      <!-- <a-tag v-if="record.show" color="#108ee9">
+      <!-- <span v-if="record.show">可见</span>
+      <span v-else>不可见</span> -->
+      <a-tag v-if="record.show" color="#108ee9">
         可 见
       </a-tag>
       <a-tag v-else color="#f50">
         不可见
-      </a-tag> -->
+      </a-tag>
     </template>
 
     <template #operation="{ record }">

@@ -1,8 +1,10 @@
 <template>
   <a-select
     class="select-wrap"
+    :value="value"
     :disabled="inputReadonly"
     :placeholder="inputReadonly ? '' : placeholder"
+    @select="onSelect"
   >
     <slot />
   </a-select>
@@ -33,15 +35,20 @@ export default defineComponent({
     placeholder: {
       type: String,
       default: '请输入'
+    },
+    value: {
+      type: [Number, String],
+      default: undefined
     }
   },
   emits: ['update:value'],
-  setup(props) {
+  setup(props, { emit }) {
     const { readonly, isReadonly } = toRefs(props)
 
     const inputReadonly = useinputReadonly(readonly, isReadonly)
 
-    return { inputReadonly }
+    const onSelect = (value: unknown) => emit('update:value', value)
+    return { inputReadonly, onSelect }
   }
 })
 </script>

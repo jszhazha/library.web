@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.2",
-    "ant-design-vue": "^2.0.0-rc.8",
+    "ant-design-vue": "^2.0.0",
     "axios": "^0.21.1",
     "crypto-es": "^1.2.6",
     "lodash-es": "^4.17.15",

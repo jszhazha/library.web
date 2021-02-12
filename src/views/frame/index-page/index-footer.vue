@@ -3,12 +3,15 @@
     <div>
       <span><a href="https://github.com/PBOVE" target="_blank">pbove</a></span>
       <span><a href="https://github.com/Abouerp" target="_blank">abouerp</a></span>
+      <span><router-link :to="{ name: 'help' }">帮助中心</router-link></span>
     </div>
-    <div>©2021 毕业设计</div>
+    <div>
+      <span>©2021 毕业设计</span>
+    </div>
   </footer>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent } from 'vue'
 export default defineComponent({})
 </script>
 

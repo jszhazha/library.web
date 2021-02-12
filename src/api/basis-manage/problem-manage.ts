@@ -42,6 +42,15 @@ export default class Service {
     })
   }
 
+  // 向服务查询数据并分页返回结果 无须权限
+  static fecthListByAny(query?: Partial<PagerQueryData>): Promise<DataPager> {
+    return request<DataPager>({
+      url: "/api/anonymous/problem",
+      method: "get",
+      params: query
+    })
+  }
+
   // 保存数据到远程服务器
   static saveNewItem(item: ProblemManage): Promise<Result<ProblemManage>> {
     return request<Result<ProblemManage>>({

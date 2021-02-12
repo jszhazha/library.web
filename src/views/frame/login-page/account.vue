@@ -40,30 +40,30 @@
         忘记密码
       </router-link>
       <a-divider type="vertical" />
-      <router-link to="/login">
-        遇到问题
+      <router-link :to="{ name: 'help' }">
+        帮助中心
       </router-link>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue"
-import { Instance } from "/@/lib/interface/GlobalButton"
-import { userStore } from "/@/store/modules/user"
+import { defineComponent, reactive, ref } from 'vue'
+import { Instance } from '/@/lib/interface/GlobalButton'
+import { userStore } from '/@/store/modules/user'
 
 export default defineComponent({
-  emits: ["on-change", "on-success"],
+  emits: ['on-change', 'on-success'],
   setup(_props, { emit }) {
     const buttonInstance = ref<Instance | null>(null)
 
-    const formData = reactive({ username: "", password: "" })
+    const formData = reactive({ username: '', password: '' })
 
     // 错误信息
-    const error = reactive({ msg: "", is: false })
+    const error = reactive({ msg: '', is: false })
 
     // 点击短信登录
-    const onChange = () => emit("on-change", "account")
+    const onChange = () => emit('on-change', 'account')
 
     const onEnter = () => handleUserLogin()
 
@@ -74,7 +74,7 @@ export default defineComponent({
       buttonInstance.value?.startAnimation(x, y)
       try {
         const userInfo = await userStore.login(formData)
-        emit("on-success", userInfo)
+        emit('on-success', userInfo)
       } catch (err) {
         error.is = true
         error.msg = err.msg

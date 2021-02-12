@@ -24,14 +24,13 @@
   resolved "https://registry.npm.taobao.org/@ant-design/icons-svg/download/@ant-design/icons-svg-4.1.0.tgz#480b025f4b20ef7fe8f47d4a4846e4fee84ea06c"
   integrity sha1-SAsCX0sg73/o9H1KSEbk/uhOoGw=
 
-"@ant-design/icons-vue@^5.1.9":
-  version "5.1.9"
-  resolved "https://registry.npm.taobao.org/@ant-design/icons-vue/download/@ant-design/icons-vue-5.1.9.tgz#8d741a3290be61af7c71618c308cc1a946c4e434"
-  integrity sha1-jXQaMpC+Ya98cWGMMIzBqUbE5DQ=
+"@ant-design/icons-vue@^6.0.0":
+  version "6.0.1"
+  resolved "https://registry.npm.taobao.org/@ant-design/icons-vue/download/@ant-design/icons-vue-6.0.1.tgz#9d804c3c74d2cfaf97cb18e582d3b9400934f5fd"
+  integrity sha1-nYBMPHTSz6+XyxjlgtO5QAk09f0=
   dependencies:
     "@ant-design/colors" "^5.0.0"
     "@ant-design/icons-svg" "^4.0.0"
-    "@babel/runtime" "^7.10.4"
     "@types/lodash" "^4.14.165"
     lodash "^4.17.15"
 
@@ -176,7 +175,7 @@
   resolved "https://registry.npm.taobao.org/@babel/parser/download/@babel/parser-7.12.10.tgz?cache=0&sync_timestamp=1607569377971&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fparser%2Fdownload%2F%40babel%2Fparser-7.12.10.tgz#824600d59e96aea26a5a2af5a9d812af05c3ae81"
   integrity sha1-gkYA1Z6WrqJqWir1qdgSrwXDroE=
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.4", "@babel/runtime@^7.10.5":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.5":
   version "7.12.5"
   resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.12.5.tgz?cache=0&sync_timestamp=1604441104026&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
   integrity sha1-QQ5+SHRB4bNgwpvnFdhw2bmFiC4=
@@ -356,12 +355,12 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@simonwep/pickr@~1.7.0":
-  version "1.7.4"
-  resolved "https://registry.npm.taobao.org/@simonwep/pickr/download/@simonwep/pickr-1.7.4.tgz?cache=0&sync_timestamp=1607166992457&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40simonwep%2Fpickr%2Fdownload%2F%40simonwep%2Fpickr-1.7.4.tgz#b14fcd945890388b870cd6db4d6c78d531f25141"
-  integrity sha1-sU/NlFiQOIuHDNbbTWx41THyUUE=
+"@simonwep/pickr@~1.8.0":
+  version "1.8.0"
+  resolved "https://registry.npm.taobao.org/@simonwep/pickr/download/@simonwep/pickr-1.8.0.tgz#adbff9a4f7f0e59dec9946508c5e481b7abae0f8"
+  integrity sha1-rb/5pPfw5Z3smUZQjF5IG3q64Pg=
   dependencies:
-    core-js "^3.6.5"
+    core-js "^3.8.0"
     nanopop "^2.1.0"
 
 "@stylelint/postcss-css-in-js@^0.37.2":
@@ -844,15 +843,15 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@^2.0.0-rc.8:
-  version "2.0.0-rc.8"
-  resolved "https://registry.npm.taobao.org/ant-design-vue/download/ant-design-vue-2.0.0-rc.8.tgz?cache=0&sync_timestamp=1610025633191&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fant-design-vue%2Fdownload%2Fant-design-vue-2.0.0-rc.8.tgz#0f219aedb27f1797228aab79fbbd8328a7389a9f"
-  integrity sha1-DyGa7bJ/F5ciiqt5+72DKKc4mp8=
+ant-design-vue@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/ant-design-vue/download/ant-design-vue-2.0.0.tgz?cache=0&sync_timestamp=1612620095556&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fant-design-vue%2Fdownload%2Fant-design-vue-2.0.0.tgz#d30ec06938dc3b43b08a117818fab91d7b083e5f"
+  integrity sha1-0w7AaTjcO0OwihF4GPq5HXsIPl8=
   dependencies:
     "@ant-design-vue/use" "^0.0.1-0"
-    "@ant-design/icons-vue" "^5.1.9"
+    "@ant-design/icons-vue" "^6.0.0"
     "@babel/runtime" "^7.10.5"
-    "@simonwep/pickr" "~1.7.0"
+    "@simonwep/pickr" "~1.8.0"
     array-tree-filter "^2.1.0"
     async-validator "^3.3.0"
     dom-align "^1.10.4"
@@ -1294,10 +1293,10 @@ cookies@~0.8.0:
     depd "~2.0.0"
     keygrip "~1.1.0"
 
-core-js@^3.6.5:
-  version "3.8.1"
-  resolved "https://registry.npm.taobao.org/core-js/download/core-js-3.8.1.tgz?cache=0&sync_timestamp=1607215867411&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-3.8.1.tgz#f51523668ac8a294d1285c3b9db44025fda66d47"
-  integrity sha1-9RUjZorIopTRKFw7nbRAJf2mbUc=
+core-js@^3.8.0:
+  version "3.8.3"
+  resolved "https://registry.npm.taobao.org/core-js/download/core-js-3.8.3.tgz?cache=0&sync_timestamp=1611040749668&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-3.8.3.tgz#c21906e1f14f3689f93abcc6e26883550dd92dd0"
+  integrity sha1-whkG4fFPNon5OrzG4miDVQ3ZLdA=
 
 cosmiconfig@^7.0.0:
   version "7.0.0"

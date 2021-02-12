@@ -54,12 +54,12 @@ export const SearchRoute: AppRouteRecordRaw = {
 
 
 // 编辑
-export const ProblemRoute: AppRouteRecordRaw = {
-  path: '/problem',
-  name: 'problem',
-  component: () => import('/@/views/frame/problem-page/index.vue'),
+export const HelpRoute: AppRouteRecordRaw = {
+  path: '/help',
+  name: 'help',
+  component: () => import('/@/views/frame/help-page/index-page.vue'),
   meta: {
-    title: '遇到',
+    title: '帮助中心',
     ignoreAuth: true
   }
 }

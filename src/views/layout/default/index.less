@@ -14,7 +14,7 @@
     padding: 0 50px 0 0;
     line-height: @header-height;
     background: #fff;
-    box-shadow: 0 1px 4px rgba(0,21,41,.08);
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
     .header-trigger {
       height: @header-height;
@@ -27,6 +27,13 @@
 
     .header-trigger:hover {
       background: rgba(0, 0, 0, 0.025);
+    }
+
+    &-search {
+      height: 32px;
+      border: none;
+      border-bottom: 1px solid #d9d9d9;
+      outline: none;
     }
 
     &-right {
@@ -48,8 +55,8 @@
   }
 
   .layout-sider {
-    box-shadow: 2px 0 6px rgba(0,21,41,.35);
-    
+    box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+
     &-header {
       height: @header-height;
       overflow: hidden;

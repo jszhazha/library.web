@@ -18,6 +18,9 @@ export enum PageEnum {
   PERSONAL_SETTING = "account-manage-setting",
 
   // 搜索页面
-  SEARCH_PAGE = 'search'
+  SEARCH_PAGE = 'search',
+
+  // 帮助中心
+  HELP_PAGE =  'help'
   
 }

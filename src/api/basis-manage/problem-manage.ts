@@ -12,7 +12,13 @@ export interface ProblemManage {
   show?: boolean | 1 | 0
 
   // 内容
-  text?: string
+  text?: string,
+
+  // 排序值
+  sortValue?: number,
+
+  // 图标
+  icon?: string
 
   // 创建者
   createBy?: string

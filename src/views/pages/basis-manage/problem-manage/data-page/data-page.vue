@@ -19,19 +19,21 @@
                   不可见
                 </a-select-option>
               </SelectWrap>
-              <!-- <a-radio-group >
-                <a-radio :value="1">
-                  
-                </a-radio>
-                <a-radio :value="0" class="ml-2">
-                  
-                </a-radio>
-              </a-radio-group> -->
+            </a-form-item>
+          </a-col>
+          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
+            <a-form-item label="排序值" v-bind="validateInfos.sortValue">
+              <InputNumberWrap v-model:value="dataItem.sortValue" />
+            </a-form-item>
+          </a-col>
+          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
+            <a-form-item label="图标" v-bind="validateInfos.icon">
+              <InputWrap v-model:value="dataItem.icon" />
             </a-form-item>
           </a-col>
         </a-row>
       </GlobalCard>
-
+      
       <GlobalCard title="问题描述">
         <div class="editor-content">
           <PreviewMode v-if="readonly" :value="dataItem.text" />
@@ -69,7 +71,7 @@ import PreviewMode from '/@/components/PublicEditor/src/Preview'
 export default defineComponent({
   components: { PreviewMode },
   setup() {
-    const dataItem = reactive<ProblemManage>({ show: 1 })
+    const dataItem = reactive<ProblemManage>({ show: 1,sortValue:0 })
     const rules = reactive(formRules)
     const onServerMethods = { onNewData, onSaveData, onLoadDataById }
     const parameter = { rules, dataItem, onServerMethods }

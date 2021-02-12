@@ -230,7 +230,6 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
    */
   const onSavePage = async () => {
     if (!await validItem()) return
-    console.log(cacheData, dataItem)
     try {
       loading.value = true
       useToast.clear()

@@ -16,6 +16,20 @@ export const tableColumns: TableColumn[] = [
     slots: { customRender: 'show' }
   },
   {
+    title: '排序值',
+    dataIndex: 'sortValue',
+    align: 'center',
+    ellipsis: true
+
+  },
+  {
+    title: '图标',
+    dataIndex: 'icon',
+    align: 'center',
+    ellipsis: true,
+    slots: { customRender: 'icon' }
+  },
+  {
     title: '创建者',
     dataIndex: 'createBy',
     align: 'center',

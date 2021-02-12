@@ -23,6 +23,10 @@
       </a-tag>
     </template>
 
+    <template #icon="{ record }">
+      <Icon v-if="record.icon" :icon="record.icon" />
+    </template>
+
     <template #operation="{ record }">
       <div class="index-operation">
         <span @click="onViewDataItem(record)">查看</span>

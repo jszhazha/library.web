@@ -1,12 +1,12 @@
 <template>
   <SearchOutlined class="pr-2" @click="handleSearchClick" />
   <a-select
-    class="no-border layout-header-search w-200"
+    :style="selectStyle"
+    class="no-border menu-search-select"
     placeholder="搜索"
     :show-search="true"
     :show-arrow="false"
     :filter-option="handleFilterSelect"
-    :allow-clear="true"
     @select="handleSelect"
     @blur="handleBlur"
   >
@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref, unref } from 'vue'
 import { getFilterIconFlatMenus } from '/@/utils/helper/menu'
 import { useGo } from '/@/hooks/web/usePage'
 import PinYin from 'word-pinyin'
@@ -57,9 +57,34 @@ export default defineComponent({
       isSearch.value = false
     }
 
-    return { isSearch, flatMenus, handleFilterSelect, handleSelect, handleSearchClick, handleBlur }
+    const selectStyle = computed(() => {
+      return {
+        width: unref(isSearch) ? '200px' : '0px'
+      }
+    })
+
+    return {
+      flatMenus,
+      selectStyle,
+      handleBlur,
+      handleSelect,
+      handleSearchClick,
+      handleFilterSelect
+    }
   }
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.menu-search-select {
+  transition: width 0.5s ease;
+
+  ::v-deep(.ant-select-selector) {
+    padding: 0;
+
+    .ant-select-selection-search {
+      inset: 0;
+    }
+  }
+}
+</style>

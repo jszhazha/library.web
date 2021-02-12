@@ -5,7 +5,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined  } from '@ant-design/icons-vue'
 import { menuStore } from '/@/store/modules/menu'
 import DropMenu from '/@/components/PublicHeader/dropMenu.vue'
 import { userStore } from '/@/store/modules/user'
-import MenuSeach from '/@/components/MenuSeach.vue'
+import MenuSearch from '/@/components/MenuSearch.vue'
 
 export default defineComponent({
   name: 'DefaultLayoutHeader',
@@ -35,7 +35,7 @@ export default defineComponent({
               <LayoutBreadcrumb />
             </div>
             <div class="index-middle">
-              <MenuSeach />
+              <MenuSearch />
               <DropMenu placement="bottomCenter">
                 {{
                   default: () => (

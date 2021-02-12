@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 import { Layout } from 'ant-design-vue'
 import LayoutBreadcrumb from './LayoutBreadcrumb'
-import { MenuFoldOutlined, MenuUnfoldOutlined,  } from '@ant-design/icons-vue'
+import { MenuFoldOutlined, MenuUnfoldOutlined  } from '@ant-design/icons-vue'
 import { menuStore } from '/@/store/modules/menu'
 import DropMenu from '/@/components/PublicHeader/dropMenu.vue'
 import { userStore } from '/@/store/modules/user'

@@ -16,11 +16,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, unref } from "vue"
-import { Table } from "ant-design-vue"
-import { tableProps } from "/@/lib/props/TableList"
-import { injectDatapage } from "/@/lib/idata/data-page/methods/useDepend"
-import { cloneDeep } from "lodash-es"
+import { computed, defineComponent, toRefs, unref } from 'vue'
+import { Table } from 'ant-design-vue'
+import { tableProps } from '/@/lib/props/TableList'
+import { injectDatapage } from '/@/lib/idata/data-page/methods/useDepend'
+import { cloneDeep } from 'lodash-es'
 
 export default defineComponent({
   components: { Table },
@@ -42,7 +42,6 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .global-table {
-
   ::v-deep(.ant-table-body) {
     &::-webkit-scrollbar {
       width: 6px;
@@ -54,11 +53,10 @@ export default defineComponent({
       border-radius: 1em;
     }
 
-    .ant-table-thead > tr > th{
+    .ant-table-thead > tr > th {
       font-weight: bold;
       background: var(--public-table-background);
     }
   }
-
 }
 </style>

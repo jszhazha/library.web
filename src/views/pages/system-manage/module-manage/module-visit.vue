@@ -56,7 +56,7 @@ export default defineComponent({
 
     const moduleVisitRef = ref<HTMLElement | null>(null)
 
-    const scroll = reactive<{ x?: number }>({})
+    const scroll = reactive<{ y?: number }>({})
 
     // 新增数据
     const onClickNewItem = () => (visible.value = true)
@@ -107,13 +107,12 @@ export default defineComponent({
       () => props.name,
       () => {
         fetchDataFromServer()
-        console.log(moduleVisitRef.value?.offsetHeight)
       },
       { immediate: true }
     )
 
     setTimeout(() => {
-      console.log(moduleVisitRef.value?.offsetHeight)
+      scroll.y = moduleVisitRef.value?.offsetHeight as number - 120
     }, 0)
 
     return {

@@ -1,0 +1,32 @@
+import type { TableColumn } from '/@/lib/props/TableList'
+
+export const tableColumns: TableColumn[] = [
+  {
+    title: '是否默认角色',
+    dataIndex: 'isDefault',
+    align: 'center',
+    ellipsis: true,
+    width: 80,
+    slots: { customRender: 'isDefault' }
+  },
+  {
+    title: '角色名称',
+    dataIndex: 'name',
+    align: 'center',
+    ellipsis: true
+  },
+  {
+    title: '描述',
+    dataIndex: 'code',
+    align: 'center',
+    ellipsis: true
+  },
+  {
+    title: '操作',
+    align: 'center',
+    width: 170,
+    ellipsis: true,
+    dataIndex: 'operation',
+    slots: { customRender: 'operation' }
+  }
+]

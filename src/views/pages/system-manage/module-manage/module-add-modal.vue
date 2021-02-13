@@ -34,7 +34,8 @@ export default defineComponent({
       default: ''
     }
   },
-  setup(props) {
+  emits: ['on-success'],
+  setup(props, { emit }) {
     // 权限列表
     const authorityList = ref<Authority>()
 
@@ -70,7 +71,7 @@ export default defineComponent({
 
     // 添加新的数据
     async function onNewData() {
-      if (!await validItem()) return
+      if (!(await validItem())) return
 
       const params: ModuleManage = {
         name: props.name,
@@ -85,6 +86,7 @@ export default defineComponent({
         message.error(`模块权限添加失败: ${err.msg}`)
       } finally {
         confirmLoading.value = false
+        emit('on-success')
       }
     }
 

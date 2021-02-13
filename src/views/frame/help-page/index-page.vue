@@ -10,7 +10,7 @@
     </template>
   </PublicHeader>
   <div class="flex pt-6 help-main">
-    <div class="help-sider">
+    <div v-if="dataSource.length" class="help-sider">
       <index-sider :data-source="dataSource" />
     </div>
     <div />
@@ -37,7 +37,7 @@ export default defineComponent({
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
-      const query = {}
+      const query = { sort: 'sortValue,desc' }
       const { data } = await service.fecthListByAny(query)
       dataSource.value = data.content
     }

@@ -5,8 +5,18 @@
     :show-icon="false"
     @select="onSelect"
   >
-    <a-tree-node v-for="first in menuItem" :key="first.name" :title="first.title">
-      <a-tree-node v-for="second in first.children" :key="second.name" :title="second.title">
+    <a-tree-node
+      v-for="first in menuItem"
+      :key="first.name"
+      :title="first.title"
+      :disabled="!!first.children?.length"
+    >
+      <a-tree-node
+        v-for="second in first.children"
+        :key="second.name"
+        :title="second.title"
+        :disabled="!!second.children?.length"
+      >
         <a-tree-node v-for="third in second.children" :key="third.name" :title="third.title" />
       </a-tree-node>
     </a-tree-node>
@@ -34,5 +44,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

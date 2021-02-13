@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4 br-2 p-4 flex-item bg-white default-shadow">
+  <div ref="moduleVisitRef" class="mt-4 br-2 p-4 flex-item bg-white default-shadow">
     <div class="index-space-between index-middle">
       <div class="fw-b fs-4">
         模块权限设置
@@ -8,9 +8,14 @@
         新增
       </a-button>
     </div>
-    <GlobalTable :columns="tableColumns" :data-source="dataSource">
+    <GlobalTable
+      :scroll="scroll"
+      :columns="tableColumns"
+      :data-source="dataSource"
+      :loading="loading"
+    >
       <template #authorities="{ record }">
-        <a-tag v-for="item in record.authorities" :key="item" class="mb-2">
+        <a-tag v-for="item in record.authorities" :key="item">
           {{ item }}
         </a-tag>
       </template>
@@ -20,13 +25,13 @@
         </a-button>
       </template>
     </GlobalTable>
-    <module-add-modal v-model:visible="visible" :name="name" />
+    <module-add-modal v-model:visible="visible" :name="name" @on-success="onAddSuccess" />
   </div>
 </template>
 
 <script lang="ts">
 import { message } from 'ant-design-vue'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive, ref, watch } from 'vue'
 import { tableColumns } from './module-visit'
 import service, { ModuleManage } from '/@/api/system-manage/module-manage'
 import moduleAddModal from './module-add-modal.vue'
@@ -44,7 +49,14 @@ export default defineComponent({
     // 对话框显示
     const visible = ref<boolean>(false)
 
+    // 加载中
+    const loading = ref<boolean>(true)
+
     const dataSource = ref<ModuleManage[]>()
+
+    const moduleVisitRef = ref<HTMLElement | null>(null)
+
+    const scroll = reactive<{ x?: number }>({})
 
     // 新增数据
     const onClickNewItem = () => (visible.value = true)
@@ -52,11 +64,14 @@ export default defineComponent({
     // 请求数据
     async function fetchDataFromServer() {
       try {
+        loading.value = true
         const query = { name: props.name }
         const { data } = await service.fecthList(query)
         dataSource.value = dataParse(data.content)
       } catch (err) {
         message.error(`模块权限数据获取失败: ${err.msg}`)
+      } finally {
+        loading.value = false
       }
     }
 
@@ -82,14 +97,35 @@ export default defineComponent({
       })
     }
 
-    fetchDataFromServer()
+    // 处理添加数据成功
+    function onAddSuccess() {
+      visible.value = false
+      fetchDataFromServer()
+    }
+
+    watch(
+      () => props.name,
+      () => {
+        fetchDataFromServer()
+        console.log(moduleVisitRef.value?.offsetHeight)
+      },
+      { immediate: true }
+    )
+
+    setTimeout(() => {
+      console.log(moduleVisitRef.value?.offsetHeight)
+    }, 0)
 
     return {
+      scroll,
+      loading,
       visible,
       dataSource,
       tableColumns,
       onDeleteAuth,
-      onClickNewItem
+      onClickNewItem,
+      onAddSuccess,
+      moduleVisitRef
     }
   }
 })

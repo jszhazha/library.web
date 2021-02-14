@@ -2,7 +2,13 @@
   <!-- eslint-disable vue/no-v-html -->
   <div class="search-list">
     <div v-for="item in dataSource" :key="item.id" class="search-list-box default-shadow">
-      <div class="search-list-box-header" v-html="highlight(item.name)" />
+      <div class="search-list-box-header">
+        <router-link
+          class="search-list-box-header-link"
+          :to="'/search/' + item.id"
+          v-html="highlight(item.name)"
+        />
+      </div>
       <div class="search-list-box-main">
         <div class="search-list-box-main-row">
           <span class="search-list-box-main-row-title">作者</span>
@@ -76,8 +82,12 @@ export default defineComponent({
   &-header {
     padding: 10px 20px;
     font-size: 18px;
-    color: #000;
     border-bottom: 1px solid #eee;
+
+    &-link {
+      color: var(--theme-search-color);
+      cursor: pointer;
+    }
   }
 
   &-main {

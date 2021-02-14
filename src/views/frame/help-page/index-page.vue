@@ -23,14 +23,14 @@ import config from '/@/config'
 import { PageEnum } from '/@/enums/pageEnum'
 import { useGo } from '/@/hooks/web/usePage'
 import indexSider from './index-sider.vue'
-import service, { ProblemManage } from '/@/api/basis-manage/problem-manage'
+import service from '/@/api/anonymous'
 
 export default defineComponent({
   components: { indexSider },
   setup() {
     const go = useGo()
 
-    const dataSource = ref<ProblemManage[]>([])
+    const dataSource = ref<unknown[]>([])
 
     // 点击文字页面跳转
     const handleTitleClick = () => go({ name: PageEnum.INDEX_PAGE })
@@ -38,7 +38,7 @@ export default defineComponent({
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
       const query = { sort: 'sortValue,desc' }
-      const { data } = await service.fecthListByAny(query)
+      const { data } = await service.fecthProblemByAny(query)
       dataSource.value = data.content
     }
 

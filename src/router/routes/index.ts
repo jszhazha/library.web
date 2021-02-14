@@ -48,6 +48,6 @@ export const RootRoute: AppRouteRecordRaw = {
 }
 
 
-const frameRouter = [...LoginRoutes, ResetPasswordRoute, SearchRoute, HelpRoute]
+const frameRouter = [...LoginRoutes, ResetPasswordRoute, ...SearchRoute, HelpRoute]
 
 export const basicRoutes = [...frameRouter, IndexPage, RootRoute, NoFountPage]

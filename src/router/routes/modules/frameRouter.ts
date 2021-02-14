@@ -42,15 +42,25 @@ export const EditorRoute: AppRouteRecordRaw = {
 }
 
 // 编辑
-export const SearchRoute: AppRouteRecordRaw = {
-  path: '/search',
-  name: 'search',
-  component: () => import('/@/views/frame/search-page/index.vue'),
-  meta: {
-    title: '搜索',
-    ignoreAuth: true
+export const SearchRoute: AppRouteRecordRaw[] = [
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('/@/views/frame/search-page/index.vue'),
+    meta: {
+      title: '搜索',
+      ignoreAuth: true
+    }
+  },
+  {
+    path: '/search/:id',
+    name: "search-show",
+    component: () => import('/@/views/frame/search-page/search-show.vue'),
+    meta: {
+      ignoreAuth: true
+    }
   }
-}
+]
 
 
 // 编辑

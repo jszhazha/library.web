@@ -2,6 +2,8 @@
 import { isString } from "./is"
 
 export const rules = {
+  digital: /^\d*$/,
+
   telephone: /^1\d{10}$/,
 
   dataPage: /data-page$/,
@@ -12,7 +14,7 @@ export const rules = {
 
 interface Parameter {
   data: string,
-  rule: 'telephone' | 'dataPage'
+  rule: 'telephone' | 'dataPage' | 'digital'
 }
 
 // 检查数据

@@ -1,4 +1,4 @@
-import type { Result, PagerQueryData } from '/@/lib/http/axios/types'
+import type { Result, PagerQueryData, PagerResponseData} from '/@/lib/http/axios/types'
 import { BookCategory } from './book-manage/book-category'
 import request from '/@/lib/http/axios/'
 
@@ -42,7 +42,7 @@ export interface Search {
   // 创建时间
   createTime?: string
 
-  //更新时间
+  // 更新时间
   updateTime?: string
 }
 
@@ -54,10 +54,15 @@ export interface Hot{
   name?: string
 }
 
+/**
+ * 分页结果定义
+ */
+export type DataPager = PagerResponseData<Search>
+
 export default class Service {
   // 向服务查询数据并分页返回结果
-  static fecthList(query: Partial<PagerQueryData>): Promise<Result<Search[]>> {
-    return request<Result<Search[]>>({
+  static fecthList(query: Partial<PagerQueryData>): Promise<DataPager> {
+    return request<DataPager>({
       url: '/epi/search/high',
       method: 'get',
       params: query

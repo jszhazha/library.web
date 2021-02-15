@@ -24,14 +24,14 @@
       <search-empty v-else-if="!loading">
         {{ searchValue }}
       </search-empty>
-      <!-- <div class="index-space-between index-middle search-page-content-footer">
-        <div class="search-page-content-footer-button default-shadow">
+      <div class="index-space-between index-middle search-page-content-footer">
+        <div class="search-page-content-footer-button">
           上一页
         </div>
-        <div class="search-page-content-footer-button default-shadow">
+        <div class="search-page-content-footer-button">
           下一页
         </div>
-      </div> -->
+      </div>
     </div>
     <div class="search-page-content-right">
       <search-hot :data-source="HotList" />
@@ -81,7 +81,7 @@ export default defineComponent({
         const query = queryData()
         loading.value = true
         const { data } = await service.fecthList(query)
-        searchList.value = data
+        searchList.value = data.content
       } catch (err) {
         message.error(err.msg)
       } finally {
@@ -146,13 +146,6 @@ export default defineComponent({
 
     &-footer {
       padding: 0 0 30px;
-
-      &-button {
-        padding: 8px 30px;
-        cursor: pointer;
-        border: 1px solid #dfe1e5;
-        border-radius: 8px;
-      }
     }
   }
 }

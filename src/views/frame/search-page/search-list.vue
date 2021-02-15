@@ -1,7 +1,11 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
   <div class="search-list">
-    <div v-for="item in dataSource" :key="item.id" class="search-list-box default-shadow">
+    <div
+      v-for="item in dataSource"
+      :key="item.id"
+      class="search-list-box default-shadow"
+    >
       <div class="search-list-box-header">
         <router-link
           class="search-list-box-header-link"
@@ -60,7 +64,10 @@ export default defineComponent({
       if (!isString(value)) return
       let result = xss(value, { whiteList: {} })
 
-      return result.replace(/&lt;em data="([^"]+)"&gt;&lt;\/em&gt;/g, '<em>$1</em>')
+      return result.replace(
+        /&lt;em data="([^"]+)"&gt;&lt;\/em&gt;/g,
+        '<em>$1</em>'
+      )
     }
 
     return { highlight }
@@ -87,6 +94,10 @@ export default defineComponent({
     &-link {
       color: var(--theme-search-color);
       cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 

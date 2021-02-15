@@ -23,9 +23,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-export default defineComponent({
-  qwewq
-})
+export default defineComponent({})
 </script>
 
 <style lang="less" scoped>

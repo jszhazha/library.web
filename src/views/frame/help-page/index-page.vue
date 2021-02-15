@@ -3,8 +3,9 @@
     <template #left>
       <img :src="config.logo" class="config-logo" @click="handleTitleClick">
       <div>
-        <!-- <span class="config-title" @click="handleTitleClick"></span>
-        <a-divider type="vertical" /> -->
+        <span class="config-title index-theme" @click="handleTitleClick">
+          {{ config.title }}
+        </span>
         <span class="fs-4">帮 助 中 心</span>
       </div>
     </template>
@@ -53,12 +54,13 @@ export default defineComponent({
 .config {
   &-logo {
     width: 20px;
-    margin: 0 20px;
+    margin: 0 10px 0 20px;
     cursor: pointer;
   }
 
   &-title {
-    margin: 0 0 0 20px;
+    padding: 0 20px 0 0;
+    margin: 0 20px 0 0;
     font-size: 18px;
     color: var(--theme-font-color);
     cursor: pointer;

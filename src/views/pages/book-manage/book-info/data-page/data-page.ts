@@ -64,7 +64,16 @@ export const formRules: FromRules = {
 
   bookCategoryId: [{ type: 'number', required: true, whitespace: true, message: '不允许为空' }],
 
-  isbn: [{ required: true, whitespace: true, message: '不允许为空' }],
+  isbn: [
+    { required: true, whitespace: true, message: '不允许为空' },
+    {
+      validator: (_rule: unknown, value: string): Promise<void> => {
+        if (/^[0-9]+$/.test(value)) {
+          return Promise.resolve()
+        }
+        return Promise.reject('格式错误')
+      }
+    }],
 
   publicationTime: [{ required: true, message: '不允许为空' }]
 }

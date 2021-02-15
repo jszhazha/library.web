@@ -116,12 +116,12 @@ export default defineComponent({
 
     .content {
       max-width: 1100px;
-      margin: 0 auto;
+      margin: 0 auto 5px;
     }
 
     .icon {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       color: #000 !important;
 
       &:active {

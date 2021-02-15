@@ -19,7 +19,7 @@ export const formRules: FromRules = {
         if (/^[A-Z0-9a-z]{0,4}$/.test(value)) {
           return Promise.resolve()
         }
-        return Promise.reject('格式不正确')
+        return Promise.reject('格式错误')
       }
     }
   ]

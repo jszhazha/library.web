@@ -45,7 +45,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .header-title {
-  width: 340px;
+  width: 280px;
   margin: 0 0 15px;
   color: var(--theme-font-color);
 }

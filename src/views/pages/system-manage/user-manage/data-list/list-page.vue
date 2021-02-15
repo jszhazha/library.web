@@ -44,7 +44,7 @@ export default defineComponent({
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
       // instance.listInstance?.setDataSource(data)
-      console.log(instance.searchInstance?.getCurQueryData())
+      // console.log(instance.searchInstance?.getCurQueryData())
     }
 
     // 删除数据, 刷新数据

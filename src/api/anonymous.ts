@@ -24,8 +24,8 @@ export default class Service {
   }
 
   //  获取图书馆藏信息
-  static fecthBookByAny(id: number): Promise<Result<{ book: BookInfo, detail: BookDetail }>> {
-    return request<Result<{ book: BookInfo, detail: BookDetail }>>({
+  static fecthBookByAny(id: number): Promise<Result<{ book: BookInfo, detail: BookDetail[] }>> {
+    return request<Result<{ book: BookInfo, detail: BookDetail[] }>>({
       url: "/api/anonymous/book/" + id,
       method: "get"
     })

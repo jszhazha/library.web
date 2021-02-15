@@ -24,7 +24,7 @@
       <search-empty v-else-if="!loading">
         {{ searchValue }}
       </search-empty>
-      <div class="index-space-between index-middle search-page-content-footer">
+      <div v-if="!loading" class="index-space-between index-middle search-page-content-footer">
         <div class="search-page-content-footer-button">
           上一页
         </div>
@@ -146,6 +146,10 @@ export default defineComponent({
 
     &-footer {
       padding: 0 0 30px;
+
+      &-button {
+        cursor: pointer;
+      }
     }
   }
 }

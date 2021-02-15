@@ -94,10 +94,6 @@ export default defineComponent({
     &-link {
       color: var(--theme-search-color);
       cursor: pointer;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 

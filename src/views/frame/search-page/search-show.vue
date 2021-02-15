@@ -9,73 +9,132 @@
       </router-link>
     </template>
   </PublicHeader>
+  <div class="search-page-show-middle">
+    <div class="content index-middle">
+      <router-link to="/">
+        <Icon icon="ion:arrow-back-outline" size="22" class="icon index-center-middle" />
+      </router-link>
+      <span class="title">资源检索</span>
+    </div>
+  </div>
   <div class="main">
-    <div>{{ bookData.info.name }}</div>
-    <div class="main-row">
-      <div>
-        <span class="main-row-title">作者</span>
-        <span>{{ bookData.info.author }}</span>
-      </div>
-      <div>
-        <span class="main-row-title">图书分类</span>
-        <span>{{ bookData.info.bookCategory?.name }}</span>
-      </div>
+    <div class="main-row-title-name">
+      {{ bookInfo.name }}
     </div>
     <div class="main-row">
-      <div>
-        <span class="main-row-title">出版社</span>
-        <span>{{ bookData.info.publisher }}</span>
-      </div>
-      <div>
-        <span class="main-row-title">价格</span>
-        <span>{{ bookData.info.price }}</span>
-      </div>
+      <span class="main-row-title">作 者</span>
+      <span>{{ bookInfo.author }}</span>
     </div>
     <div class="main-row">
-      <div>
-        <span class="main-row-title">ISBN</span>
-        <span>{{ bookData.info.isbn }}</span>
-      </div>
-      <div>
-        <span class="main-row-title">出版时间</span>
-        <span>{{ bookData.info.publicationTime }}</span>
-      </div>
+      <span class="main-row-title">图书分类</span>
+      <span>{{ bookInfo.bookCategory?.name }}</span>
     </div>
+    <div class="main-row">
+      <span class="main-row-title">出版社</span>
+      <span>{{ bookInfo.publisher }}</span>
+    </div>
+    <div class="main-row">
+      <span class="main-row-title">价 格</span>
+      <span>{{ bookInfo.price }}</span>
+    </div>
+    <div class="main-row">
+      <span class="main-row-title">出版社</span>
+      <span>{{ bookInfo.publisher }}</span>
+    </div>
+    <div class="main-row">
+      <span class="main-row-title">ISBN</span>
+      <span>{{ bookInfo.isbn }}</span>
+    </div>
+    <div class="main-row">
+      <span class="main-row-title">出版时间</span>
+      <span>{{ bookInfo.publicationTime }}</span>
+    </div>
+    <div class="main-row">
+      <span class="main-row-title">描述</span>
+      <span>{{ bookInfo.description }}</span>
+    </div>
+    <GlobalTable
+      bordered
+      class="mt-10 default-shadow"
+      :loading="loading"
+      :data-source="bookDetail"
+      :columns="holdInfoColumns"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, unref } from 'vue'
+import type { BookDetail } from '/@/api/book-manage/book-detail'
+import { defineComponent, ref, unref } from 'vue'
+import { holdInfoColumns } from './search-show'
 import { useRouter } from 'vue-router'
 import service from '/@/api/anonymous'
 import config from '/@/config'
+import { message } from 'ant-design-vue'
 
 export default defineComponent({
   setup() {
     const { currentRoute } = useRouter()
 
-    const bookData = reactive({ info: {}, detail: {} })
+    const bookInfo = ref({})
+
+    const bookDetail = ref<BookDetail[]>([])
+
+    const loading = ref<boolean>(false)
 
     async function fetchDataByService() {
-      const { params } = unref(currentRoute)
-      const id = parseInt(params.id as string)
-      const { data } = await service.fecthBookByAny(id)
-      bookData.info = data.book
-      bookData.detail = data.detail
-      console.log(bookData)
+      try {
+        loading.value = true
+        const { params } = unref(currentRoute)
+        const id = parseInt(params.id as string)
+        const { data } = await service.fecthBookByAny(id)
+        bookInfo.value = data.book
+        bookDetail.value = data.detail
+      } catch (err) {
+        message.error(`获取资源失败: ${err.msg}`)
+      } finally {
+        loading.value = false
+      }
     }
 
     fetchDataByService()
 
-    return { config, bookData }
+    return { config, loading, bookInfo, bookDetail, holdInfoColumns }
   }
 })
 </script>
 
 <style lang="less" scoped>
-.search-page-show-header {
-  height: 60px;
-  padding: 0 40px 0 90px;
+.search-page-show {
+  &-header {
+    height: 60px;
+    padding: 0 40px 0 90px;
+  }
+
+  &-middle {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    .content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .icon {
+      width: 34px;
+      height: 34px;
+      color: #000 !important;
+
+      &:active {
+        background: #dcdee2;
+        border-radius: 50%;
+      }
+    }
+
+    .title {
+      margin: 0 0 0 10px;
+      font-size: 18px;
+    }
+  }
 }
 
 .header-title {
@@ -84,21 +143,27 @@ export default defineComponent({
 }
 
 .main {
+  height: calc(100% - 94px);
   max-width: 1000px;
   margin: 20px auto 0;
+  overflow: auto;
 
   &-row {
-    display: flex;
-    align-items: center;
     margin: 10px 0 0;
+    font-size: 12px;
 
     &-title {
       display: inline-block;
-      width: 80px;
 
       &::after {
-        margin: 0 5px 0 2px;
+        margin: 0 8px 0 2px;
         content: ':';
+      }
+
+      &-name {
+        height: 28px;
+        font-size: 18px;
+        color: var(--theme-search-color);
       }
     }
   }

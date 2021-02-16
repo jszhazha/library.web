@@ -17,6 +17,16 @@
         新增
       </a-button>
     </template>
+    <template #name="{ text }">
+      <div class="index-ellipsis w-200" :title="text">
+        {{ text }}
+      </div>
+    </template>
+    <template #author="{ text }">
+      <div class="index-ellipsis w-200" :title="text">
+        {{ text }}
+      </div>
+    </template>
     <template #operation="{ record }">
       <div class="index-operation">
         <span @click="onViewDataItem(record)">查看</span>

@@ -52,11 +52,11 @@ export default defineComponent({
       background-color: #bfbfbf;
       border-radius: 1em;
     }
-
-    .ant-table-thead > tr > th {
-      font-weight: bold;
-      background: var(--public-table-background);
-    }
   }
+}
+
+::v-deep(.ant-table-thead > tr > th) {
+  font-weight: bold;
+  background: var(--public-table-background);
 }
 </style>

@@ -44,17 +44,17 @@
           操作方法
         </div>
         <div class="row-content">
-          <span>{{ data.signatureName }}</span>
+          {{ data.signatureName }}
         </div>
       </a-col>
     </a-row>
     <a-row type="flex" :gutter="[0, 42]">
       <a-col>
-        <div class="row-title">
+        <div class="row-title ">
           请求参数
         </div>
-        <div class="row-content">
-          <span>{{ data.param }}</span>
+        <div class="row-content index-newline">
+          {{ data.param }}
         </div>
       </a-col>
     </a-row>

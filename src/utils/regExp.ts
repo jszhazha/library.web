@@ -35,7 +35,9 @@ export function queryModule(path: string): string {
     'book': "图书基本信息",
     'problem-manage': '问题管理',
     'modular': '模块管理',
-    'authority': '权限列表'
+    'authority': '权限列表',
+    'role': '角色管理',
+    'search':"图书搜索"
   }
   const mapKey = Reflect.ownKeys(mapState)
   const key = mapKey.find((value: string) => new RegExp(value).test(path))

@@ -12,8 +12,7 @@ export const holdInfoColumns: TableColumn[] = [
     dataIndex: "address",
     align: "center",
     ellipsis: true,
-    width: 260,
-    slots: { customRender: 'address' }
+    width: 260
   },
   {
     title: "馆藏状态",

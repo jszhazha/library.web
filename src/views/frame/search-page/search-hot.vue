@@ -3,6 +3,7 @@
     <div class="header-title">
       热搜书名
     </div>
+    <a-skeleton :loading="loading && !dataSource.length" />
     <div
       v-for="(item, index) in dataSource"
       :key="item.name"
@@ -38,6 +39,10 @@ export default defineComponent({
       default: () => {
         return []
       }
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   }
 })

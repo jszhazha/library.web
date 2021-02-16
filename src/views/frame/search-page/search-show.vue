@@ -59,25 +59,7 @@
       :loading="loading"
       :data-source="bookDetail"
       :columns="holdInfoColumns"
-    >
-      <template #status="{ text }">
-        <a-tag v-if="text === 'IN_LIBRARY'" color="success">
-          在馆未借
-        </a-tag>
-        <a-tag v-else-if="text === 'OUT_LIBRARY'" color="processing">
-          已借未还
-        </a-tag>
-        <a-tag v-else-if="text === 'LOST'" color="error">
-          丢失
-        </a-tag>
-        <a-tag v-else-if="text === 'OVERDUE'" color="warning">
-          逾期
-        </a-tag>
-        <a-tag v-else-if="text === 'SUBSCRIBE'" color="purple">
-          被预约
-        </a-tag>
-      </template>
-    </GlobalTable>
+    />
   </div>
 </template>
 
@@ -168,7 +150,7 @@ export default defineComponent({
 
   &-row {
     margin: 10px 0 0;
-    font-size: 14px;
+    font-size: 13px;
 
     &-title {
       display: inline-block;

@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="search-page-content-right">
-      <search-hot :data-source="HotList" />
+      <search-hot :data-source="HotList" :loading="loading" />
     </div>
   </div>
 </template>

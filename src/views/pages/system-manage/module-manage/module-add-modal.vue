@@ -25,7 +25,9 @@ import { message } from 'ant-design-vue'
 import { defineComponent, reactive, ref, unref } from 'vue'
 import { useForm } from '@ant-design-vue/use'
 import { formRules, DataItem } from './module-add-modal'
+import { queryRoleAuthority } from '/@/enums/roleEnum'
 import service, { Authority, ModuleManage } from '/@/api/system-manage/module-manage'
+
 
 export default defineComponent({
   props: {
@@ -48,13 +50,8 @@ export default defineComponent({
     const { resetFields, validate, validateInfos } = useForm(dataItem, rules)
 
     // 获取权限列表数据
-    async function fetchAuthorityFromServer() {
-      try {
-        const { data } = await service.fecthListByAuthority()
-        authorityList.value = data
-      } catch (err) {
-        message.error('获取权限列表数据失败')
-      }
+    async function fetchDataFromServer() {
+      authorityList.value = await queryRoleAuthority()
     }
 
     // 发送前权限数据转为字符串
@@ -78,6 +75,7 @@ export default defineComponent({
         description: dataItem.description,
         authorities: sendBefore(dataItem.authorities!)
       }
+
       try {
         confirmLoading.value = true
         await service.saveNewItem(params)
@@ -99,7 +97,7 @@ export default defineComponent({
       }
     }
 
-    fetchAuthorityFromServer()
+    fetchDataFromServer()
 
     return { dataItem, authorityList, validateInfos, onNewData, confirmLoading }
   }

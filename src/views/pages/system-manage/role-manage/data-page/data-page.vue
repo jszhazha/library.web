@@ -21,6 +21,11 @@
               </SelectWrap>
             </a-form-item>
           </a-col>
+          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
+            <a-form-item label="角色名称" v-bind="validateInfos.name">
+              <SelectWrap v-model:value="dataItem.authorities" mode="multiple" />
+            </a-form-item>
+          </a-col>
         </a-row>
       </GlobalCard>
     </a-form>
@@ -47,8 +52,10 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 import { dataPageMix } from '/@/lib/idata/data-page/'
 import { formRules } from './data-page'
-import service, { RoleManage } from '/@/api/system-manage/role-mange'
 import { assign } from 'lodash-es'
+import { queryRoleAuthority } from '/@/enums/roleEnum'
+import service, { RoleManage } from '/@/api/system-manage/role-mange'
+
 
 export default defineComponent({
   setup() {
@@ -76,6 +83,13 @@ export default defineComponent({
       const { data } = await service.saveNewItem(dataItem)
       assign(dataItem, data)
     }
+
+    // 获取数据
+    async function fetchDataFromServer() {
+      console.log(await queryRoleAuthority())
+    }
+
+    fetchDataFromServer()
 
     return {
       mode,

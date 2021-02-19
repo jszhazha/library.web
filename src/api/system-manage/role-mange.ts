@@ -9,7 +9,7 @@ export interface RoleManage {
   name?: string
 
   // 是否是默认
-  isDefault?: string
+  isDefault?: boolean | 1 | 0
 
   // 描述
   description?: string

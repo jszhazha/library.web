@@ -11,14 +11,7 @@
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="状态" v-bind="validateInfos.show">
-              <SelectWrap v-model:value="dataItem.show">
-                <a-select-option :value="1">
-                  可见
-                </a-select-option>
-                <a-select-option :value="0">
-                  不可见
-                </a-select-option>
-              </SelectWrap>
+              <SelectWrap v-model:value="dataItem.show" :options="selectOption" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
@@ -33,7 +26,7 @@
           </a-col>
         </a-row>
       </GlobalCard>
-      
+
       <GlobalCard title="问题描述">
         <div class="editor-content">
           <PreviewMode v-if="readonly" :value="dataItem.text" />
@@ -71,7 +64,7 @@ import PreviewMode from '/@/components/PublicEditor/src/Preview'
 export default defineComponent({
   components: { PreviewMode },
   setup() {
-    const dataItem = reactive<ProblemManage>({ show: 1,sortValue:0 })
+    const dataItem = reactive<ProblemManage>({ show: 1, sortValue: 0 })
     const rules = reactive(formRules)
     const onServerMethods = { onNewData, onSaveData, onLoadDataById }
     const parameter = { rules, dataItem, onServerMethods }
@@ -80,6 +73,11 @@ export default defineComponent({
     )
 
     const { mode, readonly } = toRefs(pageInfo)
+
+     const selectOption = [
+      { value: 1, label: '可见' },
+      { value: 0, label: '不可见' }
+    ]
 
     // 通过ID加载数据
     async function onLoadDataById(id: number) {
@@ -99,6 +97,7 @@ export default defineComponent({
     async function onNewData() {
       const { data } = await service.saveNewItem(dataItem)
       assign(dataItem, data)
+      changeDataType()
     }
 
     // 改变数据类型
@@ -111,6 +110,7 @@ export default defineComponent({
       readonly,
       dataItem,
       loading,
+      selectOption,
       validateInfos,
       editorConfigs,
       ...onDataMethods

@@ -10,6 +10,7 @@
           mode="multiple"
           show-search
           :option-filter-prop="'key'"
+          :filter-option="handleFilterSelect"
         >
           <a-select-option v-for="(value, key) in authorityList" :key="value" :value="key">
             {{ value }}
@@ -27,7 +28,7 @@ import { useForm } from '@ant-design-vue/use'
 import { formRules, DataItem } from './module-add-modal'
 import { queryRoleAuthority } from '/@/enums/roleEnum'
 import service, { Authority, ModuleManage } from '/@/api/system-manage/module-manage'
-
+import PinYin from 'word-pinyin'
 
 export default defineComponent({
   props: {
@@ -88,6 +89,14 @@ export default defineComponent({
       }
     }
 
+    // 是否根据输入项进行筛选
+    function handleFilterSelect(inputValue: string, option: { key: string }) {
+      const value = PinYin.getPinyin(inputValue).replace(/\s+/g, '')
+      const target = PinYin.getPinyin(option.key).replace(/\s+/g, '')
+      return new RegExp(value).test(target)
+    }
+
+    // 检测数据
     async function validItem() {
       try {
         await validate()
@@ -99,7 +108,7 @@ export default defineComponent({
 
     fetchDataFromServer()
 
-    return { dataItem, authorityList, validateInfos, onNewData, confirmLoading }
+    return { dataItem, authorityList, validateInfos, onNewData, confirmLoading, handleFilterSelect }
   }
 })
 </script>

@@ -17,7 +17,7 @@ export const tableColumns: TableColumn[] = [
   },
   {
     title: '描述',
-    dataIndex: 'code',
+    dataIndex: 'description',
     align: 'center',
     ellipsis: true
   },

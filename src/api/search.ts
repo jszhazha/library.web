@@ -1,4 +1,4 @@
-import type { Result, PagerQueryData, PagerResponseData} from '/@/lib/http/axios/types'
+import type { Result, PagerQueryData, PagerResponseData } from '/@/lib/http/axios/types'
 import { BookCategory } from './book-manage/book-category'
 import request from '/@/lib/http/axios/'
 
@@ -46,7 +46,7 @@ export interface Search {
   updateTime?: string
 }
 
-export interface Hot{
+export interface Hot {
   // 数量
   count?: number
 
@@ -76,4 +76,15 @@ export default class Service {
       method: 'get'
     })
   }
+
+  // 向服务查询数据并分页返回结果
+  static fecthTipList(query: { keyword: string }): Promise<Result<string[]>> {
+    return request<Result<string[]>>({
+      url: '/api/search/tip',
+      method: 'get',
+      params: query
+    })
+  }
+
+
 }

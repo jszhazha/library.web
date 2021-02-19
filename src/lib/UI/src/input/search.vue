@@ -1,30 +1,49 @@
 <template>
-  <div class="ui-input-search-wrap" :class="{ 'query-box-foucs': queryBoxFoucs }">
-    <div class="ui-input-search" @click="handleBoxClick">
+  <div
+    class="ui-input-search-wrap"
+    :class="{
+      'query-box-foucs': queryBoxFoucs,
+      'query-box-content': tipData.length && queryBoxFoucs
+    }"
+  >
+    <div class="ui-input-search" @click="handleSearchClick" :style="{ height: `${height}px` }">
       <SearchOutlined v-if="prefix" class="ui-input-prefix mr-4" />
       <input
         ref="inputInstance"
+        v-model="inputValue"
         type="text"
         class="ui-input"
-        v-model="inputValue"
         @focus="handleFocus"
         @blur="handleBlur"
         @keydown.enter="handleEnter"
+        @input="handleInput"
+        @keyup.up="handleUp"
+        @keyup.down="handleDown"
       />
       <div v-if="suffix" class="ui-input-suffix">搜 索</div>
     </div>
-    <!-- <div class="ui-input-box">
-      <div class="ml-4 mr-4">
-        <ClockCircleOutlined />
-        <span class="ml-4">3423</span>
+    <div v-show="tipData.length && queryBoxFoucs" class="ui-input-box">
+      <div
+        v-for="(title, index) in tipData"
+        :key="title"
+        class="row index-middle"
+        :class="{ 'row-select': selectIndex === index }"
+      >
+        <SearchOutlined />
+        <span class="row-content index-ellipsis flex-item">{{ title }}</span>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, watch } from 'vue'
+import { defineComponent, ref, toRefs, unref, watch } from 'vue'
 import { CloseOutlined, ClockCircleOutlined } from '@ant-design/icons-vue'
+import { debounce } from 'lodash-es'
+import { rules } from '/@/utils/regExp'
+import { message } from 'ant-design-vue'
+import service from '/@/api/search'
+
 export default defineComponent({
   components: { CloseOutlined, ClockCircleOutlined },
   props: {
@@ -39,6 +58,10 @@ export default defineComponent({
     suffix: {
       type: Boolean,
       default: false
+    },
+    height: {
+      type: Number,
+      default: 44
     }
   },
   emits: ['on-enter'],
@@ -47,10 +70,18 @@ export default defineComponent({
 
     // 输入内容
     const inputValue = ref<string>('')
+    const originData = ref<string>('')
+    // 按下方向键下标
+    const selectIndex = ref<number>(-1)
     // 输入框焦点
     const inputInstance = ref<HTMLElement | null>(null)
     // 获取焦点显示阴影
     const queryBoxFoucs = ref<boolean>(false)
+    // 处理输入
+    const handleInput = debounce(fetchDataFromServer, 1000)
+    // 联想数据
+    const tipData = ref<string[]>([])
+
     // 获取焦点
     function handleFocus() {
       queryBoxFoucs.value = true
@@ -60,12 +91,64 @@ export default defineComponent({
       queryBoxFoucs.value = false
     }
     // 处理搜索点击
-    function handleBoxClick() {
+    function handleSearchClick() {
       inputInstance.value?.focus()
     }
     // 处理按下enter
     function handleEnter() {
-      emit('on-enter', inputValue.value)
+      inputInstance.value?.blur()
+      emit('on-enter', unref(inputValue))
+    }
+    // 处理点击
+    function handleBoxClick(title: string) {
+      inputValue.value = title
+      originData.value = title
+      emit('on-enter', unref(inputValue))
+    }
+    // 从服务器获取数据
+    async function fetchDataFromServer() {
+      try {
+        const query = queryData()
+        if (!query.keyword) return
+        const { data } = await service.fecthTipList(query)
+        tipData.value = data
+        selectIndex.value = -1
+        originData.value = unref(inputValue)
+      } catch (err) {
+        message.error(`数据获取失败: ${err.msg}`)
+      }
+    }
+
+    // 获取搜索数据
+    function queryData() {
+      const keyword = unref(inputValue).replace(rules.whitespace, '').substr(0, 30)
+      return { keyword }
+    }
+
+    function handleUp() {
+      if (!unref(tipData).length) return
+      selectIndex.value -= 1
+      if (unref(selectIndex) < -1) {
+        selectIndex.value = unref(tipData).length - 1
+        inputValue.value = unref(tipData)[unref(selectIndex)]
+      } else if (unref(selectIndex) === -1) {
+        inputValue.value = unref(originData)
+      } else {
+        inputValue.value = unref(tipData)[unref(selectIndex)]
+      }
+    }
+
+    function handleDown() {
+      if (!unref(tipData).length) return
+      selectIndex.value += 1
+      if (unref(selectIndex) > unref(tipData).length) {
+        selectIndex.value = 0
+        inputValue.value = unref(tipData)[0]
+      } else if (unref(selectIndex) === unref(tipData).length) {
+        inputValue.value = unref(originData)
+      } else {
+        inputValue.value = unref(tipData)[unref(selectIndex)]
+      }
     }
 
     watch(
@@ -75,13 +158,19 @@ export default defineComponent({
     )
 
     return {
+      tipData,
       inputInstance,
       inputValue,
+      selectIndex,
       queryBoxFoucs,
+      handleUp,
+      handleDown,
       handleBlur,
+      handleInput,
       handleEnter,
       handleFocus,
-      handleBoxClick
+      handleBoxClick,
+      handleSearchClick
     }
   }
 })
@@ -89,9 +178,9 @@ export default defineComponent({
 
 <style lang="less">
 .ui-input-search-wrap {
+  position: relative;
   display: inline-block;
   padding: 0;
-  overflow: hidden;
   border-radius: 24px;
   box-shadow: 0 0 0 1px #dfe1e5;
   box-sizing: border-box;
@@ -104,6 +193,33 @@ export default defineComponent({
     align-items: center;
   }
 
+  .ui-input-box {
+    position: absolute;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #fff;
+    border-top: 1px solid #e8eaed;
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 4px 6px rgba(32, 33, 36, 0.28);
+
+    .row {
+      padding: 5px 30px 5px 16px;
+
+      &-content {
+        margin: 0 0 0 16px;
+        cursor: pointer;
+
+        // &:hover {
+        //   color: var(--color-select-after);
+        // }
+      }
+
+      &-select {
+        color: var(--color-select-after);
+      }
+    }
+  }
+
   &:hover {
     .query-box-foucs ();
   }
@@ -112,6 +228,11 @@ export default defineComponent({
     background-color: #fff;
     border-color: #dfe1e5;
     box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+  }
+
+  &.query-box-content {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
   }
 
   .ui-input {

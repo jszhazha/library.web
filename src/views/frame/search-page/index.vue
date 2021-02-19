@@ -5,8 +5,9 @@
         <img :src="config.logo" class="w-8 mr-4">
       </router-link>
       <input-search
-        v-model:value="searchValue"
+        v-model:value="pageInfo.query"
         class="header-search"
+        :height="40"
         :prefix="true"
         :suffix="true"
         @on-enter="handleEnter"
@@ -20,27 +21,33 @@
   </PublicHeader>
   <div class="flex search-page-content">
     <div class="search-page-content-left">
-      <search-list v-if="searchList.length" :data-source="searchList" :search-value="searchValue" />
+      <div v-if="searchList.length">
+        <div class="header">
+          找到约 {{ pageInfo.total }} 条结果 （用时 {{ pageInfo.responseTime }} 秒）
+        </div>
+        <search-list :data-source="searchList" :search-value="pageInfo.query" />
+      </div>
       <search-empty v-else-if="!loading">
-        {{ searchValue }}
+        {{ pageInfo.query }}
       </search-empty>
-      <div v-if="!loading" class="index-space-between index-middle search-page-content-footer">
-        <div class="search-page-content-footer-button">
-          上一页
-        </div>
-        <div class="search-page-content-footer-button">
-          下一页
-        </div>
+      <div v-if="pageInfo.total" class="data-loading index-center">
+        <a-pagination
+          :current="pageInfo.page"
+          :total="pageInfo.total"
+          @change="handelepageChange"
+        />
       </div>
     </div>
     <div class="search-page-content-right">
-      <search-hot :data-source="HotList" :loading="loading" />
+      <a-affix :offset-top="120">
+        <search-hot :data-source="HotList" :loading="loading" />
+      </a-affix>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, unref, watchEffect } from 'vue'
+import { defineComponent, reactive, ref, unref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { PageEnum } from '/@/enums/pageEnum'
 import { useGo } from '/@/hooks/web/usePage'
@@ -52,13 +59,12 @@ import service, { Search, Hot } from '/@/api/search'
 import searchList from './search-list.vue'
 import searchHot from './search-hot.vue'
 import searchEmpty from './search-empty.vue'
+import { isNaN } from 'lodash-es'
 
 export default defineComponent({
   components: { InputSearch, searchList, searchEmpty, searchHot },
   setup() {
     const { currentRoute } = useRouter()
-
-    const searchValue = ref<string>('')
 
     const searchList = ref<Search[]>([])
 
@@ -68,11 +74,11 @@ export default defineComponent({
 
     const go = useGo()
 
-    const page = ref<number>(0)
+    const pageInfo = reactive({ total: 0, page: 0, responseTime: 0, query: '' })
 
     // 按下 Enter 键
-    function handleEnter(val: string) {
-      val && go({ name: PageEnum.SEARCH_PAGE, query: { q: val } })
+    function handleEnter(q: string) {
+      q && go({ name: PageEnum.SEARCH_PAGE, query: { q } })
     }
 
     // 向服务器请求数据
@@ -80,8 +86,12 @@ export default defineComponent({
       try {
         const query = queryData()
         loading.value = true
+        const sendDate = new Date().getTime()
         const { data } = await service.fecthList(query)
+        const receiveDate = new Date().getTime()
         searchList.value = data.content
+        pageInfo.total = data.totalElements
+        pageInfo.responseTime = (receiveDate - sendDate) / 1000
       } catch (err) {
         message.error(err.msg)
       } finally {
@@ -97,25 +107,44 @@ export default defineComponent({
 
     // 获取搜索数据
     function queryData() {
-      const keyword = unref(searchValue).replace(rules.whitespace, '').substr(0, 30)
+      const keyword = pageInfo.query.replace(rules.whitespace, '').substr(0, 30)
 
-      return { keyword, page: page.value, size: 10 }
+      return { keyword, page: pageInfo.page - 1, size: 10 }
     }
 
     // 路由发送变化
     async function routerChange() {
       if (unref(currentRoute).name !== PageEnum.SEARCH_PAGE) return
 
-      searchValue.value = unref(currentRoute).query.q as string
+      const { q, p } = unref(currentRoute).query
+
+      const page = parseInt(p as string, 10)
+
+      pageInfo.query = q as string
+
+      pageInfo.page = !isNaN(page) && page >= 0 ? page : 0
 
       await fetchSearchListFromServer()
 
       await fetchHotListFromServer()
     }
 
+    // 页码发送变化
+    function handelepageChange(p: number) {
+      go({ name: PageEnum.SEARCH_PAGE, query: { q: pageInfo.query, p } })
+    }
+
     watchEffect(() => currentRoute.value && routerChange())
 
-    return { config, loading, searchList, HotList, searchValue, handleEnter }
+    return {
+      config,
+      loading,
+      pageInfo,
+      searchList,
+      HotList,
+      handleEnter,
+      handelepageChange
+    }
   }
 })
 </script>
@@ -132,23 +161,37 @@ export default defineComponent({
   }
 
   &-content {
-    padding: 90px 0 0;
+    padding: 60px 0 0;
 
     &-left {
       max-width: 780px;
       min-width: 780px;
       padding: 0 40px 0 150px;
+
+      .header {
+        height: 40px;
+        line-height: 40px;
+        color: #70757a;
+      }
     }
 
     &-right {
       padding: 20px 20px 0 80px;
     }
 
-    &-footer {
-      padding: 0 0 30px;
+    .data-loading {
+      margin: 0 0 40px;
 
-      &-button {
-        cursor: pointer;
+      ::v-deep(.ant-pagination-item) {
+        border-color: transparent;
+
+        &-active {
+          border-color: transparent;
+        }
+
+        &-link {
+          border-color: transparent;
+        }
       }
     }
   }
@@ -156,6 +199,5 @@ export default defineComponent({
 
 .header-search {
   width: 675px;
-  height: 40px;
 }
 </style>

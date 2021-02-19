@@ -5,14 +5,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from "vue"
+import { computed, defineComponent, PropType } from 'vue'
 export default defineComponent({
   props: {
     type: {
       type: String as PropType<string>,
-      default: "default",
+      default: 'default',
       validator: (v: string): boolean => {
-        return ["default", "primary"].includes(v)
+        return ['default', 'primary'].includes(v)
       }
     }
   },
@@ -49,7 +49,7 @@ export default defineComponent({
     color: #fff;
     background: #2d8cf0;
     border-color: transparent;
-    
+
     &:hover {
       background: #2b7de9;
     }

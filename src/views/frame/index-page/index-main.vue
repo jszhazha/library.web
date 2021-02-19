@@ -7,10 +7,6 @@
     </div>
     <div class="main-search-wrap">
       <input-search class="main-search" @on-enter="handleEnter" />
-      <div class="mt-5 main-tips">
-        <input type="submit" class="main-submit" value="站内检索">
-        <input type="submit" class="main-submit" value="智能检索">
-      </div>
     </div>
   </main>
 </template>
@@ -56,37 +52,6 @@ export default defineComponent({
 
     .main-search {
       width: 100%;
-      height: 44px;
-    }
-
-    .main-tips {
-      display: flex;
-      justify-content: center;
-
-      .main-submit {
-        height: 36px;
-        min-width: 54px;
-        padding: 0 16px;
-        margin: 11px 6px;
-        line-height: 27px;
-        color: #3c4043;
-        text-align: center;
-        cursor: pointer;
-        background-color: #f8f9fa;
-        border: 1px solid #f8f9fa;
-        border-radius: 4px;
-
-        &:hover {
-          color: #202124;
-          border-color: #dadce0;
-          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-        }
-
-        &:focus {
-          border: 1px solid #4d90fe;
-          outline: none;
-        }
-      }
     }
   }
 }

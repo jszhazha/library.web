@@ -11,9 +11,12 @@
   </PublicHeader>
   <div class="search-page-show-middle">
     <div class="content index-middle">
-      <router-link to="/">
-        <Icon icon="ion:arrow-back-outline" size="22" class="icon index-center-middle" />
-      </router-link>
+      <Icon
+        icon="ion:arrow-back-outline"
+        size="22"
+        class="icon index-center-middle"
+        @click="back"
+      />
       <span class="title">资源检索</span>
     </div>
   </div>
@@ -74,7 +77,7 @@ import { message } from 'ant-design-vue'
 
 export default defineComponent({
   setup() {
-    const { currentRoute } = useRouter()
+    const { currentRoute ,back} = useRouter()
 
     const bookInfo = ref({})
 
@@ -97,9 +100,10 @@ export default defineComponent({
       }
     }
 
+
     fetchDataByService()
 
-    return { config, loading, bookInfo, bookDetail, holdInfoColumns }
+    return { config, loading, bookInfo, bookDetail, holdInfoColumns, back }
   }
 })
 </script>

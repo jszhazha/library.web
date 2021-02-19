@@ -3,20 +3,19 @@
     <div class="header-title">
       热搜书名
     </div>
-    <a-skeleton :loading="loading && !dataSource.length" />
     <div
       v-for="(item, index) in dataSource"
       :key="item.name"
       class="index-space-between index-middle mb-4"
     >
-      <div>
-        <span
-          class="mr-2 fw-b search-hot-item-index inline-block"
-          :class="'search-hot-' + (index + 1)"
-        >{{ index + 1 }}</span>
+      <div class="index-middle mr-4">
+        <span class="search-hot-item-index" :class="'search-hot-' + (index + 1)">
+          {{ index + 1 }}
+        </span>
         <router-link
           :to="{ path: '/search', query: { q: item.name } }"
-          class="search-hot-item-name"
+          :title="item.name"
+          class="search-hot-item-name index-ellipsis"
         >
           {{ item.name }}
         </router-link>
@@ -39,10 +38,6 @@ export default defineComponent({
       default: () => {
         return []
       }
-    },
-    loading: {
-      type: Boolean,
-      default: false
     }
   }
 })
@@ -58,10 +53,14 @@ export default defineComponent({
 .search-hot-item {
   &-index {
     width: 18px;
+    margin: 0 8px 0 0;
+    font-weight: 700;
     color: #9195a3;
   }
 
   &-name {
+    display: inline-block;
+    width: 230px;
     color: var(--theme-search-color);
     cursor: pointer;
 

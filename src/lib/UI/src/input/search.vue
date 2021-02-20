@@ -1,5 +1,6 @@
 <template>
   <div
+    v-click-away="handleBlur"
     class="ui-input-search-wrap"
     :class="{
       'query-box-foucs': queryBoxFoucs,
@@ -14,11 +15,10 @@
         type="text"
         class="ui-input"
         @focus="handleFocus"
-        @blur="handleBlur"
         @keydown.enter="handleEnter"
         @input="handleInput"
-        @keyup.up="handleUp"
-        @keyup.down="handleDown"
+        @keyup.up.prevent="handleUp"
+        @keyup.down.prevent="handleDown"
       />
       <div v-if="suffix" class="ui-input-suffix">搜 索</div>
     </div>
@@ -28,6 +28,7 @@
         :key="title"
         class="row index-middle"
         :class="{ 'row-select': selectIndex === index }"
+        @click="handleBoxClick(title)"
       >
         <SearchOutlined />
         <span class="row-content index-ellipsis flex-item">{{ title }}</span>
@@ -97,12 +98,14 @@ export default defineComponent({
     // 处理按下enter
     function handleEnter() {
       inputInstance.value?.blur()
+      queryBoxFoucs.value = false
       emit('on-enter', unref(inputValue))
     }
     // 处理点击
     function handleBoxClick(title: string) {
       inputValue.value = title
       originData.value = title
+      queryBoxFoucs.value = false
       emit('on-enter', unref(inputValue))
     }
     // 从服务器获取数据
@@ -209,9 +212,9 @@ export default defineComponent({
         margin: 0 0 0 16px;
         cursor: pointer;
 
-        // &:hover {
-        //   color: var(--color-select-after);
-        // }
+        &:hover {
+          color: var(--color-select-after);
+        }
       }
 
       &-select {

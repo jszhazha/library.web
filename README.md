@@ -9,9 +9,8 @@
 
 ## next 分支
 > next 分支,基本功能都已实现, 与后端无任何交互, 开发新的网站, 可以从next分支开发. 
-# 前言
+# 环境要求
 > 你的本地环境需要安装 npm(yarn)、node 和 git
-
 
 # 演示地址
 [https://library.tibis.top/](https://library.tibis.top/)
@@ -23,6 +22,23 @@
 `npm insert (yarn)`
 
 `npm run serve (yarn serve)`
+
+## UI 框架
+  Ant Design Vue 2.0
+
+## 图标
+  Ant Design Vue Icon Component - 按需引入所需图标.
+  Iconify - 使用任何图标集中的图标
+ 
+## 插件
++ Vue Router Next
++ Vuex Next
++ vuex-module-decorators - vuex 模块化
++ lodash-es - JavaScript 实用程序库
++ axios - Http 数据交互
++ TypeScript
+  
+
 
 
 ## 功能
@@ -41,6 +57,8 @@
 问题管理
 Markdown组件
 上传组件
+二维码
+首屏加载等待动画
 数据缓存
 图书管理
   图书类别

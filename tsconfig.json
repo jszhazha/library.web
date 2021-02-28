@@ -7,7 +7,7 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "strictFunctionTypes": false,
-    "jsx": "react",
+    "jsx": "preserve",
     "baseUrl": ".",
     "allowJs": true,
     "esModuleInterop": true,

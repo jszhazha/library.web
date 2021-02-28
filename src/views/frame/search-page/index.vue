@@ -74,7 +74,7 @@ export default defineComponent({
 
     const go = useGo()
 
-    const pageInfo = reactive({ total: 0, page: 0, responseTime: 0, query: '' })
+    const pageInfo = reactive({ total: 0, page: 1, responseTime: 0, query: '' })
 
     // 按下 Enter 键
     function handleEnter(q: string) {
@@ -122,7 +122,7 @@ export default defineComponent({
 
       pageInfo.query = q as string
 
-      pageInfo.page = !isNaN(page) && page >= 0 ? page : 0
+      pageInfo.page = !isNaN(page) && page >= 0 ? page : 1
 
       await fetchSearchListFromServer()
 

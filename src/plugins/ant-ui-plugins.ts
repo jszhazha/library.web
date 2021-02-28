@@ -4,9 +4,10 @@ import type { App } from 'vue'
 import { Button, Divider, Form, Input, Modal, Pagination, Row, Col, Checkbox, notification, Popover, Popconfirm, Tooltip, message, Menu, Dropdown, Select, Progress, DatePicker, InputNumber, Tag, Tree, Upload, Affix } from 'ant-design-vue'
 
 // 导入 Icon
-import { PlusOutlined, SettingOutlined, DownOutlined, InfoCircleFilled, LoadingOutlined, SearchOutlined } from '@ant-design/icons-vue'
+import { PlusOutlined, SettingOutlined, DownOutlined, InfoCircleFilled, LoadingOutlined, SearchOutlined } 
+from '@ant-design/icons-vue'
 
-import 'ant-design-vue/dist/antd.css'
+// import 'ant-design-vue/dist/antd.css'
 
 
 // 导入自定义 ui

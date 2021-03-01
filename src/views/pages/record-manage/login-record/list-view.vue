@@ -34,7 +34,7 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue"
 import { tableColumns } from "./data-list"
-import { BookInfo } from "/@/api/book-manage/book-info"
+import {LoginRecord} from '/@/api/record-manage/login-record'
 import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
 import { useFromatlll } from "/@/utils/dateFormat"
 import { usePagination } from "/@/hooks/web/usePagination"
@@ -43,13 +43,13 @@ export default defineComponent({
   emits: ["on-page-change", "on-refresh"],
   setup(_props, { emit }) {
     // 数据源
-    const dataSource = ref<BookInfo[]>([])
+    const dataSource = ref<LoginRecord[]>([])
 
     // 总数据
     const totalElements = ref<number>(0)
 
     // 页面方法
-    const listPage = injectListPage<BookInfo>()
+    const listPage = injectListPage<LoginRecord>()
 
     // 数据加载
     const loading = listPage.loading
@@ -77,7 +77,7 @@ export default defineComponent({
   },
   methods: {
     // 设置数据源
-    setDataSource(data: BookInfo[], total: number) {
+    setDataSource(data: LoginRecord[], total: number) {
       this.dataSource = data
       this.totalElements = total
     }

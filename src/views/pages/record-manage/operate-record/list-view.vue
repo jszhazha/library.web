@@ -38,7 +38,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue"
 import { tableColumns } from "./data-list"
-import { OperatorRecord } from "/@/api/operator-record"
+import { OperatorRecord } from "/@/api/record-manage/operator-record"
 import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
 import { useFromatlll } from "/@/utils/dateFormat"
 import { usePagination } from "/@/hooks/web/usePagination"

@@ -12,7 +12,7 @@ import { defineComponent, reactive, toRefs } from "vue"
 import { Instance } from "/@/lib/interface/ListPage"
 import { listPageMix } from "/@/lib/idata/data-list/"
 import { message } from "ant-design-vue"
-import service, { OperatorRecord } from "/@/api/operator-record"
+import service, { OperatorRecord } from "/@/api/record-manage/operator-record"
 import searchPanle from "./search-panle.vue"
 import listView from "./list-view.vue"
 

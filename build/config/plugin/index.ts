@@ -5,7 +5,9 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { configStyleImportPlugin } from './styleImport'
 import { configMockPlugin } from './mock'
 
-export function createVitePlugins(_viteEnv: ViteEnv, isBuild: boolean) {
+export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
+  const { VITE_USE_MOCK } = viteEnv;
+
   const vitePlugins: (Plugin | Plugin[])[] = [
     // have to
     vue(),
@@ -15,7 +17,7 @@ export function createVitePlugins(_viteEnv: ViteEnv, isBuild: boolean) {
 
   vitePlugins.push(configStyleImportPlugin())
 
-  vitePlugins.push(configMockPlugin(isBuild))
+  VITE_USE_MOCK && vitePlugins.push(configMockPlugin(isBuild))
 
   if (isBuild) {
     //

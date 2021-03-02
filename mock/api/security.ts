@@ -1,28 +1,22 @@
-import { MockMethod } from 'vite-plugin-mock';
-
-
-
+import { MockMethod } from 'vite-plugin-mock'
+import { resultSuccess } from '../_utils'
 
 export default [
   {
     url: '/api/user/me',
     method: 'get',
-    response: {
-      code: 200,
-      msg: 'OK',
-      data: {
+    response: () => {
+      return resultSuccess({
         user: {
-          id: 1,
-          username: 'admin'
+          id: null,
+          username: null
         },
         _csrf: {
-          token: 'a762091f-6812-404e-b63f-2380d4bd95d8',
-          parameterName: '',
-          headerName: ''
+          token: '662C63B4-FD43-66F4-3328-C54E3FF0D56E',
+          parameterName: 'XSRF',
+          headerName: 'XSRF-TOKEN'
         }
-      }
+      })
     }
   }
-
-
 ] as MockMethod[]

@@ -5,7 +5,6 @@
 
 智能图书馆信息系统基于 [Vue3.0](https://github.com/vuejs/vue-next)、[Vite](https://github.com/vitejs/vite)、 [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/)、[TypeScript](https://www.typescriptlang.org/) 的进行开发的. 项目所使用的技术都是前端较新的技术栈
 
-> 智能图书馆借阅系统, 是我的毕业设计,其中我是负责前端界面开发与设计, 整个项目分为后台管理系统和微信小程序系统.
 
 ## next 分支
 > next 分支,基本功能都已实现, 与后端无任何交互, 开发新的网站, 可以从next分支开发. 

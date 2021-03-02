@@ -244,7 +244,7 @@ export default defineComponent({
   }
 
   &-code {
-    color: #1890ff;
+    color: @primary-color;
     cursor: pointer;
   }
 }

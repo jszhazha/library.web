@@ -8,8 +8,8 @@ export default [
     response: () => {
       return resultSuccess({
         user: {
-          id: null,
-          username: null
+          id: 1,
+          username: 'admin'
         },
         _csrf: {
           token: '662C63B4-FD43-66F4-3328-C54E3FF0D56E',

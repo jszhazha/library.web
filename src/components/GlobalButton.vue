@@ -71,7 +71,7 @@ export default defineComponent({
   font-weight: bold;
   color: #fff;
   cursor: pointer;
-  background: #177ddc;
+  background: @primary-color;
   border-width: 0;
   border-radius: 8px;
   outline: none;

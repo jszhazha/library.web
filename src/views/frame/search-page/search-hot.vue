@@ -1,6 +1,6 @@
 <template>
   <div class="search-hot">
-    <div class="header-title">
+    <div v-show="dataSource.length" class="header-title">
       热搜书名
     </div>
     <div

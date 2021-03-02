@@ -77,9 +77,13 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
       ]
     },
 
-    css:{
-      preprocessorOptions:{
-        less:{
+    css: {
+      preprocessorOptions: {
+        less: {
+          modifyVars: {
+            'primary-color': '#0960bd',
+            'primary-hover-color':'#2a7dc9'
+          },
           javascriptEnabled: true
         }
       }

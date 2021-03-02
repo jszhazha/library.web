@@ -95,7 +95,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-@linkColor: #1890ff;
+@linkColor: @primary-color;
 
 .login-account {
   &-password {

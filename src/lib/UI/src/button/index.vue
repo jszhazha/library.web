@@ -47,11 +47,11 @@ export default defineComponent({
 
   &.ui-button-primary {
     color: #fff;
-    background: #2d8cf0;
+    background: @primary-color;
     border-color: transparent;
 
     &:hover {
-      background: #2b7de9;
+      background: @primary-hover-color;
     }
   }
 

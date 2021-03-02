@@ -28,7 +28,7 @@ export default defineComponent({})
 
 <style lang="less" scoped>
 .nors {
-  margin: 10px 0 0;
+  margin: 20px 0 0;
   font-size: 18px;
   color: #000;
 }

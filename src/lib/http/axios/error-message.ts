@@ -20,5 +20,5 @@ export function checkRequestErrorMessage (code:number):string|null{
 
   if (message) return message
 
-  return '服务Api接口返回未知错误'
+  return '服务 API 接口返回未知错误'
 }

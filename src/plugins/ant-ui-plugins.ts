@@ -7,11 +7,6 @@ import { Button, Divider, Form, Input, Modal, Pagination, Row, Col, Checkbox, no
 import { PlusOutlined, SettingOutlined, DownOutlined, InfoCircleFilled, LoadingOutlined, SearchOutlined } 
 from '@ant-design/icons-vue'
 
-// import 'ant-design-vue/dist/antd.css'
-
-
-// 导入自定义 ui
-import '/@/assets/styles/index.less'
 
 
 // 设置 通知提醒框

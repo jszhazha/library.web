@@ -80,7 +80,7 @@ export default defineComponent({
   transition: width 0.5s ease;
 
   ::v-deep(.ant-select-selector) {
-    padding: 0;
+    padding: 0 !important;
 
     .ant-select-selection-search {
       inset: 0;

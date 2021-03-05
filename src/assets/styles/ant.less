@@ -19,46 +19,7 @@ li.ant-tree-treenode-disabled {
   & > .ant-tree-node-content-wrapper,
   & > .ant-tree-node-content-wrapper span {
     color: inherit !important;
-    cursor: pointer 0 !important;
-  }
-}
-
-.ant-tree {
-  li {
-    .ant-tree-node-content-wrapper {
-      height: @treeHeight !important;
-      line-height: @treeHeight !important;
-    }
-
-    span.ant-tree {
-      &-iconEle,
-      &-switcher {
-        height: @treeHeight !important;
-        line-height: @treeHeight !important;
-      }
-    }
-  }
-
-  &.ant-tree-directory {
-    .handleTree();
-
-    .ant-tree-child-tree {
-      .handleTree();
-    }
-  }
-
-  &-checkbox {
-    height: @treeHeight !important;
-    padding: 10px 0 0 !important;
-  }
-}
-
-.handleTree() {
-  li span.ant-tree-node-content-wrapper {
-    &::before {
-      height: @treeHeight;
-      line-height: @treeHeight;
-    }
+    cursor: pointer !important;
   }
 }
 

@@ -82,7 +82,8 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
         less: {
           modifyVars: {
             'primary-color': '#0960bd',
-            'primary-hover-color':'#2a7dc9'
+            'primary-hover-color': '#2a7dc9',
+            'tree-title-height': '35px'
           },
           javascriptEnabled: true
         }

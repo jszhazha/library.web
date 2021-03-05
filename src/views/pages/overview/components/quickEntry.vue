@@ -93,11 +93,16 @@ export default defineComponent({
       flex: 1;
       padding: 20px 0 15px;
       text-align: center;
-      background: var(--color-background-override);
+      background: #fff;
+      border-radius: 8px;
 
       &-icon {
         margin: 0 0 10px;
         font-size: 24px;
+      }
+
+      &:hover {
+        cursor: pointer;
       }
     }
 

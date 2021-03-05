@@ -18,23 +18,23 @@ li.ant-tree-treenode-disabled {
   & > span:not(.ant-tree-switcher),
   & > .ant-tree-node-content-wrapper,
   & > .ant-tree-node-content-wrapper span {
-    color: inherit;
-    cursor: pointer;
+    color: inherit !important;
+    cursor: pointer 0 !important;
   }
 }
 
 .ant-tree {
   li {
     .ant-tree-node-content-wrapper {
-      height: @treeHeight;
-      line-height: @treeHeight;
+      height: @treeHeight !important;
+      line-height: @treeHeight !important;
     }
 
     span.ant-tree {
       &-iconEle,
       &-switcher {
-        height: @treeHeight;
-        line-height: @treeHeight;
+        height: @treeHeight !important;
+        line-height: @treeHeight !important;
       }
     }
   }

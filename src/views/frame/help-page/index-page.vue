@@ -1,37 +1,40 @@
 <template>
-  <PublicHeader>
-    <template #left>
-      <img :src="config.logo" class="config-logo" @click="handleTitleClick">
-      <div>
-        <span class="config-title index-theme" @click="handleTitleClick">
-          {{ config.title }}
-        </span>
-        <span class="fs-4">帮 助 中 心</span>
-      </div>
-    </template>
-  </PublicHeader>
-  <div class="flex pt-6 help-main">
-    <div v-if="dataSource.length" class="help-sider">
-      <index-sider :data-source="dataSource" />
+  <div class="help-wrap">
+    <PublicHeader class="help-header">
+      <template #left>
+        <img :src="config.logo" class="config-logo" @click="handleTitleClick">
+        <div>
+          <span class="config-title index-theme" @click="handleTitleClick">
+            {{ config.title }}
+          </span>
+        </div>
+      </template>
+    </PublicHeader>
+    <div class="help-main">
+      <index-sider class="help-main-sider" :data-source="dataSource" @on-select="handleSelect" />
+      <index-content class="help-main-content scrollbar" :select-data="selectData" />
     </div>
-    <div />
   </div>
 </template>
 
 <script lang="ts">
+import type { ProblemManage } from '/@/api/basis-manage/problem-manage'
 import { defineComponent, ref } from 'vue'
 import config from '/@/config'
 import { PageEnum } from '/@/enums/pageEnum'
 import { useGo } from '/@/hooks/web/usePage'
 import indexSider from './index-sider.vue'
+import indexContent from './index-content.vue'
 import service from '/@/api/anonymous'
 
 export default defineComponent({
-  components: { indexSider },
+  components: { indexSider, indexContent },
   setup() {
     const go = useGo()
 
-    const dataSource = ref<unknown[]>([])
+    const dataSource = ref<ProblemManage[]>([])
+
+    const selectData = ref<ProblemManage>({})
 
     // 点击文字页面跳转
     const handleTitleClick = () => go({ name: PageEnum.INDEX_PAGE })
@@ -43,14 +46,29 @@ export default defineComponent({
       dataSource.value = data.content
     }
 
+    // 处理选中
+    function handleSelect(item: ProblemManage) {
+      selectData.value = item
+    }
+
     fetchDataFromServer()
 
-    return { config, dataSource, handleTitleClick }
+    return { config, dataSource, selectData, handleTitleClick, handleSelect }
   }
 })
 </script>
 
 <style lang="less" scoped>
+.help-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.help-header {
+  border-bottom: 1px solid #f0f0f0;
+}
+
 .config {
   &-logo {
     width: 20px;
@@ -67,16 +85,22 @@ export default defineComponent({
   }
 }
 
-.help {
-  &-main {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
+.help-main {
+  flex: 1;
+  display: flex;
+  height: 0;
+  background: #f3f5fb;
 
   &-sider {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
+    width: 260px;
+  }
+
+  &-content {
+    flex: 1;
+    margin: 16px;
+    overflow: auto;
+    background: #fff;
+    border-radius: 10px;
   }
 }
 </style>

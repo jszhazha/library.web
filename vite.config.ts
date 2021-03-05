@@ -83,7 +83,8 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
           modifyVars: {
             'primary-color': '#0960bd',
             'primary-hover-color': '#2a7dc9',
-            'tree-title-height': '35px'
+            'tree-title-height': '35px',
+            'table-header-bg': '#ffffff'
           },
           javascriptEnabled: true
         }

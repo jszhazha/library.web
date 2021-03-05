@@ -57,6 +57,5 @@ export default defineComponent({
 
 ::v-deep(.ant-table-thead > tr > th) {
   font-weight: bold;
-  background: var(--public-table-background);
 }
 </style>

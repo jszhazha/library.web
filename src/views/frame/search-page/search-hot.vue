@@ -15,7 +15,7 @@
         <router-link
           :to="{ path: '/search', query: { q: item.name } }"
           :title="item.name"
-          class="search-hot-item-name index-hidden-newline "
+          class="search-hot-item-name index-ellipsis"
         >
           {{ item.name }}
         </router-link>

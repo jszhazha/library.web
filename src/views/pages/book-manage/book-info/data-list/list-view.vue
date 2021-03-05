@@ -23,7 +23,7 @@
       </div>
     </template>
     <template #author="{ text }">
-      <div class="index-ellipsis w-200" :title="text">
+      <div class="index-ellipsis w-100" :title="text">
         {{ text }}
       </div>
     </template>

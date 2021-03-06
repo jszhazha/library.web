@@ -30,6 +30,10 @@ interface Options {
   onSaveData: (record: any, data: any) => Promise<void>;
 }
 
+export interface EditCol {
+  editCol?: string | number
+}
+
 export function useTableEdit<T extends Record>({ onSaveData }: Options): UseTableEdit<T> {
   const editingIndex = ref<number | null>(null)
 

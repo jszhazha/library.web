@@ -20,6 +20,7 @@ export const importProps = {
     type: String as PropType<string>,
     default: 'id'
   },
+  // 显示隐藏
   value:{
     type: Boolean as PropType<boolean>,
     default: false

@@ -1,18 +1,23 @@
 <template>
-  <a-modal v-model:visible="visible" style="top: 50px;" :width="width" @cancel="onCancel">
+  <a-modal v-model:visible="visible" style="top: 50px;" :width="width" :mask-closable="false" @cancel="onCancel">
     <template #title>
       <slot name="header-title" />
     </template>
 
     <div :style="{ height: browserSize.height - 252 + 'px' }">
       <GlobalTable
+        v-click-away="onClickTableAway"
         :columns="columns"
         :row-key="rowKey"
         :pagination="false"
         :data-source="dataSource"
         :row-selection="rowSelection"
         :scroll="{ y: browserSize.height - 310 }"
-      />
+      >
+        <template v-for="item in Object.keys($slots)" #[item]="data">
+          <slot :name="item" v-bind="data" />
+        </template>
+      </GlobalTable>
     </div>
 
     <template #footer>
@@ -40,7 +45,7 @@ import { browserClient } from '/@/utils/elelment'
 
 export default defineComponent({
   props: importProps,
-  emits: ['update:value', 'on-confirm'],
+  emits: ['update:value', 'on-confirm', 'on-click-table-away'],
   setup(props, { emit }) {
     const { dataSource } = toRefs(props)
     // 视图大小
@@ -54,6 +59,9 @@ export default defineComponent({
 
     // 选中的数据
     const selectedData = reactive<SelectedData>({ selectedRows: [], selectedRowKeys: [] })
+
+    // 点击 table 以外的地方
+    const onClickTableAway = () => emit('on-click-table-away')
 
     const isValueUpdateFromInner = ref<boolean>(false)
 
@@ -113,6 +121,7 @@ export default defineComponent({
       rowSelection,
       onCancel,
       onConfirm,
+      onClickTableAway,
       ...toRefs(selectedData)
     }
   }

@@ -79,38 +79,44 @@ export const importColumns: TableColumn[] = [
     title: '书名',
     dataIndex: 'name',
     align: 'center',
-    ellipsis: true
+    ellipsis: true,
+    slots: { customRender: 'name' }
   },
   {
     title: 'ISBN',
     dataIndex: 'isbn',
     align: 'center',
-    ellipsis: true
+    ellipsis: true,
+    slots: { customRender: 'isbn' }
   },
   {
     title: '作者',
     dataIndex: 'author',
     align: 'center',
-    ellipsis: true
+    ellipsis: true,
+    slots: { customRender: 'author' }
   },
   {
     title: '出版社',
     dataIndex: 'publisher',
     align: 'center',
-    ellipsis: true
+    ellipsis: true,
+    slots: { customRender: 'publisher' }
   },
   {
     title: '描述',
     dataIndex: 'description',
     align: 'center',
-    ellipsis: true
+    ellipsis: true,
+    slots: { customRender: 'description' }
   },
   {
     title: '价格',
     dataIndex: 'price',
     align: 'center',
     width: 100,
-    ellipsis: true
+    ellipsis: true,
+    slots: { customRender: 'price' }
   },
   {
     title: '出版时间',

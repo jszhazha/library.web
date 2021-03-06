@@ -52,7 +52,7 @@ export const tableListProps = {
 export interface TableColumn extends ColumnProps {
   dataIndex: string
 
-  slots?: Indexable;
+  // slots?: Indexable;
 }
 
 

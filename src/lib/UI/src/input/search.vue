@@ -31,7 +31,7 @@
         @click="handleBoxClick(title)"
       >
         <SearchOutlined />
-        <span class="row-content index-ellipsis flex-item">{{ title }}</span>
+        <span class="row-content index-hidden-newline flex-item">{{ title }}</span>
       </div>
     </div>
   </div>

@@ -29,8 +29,8 @@
       <div class="index-operation">
         <span @click="onViewDataItem(record)">查看</span>
         <span @click="onEditDataItem(record)">编辑</span>
-        <span @click="onEditPassword(record)">密码重置</span>
         <span @click="onDeleteDataItem(record)">删除</span>
+        <span @click="onEditPassword(record)">重置密码</span>
       </div>
     </template>
 

@@ -50,6 +50,6 @@ export const RootRoute: AppRouteRecordRaw = {
 
 const frameRouter = [...LoginRoutes, ResetPasswordRoute, ...SearchRoute, HelpRoute]
 
-const indexRoute = [IndexPage, Forbidden, NoFountPage]
+const indexRoute = [Forbidden, NoFountPage]
 
-export const basicRoutes = [...frameRouter, RootRoute, ...indexRoute]
+export const basicRoutes = [...frameRouter, IndexPage, RootRoute, ...indexRoute]

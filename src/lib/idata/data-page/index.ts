@@ -141,7 +141,7 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
   let cacheData = cloneDeep(dataItem)
 
   // 获取 ant 表单规则 
-  const { validateInfos, resetFields, validate } = useForm(dataItem, rules)
+  const { validateInfos, resetFields, validate, clearValidate } = useForm(dataItem, rules)
 
   // 页面模式
   const mode = checkDataRouter((query as unknown) as QueryRoute, name as string)
@@ -214,6 +214,7 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
       resetFields()
     } else if (pageInfo.mode === PageMode.edit) {
       assign(dataItem, cacheData)
+      clearValidate()
     }
 
 

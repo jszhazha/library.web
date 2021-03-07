@@ -50,12 +50,12 @@ export default defineComponent({
       type: String,
       default: ''
     },
-    loading: {
-      type: Boolean,
-      default: false
+    id: {
+      type: Number,
+      default: -1
     }
   },
-  emits: ['update:value', 'on-confirm'],
+  emits: ['update:value'],
   setup(props, { emit }) {
     const dataItem = reactive<{ password?: string; repeat?: string }>({ password: '', repeat: '' })
 
@@ -84,7 +84,9 @@ export default defineComponent({
 
     const visible = ref<boolean>(props.value)
 
-    const { validate, validateInfos } = useForm(dataItem, rules)
+    const loading = ref<boolean>(false)
+
+    const { validate, validateInfos, resetFields } = useForm(dataItem, rules)
 
     const onCancel = () => emit('update:value', false)
 
@@ -92,7 +94,6 @@ export default defineComponent({
       try {
         await validate()
         emit('update:value', false)
-        emit('on-confirm', dataItem.password)
       } catch (err) {}
     }
 
@@ -100,10 +101,11 @@ export default defineComponent({
       () => props.value,
       (val) => {
         visible.value = val
+        resetFields()
       }
     )
 
-    return { visible, dataItem, validateInfos, validate, onCancel, onConfirm }
+    return { visible, dataItem, loading, validateInfos, validate, onCancel, onConfirm }
   }
 })
 </script>

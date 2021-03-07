@@ -1,5 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router'
-import { RoleEnum } from '/@/enums/roleEnum'
 
 
 export interface RouteMeta {
@@ -10,8 +9,8 @@ export interface RouteMeta {
   // 忽略身份验证
   ignoreAuth?: boolean;
 
-  // 角色信息
-  roles?: RoleEnum[];
+  // 权限
+  auth?: string[];
 
   // 缓存页面
   keepAlive?: boolean,

@@ -16,11 +16,11 @@ const routers: AppRouteModule = {
     }
   },
 
-  routes: [ 
+  routes: [
     {
       path: "date-manage-list-page",
       name: 'date-manage-list-page',
-      component: (): unknown => import(`/@/views/pages/system-manage/user-manage/data-list/list-page.vue`),
+      component: (): unknown => import(`/@/views/pages/basis-manage/date-manage/data-list/list-page.vue`),
       meta: {
         title: '日期管理'
       }
@@ -28,7 +28,7 @@ const routers: AppRouteModule = {
     {
       path: "data-dictionary-list-page",
       name: 'data-dictionary-list-page',
-      component: (): unknown => import(`/@/views/pages/system-manage/user-manage/data-list/list-page.vue`),
+      component: (): unknown => import(`/@/views/pages/basis-manage/data-dictionary/data-list/list-page.vue`),
       meta: {
         title: '数据字典'
       }
@@ -38,7 +38,8 @@ const routers: AppRouteModule = {
       name: 'problem-manage-list-page',
       component: (): unknown => import(`/@/views/pages/basis-manage/problem-manage/data-list/list-page.vue`),
       meta: {
-        title: '问题管理'
+        title: '问题管理',
+        auth: ['PROBLEM_MANAGE_READ']
       }
     },
     {

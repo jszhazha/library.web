@@ -3,7 +3,7 @@ import { getRouteModule } from '/@/utils/helper/route'
 import { PageEnum } from '/@/enums/pageEnum'
 
 import { DEFAULT_LAYOUT_COMPONENT } from '../constant'
-import { overviewPage, NoFountPage, IndexPage } from './modules/indexRoute'
+import { overviewPage, NoFountPage, IndexPage, Forbidden } from './modules/indexRoute'
 import { LoginRoutes, ResetPasswordRoute, SearchRoute, HelpRoute } from './modules/frameRouter'
 
 // 路由
@@ -50,4 +50,6 @@ export const RootRoute: AppRouteRecordRaw = {
 
 const frameRouter = [...LoginRoutes, ResetPasswordRoute, ...SearchRoute, HelpRoute]
 
-export const basicRoutes = [...frameRouter, IndexPage, RootRoute, NoFountPage]
+const indexRoute = [IndexPage, Forbidden, NoFountPage]
+
+export const basicRoutes = [...frameRouter, RootRoute, ...indexRoute]

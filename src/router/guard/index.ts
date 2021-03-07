@@ -4,6 +4,7 @@ import { createPageTitleGuard } from './pageTitleGuard'
 import { createPermissionGuard } from './permissionGuard'
 import { createRouteStateGuard } from './routeStateGuard'
 import { createPageSearchGuard } from './pageSearchGuard'
+import { createPageRoleGuard } from './pageRoleGuard'
 
 
 export function createGuard(router: Router): void {
@@ -14,7 +15,10 @@ export function createGuard(router: Router): void {
   // 权限拦截
   createPermissionGuard(router)
 
-  // 路由拦截
+  // 角色拦截
+  createPageRoleGuard(router)
+
+  // 路由拦截 添加 vuex 中
   createRouteStateGuard(router)
 
   // 搜索页面拦截

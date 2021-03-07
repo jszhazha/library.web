@@ -1,6 +1,6 @@
 <template>
   <div class="exception index-center-middle">
-    <img src="/@/assets/svg/404.svg" alt="404" class="exception-image">
+    <img :src="image_404" alt="404" class="exception-image">
     <div>
       <div class="exception-title">
         404
@@ -16,10 +16,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent } from 'vue'
+import image_404 from '/@/assets/svg/404.svg'
+
 export default defineComponent({
   setup() {
     //
+
+    return { image_404 }
   }
 })
 </script>

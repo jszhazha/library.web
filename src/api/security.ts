@@ -1,6 +1,7 @@
 import type { Result } from "/@/lib/http/axios/types"
+import type { RoleManage } from './system-manage/role-mange'
 import request from "/@/lib/http/axios/"
-import { ContentTypeEnum } from "../enums/httpEnum"
+import { ContentTypeEnum } from "/@/enums/httpEnum"
 
 export interface UserInfo {
   // 主键
@@ -8,6 +9,9 @@ export interface UserInfo {
 
   // 账户名称
   username?: string;
+
+  // 角色权限
+  roles: RoleManage[]
 
   // 电话
   mobile?: string;

@@ -2,6 +2,7 @@ import store from '/@/store/index'
 import { VuexModule, Mutation, Module, getModule, Action } from 'vuex-module-decorators'
 import Service, { UserInfo, LoginParams, Security, CSRF } from '/@/api/security'
 import { isNull } from '/@/utils/is'
+import { toArray } from 'lodash-es'
 
 
 
@@ -117,6 +118,19 @@ export default class User extends VuexModule {
       }
     })
   }
+
+  /**
+   * 用户权限
+   */
+  @Action
+  gatAuthoritiesAction(): Promise<string[]> {
+    return new Promise(async (reslove) => {
+      const userInfo = await userStore.getUserInfoAction()
+      const authorities = userInfo.roles?.map(el => toArray(el.authorities!)) || []
+      reslove(authorities.flat(1))
+    })
+  }
+
 
 
 

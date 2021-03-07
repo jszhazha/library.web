@@ -43,3 +43,17 @@ export const NoFountPage: AppRouteRecordRaw = {
     ignoreAuth: true
   }
 }
+
+/**
+ * @description 没有权限, 禁止访问
+ */
+export const Forbidden: AppRouteRecordRaw = {
+  path: '/403',
+  name: 'forbidden-page',
+  component: (): unknown => import("/@/views/pages/exception/403.vue"),
+  meta: {
+    title: '403',
+    ignoreTab: true,
+    ignoreAuth: true
+  }
+}

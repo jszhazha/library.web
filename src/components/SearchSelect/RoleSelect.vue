@@ -46,7 +46,7 @@ export default defineComponent({
     const options = ref<RoleManage[]>([])
 
     // 选中数据
-    const selectData = ref<string[]>([])
+    const selectData = ref<number[]>([])
 
     // 获取焦点
     const onFocus = () => emit('on-focus')
@@ -85,7 +85,8 @@ export default defineComponent({
     watch(
       () => props.roles,
       (value) => {
-        selectData.value = value?.length ? value.map((el) => `${el.name}`) : []
+        selectData.value = value?.length ? value.map((el) => el.id!) : []
+        options.value = value?.length ? value : []
       }
     )
 

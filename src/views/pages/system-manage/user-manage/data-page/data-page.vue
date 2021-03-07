@@ -73,10 +73,6 @@
     <!-- 修改信息 -->
     <OperationInfoPanel v-if="dataItem.id" :data="dataItem" />
 
-    <!-- 密码对话框 -->
-
-    <!-- <password-modal v-model:value="visible" title="设置登录密码" /> -->
-
     <!-- 操作 -->
     <template #footer-block>
       <a-button v-if="!readonly" @click="onRestPage">

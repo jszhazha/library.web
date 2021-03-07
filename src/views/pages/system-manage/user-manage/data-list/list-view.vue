@@ -1,6 +1,6 @@
 <template>
   <TableList
-    title="类别列表"
+    title="用户列表"
     :loading="loading"
     :columns="tableColumns"
     :data-source="dataSource"
@@ -29,6 +29,7 @@
       <div class="index-operation">
         <span @click="onViewDataItem(record)">查看</span>
         <span @click="onEditDataItem(record)">编辑</span>
+        <span @click="onEditDataItem(record)">密码重置</span>
         <span @click="onDeleteDataItem(record)">删除</span>
       </div>
     </template>

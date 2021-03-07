@@ -32,7 +32,9 @@ interface RulesOptions {
   validator?: (rule: unknown, value: unknown, callback: (error?: string) => void) => Promise<void>
 
   // 必选时，空格是否会被视为错误
-  whitespace?: boolean
+  whitespace?: boolean,
+
+  trigger?: 'blur' | 'change'
 }
 
 

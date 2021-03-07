@@ -1,5 +1,14 @@
 <template>
   <a-input
+    v-if="type === 'text'"
+    v-model:value="inputValue"
+    class="input-wrap"
+    :disabled="inputReadonly"
+    :placeholder="inputReadonly ? '' : placeholder"
+    @change="onChange"
+  />
+  <a-input-password
+    v-else-if="type === 'password'"
     v-model:value="inputValue"
     class="input-wrap"
     :disabled="inputReadonly"
@@ -37,6 +46,11 @@ export default defineComponent({
     placeholder: {
       type: String,
       default: '请输入'
+    },
+    type: {
+      type: String,
+      default: 'text',
+      validator: (v: string): boolean => ['text', 'password'].includes(v)
     }
   },
   emits: ['update:value'],

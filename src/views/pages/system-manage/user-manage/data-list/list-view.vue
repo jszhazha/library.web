@@ -1,9 +1,29 @@
 <template>
-  <TableList title="用户列表" :loading="loading" :columns="tableColumns" :data-source="dataSource">
+  <TableList
+    title="类别列表"
+    :loading="loading"
+    :columns="tableColumns"
+    :data-source="dataSource"
+    @onRefresh="onRefresh"
+  >
     <template #header-left>
       <a-button type="primary" @click="onNewDataItem">
         新增
       </a-button>
+    </template>
+    <template #sex="{ text }">
+      <div v-if="text">
+        {{ text }}
+      </div>
+      <div v-else>
+        未知
+      </div>
+    </template>
+    <template #enabled="{ text }">
+      <div class="index-center-middle">
+        <div :class="[text ? 'use' : 'disable', 'circle', 'mr-2']" />
+        <div>{{ text ? '使用中' : '禁用中' }}</div>
+      </div>
     </template>
     <template #operation="{ record }">
       <div class="index-operation">
@@ -12,35 +32,58 @@
         <span @click="onDeleteDataItem(record)">删除</span>
       </div>
     </template>
+
+    <template #footer-right>
+      <PaginationWrap v-model:current="current" :total="totalElements" @change="onPageChange" />
+    </template>
   </TableList>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue"
-import { tableColumns } from "./data-list"
-import { BookInfo } from "/@/api/book-manage/book-info"
-import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
+import { defineComponent, ref } from 'vue'
+import { tableColumns } from './data-list'
+import { BookCategory } from '/@/api/book-manage/book-category'
+import { injectListPage } from '/@/lib/idata/data-list/methods/useDepend'
+import { usePagination } from '/@/hooks/web/usePagination'
 
 export default defineComponent({
-  setup() {
-    const dataSource = reactive<BookInfo[]>([])
-    const listPage = injectListPage<BookInfo>()
+  emits: ['on-page-change', 'on-refresh'],
+  setup(_props, { emit }) {
+    // 数据源
+    const dataSource = ref<BookCategory[]>([])
+
+    // 总数据
+    const totalElements = ref<number>(0)
+
+    const listPage = injectListPage<BookCategory>()
 
     // 数据加载
     const loading = listPage.loading
     // 添加新的数据
     const onNewDataItem = () => listPage.onNewDataItem()
     // 查看数据
-    const onViewDataItem = (record: BookInfo) => listPage.onViewDataItem(record)
+    const onViewDataItem = (record: BookCategory) => listPage.onViewDataItem(record)
     // 编辑数据
-    const onEditDataItem = (record: BookInfo) => listPage.onEditDataItem(record)
+    const onEditDataItem = (record: BookCategory) => listPage.onEditDataItem(record)
     // 删除数据
-    const onDeleteDataItem = (record: BookInfo) => listPage.onDeleteDataItem(record)
+    const onDeleteDataItem = (record: BookCategory) => listPage.onDeleteDataItem(record)
+
+    const pagination = usePagination()
+
+    // 页面发生变化
+    const onPageChange = () => emit('on-page-change')
+
+    // 处理刷新
+    const onRefresh = () => emit('on-refresh')
 
     return {
       loading,
       dataSource,
+      ...pagination,
+      totalElements,
       tableColumns,
+      onRefresh,
+      onPageChange,
       onNewDataItem,
       onViewDataItem,
       onEditDataItem,
@@ -49,11 +92,26 @@ export default defineComponent({
   },
   methods: {
     // 设置数据源
-    setDataSource(data: BookInfo[]) {
+    setDataSource(data: BookCategory[], total: number) {
       this.dataSource = data
+      this.totalElements = total
     }
   }
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+
+  &.disable {
+    background: #ff7875;
+  }
+
+  &.use {
+    background: #7cb305;
+  }
+}
+</style>

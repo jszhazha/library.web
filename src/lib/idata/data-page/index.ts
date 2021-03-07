@@ -37,6 +37,9 @@ interface DataPageMix {
   // 检测消息
   validateInfos: unknown
 
+  // 检测
+  validate: () => void
+
   // 保存加载
   loading: Ref<boolean>
 }
@@ -283,5 +286,5 @@ export function dataPageMix<T extends { id?: number }>(parameter: DataPageMixPar
   }
 
 
-  return { onDataMethods, pageInfo, validateInfos, loading }
+  return { onDataMethods, pageInfo, validate, validateInfos, loading }
 }

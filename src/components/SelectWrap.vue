@@ -34,7 +34,7 @@ export default defineComponent({
     },
     placeholder: {
       type: String,
-      default: '请输入'
+      default: '请选择'
     },
     value: {
       type: [Number, String],

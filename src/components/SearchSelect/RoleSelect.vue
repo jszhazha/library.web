@@ -2,6 +2,7 @@
   <div>
     <select-search
       v-model:value="selectData"
+      mode="multiple"
       :filter-option="false"
       :not-found-content="null"
       :placeholder="placeholder"
@@ -9,8 +10,8 @@
       @on-search="handleSearch"
       @on-focus="onFocus"
     >
-      <a-select-option v-for="item in options" :key="item.id" :value="item.name">
-        {{ item.name }} ({{ item.code }})
+      <a-select-option v-for="item in options" :key="item.id" :value="item.id">
+        {{ item.name }}
       </a-select-option>
     </select-search>
   </div>
@@ -21,19 +22,18 @@ import type { PagerQueryData } from '/@/lib/http/axios/types'
 import { message } from 'ant-design-vue'
 import { assign } from 'lodash-es'
 import { defineComponent, PropType, ref, watch } from 'vue'
-import service, { BookCategory } from '/@/api/book-manage/book-category'
-import { isNumber } from '/@/utils/is'
+import service, { RoleManage } from '/@/api/system-manage/role-mange'
 import SelectSearch from './SelectSearch.vue'
 
 export default defineComponent({
   components: { SelectSearch },
   props: {
     value: {
-      type: [String, Number],
+      type: [Array, String],
       default: undefined
     },
-    bookCategory: {
-      type: Object as PropType<BookCategory>,
+    roles: {
+      type: Object as PropType<RoleManage[]>,
       default: undefined
     },
     placeholder: {
@@ -41,12 +41,12 @@ export default defineComponent({
       default: '请输入'
     }
   },
-  emits: ['update:value', 'on-focus'],
+  emits: ['update:value', 'update:roles', 'on-focus'],
   setup(props, { emit }) {
-    const options = ref<BookCategory[]>([])
+    const options = ref<RoleManage[]>([])
 
     // 选中数据
-    const selectData = ref<string | undefined>()
+    const selectData = ref<string[]>([])
 
     // 获取焦点
     const onFocus = () => emit('on-focus')
@@ -71,18 +71,22 @@ export default defineComponent({
     }
 
     // 处理选中
-    function handleChange(_value: string, { key }: { key: number }) {
-      emit('update:value', key)
+    function handleChange(value: number[]) {
+      emit('update:value', value)
     }
 
     watch(
       () => props.value,
-      (value) => !isNumber(value) && (selectData.value = undefined)
+      (value) => {
+        !value && (selectData.value = [])
+      }
     )
 
     watch(
-      () => props.bookCategory,
-      (value) => (selectData.value = value?.id ? `${value.name} (${value.code})` : undefined)
+      () => props.roles,
+      (value) => {
+        selectData.value = value?.length ? value.map((el) => `${el.name}`) : []
+      }
     )
 
     return { options, selectData, onFocus, handleSearch, handleChange }

@@ -74,7 +74,7 @@ export default defineComponent({
 
     const { mode, readonly } = toRefs(pageInfo)
 
-     const selectOption = [
+    const selectOption = [
       { value: 1, label: '可见' },
       { value: 0, label: '不可见' }
     ]

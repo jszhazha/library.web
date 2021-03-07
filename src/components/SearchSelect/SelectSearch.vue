@@ -25,7 +25,6 @@ import { defineComponent, PropType, computed, toRefs } from 'vue'
 import { injectDatapage } from '/@/lib/idata/data-page/methods/useDepend'
 import { injectListPage } from '/@/lib/idata/data-list/methods/useDepend'
 
-
 const useSelectReadonly = (readonly: Ref<boolean>) => {
   return computed(() => {
     const dataPage = injectDatapage()
@@ -44,7 +43,7 @@ export default defineComponent({
       default: '请输入'
     }
   },
-  emits: ['on-change', 'on-search','on-focus'],
+  emits: ['on-change', 'on-search', 'on-focus'],
   setup(props, { emit }) {
     const { readonly } = toRefs(props)
     // 加载
@@ -52,8 +51,8 @@ export default defineComponent({
     // 方法
     const listPage = injectListPage()
     // 内容发送变化触发
-    const onChange = (_value: string, { key }: { key: number }) => {
-      emit('on-change', key)
+    const onChange = (value: string, options: { key: number }) => {
+      emit('on-change', value, options)
     }
     // 设置加载
     const setLoadState = (state: boolean) => (loading.value = state)
@@ -92,6 +91,11 @@ export default defineComponent({
     .ant-select-selection-item {
       user-select: auto;
     }
+  }
+
+  ::v-deep(.ant-select-selection-item) {
+    color: rgba(0, 0, 0, 0.65) !important;
+    cursor: default !important;
   }
 
   ::v-deep(.ant-select-arrow) {

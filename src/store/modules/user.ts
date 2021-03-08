@@ -31,7 +31,7 @@ export default class User extends VuexModule {
    */
   get getAuthorities(): string[] {
     const userInfo = this.getUserInfoState
-    const authorities = userInfo?.roles.map((el) => toArray(el.authorities!)) || []
+    const authorities = userInfo?.roles?.map((el) => toArray(el.authorities!)) || []
     return authorities.flat(1)
   }
 

@@ -39,6 +39,8 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, watch } from 'vue'
 import { useForm } from '@ant-design-vue/use'
+import Service from '/@/api/system-manage/user-manage'
+import { message } from 'ant-design-vue'
 
 export default defineComponent({
   props: {
@@ -66,7 +68,6 @@ export default defineComponent({
             if (!value) return Promise.reject('不允许为空')
             if (value.length < 6) return Promise.reject('密码长度至少 6 位')
             if (dataItem.repeat) validate('repeat').catch(() => ({}))
-
             return Promise.resolve()
           }
         }
@@ -74,8 +75,12 @@ export default defineComponent({
       repeat: [
         {
           validator: (_rule: unknown, value: string): Promise<void> => {
+            if (!dataItem.password) return Promise.resolve()
             if (!value) return Promise.reject('不允许为空')
-            if (dataItem.password === value) return Promise.resolve()
+            let character = value.replace(/(\*|\.|\?|\+|\$|\^|\[|\]|\(|\)|\{|\}|\||\\|\/)/g, '\\$1')
+            if (loading.value) character = `^${character}$`
+            else character = `^${character}.*`
+            if (new RegExp(character).test(dataItem.password!)) return Promise.resolve()
             return Promise.reject('两次输入的密码不一致')
           }
         }
@@ -92,9 +97,24 @@ export default defineComponent({
 
     const onConfirm = async () => {
       try {
-        await validate()
+        if (!(await validItem())) return
+        await Service.updatePassword(props.id, dataItem.password!)
+        message.success('重置成功')
         emit('update:value', false)
-      } catch (err) {}
+      } catch (err) {
+        message.error(`重置失败: ${err.msg}`)
+      }
+    }
+
+    async function validItem() {
+      try {
+        loading.value = true
+        await validate()
+        return true
+      } catch (err) {
+        loading.value = false
+        return false
+      }
     }
 
     watch(

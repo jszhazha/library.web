@@ -4,8 +4,6 @@ import Service, { UserInfo, LoginParams, Security, CSRF } from '/@/api/security'
 import { isNull } from '/@/utils/is'
 import { toArray } from 'lodash-es'
 
-
-
 const NAME = 'user'
 
 /**
@@ -28,6 +26,14 @@ export default class User extends VuexModule {
     return this.tokenState
   }
 
+  /**
+   * 用户权限
+   */
+  get getAuthorities(): string[] {
+    const userInfo = this.getUserInfoState
+    const authorities = userInfo?.roles.map((el) => toArray(el.authorities!)) || []
+    return authorities.flat(1)
+  }
 
   @Mutation
   commitResetState(): void {
@@ -35,12 +41,10 @@ export default class User extends VuexModule {
     this.tokenState = null
   }
 
-
   @Mutation
   commitUserInfoState(info: UserInfo): void {
     this.userInfoState = info
   }
-
 
   @Mutation
   commitTokenState(info: CSRF): void {
@@ -52,7 +56,6 @@ export default class User extends VuexModule {
    */
   @Action
   async getUserInfoAction(): Promise<UserInfo> {
-
     if (isNull(this.userInfoState)) {
       return new Promise(async (resolve, reject) => {
         try {
@@ -100,7 +103,6 @@ export default class User extends VuexModule {
       } catch (err) {
         reject(err)
       }
-
     })
   }
 
@@ -118,22 +120,6 @@ export default class User extends VuexModule {
       }
     })
   }
-
-  /**
-   * 用户权限
-   */
-  @Action
-  gatAuthoritiesAction(): Promise<string[]> {
-    return new Promise(async (reslove) => {
-      const userInfo = await userStore.getUserInfoAction()
-      const authorities = userInfo.roles?.map(el => toArray(el.authorities!)) || []
-      reslove(authorities.flat(1))
-    })
-  }
-
-
-
-
 }
 
 export { User }

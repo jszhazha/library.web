@@ -8,7 +8,7 @@
       <div class="exception-tip">
         抱歉，你访问的页面不存在
       </div>
-      <a-button type="primary" size="large">
+      <a-button type="primary" size="large" href="/">
         返回首页
       </a-button>
     </div>

@@ -11,7 +11,6 @@ import { rules } from "/@/utils/regExp"
 import MenuContent from "./MenuContent"
 import { Scrollbar } from "/@/components/Scrollbar"
 import { PageEnum } from "/@/enums/pageEnum"
-import { userStore } from "/@/store/modules/user"
 
 export default defineComponent({
   name: "DefaultLayoutSider",
@@ -19,8 +18,7 @@ export default defineComponent({
     const { currentRoute } = useRouter()
     // 菜单
     const menuItem: MenuType[] = getMenus()
-    // 用户权限
-    const authorities = userStore.getAuthorities
+
     const menuState = reactive<Partial<MenuState>>({
       selectedKeys: [],
       mode: "inline",
@@ -74,13 +72,8 @@ export default defineComponent({
       if (!menuList) return
       return menuList.map((menu) => {
 
-        const { title, name, hideInMenu, icon, auth } = menu
+        const { title, name, icon } = menu
         const showTitle = !menuStore.getCollapsedState
-        // 判断是否有权限
-        const result = auth?.length ? auth.every((el) => authorities.includes(el)) : true
-        // 不显示菜单
-        if (hideInMenu || !result) return
-
 
 
         // 没有子菜单

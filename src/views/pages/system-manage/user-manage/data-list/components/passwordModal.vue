@@ -66,7 +66,6 @@ export default defineComponent({
         {
           validator: (_rule: unknown, value: string): Promise<void> => {
             if (!value) return Promise.reject('不允许为空')
-            if (value.length < 6) return Promise.reject('密码长度至少 6 位')
             if (dataItem.repeat) validate('repeat').catch(() => ({}))
             return Promise.resolve()
           }

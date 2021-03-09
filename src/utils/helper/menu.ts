@@ -1,8 +1,8 @@
 import type { Menu as MenuType, AppRouteRecordRaw, FlatMenu } from '/@/router/types'
 import { getRouteList } from '/@/router/routes/'
 import { routerHasChildren } from '/@/utils/helper/route'
-import { userStore } from '/@/store/modules/user'
 import { cloneDeep } from 'lodash-es'
+import { useAuthorities } from '/@/hooks/web/useAuthorities'
 
 
 export function menuHasChildren(menuTreeItem: MenuType): boolean {
@@ -16,23 +16,23 @@ export function menuHasChildren(menuTreeItem: MenuType): boolean {
 // 通过用户权过滤菜单
 export function getAuthFilterMenus(): AppRouteRecordRaw[] {
   const routeList = getRouteList()
-  const authorities = userStore.getAuthorities
 
-  return authFilterMenus(cloneDeep(routeList), authorities)
+
+  return authFilterMenus(cloneDeep(routeList))
 }
 
 // 通过权限和菜单展示条件过滤菜单
-export function authFilterMenus(menus: AppRouteRecordRaw[], authorities: string[]): AppRouteRecordRaw[] {
+export function authFilterMenus(menus: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
   const data: AppRouteRecordRaw[] = []
   for (const el of menus) {
     const { auth, hideInMenu } = el.meta
-    const result = auth?.length ? auth.every((el) => authorities.includes(el)) : true
+    const result = useAuthorities(auth)
     if (!result || hideInMenu) continue
     if (!routerHasChildren(el)) {
       data.push(el)
       continue
     }
-    const children = authFilterMenus(el.children!, authorities)
+    const children = authFilterMenus(el.children!)
     if (children.length) {
       el.children = children
       data.push(el)

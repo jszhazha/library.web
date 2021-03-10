@@ -1,6 +1,7 @@
 import type { Result, PagerQueryData, PagerResponseData } from "/@/lib/http/axios/types"
 import type { RoleManage } from './role-mange'
 import request from "/@/lib/http/axios/"
+import { ContentTypeEnum } from "/@/enums/httpEnum"
 
 export interface UserManage {
   //  主键
@@ -90,6 +91,18 @@ export default class Service {
       url: "/api/user/" + id,
       method: "put",
       data: item
+    })
+  }
+
+   // 更新密码到远程服务器
+   static updatePassword(id: number, password: string): Promise<Result<UserManage>> {
+    return request<Result<UserManage>>({
+      url: "/api/user/password/" + id,
+      method: "patch",
+      data: {password},
+      headers: {
+        "Content-Type": ContentTypeEnum.FORM_URLENCODED
+      }
     })
   }
 

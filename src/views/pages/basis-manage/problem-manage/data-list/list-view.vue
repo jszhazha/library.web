@@ -7,14 +7,12 @@
     @onRefresh="onRefresh"
   >
     <template #header-left>
-      <a-button type="primary" @click="onNewDataItem">
+      <a-button v-show-by-auth="'BOOK_CATEGORY_CREATE'" type="primary" @click="onNewDataItem">
         新增
       </a-button>
     </template>
 
     <template #show="{ record }">
-      <!-- <span v-if="record.show">可见</span>
-      <span v-else>不可见</span> -->
       <a-tag v-if="record.show" color="#108ee9">
         可 见
       </a-tag>

@@ -1,6 +1,8 @@
 import type { Menu as MenuType, AppRouteRecordRaw, FlatMenu } from '/@/router/types'
 import { getRouteList } from '/@/router/routes/'
 import { routerHasChildren } from '/@/utils/helper/route'
+import { cloneDeep } from 'lodash-es'
+import { useAuthorities } from '/@/hooks/web/useAuthorities'
 
 
 export function menuHasChildren(menuTreeItem: MenuType): boolean {
@@ -11,24 +13,53 @@ export function menuHasChildren(menuTreeItem: MenuType): boolean {
   )
 }
 
+// 通过用户权过滤菜单
+export function getAuthFilterMenus(): AppRouteRecordRaw[] {
+  const routeList = getRouteList()
+
+
+  return authFilterMenus(cloneDeep(routeList))
+}
+
+// 通过权限和菜单展示条件过滤菜单
+export function authFilterMenus(menus: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
+  const data: AppRouteRecordRaw[] = []
+  for (const el of menus) {
+    const { auth, hideInMenu } = el.meta
+    const result = useAuthorities(auth)
+    if (!result || hideInMenu) continue
+    if (!routerHasChildren(el)) {
+      data.push(el)
+      continue
+    }
+    const children = authFilterMenus(el.children!)
+    if (children.length) {
+      el.children = children
+      data.push(el)
+    }
+  }
+  return data
+}
+
+
 // 获取菜单
 export function getMenus(): MenuType[] {
-  const routeList = getRouteList()
+  const routeList = getAuthFilterMenus()
   return getMenuItem(routeList)
 }
 
 // 获取深层扁平化菜单
 export function getFlatMenus(): FlatMenu[] {
-  const routeList = getRouteList()
+  const routeList = getAuthFilterMenus()
   return flatMenus(routeList, '')
 }
 
 
 // 获取深层过滤不显示扁平化菜单 
 export function getFilterIconFlatMenus(): FlatMenu[] {
-  const flatMenus = getFlatMenus()
-  
-  return flatMenus.filter(el => !el.meta!.hideInMenu && !el.meta?.icon)
+  const menus = getFlatMenus()
+
+  return menus.filter(el => !el.meta?.icon)
 }
 
 // 获取全部父级路由名称

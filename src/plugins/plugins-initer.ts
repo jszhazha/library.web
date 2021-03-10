@@ -1,4 +1,3 @@
-
 import type { App } from 'vue'
 
 import antUiPlugins from '/@/plugins/ant-ui-plugins'
@@ -9,6 +8,7 @@ import ToastPlugins from '/@/plugins/toast-plugins'
 
 import DirectivesRegisterPlugin from '/@/lib/directives/'
 
+import MixinPlugins from '/@/plugins/mixin-plugins'
 
 export default class PluginsIniter {
   static init(app: App<Element>): void {
@@ -24,5 +24,7 @@ export default class PluginsIniter {
     // 指令注册
     DirectivesRegisterPlugin.init(app)
 
+    // 全局函数
+    MixinPlugins.init(app)
   }
 }

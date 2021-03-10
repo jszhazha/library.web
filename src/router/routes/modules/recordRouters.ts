@@ -2,8 +2,6 @@ import type { AppRouteModule } from '/@/router/types'
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant'
 
-
-
 const routers: AppRouteModule = {
   layout: {
     path: 'record-manage',
@@ -18,24 +16,24 @@ const routers: AppRouteModule = {
 
   routes: [
     {
-      path: "login-record-list-page",
+      path: 'login-record-list-page',
       name: 'login-record-list-page',
       component: (): unknown => import(`/@/views/pages/record-manage/login-record/list-page.vue`),
       meta: {
-        title: '登录日志'
+        title: '登录日志',
+        auth: ['LOGIN_LOGGER_READ']
       }
     },
     {
-      path: "operate-record-list-page",
+      path: 'operate-record-list-page',
       name: 'operate-record-list-page',
       component: (): unknown => import(`/@/views/pages/record-manage/operate-record/list-page.vue`),
       meta: {
-        title: '操作日志'
+        title: '操作日志',
+        auth: ['OPERATOR_LOGGER_READ']
       }
     }
   ]
 }
-
-
 
 export default routers

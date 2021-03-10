@@ -20,7 +20,7 @@ const routers: AppRouteModule = {
     {
       path: "book-borrow-list-page",
       name: 'book-borrow-list-page',
-      component: (): unknown => import(`/@/views/pages/system-manage/user-manage/data-list/list-page.vue`),
+      component: (): unknown => import(`/@/views/pages/borrow-manage/book-borrow/data-list/list-page.vue`),
       meta: {
         title: '图书借阅'
       }
@@ -28,7 +28,7 @@ const routers: AppRouteModule = {
     {
       path: 'book-renew-list-page',
       name: 'book-renew-list-page',
-      component: (): unknown => import(`/@/views/pages/system-manage/role-manage/data-list/list-page.vue`),
+      component: (): unknown => import(`/@/views/pages/borrow-manage/book-renew/data-list/list-page.vue`),
       meta: {
         title: '图书续借'
       }
@@ -36,7 +36,7 @@ const routers: AppRouteModule = {
     {
       path: "book-revert-list-page",
       name: 'book-revert-list-page',
-      component: (): unknown => import(`/@/views/pages/system-manage/user-manage/data-list/list-page.vue`),
+      component: (): unknown => import(`/@/views/pages/borrow-manage/book-revert/data-list/list-page.vue`),
       meta: {
         title: '图书归还'
       }

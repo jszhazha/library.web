@@ -22,7 +22,8 @@ const routers: AppRouteModule = {
       name: 'user-manage-list-page',
       component: (): unknown => import(`/@/views/pages/system-manage/user-manage/data-list/list-page.vue`),
       meta: {
-        title: '用户管理'
+        title: '用户管理',
+        auth: ['USER_READ']
       }
     },
     {
@@ -40,7 +41,8 @@ const routers: AppRouteModule = {
       name: 'role-manage-list-page',
       component: (): unknown => import(`/@/views/pages/system-manage/role-manage/data-list/list-page.vue`),
       meta: {
-        title: '角色管理'
+        title: '角色管理',
+        auth: ['ROLE_READ']
       }
     },
     {
@@ -58,7 +60,8 @@ const routers: AppRouteModule = {
       name: 'module-manage-list-page',
       component: (): unknown => import(`/@/views/pages/system-manage/module-manage/index.vue`),
       meta: {
-        title: '模块管理'
+        title: '模块管理',
+        auth: ['MODULAR_READ', 'AUTHORITY_READ']
       }
     }
   ]

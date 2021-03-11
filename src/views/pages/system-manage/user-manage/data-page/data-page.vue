@@ -109,7 +109,7 @@ export default defineComponent({
       }
     ]
 
-    const dataItem = reactive<UserManage>({})
+    const dataItem = reactive<UserManage>({ enabled: 1 })
     const rules = reactive({ ...formRules, password })
     const onServerMethods = { onNewData, onSaveData, onLoadDataById }
     const parameter = { rules, dataItem, onServerMethods }

@@ -18,6 +18,7 @@ export const formRules: FromRules = {
   ],
   mobile: [
     {
+      required: true,
       validator: (_rule: unknown, value: string): Promise<void> => {
         if (!value || /^1[3456789]\d{9}$/.test(value)) {
           return Promise.resolve()
@@ -29,6 +30,7 @@ export const formRules: FromRules = {
   ],
   email: [
     {
+      required: true,
       validator: (_rule: unknown, value: string): Promise<void> => {
         if (!value || /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(value)) {
           return Promise.resolve()

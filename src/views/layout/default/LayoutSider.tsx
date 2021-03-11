@@ -72,9 +72,10 @@ export default defineComponent({
       if (!menuList) return
       return menuList.map((menu) => {
 
-        const { title, name, icon } = menu
+        const { title, name, icon, hideInMenu } = menu
         const showTitle = !menuStore.getCollapsedState
 
+        if (hideInMenu) return
 
         // 没有子菜单
         if (!menuHasChildren(menu)) {

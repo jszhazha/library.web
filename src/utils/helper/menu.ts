@@ -25,9 +25,9 @@ export function getAuthFilterMenus(): AppRouteRecordRaw[] {
 export function authFilterMenus(menus: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
   const data: AppRouteRecordRaw[] = []
   for (const el of menus) {
-    const { auth, hideInMenu } = el.meta
+    const { auth } = el.meta
     const result = useAuthorities(auth)
-    if (!result || hideInMenu) continue
+    if (!result) continue
     if (!routerHasChildren(el)) {
       data.push(el)
       continue

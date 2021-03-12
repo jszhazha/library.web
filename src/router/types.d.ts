@@ -34,7 +34,10 @@ export interface RouteMeta {
   affix?: boolean,
 
   // 忽略标签
-  ignoreTab?: boolean
+  ignoreTab?: boolean,
+
+  // 允许 子路由为空,
+  allowChildNull?: boolean
 }
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta' | 'name' | 'redirect'> {

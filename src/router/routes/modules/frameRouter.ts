@@ -1,6 +1,5 @@
 import type { AppRouteRecordRaw } from '/@/router/types'
 
-
 export const LoginRoutes: AppRouteRecordRaw[] = [
   {
     path: '/login',
@@ -54,14 +53,13 @@ export const SearchRoute: AppRouteRecordRaw[] = [
   },
   {
     path: '/search/:id',
-    name: "search-show",
+    name: 'search-show',
     component: () => import('/@/views/frame/search-page/search-show.vue'),
     meta: {
       ignoreAuth: true
     }
   }
 ]
-
 
 // 编辑
 export const HelpRoute: AppRouteRecordRaw = {

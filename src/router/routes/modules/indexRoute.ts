@@ -1,6 +1,5 @@
 import type { AppRouteRecordRaw } from '/@/router/types'
 
-
 /**
  * @description 概述页面
  */
@@ -11,10 +10,9 @@ export const overviewPage: AppRouteRecordRaw = {
   meta: {
     title: '首页',
     affix: true,
-    icon: "ant-design:home-outlined"
+    icon: 'ant-design:home-outlined'
   }
 }
-
 
 /**
  * @description 系统首页
@@ -29,14 +27,13 @@ export const IndexPage: AppRouteRecordRaw = {
   }
 }
 
-
 /**
  * @description 页面丢失
  */
 export const NoFountPage: AppRouteRecordRaw = {
   path: '/:path(.*)*',
   name: 'no-fount-page',
-  component: (): unknown => import("/@/views/pages/exception/404.vue"),
+  component: (): unknown => import('/@/views/pages/exception/404.vue'),
   meta: {
     title: '404',
     ignoreTab: true,
@@ -50,7 +47,7 @@ export const NoFountPage: AppRouteRecordRaw = {
 export const Forbidden: AppRouteRecordRaw = {
   path: '/403',
   name: 'forbidden-page',
-  component: (): unknown => import("/@/views/pages/exception/403.vue"),
+  component: (): unknown => import('/@/views/pages/exception/403.vue'),
   meta: {
     title: '403',
     ignoreTab: true,

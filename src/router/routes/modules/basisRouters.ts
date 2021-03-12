@@ -2,8 +2,6 @@ import type { AppRouteModule } from '/@/router/types'
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant'
 
-
-
 const routers: AppRouteModule = {
   layout: {
     path: 'basis-manage',
@@ -18,34 +16,38 @@ const routers: AppRouteModule = {
 
   routes: [
     {
-      path: "date-manage-list-page",
+      path: 'date-manage-list-page',
       name: 'date-manage-list-page',
-      component: (): unknown => import(`/@/views/pages/basis-manage/date-manage/data-list/list-page.vue`),
+      component: (): unknown =>
+        import(`/@/views/pages/basis-manage/date-manage/data-list/list-page.vue`),
       meta: {
         title: '日期管理'
       }
     },
     {
-      path: "data-dictionary-list-page",
+      path: 'data-dictionary-list-page',
       name: 'data-dictionary-list-page',
-      component: (): unknown => import(`/@/views/pages/basis-manage/data-dictionary/data-list/list-page.vue`),
+      component: (): unknown =>
+        import(`/@/views/pages/basis-manage/data-dictionary/data-list/list-page.vue`),
       meta: {
         title: '数据字典'
       }
     },
     {
-      path: "problem-manage-list-page",
+      path: 'problem-manage-list-page',
       name: 'problem-manage-list-page',
-      component: (): unknown => import(`/@/views/pages/basis-manage/problem-manage/data-list/list-page.vue`),
+      component: (): unknown =>
+        import(`/@/views/pages/basis-manage/problem-manage/data-list/list-page.vue`),
       meta: {
         title: '问题管理',
         auth: ['PROBLEM_MANAGE_READ']
       }
     },
     {
-      path: "problem-manage-data-page",
+      path: 'problem-manage-data-page',
       name: 'problem-manage-data-page',
-      component: (): unknown => import(`/@/views/pages/basis-manage/problem-manage/data-page/data-page.vue`),
+      component: (): unknown =>
+        import(`/@/views/pages/basis-manage/problem-manage/data-page/data-page.vue`),
       meta: {
         title: '问题管理详情',
         hideInMenu: true,
@@ -54,7 +56,5 @@ const routers: AppRouteModule = {
     }
   ]
 }
-
-
 
 export default routers

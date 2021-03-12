@@ -4,7 +4,6 @@ import { routerHasChildren } from '/@/utils/helper/route'
 import { cloneDeep } from 'lodash-es'
 import { useAuthorities } from '/@/hooks/web/useAuthorities'
 
-
 export function menuHasChildren(menuTreeItem: MenuType): boolean {
   return (
     Reflect.has(menuTreeItem, 'children') &&
@@ -17,7 +16,6 @@ export function menuHasChildren(menuTreeItem: MenuType): boolean {
 export function getAuthFilterMenus(): AppRouteRecordRaw[] {
   const routeList = getRouteList()
 
-
   return authFilterMenus(cloneDeep(routeList))
 }
 
@@ -25,22 +23,21 @@ export function getAuthFilterMenus(): AppRouteRecordRaw[] {
 export function authFilterMenus(menus: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
   const data: AppRouteRecordRaw[] = []
   for (const el of menus) {
-    const { auth } = el.meta
+    const { auth, hideInMenu, allowChildNull } = el.meta
     const result = useAuthorities(auth)
-    if (!result) continue
+    if (!result || hideInMenu) continue
     if (!routerHasChildren(el)) {
       data.push(el)
       continue
     }
     const children = authFilterMenus(el.children!)
-    if (children.length) {
+    if (children.length || allowChildNull) {
       el.children = children
       data.push(el)
     }
   }
   return data
 }
-
 
 // 获取菜单
 export function getMenus(): MenuType[] {
@@ -54,18 +51,17 @@ export function getFlatMenus(): FlatMenu[] {
   return flatMenus(routeList, '')
 }
 
-
-// 获取深层过滤不显示扁平化菜单 
+// 获取深层过滤不显示扁平化菜单
 export function getFilterIconFlatMenus(): FlatMenu[] {
   const menus = getFlatMenus()
 
-  return menus.filter(el => !el.meta?.icon)
+  return menus.filter((el) => !el.meta?.icon)
 }
 
 // 获取全部父级路由名称
 export function getAllParentPathName(treeData: FlatMenu[], name: string): string[] {
   const menuList = findPathName(treeData, name)
-  return menuList.map(el => el.name as string)
+  return menuList.map((el) => el.name as string)
 }
 
 // 获取全部父级路由
@@ -73,7 +69,6 @@ export function getAllParentPathName(treeData: FlatMenu[], name: string): string
 export function getAllParentPath(treeData: FlatMenu[], name: string): FlatMenu[] {
   return findPathName(treeData, name)
 }
-
 
 function flatMenus(router: AppRouteRecordRaw[], parentPath = ''): FlatMenu[] {
   let result: FlatMenu[] = []
@@ -87,7 +82,6 @@ function flatMenus(router: AppRouteRecordRaw[], parentPath = ''): FlatMenu[] {
   return result
 }
 
-
 function getMenuItem(menus: AppRouteRecordRaw[], parentPath = ''): MenuType[] {
   return menus.map((el: AppRouteRecordRaw) => {
     const { path, name, meta } = el
@@ -100,8 +94,6 @@ function getMenuItem(menus: AppRouteRecordRaw[], parentPath = ''): MenuType[] {
   })
 }
 
-
 function findPathName(tree: FlatMenu[], name: string) {
   return tree.filter((el) => new RegExp(el.name).test(name))
 }
-

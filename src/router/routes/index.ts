@@ -25,15 +25,10 @@ const routeModuleList: AppRouteModule[] = [
 
 const routeList = [overviewPage, ...getRouteModule(routeModuleList)]
 
-
 // 获取菜单 树级
 export const getRouteList = (): AppRouteRecordRaw[] => {
   return routeList
 }
-
-
-
-
 
 // 主框架根路由
 export const RootRoute: AppRouteRecordRaw = {
@@ -46,7 +41,6 @@ export const RootRoute: AppRouteRecordRaw = {
   },
   children: routeList
 }
-
 
 const frameRouter = [...LoginRoutes, ResetPasswordRoute, ...SearchRoute, HelpRoute]
 

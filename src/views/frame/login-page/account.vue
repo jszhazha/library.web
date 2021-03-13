@@ -55,6 +55,9 @@ import { userStore } from '/@/store/modules/user'
 export default defineComponent({
   emits: ['on-change', 'on-success'],
   setup(_props, { emit }) {
+    // 数据加载
+    const loading = ref<boolean>(false)
+
     const buttonInstance = ref<Instance | null>(null)
 
     const formData = reactive({ username: '', password: '' })
@@ -70,15 +73,18 @@ export default defineComponent({
     const onButtonClick = (event: MouseEvent) => handleUserLogin(event.offsetX, event.offsetY)
 
     async function handleUserLogin(x?: number, y?: number) {
-      if (!formData.username || !formData.password) return
+      if (!formData.username || !formData.password || loading.value) return
       buttonInstance.value?.startAnimation(x, y)
       try {
+        loading.value = true
         const userInfo = await userStore.login(formData)
         emit('on-success', userInfo)
       } catch (err) {
         error.is = true
         error.msg = err.msg
         buttonInstance.value?.stopAnimation()
+      } finally {
+        loading.value = false
       }
     }
 

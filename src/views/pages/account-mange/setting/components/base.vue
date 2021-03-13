@@ -3,10 +3,11 @@
     <a-col :span="24" :lg="{ span: 12 }">
       <a-form layout="vertical">
         <a-form-item label="昵称">
-          <a-input />
+          <a-input v-model:value="dataItem.nickName" />
         </a-form-item>
         <a-form-item label="个人介绍">
           <a-textarea
+            v-model:value="dataItem.description"
             placeholder="最多输入 100 字"
             :maxlength="100"
             :auto-size="{ minRows: 2, maxRows: 5 }"
@@ -23,8 +24,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent, reactive } from 'vue'
+import { userStore } from '/@/store/modules/user'
+import { UserInfo } from '/@/api/security'
 export default defineComponent({
+  setup() {
+    const dataItem = reactive<UserInfo>(userStore.getUserInfoState!)
+
+    return { dataItem }
+  }
 })
 </script>
 

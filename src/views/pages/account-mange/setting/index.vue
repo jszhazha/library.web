@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap ml-4 mr-4 mb-4 pt-4 pb-4 pr-4">
+  <div class="wrap pt-4 pb-4 pr-4">
     <div class="left">
       <a-menu
         v-model:selectedKeys="selectedKeys"
@@ -34,6 +34,7 @@ export default defineComponent({
     const { currentRoute } = useRouter()
     const currentName = currentRoute.value.name as string
     const go = useGo()
+
     const menuList = {
       base: "基本设置",
       security: "安全设置",
@@ -60,6 +61,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .wrap {
   display: flex;
+  margin: 6px 16px 16px;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }

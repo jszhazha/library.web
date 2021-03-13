@@ -9,16 +9,15 @@ export const tableColumns: TableColumn[] = [
     dataIndex: 'name',
     align: 'center',
     width: 200,
-    ellipsis: true,
-    slots: { customRender: 'name' }
+    ellipsis: true
+
   },
   {
     title: '作者',
     dataIndex: 'author',
     align: 'center',
     width: 200,
-    ellipsis: true,
-    slots: { customRender: 'author' }
+    ellipsis: true
   },
   {
     title: '编码',

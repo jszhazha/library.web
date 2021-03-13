@@ -17,7 +17,7 @@
         新增
       </a-button>
     </template>
-    <template #name="{ text }">
+    <!-- <template #name="{ text }">
       <div class=" index-hidden-newline w-200" :title="text">
         {{ text }}
       </div>
@@ -26,7 +26,7 @@
       <div class=" index-hidden-newline w-100" :title="text">
         {{ text }}
       </div>
-    </template>
+    </template> -->
     <template #operation="{ record }">
       <div class="index-operation">
         <span @click="onViewDataItem(record)">查看</span>

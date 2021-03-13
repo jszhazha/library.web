@@ -8,6 +8,7 @@ import { closeTab, useCacheTabs, useTabDropdown } from "/@/hooks/web/useTab"
 import { getActions } from "./tab.data"
 import { getAllParentPath, getFlatMenus } from "/@/utils/helper/menu"
 import Icon from "/@/components/Icon"
+import { useAuthorities } from "/@/hooks/web/useAuthorities"
 
 export default defineComponent({
   setup() {
@@ -91,8 +92,8 @@ export default defineComponent({
 
     // 检测路由是否存在
     function validateRoute(route: TabItem): boolean {
-      const { name } = route
-      return routeSet.has(name)
+      const { name, meta: { auth } = { auth: [] } } = route
+      return routeSet.has(name) && useAuthorities(auth)
     }
 
     // 查找数据

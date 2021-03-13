@@ -3,7 +3,6 @@ import { isString, isEmpty, isNumber } from '/@/utils/is'
 import { stringify } from '/@/utils/stringify'
 import aes from '/@/utils/encryption/aes'
 import CryptoES from 'crypto-es'
-import { userStore } from '/@/store/modules/user'
 
 export interface CreateStorage {
   set: (key: string, value: unknown) => void
@@ -27,7 +26,7 @@ export const createStorage = ({ storage = sessionStorage } = {}): CreateStorage 
 
     // 获取 键 
     private getKey(key: string): string {
-      return CryptoES.MD5(`${key}-${userStore.getUserInfoState?.id}`).toString()
+      return CryptoES.MD5(key).toString()
     }
 
     // 设置 键值

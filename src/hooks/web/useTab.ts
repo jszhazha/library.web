@@ -1,11 +1,23 @@
 import type { Ref } from 'vue'
 import { unref, computed } from 'vue'
 import router from '/@/router'
-import { tabStore, TabItem } from "/@/store/modules/tab"
+import { tabStore, TabItem } from '/@/store/modules/tab'
 import { PageEnum } from '/@/enums/pageEnum'
-import { createStorage } from "/@/utils/storage/"
+import { createStorage } from '/@/utils/storage/'
 import { menuEnum } from '/@/enums/menuEnum'
 import { useGo } from '/@/hooks/web/usePage'
+
+interface UseCacheTabs {
+  addCacheListener: () => void
+
+  readCacheTabs: () => TabItem[]
+
+  removeCacheListener: () => void
+}
+
+interface UseTabDropdown {
+  handelMenuClick: ({ key }: { key: menuEnum }) => void
+}
 
 // 关闭
 export function closeTab(closedTab: TabItem): void {
@@ -45,21 +57,28 @@ export function closeTab(closedTab: TabItem): void {
   replace({ name: toPageName })
 }
 
-
 // 缓存数据
-export function useCacheTabs(): { setCacheTabs: () => void, readCacheTabs: () => TabItem[] } {
-
+export function useCacheTabs(): UseCacheTabs {
   const storage = createStorage(localStorage)
 
   const key = 'openTabs'
 
   // 缓存数据
-  function setCacheTabs(): void {
-    window.addEventListener("beforeunload", () => {
-      const openTabs = filterTabs(tabStore.getTabsState)
-      storage.set(key, openTabs)
-    })
+  function addCacheListener(): void {
+    window.addEventListener('beforeunload', setCacheTabs)
   }
+
+  // 移除缓存数据
+  function removeCacheListener(): void {
+    window.removeEventListener('beforeunload', setCacheTabs)
+  }
+
+  // 设置缓存数据
+  function setCacheTabs(): void {
+    const openTabs = filterTabs(tabStore.getTabsState)
+    storage.set(key, openTabs)
+  }
+
   // 添加过滤缓存标签
   function filterTabs(routes: TabItem[]) {
     return routes.filter((route) => !route.meta?.ignoreTabKeepAlive)
@@ -70,13 +89,10 @@ export function useCacheTabs(): { setCacheTabs: () => void, readCacheTabs: () =>
     return storage.get(key) as TabItem[]
   }
 
-  return { setCacheTabs, readCacheTabs }
+  return { addCacheListener, removeCacheListener, readCacheTabs }
 }
 
-
-
-export function useTabDropdown(activeKey: Ref<string>): { handelMenuClick: ({ key }: { key: menuEnum }) => void } {
-
+export function useTabDropdown(activeKey: Ref<string>): UseTabDropdown {
   const go = useGo()
 
   function closeLeft(): void {
@@ -129,10 +145,7 @@ export function useTabDropdown(activeKey: Ref<string>): { handelMenuClick: ({ ke
         break
       default:
         break
-
     }
-
   }
   return { handelMenuClick }
-
 }

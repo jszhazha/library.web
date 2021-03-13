@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { AppRouteRecordRaw } from "/@/router/types"
-import { defineComponent, computed, unref, watch, ref } from "vue"
+import { defineComponent, computed, unref, watch, ref, onUnmounted, onMounted } from "vue"
 import { useGo } from "/@/hooks/web/usePage"
 import { tabStore, TabItem } from "/@/store/modules/tab"
 import { Tabs, Dropdown, Menu } from "ant-design-vue"
@@ -25,13 +25,11 @@ export default defineComponent({
     })
 
     // 使用缓存
-    const { setCacheTabs, readCacheTabs } = useCacheTabs()
+    const { addCacheListener, readCacheTabs, removeCacheListener } = useCacheTabs()
 
     // 使用下拉菜单
     const { handelMenuClick } = useTabDropdown(activeKey)
 
-    // 设置缓存
-    setCacheTabs()
 
     // 监听路由变化
     watch(
@@ -57,6 +55,11 @@ export default defineComponent({
       { immediate: true }
     )
 
+    // 添加监听
+    onMounted(() => addCacheListener())
+    // 移除监听
+    onUnmounted(() => removeCacheListener())
+
     // 添加过滤固定标签
     function filterAffixTabs(routes: AppRouteRecordRaw[]) {
       return routes.filter((route) => route.meta.affix)
@@ -68,6 +71,7 @@ export default defineComponent({
     function addAffixTabs(): void {
       const affixTabs = filterAffixTabs((getFlatMenus() as unknown) as AppRouteRecordRaw[])
       const cacheTabs = readCacheTabs()
+      tabStore.commitResetTabsState()
       if (cacheTabs) {
         for (const tab of cacheTabs) {
           const result = validateRoute(tab)

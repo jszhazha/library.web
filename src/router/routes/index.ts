@@ -3,11 +3,11 @@ import { getRouteModule } from '/@/utils/helper/route'
 import { PageEnum } from '/@/enums/pageEnum'
 
 import { DEFAULT_LAYOUT_COMPONENT } from '../constant'
-import { overviewPage, NoFountPage, IndexPage, Forbidden } from './modules/indexRoutes'
-import { LoginRoutes, ResetPasswordRoute, SearchRoute, HelpRoute } from './modules/frameRouters'
+import { overviewPage, NoFountPage, IndexPage, Forbidden } from './default/indexRoutes'
+import { LoginRoutes, ResetPasswordRoute, SearchRoute, HelpRoute } from './default/frameRouters'
 
 // 路由
-const modulesRouters = import.meta.globEager('./modules/**-routers.ts')
+const modulesRouters = import.meta.globEager('./modules/**.ts')
 
 const routeModuleList: AppRouteModule[] = []
 

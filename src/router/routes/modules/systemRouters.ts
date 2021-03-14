@@ -54,7 +54,12 @@ const routers: AppRouteModule = {
       meta: {
         title: '角色详情',
         hideInMenu: true,
-        ignoreTabKeepAlive: true
+        ignoreTabKeepAlive: true,
+        auth: {
+          new: ['ROLE_CREATE', 'MODULAR_READ'],
+          view: ['ROLE_READ', 'MODULAR_READ'],
+          edit: ['ROLE_UPDATE', 'MODULAR_READ']
+        }
       }
     },
     {
@@ -63,7 +68,7 @@ const routers: AppRouteModule = {
       component: (): unknown => import(`/@/views/pages/system-manage/module-manage/index.vue`),
       meta: {
         title: '模块管理',
-        auth: ['MODULAR_READ', 'AUTHORITY_READ']
+        auth: ['MODULAR_READ']
       }
     }
   ],

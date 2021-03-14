@@ -10,7 +10,7 @@ export interface RouteMeta {
   ignoreAuth?: boolean;
 
   // 权限
-  auth?: string[];
+  auth?: string[] | Auth;
 
   // 缓存页面
   keepAlive?: boolean,
@@ -88,4 +88,12 @@ export interface FlatMenu {
   name: string
 
   meta?: RouteMeta
+}
+
+export interface Auth {
+  new?: string[]
+
+  edit?: string[]
+
+  view?: string[]
 }

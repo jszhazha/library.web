@@ -13,6 +13,8 @@ export enum PageMode {
   new,
 }
 
+export type Mode = 'view' | 'edit' | 'new'
+
 // 模块对应的中文名称
 export const pageModeName = ['查看', '编辑', '新增']
 

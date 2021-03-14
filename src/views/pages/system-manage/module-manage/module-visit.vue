@@ -4,7 +4,7 @@
       <div class="fw-b fs-4">
         模块权限设置
       </div>
-      <a-button type="link" @click="onClickNewItem">
+      <a-button v-show-by-auth="'MODULAR_CREATE'" type="link" @click="onClickNewItem">
         新增
       </a-button>
     </div>
@@ -20,12 +20,17 @@
         </a-tag>
       </template>
       <template #operation="{ record }">
-        <a-button type="link" @click="onDeleteAuth(record)">
+        <a-button v-show-by-auth="'MODULAR_DELETE'" type="link" @click="onDeleteAuth(record)">
           删除
         </a-button>
       </template>
     </GlobalTable>
-    <module-add-modal v-model:visible="visible" :name="name" @on-success="onAddSuccess" />
+    <module-add-modal
+      v-if="MixinShowByAuth('MODULAR_CREATE')"
+      v-model:visible="visible"
+      :name="name"
+      @on-success="onAddSuccess"
+    />
   </div>
 </template>
 
@@ -112,7 +117,7 @@ export default defineComponent({
     )
 
     setTimeout(() => {
-      scroll.y = moduleVisitRef.value?.offsetHeight as number - 120
+      scroll.y = (moduleVisitRef.value?.offsetHeight as number) - 120
     }, 0)
 
     return {

@@ -33,7 +33,12 @@ const routers: AppRouteModule = {
       meta: {
         title: '图书类别详情',
         hideInMenu: true,
-        ignoreTabKeepAlive: true
+        ignoreTabKeepAlive: true,
+        auth: {
+          new: ['BOOK_CATEGORY_CREATE'],
+          view: ['BOOK_CATEGORY_READ'],
+          edit: ['BOOK_CATEGORY_UPDATE']
+        }
       }
     },
     {
@@ -43,7 +48,7 @@ const routers: AppRouteModule = {
         import(`/@/views/pages/book-manage/book-info/data-list/list-page.vue`),
       meta: {
         title: '图书信息',
-        auth: ['BOOK_READ']
+        auth: ['BOOK_READ', 'BOOK_CATEGORY_READ']
       }
     },
     {
@@ -54,7 +59,12 @@ const routers: AppRouteModule = {
       meta: {
         title: '图书信息详情',
         hideInMenu: true,
-        ignoreTabKeepAlive: true
+        ignoreTabKeepAlive: true,
+        auth: {
+          new: ['BOOK_CREATE'],
+          view: ['BOOK_READ'],
+          edit: ['BOOK_UPDATE']
+        }
       }
     }
   ],

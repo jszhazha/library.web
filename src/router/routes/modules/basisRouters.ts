@@ -62,7 +62,12 @@ const routers: AppRouteModule = {
       meta: {
         title: '问题管理详情',
         hideInMenu: true,
-        ignoreTabKeepAlive: true
+        ignoreTabKeepAlive: true,
+        auth: {
+          new: ['PROBLEM_MANAGE_CREATE'],
+          view: ['PROBLEM_MANAGE_READ'],
+          edit: ['PROBLEM_MANAGE_UPDATE']
+        }
       }
     }
   ],

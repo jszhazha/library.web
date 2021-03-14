@@ -27,9 +27,11 @@
 import { defineComponent, reactive } from 'vue'
 import { userStore } from '/@/store/modules/user'
 import { UserInfo } from '/@/api/security'
+import { cloneDeep } from 'lodash-es'
+
 export default defineComponent({
   setup() {
-    const dataItem = reactive<UserInfo>(userStore.getUserInfoState!)
+    const dataItem = reactive<UserInfo>(cloneDeep(userStore.getUserInfoState!))
 
     return { dataItem }
   }

@@ -39,8 +39,6 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, watch } from 'vue'
 import { useForm } from '@ant-design-vue/use'
-import Service from '/@/api/system-manage/user-manage'
-import { message } from 'ant-design-vue'
 
 export default defineComponent({
   props: {
@@ -51,13 +49,9 @@ export default defineComponent({
     title: {
       type: String,
       default: ''
-    },
-    id: {
-      type: Number,
-      default: -1
     }
   },
-  emits: ['update:value'],
+  emits: ['update:value', 'on-confirm'],
   setup(props, { emit }) {
     const dataItem = reactive<{ password?: string; repeat?: string }>({ password: '', repeat: '' })
 
@@ -95,14 +89,8 @@ export default defineComponent({
     const onCancel = () => emit('update:value', false)
 
     const onConfirm = async () => {
-      try {
-        if (!(await validItem())) return
-        await Service.updatePassword(props.id, dataItem.password!)
-        message.success('重置成功')
-        emit('update:value', false)
-      } catch (err) {
-        message.error(`重置失败: ${err.msg}`)
-      }
+      if (!(await validItem())) return
+      emit('on-confirm', dataItem.password)
     }
 
     async function validItem() {
@@ -120,6 +108,7 @@ export default defineComponent({
       () => props.value,
       (val) => {
         visible.value = val
+        loading.value = false
         resetFields()
       }
     )

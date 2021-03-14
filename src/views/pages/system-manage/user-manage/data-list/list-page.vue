@@ -9,7 +9,11 @@
       @onRefresh="onFetchData"
       @onResetPassword="openPasswordModal"
     />
-    <password-modal :id="modalData.id" v-model:value="modalData.visible" title="密码重置" />
+    <password-modal
+      v-model:value="modalData.visible"
+      title="密码重置"
+      @on-confirm="handleUpdatePassword"
+    />
   </div>
 </template>
 
@@ -18,9 +22,10 @@ import { defineComponent, reactive, toRefs } from 'vue'
 import service, { UserManage } from '/@/api/system-manage/user-manage'
 import { Instance } from '/@/lib/interface/ListPage'
 import { listPageMix } from '/@/lib/idata/data-list/'
-import passwordModal from './components/passwordModal.vue'
+import passwordModal from '/@/components/passwordModal.vue'
 import searchPanle from './search-panle.vue'
 import listView from './list-view.vue'
+import { message } from 'ant-design-vue'
 
 const DATA_PAGE_NAME = 'system-manage-user-manage-data-page'
 
@@ -70,7 +75,25 @@ export default defineComponent({
       modalData.id = id!
     }
 
-    return { modalData, onFetchData, onSearchData, ...toRefs(instance), openPasswordModal }
+    // 密码修改
+    async function handleUpdatePassword(password: string) {
+      try {
+        await service.updatePassword(modalData.id, password)
+        message.success('重置成功')
+        modalData.visible = false
+      } catch (err) {
+        message.error(`重置失败: ${err.msg}`)
+      }
+    }
+
+    return {
+      modalData,
+      onFetchData,
+      onSearchData,
+      ...toRefs(instance),
+      openPasswordModal,
+      handleUpdatePassword
+    }
   }
 })
 </script>

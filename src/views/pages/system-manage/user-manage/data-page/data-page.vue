@@ -57,7 +57,7 @@
         </a-row>
         <a-row>
           <a-col :xs="24" :lg="18" class="pl-4 pr-4">
-            <a-form-item label="描述">
+            <a-form-item label="个人简介">
               <TextareaWrap
                 v-model:value="dataItem.description"
                 show-count

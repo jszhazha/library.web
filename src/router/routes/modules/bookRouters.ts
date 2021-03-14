@@ -57,7 +57,8 @@ const routers: AppRouteModule = {
         ignoreTabKeepAlive: true
       }
     }
-  ]
+  ],
+  sortValue: 2
 }
 
 export default routers

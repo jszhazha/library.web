@@ -33,7 +33,8 @@ const routers: AppRouteModule = {
         auth: ['OPERATOR_LOGGER_READ']
       }
     }
-  ]
+  ],
+  sortValue: 4
 }
 
 export default routers

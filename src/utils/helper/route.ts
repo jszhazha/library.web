@@ -12,15 +12,16 @@ export function routerHasChildren(routerItem: AppRouteRecordRaw): boolean {
  * 获取路由模块
  */
 export function getRouteModule(moduleList: AppRouteModule[]): AppRouteRecordRaw[] {
-  const ret: AppRouteRecordRaw[] = []
-  for (const routeMod of moduleList) {
+  const module = moduleList.sort((a, b) => a.sortValue - b.sortValue)
+  const result: AppRouteRecordRaw[] = []
+  for (const routeMod of module) {
     const routes = routeMod.routes
     const layout = routeMod.layout
     layout.redirect = { name: `${layout.name}-${layout.redirect?.name}` }
     layout.children = childroutes(routes, layout.name)
-    ret.push(layout)
+    result.push(layout)
   }
-  return ret as AppRouteRecordRaw[]
+  return result as AppRouteRecordRaw[]
 }
 
 /**

@@ -42,7 +42,8 @@ const routers: AppRouteModule = {
         title: '图书归还'
       }
     }
-  ]
+  ],
+  sortValue: 3
 }
 
 export default routers

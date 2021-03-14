@@ -33,7 +33,7 @@ const routers: AppRouteModule = {
         title: '数据字典'
       }
     },
-       {
+    {
       path: 'data-dictionary-data-page',
       name: 'data-dictionary-data-page',
       component: (): unknown =>
@@ -65,7 +65,8 @@ const routers: AppRouteModule = {
         ignoreTabKeepAlive: true
       }
     }
-  ]
+  ],
+  sortValue: 1
 }
 
 export default routers

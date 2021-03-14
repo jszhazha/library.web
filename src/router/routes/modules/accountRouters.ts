@@ -83,7 +83,8 @@ const routers: AppRouteModule = {
         }
       ]
     }
-  ]
+  ],
+  sortValue: 6
 }
 
 export default routers

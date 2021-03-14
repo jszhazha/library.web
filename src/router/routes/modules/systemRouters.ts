@@ -66,7 +66,8 @@ const routers: AppRouteModule = {
         auth: ['MODULAR_READ', 'AUTHORITY_READ']
       }
     }
-  ]
+  ],
+  sortValue: 5
 }
 
 export default routers

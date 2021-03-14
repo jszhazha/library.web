@@ -59,6 +59,8 @@ export interface AppRouteModule {
   layout: AppRouteRecordRaw;
 
   routes: AppRouteRecordRaw[];
+
+  sortValue: number
 }
 
 

@@ -26,6 +26,10 @@
         否
       </div>
     </template>
+    
+    <template #updateTime="{ record }">
+      {{ MixinUseMoment(record.updateTime, 'YYYY-MM-DD HH:mm:ss') }}
+    </template>
 
     <template #footer-right>
       <PaginationWrap v-model:current="current" :total="totalElements" @change="onPageChange" />
@@ -34,14 +38,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue"
-import { tableColumns } from "./data-list"
-import { RoleManage } from "/@/api/system-manage/role-mange"
-import { injectListPage } from "/@/lib/idata/data-list/methods/useDepend"
-import { usePagination } from "/@/hooks/web/usePagination"
+import { defineComponent, ref } from 'vue'
+import { tableColumns } from './data-list'
+import { RoleManage } from '/@/api/system-manage/role-mange'
+import { injectListPage } from '/@/lib/idata/data-list/methods/useDepend'
+import { usePagination } from '/@/hooks/web/usePagination'
 
 export default defineComponent({
-  emits: ["on-page-change", "on-refresh"],
+  emits: ['on-page-change', 'on-refresh'],
   setup(_props, { emit }) {
     // 数据源
     const dataSource = ref<RoleManage[]>([])
@@ -65,10 +69,10 @@ export default defineComponent({
     const pagination = usePagination()
 
     // 页面发生变化
-    const onPageChange = () => emit("on-page-change")
+    const onPageChange = () => emit('on-page-change')
 
     // 处理刷新
-    const onRefresh = () => emit("on-refresh")
+    const onRefresh = () => emit('on-refresh')
 
     return {
       loading,

@@ -22,6 +22,19 @@ export const tableColumns: TableColumn[] = [
     ellipsis: true
   },
   {
+    title: '更新者',
+    dataIndex: 'updateBy',
+    align: 'center',
+    ellipsis: true
+  },
+  {
+    title: '更新时间',
+    dataIndex: 'updateTime',
+    align: 'center',
+    ellipsis: true,
+    slots: { customRender: 'updateTime' }
+  },
+  {
     title: '操作',
     align: 'center',
     width: 170,

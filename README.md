@@ -10,6 +10,7 @@
 > next 分支,基本功能都已实现, 与后端无任何交互, 开发新的网站, 可以从next分支开发. 
 # 环境要求
 > 你的本地环境需要安装 npm(yarn)、node 和 git
+> node.js 版本 >= 13
 
 # 演示地址
 [https://library.tibis.top/](https://library.tibis.top/)

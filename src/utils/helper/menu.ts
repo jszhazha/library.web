@@ -13,24 +13,24 @@ export function menuHasChildren(menuTreeItem: MenuType): boolean {
 }
 
 // 通过用户权过滤菜单
-export function getAuthFilterMenus(): AppRouteRecordRaw[] {
+export function getAuthFilterMenus(isFilterHide = true): AppRouteRecordRaw[] {
   const routeList = getRouteList()
 
-  return authFilterMenus(cloneDeep(routeList))
+  return authFilterMenus(cloneDeep(routeList), isFilterHide)
 }
 
 // 通过权限和菜单展示条件过滤菜单
-export function authFilterMenus(menus: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
+export function authFilterMenus(menus: AppRouteRecordRaw[], isFilterHide = true): AppRouteRecordRaw[] {
   const data: AppRouteRecordRaw[] = []
   for (const el of menus) {
     const { auth, hideInMenu, allowChildNull } = el.meta
     const result = useAuthorities(auth)
-    if (!result || hideInMenu) continue
+    if (!result || (isFilterHide && hideInMenu)) continue
     if (!routerHasChildren(el)) {
       data.push(el)
       continue
     }
-    const children = authFilterMenus(el.children!)
+    const children = authFilterMenus(el.children!, isFilterHide)
     if (children.length || allowChildNull) {
       el.children = children
       data.push(el)
@@ -40,8 +40,8 @@ export function authFilterMenus(menus: AppRouteRecordRaw[]): AppRouteRecordRaw[]
 }
 
 // 获取菜单
-export function getMenus(): MenuType[] {
-  const routeList = getAuthFilterMenus()
+export function getMenus(isFilterHide = true): MenuType[] {
+  const routeList = getAuthFilterMenus(isFilterHide)
   return getMenuItem(routeList)
 }
 

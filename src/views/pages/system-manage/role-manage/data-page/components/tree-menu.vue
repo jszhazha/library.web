@@ -67,7 +67,7 @@ export default defineComponent({
         loading.value = true
         const { data } = await service.fecthList({ size: 1000 })
         moudleData.value = data.content
-        treeData.value = handleTreeData(getMenus())
+        treeData.value = handleTreeData(getMenus(false))
       } catch (err) {
         message.error(`数据加载失败: ${err.msg}`)
       } finally {

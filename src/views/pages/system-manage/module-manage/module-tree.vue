@@ -32,7 +32,7 @@ import { PageEnum } from '/@/enums/pageEnum'
 export default defineComponent({
   emits: ['on-select'],
   setup(_props, { emit }) {
-    const menuItem: MenuType[] = getMenus()
+    const menuItem: MenuType[] = getMenus(false)
 
     const selectedKeys = ref<string[]>([PageEnum.BASE_HOME])
 

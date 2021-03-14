@@ -1,5 +1,11 @@
 <template>
-  <a-modal title="新增" :mask-closable="false" :confirm-loading="confirmLoading" @ok="onNewData">
+  <a-modal
+    title="新增"
+    :mask-closable="false"
+    :confirm-loading="confirmLoading"
+    @ok="onConfirm"
+    @cancel="onCentel"
+  >
     <a-form :layout="'vertical'">
       <a-form-item label="权限项名称" v-bind="validateInfos.description">
         <a-input v-model:value="dataItem.description" />
@@ -68,7 +74,7 @@ export default defineComponent({
     }
 
     // 添加新的数据
-    async function onNewData() {
+    async function onConfirm() {
       if (!(await validItem())) return
 
       const params: ModuleManage = {
@@ -89,6 +95,8 @@ export default defineComponent({
       }
     }
 
+    const onCentel = () => resetFields()
+
     // 是否根据输入项进行筛选
     function handleFilterSelect(inputValue: string, option: { key: string }) {
       const value = PinYin.getPinyin(inputValue).replace(/\s+/g, '')
@@ -108,7 +116,15 @@ export default defineComponent({
 
     fetchDataFromServer()
 
-    return { dataItem, authorityList, validateInfos, onNewData, confirmLoading, handleFilterSelect }
+    return {
+      dataItem,
+      authorityList,
+      validateInfos,
+      onCentel,
+      onConfirm,
+      confirmLoading,
+      handleFilterSelect
+    }
   }
 })
 </script>

@@ -1,6 +1,7 @@
 <template>
   <Table
     class="global-table"
+    bordered
     :loading="loading"
     :row-key="rowKey"
     :columns="tableColumns"
@@ -41,8 +42,24 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+::v-deep(.ant-table-tbody) {
+  & > tr:first-of-type > td {
+    border-top: 1px solid #f0f0f0;
+  }
+}
 
-::v-deep(.ant-table-thead > tr > th) {
-  font-weight: bold;
+::v-deep(.ant-table-thead) {
+  & > tr > th {
+    font-weight: bold;
+    border-bottom-width: 0;
+  }
+
+  & > tr:only-child > th:last-child {
+    border-right-color: #f0f0f0 !important;
+  }
+}
+
+::v-deep(.ant-table-header) {
+  margin-bottom: -17px !important;
 }
 </style>

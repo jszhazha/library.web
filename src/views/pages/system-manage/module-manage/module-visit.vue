@@ -1,6 +1,6 @@
 <template>
   <div ref="moduleVisitRef" class="mt-4 br-2 p-4 flex-item bg-white default-shadow">
-    <div class="index-space-between index-middle">
+    <div class="index-space-between index-middle mb-4">
       <div class="fw-b fs-4">
         模块权限设置
       </div>
@@ -117,7 +117,7 @@ export default defineComponent({
     )
 
     setTimeout(() => {
-      scroll.y = (moduleVisitRef.value?.offsetHeight as number) - 120
+      scroll.y = (moduleVisitRef.value?.offsetHeight as number) - 136
     }, 0)
 
     return {

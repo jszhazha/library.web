@@ -41,19 +41,6 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.global-table {
-  ::v-deep(.ant-table-body) {
-    &::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: #bfbfbf;
-      border-radius: 1em;
-    }
-  }
-}
 
 ::v-deep(.ant-table-thead > tr > th) {
   font-weight: bold;

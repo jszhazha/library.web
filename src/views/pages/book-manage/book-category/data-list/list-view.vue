@@ -19,6 +19,10 @@
       </div>
     </template>
 
+    <template #updateTime="{ record }">
+      {{ MixinUseMoment(record.updateTime, 'YYYY-MM-DD HH:mm:ss') }}
+    </template>
+
     <template #footer-right>
       <PaginationWrap v-model:current="current" :total="totalElements" @change="onPageChange" />
     </template>

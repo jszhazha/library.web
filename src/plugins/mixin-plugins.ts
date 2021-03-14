@@ -1,16 +1,17 @@
 import type { App } from 'vue'
-import { useAuthorities } from '../hooks/web/useAuthorities'
-import { isString } from '../utils/is'
+import { showByAuth } from '../hooks/web/useAuthorities'
+import { useMoment } from '/@/utils/dateFormat'
 
 export default class MixinPlugins {
   static init(app: App<Element>): void {
     app.mixin({
       methods: {
         // 判断 角色是否有当前权限
-        MixinShowByAuth(auth: string) {
-          if (!auth || !isString(auth)) return true
-          return useAuthorities([auth])
-        }
+        MixinShowByAuth: showByAuth,
+
+        // 日期格式
+        MixinUseMoment: useMoment
+
       }
     })
   }

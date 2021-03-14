@@ -1,39 +1,21 @@
 <template>
   <TableList
-    title="问题列表"
+    title="字典列表"
     :loading="loading"
     :columns="tableColumns"
     :data-source="dataSource"
     @onRefresh="onRefresh"
   >
-    <template v-if="MixinShowByAuth('BOOK_CATEGORY_CREATE')" #header-left>
+    <template #header-left>
       <a-button type="primary" @click="onNewDataItem">
         新增
       </a-button>
     </template>
-
-    <template #show="{ record }">
-      <a-tag v-if="record.show" color="#108ee9">
-        可 见
-      </a-tag>
-      <a-tag v-else color="#f50">
-        不可见
-      </a-tag>
-    </template>
-
-    <template #icon="{ record }">
-      <Icon v-if="record.icon" :icon="record.icon" />
-    </template>
-
-    <template #updateTime="{ record }">
-      {{ MixinUseMoment(record.updateTime, 'YYYY-MM-DD HH:mm:ss') }}
-    </template>
-
     <template #operation="{ record }">
       <div class="index-operation">
-        <span v-show-by-auth="'PROBLEM_MANAGE_READ'" @click="onViewDataItem(record)">查看</span>
-        <span v-show-by-auth="'PROBLEM_MANAGE_UPDATE'" @click="onEditDataItem(record)">编辑</span>
-        <span v-show-by-auth="'PROBLEM_MANAGE_DELETE'" @click="onDeleteDataItem(record)">删除</span>
+        <span @click="onViewDataItem(record)">查看</span>
+        <span @click="onEditDataItem(record)">编辑</span>
+        <span @click="onDeleteDataItem(record)">删除</span>
       </div>
     </template>
 
@@ -46,7 +28,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { tableColumns } from './data-list'
-import { ProblemManage } from '/@/api/basis-manage/problem-manage'
+import { BookCategory } from '/@/api/book-manage/book-category'
 import { injectListPage } from '/@/lib/idata/data-list/methods/useDepend'
 import { usePagination } from '/@/hooks/web/usePagination'
 
@@ -54,23 +36,23 @@ export default defineComponent({
   emits: ['on-page-change', 'on-refresh'],
   setup(_props, { emit }) {
     // 数据源
-    const dataSource = ref<ProblemManage[]>([])
+    const dataSource = ref<BookCategory[]>([])
 
     // 总数据
     const totalElements = ref<number>(0)
 
-    const listPage = injectListPage<ProblemManage>()
+    const listPage = injectListPage<BookCategory>()
 
     // 数据加载
     const loading = listPage.loading
     // 添加新的数据
     const onNewDataItem = () => listPage.onNewDataItem()
     // 查看数据
-    const onViewDataItem = (record: ProblemManage) => listPage.onViewDataItem(record)
+    const onViewDataItem = (record: BookCategory) => listPage.onViewDataItem(record)
     // 编辑数据
-    const onEditDataItem = (record: ProblemManage) => listPage.onEditDataItem(record)
+    const onEditDataItem = (record: BookCategory) => listPage.onEditDataItem(record)
     // 删除数据
-    const onDeleteDataItem = (record: ProblemManage) => listPage.onDeleteDataItem(record)
+    const onDeleteDataItem = (record: BookCategory) => listPage.onDeleteDataItem(record)
 
     const pagination = usePagination()
 
@@ -96,7 +78,7 @@ export default defineComponent({
   },
   methods: {
     // 设置数据源
-    setDataSource(data: ProblemManage[], total: number) {
+    setDataSource(data: BookCategory[], total: number) {
       this.dataSource = data
       this.totalElements = total
     }

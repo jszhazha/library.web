@@ -5,8 +5,13 @@
       <GlobalCard title="基本信息">
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="标题" v-bind="validateInfos.title">
-              <InputWrap v-model:value="dataItem.title" />
+            <a-form-item label="字典名称" v-bind="validateInfos.name">
+              <InputWrap v-model:value="dataItem.name" />
+            </a-form-item>
+          </a-col>
+          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
+            <a-form-item label="字典类型" v-bind="validateInfos.code">
+              <InputWrap v-model:value="dataItem.code" :maxlength="4" :readonly="mode === 1" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
@@ -14,24 +19,19 @@
               <SelectWrap v-model:value="dataItem.show" :options="selectOption" />
             </a-form-item>
           </a-col>
-          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="排序值" v-bind="validateInfos.sortValue">
-              <InputNumberWrap v-model:value="dataItem.sortValue" />
-            </a-form-item>
-          </a-col>
-          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="图标" v-bind="validateInfos.icon">
-              <InputWrap v-model:value="dataItem.icon" />
+        </a-row>
+        <a-row>
+          <a-col :xs="24" :lg="18" class="pl-4 pr-4">
+            <a-form-item label="描述">
+              <TextareaWrap
+                v-model:value="dataItem.description"
+                show-count
+                :maxlength="260"
+                :auto-size="{ minRows: 2, maxRows: 5 }"
+              />
             </a-form-item>
           </a-col>
         </a-row>
-      </GlobalCard>
-
-      <GlobalCard title="问题描述">
-        <div class="editor-content">
-          <PreviewMode v-if="readonly" :value="dataItem.text" />
-          <PublicEditor v-else v-model:value="dataItem.text" :configs="editorConfigs" />
-        </div>
       </GlobalCard>
     </a-form>
 
@@ -43,12 +43,7 @@
       <a-button v-if="!readonly" @click="onRestPage">
         重置
       </a-button>
-      <a-button
-        v-if="readonly"
-        v-show-by-auth="'PROBLEM_MANAGE_UPDATE'"
-        type="primary"
-        @click="onEditPage"
-      >
+      <a-button v-if="readonly" type="primary" @click="onEditPage">
         编辑
       </a-button>
       <a-button v-if="!readonly" type="primary" :loading="loading" @click="onSavePage">
@@ -61,48 +56,35 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import { dataPageMix } from '/@/lib/idata/data-page/'
-import service, { ProblemManage } from '/@/api/basis-manage/problem-manage'
-import { formRules, editorConfigs, selectOption } from './data-page'
+import { formRules, selectOption } from './data-page'
+import service, { BookCategory } from '/@/api/book-manage/book-category'
 import { assign } from 'lodash-es'
-import PreviewMode from '/@/components/PublicEditor/src/Preview'
 
 export default defineComponent({
-  components: { PreviewMode },
   setup() {
-    const dataItem = reactive<ProblemManage>({ show: 1, sortValue: 0 })
+    const dataItem = reactive<BookCategory>({})
     const rules = reactive(formRules)
     const onServerMethods = { onNewData, onSaveData, onLoadDataById }
     const parameter = { rules, dataItem, onServerMethods }
-    const { pageInfo, onDataMethods, validateInfos, loading } = dataPageMix<ProblemManage>(
-      parameter
-    )
-
+    const { pageInfo, onDataMethods, validateInfos, loading } = dataPageMix<BookCategory>(parameter)
     const { mode, readonly } = toRefs(pageInfo)
 
     // 通过ID加载数据
     async function onLoadDataById(id: number) {
       const { data } = await service.getItemById(id)
       assign(dataItem, data)
-      changeDataType()
     }
 
     // 保存数据
-    async function onSaveData(id: number, contrast: ProblemManage) {
+    async function onSaveData(id: number, contrast: BookCategory) {
       const { data } = await service.updateItem(id, contrast)
       assign(dataItem, data)
-      changeDataType()
     }
 
     // 新增数据
     async function onNewData() {
       const { data } = await service.saveNewItem(dataItem)
       assign(dataItem, data)
-      changeDataType()
-    }
-
-    // 改变数据类型
-    function changeDataType() {
-      dataItem.show = dataItem.show ? 1 : 0
     }
 
     return {
@@ -112,19 +94,10 @@ export default defineComponent({
       loading,
       selectOption,
       validateInfos,
-      editorConfigs,
       ...onDataMethods
     }
   }
 })
 </script>
 
-<style lang="less" scoped>
-.editor-content {
-  height: 500px;
-  margin: 16px;
-  overflow: hidden;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-</style>
+<style lang="less" scoped></style>

@@ -30,16 +30,17 @@ export const tableColumns: TableColumn[] = [
     slots: { customRender: 'icon' }
   },
   {
-    title: '创建者',
-    dataIndex: 'createBy',
-    align: 'center',
-    ellipsis: true
-  },
-  {
     title: '更新者',
     dataIndex: 'updateBy',
     align: 'center',
     ellipsis: true
+  },
+  {
+    title: '更新时间',
+    dataIndex: 'updateTime',
+    align: 'center',
+    ellipsis: true,
+    slots: { customRender: 'updateTime' }
   },
   {
     title: '操作',

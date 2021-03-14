@@ -17,3 +17,9 @@ export const editorConfigs = {
   height: 500,
   mode: 'sv'
 }
+
+
+export const selectOption = [
+  { value: 1, label: '可见' },
+  { value: 0, label: '不可见' }
+]

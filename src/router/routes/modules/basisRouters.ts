@@ -33,6 +33,17 @@ const routers: AppRouteModule = {
         title: '数据字典'
       }
     },
+       {
+      path: 'data-dictionary-data-page',
+      name: 'data-dictionary-data-page',
+      component: (): unknown =>
+        import(`/@/views/pages/basis-manage/data-dictionary/data-page/data-page.vue`),
+      meta: {
+        title: '数据字典详情',
+        hideInMenu: true,
+        ignoreTabKeepAlive: true
+      }
+    },
     {
       path: 'problem-manage-list-page',
       name: 'problem-manage-list-page',

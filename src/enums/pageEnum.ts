@@ -1,6 +1,8 @@
 export enum PageEnum {
   // 登录页面
   BASE_LOGIN = 'login',
+  // 注册页面
+  BASE_REGISTER = 'register',
 
   // 概述页面
   BASE_HOME = 'overview-page',

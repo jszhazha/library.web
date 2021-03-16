@@ -2,7 +2,7 @@
   <PublicHeader class="search-page-header">
     <template #left>
       <router-link to="/">
-        <img :src="config.logo" class="w-8 mr-4">
+        <img :src="MixinConfig.logo" class="w-8 mr-4">
       </router-link>
       <input-search
         v-model:value="pageInfo.query"
@@ -54,7 +54,6 @@ import { useGo } from '/@/hooks/web/usePage'
 import { InputSearch } from '/@/lib/UI/'
 import { rules } from '/@/utils/regExp'
 import { message } from 'ant-design-vue'
-import config from '/@/config'
 import service, { Search, Hot } from '/@/api/search'
 import serviceBookInfo from '/@/api/book-manage/book-info'
 import searchList from './search-list.vue'
@@ -146,7 +145,6 @@ export default defineComponent({
     watchEffect(() => currentRoute.value && routerChange())
 
     return {
-      config,
       loading,
       pageInfo,
       searchList,

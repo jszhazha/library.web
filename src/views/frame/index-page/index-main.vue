@@ -2,7 +2,7 @@
   <main class="main">
     <div class="index-center-middle">
       <div class="main-title">
-        {{ config.title }}
+        {{ MixinConfig.title }}
       </div>
     </div>
     <div class="main-search-wrap">
@@ -13,7 +13,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import config from '/@/config/'
 import { PageEnum } from '/@/enums/pageEnum'
 import { useGo } from '/@/hooks/web/usePage'
 import { InputSearch } from '/@/lib/UI/'
@@ -29,7 +28,6 @@ export default defineComponent({
     }
 
     return {
-      config,
       handleEnter
     }
   }

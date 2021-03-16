@@ -34,6 +34,7 @@ export function queryModule(path: string): string {
     'book-detail': '图书详细信息',
     'book': "图书基本信息",
     'problem-manage': '问题管理',
+    'anonymous/problem':'帮助中心',
     'modular': '模块管理',
     'authority': '权限列表',
     'role': '角色管理',

@@ -2,9 +2,9 @@
   <PublicHeader class="search-page-show-header">
     <template #left>
       <router-link to="/" class="index-middle ml-15">
-        <img :src="config.logo" class="w-6 mr-4">
+        <img :src="MixinConfig.logo" class="w-6 mr-4">
         <div class="header-title index-theme">
-          {{ config.title }}
+          {{ MixinConfig.title }}
         </div>
       </router-link>
     </template>
@@ -72,12 +72,11 @@ import { defineComponent, ref, unref } from 'vue'
 import { holdInfoColumns } from './search-show'
 import { useRouter } from 'vue-router'
 import service from '/@/api/anonymous'
-import config from '/@/config'
 import { message } from 'ant-design-vue'
 
 export default defineComponent({
   setup() {
-    const { currentRoute ,back} = useRouter()
+    const { currentRoute, back } = useRouter()
 
     const bookInfo = ref({})
 
@@ -100,10 +99,9 @@ export default defineComponent({
       }
     }
 
-
     fetchDataByService()
 
-    return { config, loading, bookInfo, bookDetail, holdInfoColumns, back }
+    return { loading, bookInfo, bookDetail, holdInfoColumns, back }
   }
 })
 </script>

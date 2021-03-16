@@ -83,7 +83,6 @@ export default defineComponent({
 
     return {
       qrcode,
-      config,
       loginContent,
       loginSuccess,
       loginTypeChange

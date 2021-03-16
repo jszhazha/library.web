@@ -32,7 +32,7 @@
       登录
     </GlobalButton>
     <div class="login-account-link">
-      <router-link to="/login">
+      <router-link :to="{ name: PageEnum.BASE_REGISTER }">
         注册
       </router-link>
       <a-divider type="vertical" />
@@ -49,6 +49,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
+import { PageEnum } from '/@/enums/pageEnum'
 import { Instance } from '/@/lib/interface/GlobalButton'
 import { userStore } from '/@/store/modules/user'
 
@@ -90,6 +91,7 @@ export default defineComponent({
 
     return {
       error,
+      PageEnum,
       formData,
       onEnter,
       onChange,

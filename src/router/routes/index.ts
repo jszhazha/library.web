@@ -3,8 +3,8 @@ import { getRouteModule } from '/@/utils/helper/route'
 import { PageEnum } from '/@/enums/pageEnum'
 
 import { DEFAULT_LAYOUT_COMPONENT } from '../constant'
-import { overviewPage, NoFountPage, IndexPage, Forbidden } from './default/indexRoutes'
-import { LoginRoutes, ResetPasswordRoute, SearchRoute, HelpRoute } from './default/frameRouters'
+import { OverviewPage, NoFountPage, IndexPage, Forbidden } from './default/indexRoutes'
+import { FrameRouters } from './default/frameRouters'
 
 // 路由
 const modulesRouters = import.meta.globEager('./modules/**.ts')
@@ -13,8 +13,7 @@ const routeModuleList: AppRouteModule[] = []
 
 Object.keys(modulesRouters).forEach((key) => routeModuleList.push(modulesRouters[key].default))
 
-
-const routeList = [overviewPage, ...getRouteModule(routeModuleList)]
+const routeList = [OverviewPage, ...getRouteModule(routeModuleList)]
 
 // 获取菜单 树级
 export const getRouteList = (): AppRouteRecordRaw[] => {
@@ -33,8 +32,6 @@ export const RootRoute: AppRouteRecordRaw = {
   children: routeList
 }
 
-const frameRouter = [...LoginRoutes, ResetPasswordRoute, ...SearchRoute, HelpRoute]
-
 const indexRoute = [Forbidden, NoFountPage]
 
-export const basicRoutes = [...frameRouter, IndexPage, RootRoute, ...indexRoute]
+export const basicRoutes = [...FrameRouters, IndexPage, RootRoute, ...indexRoute]

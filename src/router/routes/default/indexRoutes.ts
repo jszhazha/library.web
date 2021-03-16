@@ -3,7 +3,7 @@ import type { AppRouteRecordRaw } from '/@/router/types'
 /**
  * @description 概述页面
  */
-export const overviewPage: AppRouteRecordRaw = {
+export const OverviewPage: AppRouteRecordRaw = {
   path: 'overview-page',
   name: 'overview-page',
   component: (): unknown => import('/@/views/pages/overview/overview-page.vue'),

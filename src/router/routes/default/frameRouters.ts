@@ -1,6 +1,6 @@
 import type { AppRouteRecordRaw } from '/@/router/types'
 
-export const LoginRoutes: AppRouteRecordRaw[] = [
+export const FrameRouters: AppRouteRecordRaw[] = [
   {
     path: '/login',
     name: 'login',
@@ -17,31 +17,16 @@ export const LoginRoutes: AppRouteRecordRaw[] = [
     meta: {
       title: '选择登录帐号'
     }
-  }
-]
-
-// 密码重置
-export const ResetPasswordRoute: AppRouteRecordRaw = {
-  path: '/reset-password',
-  name: 'reset-password',
-  component: () => import('/@/views/frame/reset-password/index.vue'),
-  meta: {
-    ignoreAuth: true
-  }
-}
-
-// 编辑
-export const EditorRoute: AppRouteRecordRaw = {
-  path: '/editor',
-  name: 'editor',
-  component: () => import('/@/views/frame/editor-page/index.vue'),
-  meta: {
-    title: '编辑'
-  }
-}
-
-// 编辑
-export const SearchRoute: AppRouteRecordRaw[] = [
+  },
+  {
+    path: '/help',
+    name: 'help',
+    component: () => import('/@/views/frame/help-page/index-page.vue'),
+    meta: {
+      title: '帮助中心',
+      ignoreAuth: true
+    }
+  },
   {
     path: '/search',
     name: 'search',
@@ -58,16 +43,31 @@ export const SearchRoute: AppRouteRecordRaw[] = [
     meta: {
       ignoreAuth: true
     }
+  },
+  {
+    path: '/editor',
+    name: 'editor',
+    component: () => import('/@/views/frame/editor-page/index.vue'),
+    meta: {
+      title: '编辑'
+    }
+  },
+  {
+    path: '/reset-password',
+    name: 'reset-password',
+    component: () => import('/@/views/frame/reset-password/index.vue'),
+    meta: {
+      ignoreAuth: true,
+      title: '密码重置'
+    }
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('/@/views/frame/register-page/index.vue'),
+    meta: {
+      ignoreAuth: true,
+      title: '注册'
+    }
   }
 ]
-
-// 编辑
-export const HelpRoute: AppRouteRecordRaw = {
-  path: '/help',
-  name: 'help',
-  component: () => import('/@/views/frame/help-page/index-page.vue'),
-  meta: {
-    title: '帮助中心',
-    ignoreAuth: true
-  }
-}

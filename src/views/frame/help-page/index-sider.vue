@@ -29,7 +29,7 @@ export default defineComponent({
     const selectedKeys = ref<number[]>([])
 
     // 处理选中
-    const onSelect = ({ key }: { key: number }) => go({ query: { id: key } }, truegit)
+    const onSelect = ({ key }: { key: number }) => go({ query: { id: key } }, true)
 
     watch(
       () => unref(currentRoute).query.id,

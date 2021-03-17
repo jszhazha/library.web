@@ -84,7 +84,8 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
             'primary-color': '#0960bd',
             'primary-hover-color': '#2a7dc9',
             'tree-title-height': '35px',
-            'table-header-bg': '#ffffff'
+            'table-header-bg': '#ffffff',
+            'drawer-body-padding':'24px 0'
           },
           javascriptEnabled: true
         }

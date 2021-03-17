@@ -11,19 +11,37 @@
       </template>
     </PublicHeader>
     <a-layout class="help-main">
-      <a-layout-sider width="260" theme="light" breakpoint="sm" collapsed-width="0" :trigger="null">
-        <index-sider :data-source="dataSource" @on-select="handleSelect" />
+      <a-layout-sider
+        width="260"
+        theme="light"
+        breakpoint="sm"
+        collapsed-width="0"
+        :trigger="null"
+        @collapse="handelCollapse"
+      >
+        <index-sider :data-source="dataSource" @on-select="onSelect" />
       </a-layout-sider>
       <a-layout-content class="help-main-content scrollbar">
-        <index-content :select-data="selectData" />
+        <index-content :select-content="selectContent" />
       </a-layout-content>
     </a-layout>
   </a-layout>
+  <a-drawer v-model:visible="drawerVisible" placement="left" :closable="false">
+    <index-sider mode="vertical" :data-source="dataSource" @on-select="onSelect" />
+  </a-drawer>
+  <div
+    v-if="collapsedState && !drawerVisible"
+    class="index-center-middle levitated-ball default-shadow"
+    @click="handleClickBall"
+  >
+    <MenuOutlined />
+  </div>
 </template>
 
 <script lang="ts">
 import type { ProblemManage } from '/@/api/basis-manage/problem-manage'
-import { defineComponent, ref } from 'vue'
+import { MenuOutlined } from '@ant-design/icons-vue'
+import { computed, defineComponent, ref, unref } from 'vue'
 import config from '/@/config'
 import { PageEnum } from '/@/enums/pageEnum'
 import { useGo } from '/@/hooks/web/usePage'
@@ -32,13 +50,29 @@ import indexContent from './index-content.vue'
 import service from '/@/api/anonymous'
 
 export default defineComponent({
-  components: { indexSider, indexContent },
+  components: { indexSider, indexContent, MenuOutlined },
   setup() {
     const go = useGo()
 
     const dataSource = ref<ProblemManage[]>([])
 
-    const selectData = ref<ProblemManage>({})
+    const selectId = ref<number>()
+
+    const drawerVisible = ref<boolean>(false)
+
+    const collapsedState = ref<boolean>(false)
+
+    // 处理选中
+    const onSelect = (id: number) => ((selectId.value = id), (drawerVisible.value = false))
+
+    // 选中内容
+    const selectContent = computed(() => {
+      let content: undefined | string = ''
+      if (unref(dataSource) && unref(selectId)) {
+        content = unref(dataSource).find((el) => el.id === unref(selectId))?.text
+      }
+      return content
+    })
 
     // 点击文字页面跳转
     const handleTitleClick = () => go({ name: PageEnum.INDEX_PAGE })
@@ -47,17 +81,34 @@ export default defineComponent({
     async function fetchDataFromServer() {
       const query = { sort: 'sortValue,desc' }
       const { data } = await service.fecthProblemByAny(query)
+      const [value] = data.content
+      value && go({ query: { id: value.id } })
       dataSource.value = data.content
     }
 
-    // 处理选中
-    function handleSelect(item: ProblemManage) {
-      selectData.value = item
+    // 展开-收起时的回调函数
+    function handelCollapse(collapsed: boolean) {
+      collapsedState.value = collapsed
+    }
+
+    // 处理点击悬浮球
+    function handleClickBall() {
+      drawerVisible.value = true
     }
 
     fetchDataFromServer()
 
-    return { config, dataSource, selectData, handleTitleClick, handleSelect }
+    return {
+      config,
+      dataSource,
+      selectContent,
+      drawerVisible,
+      collapsedState,
+      onSelect,
+      handelCollapse,
+      handleClickBall,
+      handleTitleClick
+    }
   }
 })
 </script>
@@ -103,6 +154,16 @@ export default defineComponent({
   &-help-main-catalog {
     margin: 16px;
   }
+}
+
+.levitated-ball {
+  position: fixed;
+  right: 10px;
+  bottom: 20px;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 50%;
 }
 
 @media screen and (max-width: 576px) {

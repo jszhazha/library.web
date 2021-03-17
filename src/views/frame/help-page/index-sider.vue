@@ -1,5 +1,5 @@
 <template>
-  <a-menu v-model:selectedKeys="selectedKeys" mode="inline" @select="handleSelect">
+  <a-menu v-model:selectedKeys="selectedKeys" mode="inline" @select="onSelect">
     <a-menu-item v-for="item in dataSource" :key="item.id">
       {{ item.title }}
     </a-menu-item>
@@ -8,38 +8,40 @@
 
 <script lang="ts">
 import type { ProblemManage } from '/@/api/basis-manage/problem-manage'
-import { defineComponent, PropType, ref, watch } from 'vue'
+import { defineComponent, PropType, ref, unref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { useGo } from '/@/hooks/web/usePage'
+
 export default defineComponent({
   props: {
     dataSource: {
       type: Array as PropType<ProblemManage[]>,
-      default: () => {
-        return []
-      }
+      default: () => []
     }
   },
   emits: ['on-select'],
-  setup(props, { emit }) {
+  setup(_props, { emit }) {
+    // 获取当前路由
+    const { currentRoute } = useRouter()
+
+    const go = useGo()
+
     const selectedKeys = ref<number[]>([])
 
     // 处理选中
-    function handleSelect({ key }: { key: number }) {
-      const value = props.dataSource.find((el) => el.id === key)
-      emit('on-select', value)
-    }
+    const onSelect = ({ key }: { key: number }) => go({ query: { id: key } })
 
     watch(
-      () => props.dataSource,
-      (data: ProblemManage[]) => {
-        const [value] = data
-        if (value) {
-          selectedKeys.value = [value.id!]
-          emit('on-select', value)
-        }
-      }
+      () => unref(currentRoute).query.id,
+      (value: string) => {
+        const id = Number(value)
+        emit('on-select', id)
+        selectedKeys.value = [id]
+      },
+      { immediate: true }
     )
 
-    return { selectedKeys, handleSelect }
+    return { selectedKeys, onSelect }
   }
 })
 </script>

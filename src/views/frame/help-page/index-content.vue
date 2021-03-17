@@ -1,5 +1,5 @@
 <template>
-  <Preview class="index-content" :value="selectData.text" />
+  <Preview class="index-content" :value="selectContent" />
 </template>
 
 <script lang="ts">
@@ -8,9 +8,9 @@ import Preview from '/@/components/PublicEditor/src/Preview'
 export default defineComponent({
   components: { Preview },
   props: {
-    selectData: {
-      type: Object,
-      default: () => ({})
+    selectContent: {
+      type: String,
+      default: ''
     }
   }
 })

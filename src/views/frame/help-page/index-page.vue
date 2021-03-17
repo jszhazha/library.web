@@ -1,5 +1,5 @@
 <template>
-  <div class="help-wrap">
+  <a-layout class="help-wrap">
     <PublicHeader class="help-header">
       <template #left>
         <img :src="config.logo" class="config-logo" @click="handleTitleClick">
@@ -10,11 +10,15 @@
         </div>
       </template>
     </PublicHeader>
-    <div class="help-main">
-      <index-sider class="help-main-sider" :data-source="dataSource" @on-select="handleSelect" />
-      <index-content class="help-main-content scrollbar" :select-data="selectData" />
-    </div>
-  </div>
+    <a-layout class="help-main">
+      <a-layout-sider width="260" theme="light" breakpoint="sm" collapsed-width="0" :trigger="null">
+        <index-sider :data-source="dataSource" @on-select="handleSelect" />
+      </a-layout-sider>
+      <a-layout-content class="help-main-content scrollbar">
+        <index-content :select-data="selectData" />
+      </a-layout-content>
+    </a-layout>
+  </a-layout>
 </template>
 
 <script lang="ts">
@@ -60,9 +64,8 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .help-wrap {
-  display: flex;
-  flex-direction: column;
   height: 100vh;
+  background: var(--theme-background);
 }
 
 .help-header {
@@ -77,8 +80,6 @@ export default defineComponent({
   }
 
   &-title {
-    padding: 0 20px 0 0;
-    margin: 0 20px 0 0;
     font-size: 18px;
     color: var(--theme-font-color);
     cursor: pointer;
@@ -91,16 +92,22 @@ export default defineComponent({
   height: 0;
   background: #f3f5fb;
 
-  &-sider {
-    width: 260px;
-  }
-
   &-content {
     flex: 1;
     margin: 16px;
     overflow: auto;
     background: #fff;
     border-radius: 10px;
+  }
+
+  &-help-main-catalog {
+    margin: 16px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .help-header {
+    padding-right: 16px;
   }
 }
 </style>

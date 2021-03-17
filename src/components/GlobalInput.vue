@@ -213,7 +213,7 @@ export default defineComponent({
   padding: 0 16px;
   font-size: 16px;
   color: #141414;
-  background: #f0f2f5;
+  background: var(--public-header-background);
   border: 1px solid transparent;
   border-radius: 8px;
   transition: border 0.2s ease-in-out;

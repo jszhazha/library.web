@@ -64,7 +64,7 @@ export const FrameRouters: AppRouteRecordRaw[] = [
   {
     path: '/register',
     name: 'register',
-    component: () => import('/@/views/frame/register-page/index.vue'),
+    component: () => import('../../../views/frame/register-page/index-page.vue'),
     meta: {
       ignoreAuth: true,
       title: '注册'

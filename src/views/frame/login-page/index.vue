@@ -45,7 +45,7 @@ export default defineComponent({
     const qrcode = ref<null | HTMLImageElement>(null)
 
     // 二维码内容
-    const renderValue = String("Hello world")
+    const renderValue = String("https://library.tibis.top/help")
 
     // 二维码宽度
     const width = 160

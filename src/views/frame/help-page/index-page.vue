@@ -82,7 +82,7 @@ export default defineComponent({
       const query = { sort: 'sortValue,desc' }
       const { data } = await service.fecthProblemByAny(query)
       const [value] = data.content
-      value && go({ query: { id: value.id } })
+      value && go({ query: { id: value.id } }, true)
       dataSource.value = data.content
     }
 

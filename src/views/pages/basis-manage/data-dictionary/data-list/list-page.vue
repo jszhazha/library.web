@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue"
-import service, { BookCategory } from "/@/api/book-manage/book-category"
+import service, { DataDictionary } from "/@/api/basis-manage/data-dictionary"
 import { Instance } from "/@/lib/interface/ListPage"
 import { listPageMix } from "/@/lib/idata/data-list/"
 import searchPanle from "./search-panle.vue"
@@ -21,7 +21,7 @@ export default defineComponent({
   components: { listView, searchPanle },
   setup() {
     // 实例
-    const instance = reactive<Instance<BookCategory>>({
+    const instance = reactive<Instance<DataDictionary>>({
       // 搜索实例
       searchInstance: null,
       // 列表实例
@@ -39,7 +39,7 @@ export default defineComponent({
       instance
     }
 
-    const { onFetchData, onSearchData, queryData } = listPageMix<BookCategory>(options)
+    const { onFetchData, onSearchData, queryData } = listPageMix<DataDictionary>(options)
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {

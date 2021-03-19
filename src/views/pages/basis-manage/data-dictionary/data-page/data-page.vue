@@ -57,16 +57,16 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 import { dataPageMix } from '/@/lib/idata/data-page/'
 import { formRules, selectOption } from './data-page'
-import service, { BookCategory } from '/@/api/book-manage/book-category'
+import service, { DataDictionary } from '/@/api/basis-manage/data-dictionary'
 import { assign } from 'lodash-es'
 
 export default defineComponent({
   setup() {
-    const dataItem = reactive<BookCategory>({})
+    const dataItem = reactive<DataDictionary>({})
     const rules = reactive(formRules)
     const onServerMethods = { onNewData, onSaveData, onLoadDataById }
     const parameter = { rules, dataItem, onServerMethods }
-    const { pageInfo, onDataMethods, validateInfos, loading } = dataPageMix<BookCategory>(parameter)
+    const { pageInfo, onDataMethods, validateInfos, loading } = dataPageMix<DataDictionary>(parameter)
     const { mode, readonly } = toRefs(pageInfo)
 
     // 通过ID加载数据
@@ -76,7 +76,7 @@ export default defineComponent({
     }
 
     // 保存数据
-    async function onSaveData(id: number, contrast: BookCategory) {
+    async function onSaveData(id: number, contrast: DataDictionary) {
       const { data } = await service.updateItem(id, contrast)
       assign(dataItem, data)
     }

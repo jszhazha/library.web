@@ -3,7 +3,7 @@ import type { TableColumn } from '/@/lib/props/TableList'
 export const tableColumns: TableColumn[] = [
   {
     title: '字典编号',
-    dataIndex: 'name',
+    dataIndex: 'id',
     align: 'center',
     ellipsis: true
 
@@ -17,19 +17,19 @@ export const tableColumns: TableColumn[] = [
   },
   {
     title: '字典类型',
-    dataIndex: 'code',
+    dataIndex: 'type',
     align: 'center',
     ellipsis: true
   },
   {
     title: '状态',
-    dataIndex: 'createBy',
+    dataIndex: 'state',
     align: 'center',
     ellipsis: true
   },
   {
-    title: '备注',
-    dataIndex: 'updateBy',
+    title: '描述',
+    dataIndex: 'description',
     align: 'center',
     ellipsis: true
   },

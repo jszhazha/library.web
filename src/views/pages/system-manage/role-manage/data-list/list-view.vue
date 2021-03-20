@@ -14,7 +14,7 @@
     <template #operation="{ record }">
       <div class="index-operation">
         <span v-show-by-auth="'ROLE_READ'" @click="onViewDataItem(record)">查看</span>
-        <span v-show-by-auth="'ROLE_UPDATE'" @click="onEditDataItem(record)">编辑</span>
+        <span v-show-by-auth="['ROLE_UPDATE', 'MODULAR_READ']" @click="onEditDataItem(record)">编辑</span>
         <span v-show-by-auth="'ROLE_DELETE'" @click="onDeleteDataItem(record)">删除</span>
       </div>
     </template>
@@ -26,7 +26,7 @@
         否
       </div>
     </template>
-    
+
     <template #updateTime="{ record }">
       {{ MixinUseMoment(record.updateTime, 'YYYY-MM-DD HH:mm:ss') }}
     </template>

@@ -1,6 +1,6 @@
 <template>
   <a-dropdown>
-    <Icon class="cur-p" icon="mdi:language-markdown" size="30" />
+    <Icon class="pointer" icon="mdi:language-markdown" size="30" />
     <template #overlay>
       <div class="master-content" @click.stop>
         <div class="master-content-title">

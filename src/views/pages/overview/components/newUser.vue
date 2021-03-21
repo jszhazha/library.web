@@ -6,7 +6,7 @@
           新增用户
         </div>
         <div class="new-user-header-content">
-          0
+          2
         </div>
       </div>
       <div>
@@ -18,7 +18,7 @@
     <div class="new-user-main index-middle" />
     <div class="new-user-footer">
       <span>总用户</span>
-      <span class="ml-1"> 0 </span>
+      <span class="ml-1"> 4 </span>
     </div>
   </div>
 </template>

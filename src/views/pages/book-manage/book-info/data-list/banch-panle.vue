@@ -23,7 +23,7 @@
         @change="(e) => handleEditChange(e.target.value, record, col)"
       />
       <template v-else>
-        <span class="cur-p" @click.stop="handleEditData(record, col)">{{ text }}</span>
+        <span class="pointer" @click.stop="handleEditData(record, col)">{{ text }}</span>
       </template>
     </template>
   </ImportModal>

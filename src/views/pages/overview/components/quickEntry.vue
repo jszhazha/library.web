@@ -1,82 +1,62 @@
 <template>
-  <div class="quick-entry-wrap">
-    <div class="item">
-      <TeamOutlined class="item-icon" style="color: #52c41a;" />
-      <div class="item-title">
-        用户
+  <div class="quick-entry">
+    <card-header>
+      <template #left>
+        快捷方式
+      </template>
+    </card-header>
+    <div class="quick-entry-main">
+      <div
+        v-for="(item, index) in dataSources"
+        :key="index"
+        class="quick-entry-item"
+        @click="handleClickEnter(item.name)"
+      >
+        
+        {{ item.title }}
       </div>
-    </div>
-    <div class="item">
-      <ReadOutlined class="item-icon" style="color: #1890ff;" />
-      <div class="item-title">
-        图书
-      </div>
-    </div>
-    <div class="item">
-      <FormOutlined class="item-icon" style="color: #13c2c2;" />
-      <div class="item-title">
-        问题
-      </div>
-    </div>
-    <div class="item">
-      <ContainerOutlined class="item-icon" style="color: #85a5ff;" />
-      <div class="item-title">
-        类别
-      </div>
-    </div>
-    <div class="item">
-      <ProfileOutlined class="item-icon" style="color: #c41d7f;" />
-      <div class="item-title">
-        登录日志
-      </div>
-    </div>
-    <div class="item">
-      <SettingOutlined class="item-icon" style="color: #a0d911;" />
-      <div class="item-title">
-        操作日志
-      </div>
-    </div>
-    <div class="item">
-      <BookOutlined class="item-icon" style="color: #ffc53d;" />
-      <div class="item-title">
-        字典管理
-      </div>
-    </div>
-    <div class="item">
-      <SolutionOutlined class="item-icon" style="color: #cf1322;" />
-      <div class="item-title">
-        图书借阅
-      </div>
+      <a-button class="quick-entry-item" type="primary" ghost size="small" @click="handleNewEntry">
+        添加
+      </a-button>
     </div>
   </div>
+  <quick-entry-modal v-model:visible="visible" @on-cancel="handleModalCancel" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import {
-  TeamOutlined,
-  ReadOutlined,
-  FormOutlined,
-  ContainerOutlined,
-  ProfileOutlined,
-  SettingOutlined,
-  BookOutlined,
-  SolutionOutlined
-} from '@ant-design/icons-vue'
+import { defineComponent, reactive, ref } from 'vue'
+import quickEntryModal from './quickEntryModal.vue'
+import cardHeader from './cardHeader'
+import { useGo } from '/@/hooks/web/usePage'
 
 export default defineComponent({
-  components: {
-    TeamOutlined,
-    ReadOutlined,
-    FormOutlined,
-    ContainerOutlined,
-    ProfileOutlined,
-    SettingOutlined,
-    BookOutlined,
-    SolutionOutlined
-  },
+  components: { cardHeader, quickEntryModal },
   setup() {
-    return {}
+    const dataSources = reactive([
+      {
+        title: '个人中心',
+        name: 'account-manage-center'
+      }
+    ])
+
+    const go = useGo()
+
+    const visible = ref<boolean>(false)
+
+    // 处理添加新的快捷方式
+    function handleNewEntry() {
+      visible.value = true
+    }
+    // 处理模块取消
+    function handleModalCancel() {
+      visible.value = false
+    }
+    // 处理点击模块
+    function handleClickEnter(name: string) {
+      go({ name })
+    }
+
+    return { dataSources, visible, handleNewEntry, handleClickEnter, handleModalCancel }
   }
 })
 </script>
@@ -84,30 +64,21 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .quick-entry {
-  &-wrap {
+  height: 348px;
+  background: var(--color-background-override);
+
+  &-main {
     display: flex;
-    justify-content: space-between;
-    margin: 16px;
+    flex-wrap: wrap;
+    padding: 10px;
+  }
 
-    .item {
-      flex: 1;
-      padding: 20px 0 15px;
-      text-align: center;
-      background: #fff;
-      border-radius: 8px;
+  &-item {
+    margin: 10px;
+    cursor: pointer;
 
-      &-icon {
-        margin: 0 0 10px;
-        font-size: 24px;
-      }
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    .item:not(:first-of-type) {
-      margin: 0 0 0 16px;
+    &:hover {
+      color: @primary-hover-color;
     }
   }
 }

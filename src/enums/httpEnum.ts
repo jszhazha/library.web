@@ -18,5 +18,8 @@ export enum ResultEnum {
   SUCCESS = 200,
 
   // 成功状态信息
-  SUCCESSMSG = 'OK'
+  SUCCESSMSG = 'OK',
+
+  // 登录过期
+  OVERDUE = "Can't access resource"
 }

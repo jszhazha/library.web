@@ -15,7 +15,7 @@
         <a-col class="pl-4 pr-4" flex="auto">
           <div class="index-button-right">
             <a-button
-              v-if="mode === 1"
+              v-if="mode === MixinPageMode.edit"
               type="primary"
               :loading="loading.add"
               :disabled="disabled"
@@ -23,7 +23,7 @@
             >
               添加
             </a-button>
-            <a-button v-if="mode === 0" type="primary" @click="fetchDataFromServer">
+            <a-button v-if="mode === MixinPageMode.view" type="primary" @click="fetchDataFromServer">
               查询
             </a-button>
           </div>

@@ -25,21 +25,21 @@ const routers: AppRouteModule = {
       }
     },
     {
-      path: 'data-dictionary-list-page',
-      name: 'data-dictionary-list-page',
+      path: 'dictionary-manage-list-page',
+      name: 'dictionary-manage-list-page',
       component: (): unknown =>
-        import(`/@/views/pages/basis-manage/data-dictionary/data-list/list-page.vue`),
+        import(`/@/views/pages/basis-manage/dictionary-manage/data-list/list-page.vue`),
       meta: {
-        title: '数据字典'
+        title: '字典管理'
       }
     },
     {
-      path: 'data-dictionary-data-page',
-      name: 'data-dictionary-data-page',
+      path: 'dictionary-manage-data-page',
+      name: 'dictionary-manage-data-page',
       component: (): unknown =>
-        import(`/@/views/pages/basis-manage/data-dictionary/data-page/data-page.vue`),
+        import(`/@/views/pages/basis-manage/dictionary-manage/data-page/data-page.vue`),
       meta: {
-        title: '数据字典详情',
+        title: '字典管理详情',
         hideInMenu: true,
         ignoreTabKeepAlive: true
       }

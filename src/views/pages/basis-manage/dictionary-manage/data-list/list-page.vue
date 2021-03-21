@@ -8,20 +8,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue"
-import service, { DataDictionary } from "/@/api/basis-manage/data-dictionary"
-import { Instance } from "/@/lib/interface/ListPage"
-import { listPageMix } from "/@/lib/idata/data-list/"
-import searchPanle from "./search-panle.vue"
-import listView from "./list-view.vue"
+import { defineComponent, reactive, toRefs } from 'vue'
+import service, { DictionaryManage } from '/@/api/basis-manage/dictionary-manage'
+import { Instance } from '/@/lib/interface/ListPage'
+import { listPageMix } from '/@/lib/idata/data-list/'
+import { mockData } from './data-list'
+import searchPanle from './search-panle.vue'
+import listView from './list-view.vue'
 
-const DATA_PAGE_NAME = "basis-manage-data-dictionary-data-page"
+const DATA_PAGE_NAME = 'basis-manage-dictionary-manage-data-page'
 
 export default defineComponent({
   components: { listView, searchPanle },
   setup() {
     // 实例
-    const instance = reactive<Instance<DataDictionary>>({
+    const instance = reactive<Instance<DictionaryManage>>({
       // 搜索实例
       searchInstance: null,
       // 列表实例
@@ -39,14 +40,14 @@ export default defineComponent({
       instance
     }
 
-    const { onFetchData, onSearchData, queryData } = listPageMix<DataDictionary>(options)
+    const { onFetchData, onSearchData, queryData } = listPageMix<DictionaryManage>(options)
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
       const query = queryData()
       console.log(query)
       // const { data } = await service.fecthList(query)
-      // instance.listInstance?.setDataSource(data.content, data.totalElements)
+      instance.listInstance?.setDataSource(mockData, 1)
     }
 
     // 删除数据, 刷新数据

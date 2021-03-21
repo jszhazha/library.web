@@ -7,8 +7,7 @@ import { ContentTypeEnum } from '/@/enums/httpEnum';
 import { userStore } from '/@/store/modules/user';
 import { isNull } from '/@/utils/is';
 import { ResultEnum } from '/@/enums/httpEnum'
-
-
+import { useOverdue } from '/@/hooks/web/useOverdue'
 
 
 export default function request<T extends Result>(requestConfig: AxiosRequestConfig) {
@@ -33,6 +32,9 @@ export default function request<T extends Result>(requestConfig: AxiosRequestCon
       if (res.code === ResultEnum.SUCCESS && res.msg === ResultEnum.SUCCESSMSG) {
         // 请求成功
         resolve(res)
+      } else if (res.msg === ResultEnum.OVERDUE) {
+        // 登录失效
+        useOverdue()
       } else {
         // 请求失败
         reject(res)

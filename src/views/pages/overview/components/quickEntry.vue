@@ -39,7 +39,7 @@
     <div class="item">
       <BookOutlined class="item-icon" style="color: #ffc53d;" />
       <div class="item-title">
-        数据字典
+        字典管理
       </div>
     </div>
     <div class="item">

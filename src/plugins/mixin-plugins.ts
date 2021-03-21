@@ -2,6 +2,10 @@ import type { App } from 'vue'
 import { showByAuth } from '../hooks/web/useAuthorities'
 import { useMoment } from '/@/utils/dateFormat'
 import config from '/@/config'
+import { PageMode } from '../utils/helper/breadcrumb'
+
+
+
 
 export default class MixinPlugins {
   static init(app: App<Element>): void {
@@ -9,7 +13,10 @@ export default class MixinPlugins {
       data() {
         return {
           // 配置
-          MixinConfig: config
+          MixinConfig: config,
+
+          // 页面配置
+          MixinPageMode: PageMode
         }
       },
       methods: {

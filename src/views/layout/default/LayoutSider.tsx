@@ -37,7 +37,7 @@ export default defineComponent({
 
     // 处理菜单改变
     function handleMenuChange() {
-      const flatItems = getFlatMenus()
+      const flatItems = getFlatMenus(false)
       const findMenu = flatItems.find((menu) => menu.name === unref(currentRoute).name)
       if (findMenu) {
         menuState.openKeys = getAllParentPathName(flatItems, findMenu.name as string)

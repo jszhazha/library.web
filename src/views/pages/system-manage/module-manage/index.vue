@@ -36,7 +36,7 @@ export default defineComponent({
 
 
     // 查找菜单
-    const findMenu = (key: string) => getFlatMenus().find((menu) => menu.name === key)
+    const findMenu = (key: string) => getFlatMenus(false).find((menu) => menu.name === key)
 
     // 选中
     const selectMenu = ref<FlatMenu | undefined>(findMenu(PageEnum.BASE_HOME))

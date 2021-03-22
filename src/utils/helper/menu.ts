@@ -20,7 +20,10 @@ export function getAuthFilterMenus(isFilterHide = true): AppRouteRecordRaw[] {
 }
 
 // 通过权限和菜单展示条件过滤菜单
-export function authFilterMenus(menus: AppRouteRecordRaw[], isFilterHide = true): AppRouteRecordRaw[] {
+export function authFilterMenus(
+  menus: AppRouteRecordRaw[],
+  isFilterHide = true
+): AppRouteRecordRaw[] {
   const data: AppRouteRecordRaw[] = []
   for (const el of menus) {
     const { auth, hideInMenu, allowChildNull } = el.meta
@@ -46,14 +49,14 @@ export function getMenus(isFilterHide = true): MenuType[] {
 }
 
 // 获取深层扁平化菜单
-export function getFlatMenus(): FlatMenu[] {
-  const routeList = getAuthFilterMenus(true)
+export function getFlatMenus(isFilterHide: boolean): FlatMenu[] {
+  const routeList = getAuthFilterMenus(isFilterHide)
   return flatMenus(routeList, '')
 }
 
 // 获取深层过滤不显示扁平化菜单
 export function getFilterIconFlatMenus(): FlatMenu[] {
-  const menus = getFlatMenus()
+  const menus = getFlatMenus(true)
 
   return menus.filter((el) => !el.meta?.icon)
 }

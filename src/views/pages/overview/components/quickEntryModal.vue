@@ -13,7 +13,7 @@
         <a-input />
       </a-form-item>
       <a-form-item label="链接">
-        <a-input />
+        <MenuSelect />
       </a-form-item>
     </a-form>
     <div class="index-right modal-footer">
@@ -30,7 +30,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import MenuSelect from '/@/components/MenuSelect.vue'
+
 export default defineComponent({
+  components:{MenuSelect},
   emits: ['on-cancel'],
   setup(_props, { emit }) {
     const onCancel = () => emit('on-cancel')

@@ -12,7 +12,6 @@
         class="quick-entry-item"
         @click="handleClickEnter(item.name)"
       >
-        
         {{ item.title }}
       </div>
       <a-button class="quick-entry-item" type="primary" ghost size="small" @click="handleNewEntry">
@@ -34,8 +33,8 @@ export default defineComponent({
   setup() {
     const dataSources = reactive([
       {
-        title: '个人中心',
-        name: 'account-manage-center'
+        title: '个人设置',
+        name: 'account-manage-setting'
       }
     ])
 

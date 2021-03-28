@@ -2,7 +2,7 @@
   <div class="quick-entry">
     <card-header>
       <template #left>
-        快捷方式
+        快捷操作
       </template>
     </card-header>
     <div class="quick-entry-main">

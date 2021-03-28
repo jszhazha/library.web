@@ -6,14 +6,14 @@
     :body-style="{ padding: '16px 20px 20px' }"
   >
     <div class="modal-header">
-      添加快捷方式
+      添加快捷操作
     </div>
     <a-form layout="vertical">
-      <a-form-item label="名称">
-        <a-input />
+      <a-form-item>
+        <a-input placeholder="名称" />
       </a-form-item>
-      <a-form-item label="链接">
-        <MenuSelect />
+      <a-form-item>
+        <MenuSelect placeholder="链接" />
       </a-form-item>
     </a-form>
     <div class="index-right modal-footer">
@@ -45,7 +45,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .modal-header {
-  margin: 0 0 8px;
+  margin: 0 0 24px;
   font-size: 15px;
 }
 </style>

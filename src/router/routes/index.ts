@@ -3,7 +3,7 @@ import { getRouteModule } from '/@/utils/helper/route'
 import { PageEnum } from '/@/enums/pageEnum'
 
 import { DEFAULT_LAYOUT_COMPONENT } from '../constant'
-import { OverviewPage, NoFountPage, IndexPage, Forbidden } from './default/indexRoutes'
+import { OverviewPage, NoFountPage, IndexPage, Forbidden, AnalysisPage } from './default/indexRoutes'
 import { FrameRouters } from './default/frameRouters'
 
 // 路由
@@ -13,7 +13,7 @@ const routeModuleList: AppRouteModule[] = []
 
 Object.keys(modulesRouters).forEach((key) => routeModuleList.push(modulesRouters[key].default))
 
-const routeList = [OverviewPage, ...getRouteModule(routeModuleList)]
+const routeList = [OverviewPage, AnalysisPage, ...getRouteModule(routeModuleList)]
 
 // 获取菜单 树级
 export const getRouteList = (): AppRouteRecordRaw[] => {

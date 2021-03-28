@@ -8,9 +8,19 @@ export const OverviewPage: AppRouteRecordRaw = {
   name: 'overview-page',
   component: (): unknown => import('/@/views/pages/overview/overview-page.vue'),
   meta: {
-    title: '首页',
+    title: '工作台',
     affix: true,
     icon: 'ant-design:home-outlined'
+  }
+}
+
+export const AnalysisPage: AppRouteRecordRaw = {
+  path: 'analysis-page',
+  name: 'analysis-page',
+  component: (): unknown => import('/@/views/pages/analysis/analysis-page.vue'),
+  meta: {
+    title: '分析页',
+    icon: 'ant-design:dashboard-outlined'
   }
 }
 

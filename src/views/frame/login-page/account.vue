@@ -29,7 +29,7 @@
       :disabled="!(!!formData.username && !!formData.password)"
       @on-click="onButtonClick"
     >
-      登录
+      登 录
     </GlobalButton>
     <div class="login-account-link">
       <router-link :to="{ name: PageEnum.BASE_REGISTER }">

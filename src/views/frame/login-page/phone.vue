@@ -28,7 +28,7 @@
     />
     <span class="login-phone-change-link" @click="onChange"> 密码登录 </span>
     <GlobalButton class="login-phone-button" :disabled="!(!!formData.phone && !!formData.code)">
-      登录
+      登 录
     </GlobalButton>
   </div>
 </template>

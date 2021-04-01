@@ -76,6 +76,7 @@ export default defineComponent({
   color: @primary-color;
   cursor: pointer;
   border-radius: 8px;
+  user-select: none;
 
   &:hover {
     background: #f6f9fe;

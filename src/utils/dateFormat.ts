@@ -14,6 +14,6 @@ export function useMoment(date: string, value = 'YYYY年MM月DD日 HH:mm'): stri
 
 export function useBlessing(): string {
   const curTime = (Math.floor(Number(moment().format("H")) / 6) as 0 | 1 | 2 | 3)
-  const timeMap = { 0: '夜已深，要注意休息哦！', 1: '祝你开心每一天！', 2: '祝你开心每一天！', 3: '祝你开心每一天！' }
+  const timeMap = { 0: '夜已深，要注意休息哦！', 1: '早上好，美好的一天开始啦~', 2: '中午好, 放松一下心情吧~', 3: '祝你开心每一天！' }
   return timeMap[curTime]
 }

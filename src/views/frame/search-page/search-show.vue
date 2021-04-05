@@ -21,40 +21,45 @@
     </div>
   </div>
   <div class="main">
-    <div class="main-row-title-name">
-      {{ bookInfo.name }}
-    </div>
-    <div class="main-row">
-      <span class="main-row-title">作 者</span>
-      <span>{{ bookInfo.author }}</span>
-    </div>
-    <div class="main-row">
-      <span class="main-row-title">图书分类</span>
-      <span>{{ bookInfo.bookCategory?.name }}</span>
-    </div>
-    <div class="main-row">
-      <span class="main-row-title">出版社</span>
-      <span>{{ bookInfo.publisher }}</span>
-    </div>
-    <div class="main-row">
-      <span class="main-row-title">价 格</span>
-      <span>{{ bookInfo.price }}</span>
-    </div>
-    <div class="main-row">
-      <span class="main-row-title">出版社</span>
-      <span>{{ bookInfo.publisher }}</span>
-    </div>
-    <div class="main-row">
-      <span class="main-row-title">ISBN</span>
-      <span>{{ bookInfo.isbn }}</span>
-    </div>
-    <div class="main-row">
-      <span class="main-row-title">出版时间</span>
-      <span>{{ bookInfo.publicationTime }}</span>
-    </div>
-    <div class="main-row">
-      <span class="main-row-title">描述</span>
-      <span>{{ bookInfo.description }}</span>
+    <div class="flex">
+      <div class="book-image" />
+      <div class="index-column flex-space-between">
+        <div class="main-row-title-name">
+          {{ bookInfo.name }}
+        </div>
+        <div class="main-row">
+          <span class="main-row-title">作 者</span>
+          <span>{{ bookInfo.author }}</span>
+        </div>
+        <div class="main-row">
+          <span class="main-row-title">图书分类</span>
+          <span>{{ bookInfo.bookCategory?.name }}</span>
+        </div>
+        <div class="main-row">
+          <span class="main-row-title">出版社</span>
+          <span>{{ bookInfo.publisher }}</span>
+        </div>
+        <div class="main-row">
+          <span class="main-row-title">价 格</span>
+          <span>{{ bookInfo.price }}</span>
+        </div>
+        <div class="main-row">
+          <span class="main-row-title">出版社</span>
+          <span>{{ bookInfo.publisher }}</span>
+        </div>
+        <div class="main-row">
+          <span class="main-row-title">ISBN</span>
+          <span>{{ bookInfo.isbn }}</span>
+        </div>
+        <div class="main-row">
+          <span class="main-row-title">出版时间</span>
+          <span>{{ bookInfo.publicationTime }}</span>
+        </div>
+        <div class="main-row">
+          <span class="main-row-title">描述</span>
+          <span>{{ bookInfo.description }}</span>
+        </div>
+      </div>
     </div>
     <GlobalTable
       bordered
@@ -125,6 +130,7 @@ export default defineComponent({
       width: 30px;
       height: 30px;
       color: #000 !important;
+      cursor: pointer;
 
       &:active {
         background: #dcdee2;
@@ -150,8 +156,16 @@ export default defineComponent({
   margin: 20px auto 0;
   overflow: auto;
 
+  .book-image {
+    flex-shrink: 0;
+    width: 200px;
+    height: 300px;
+    margin: 0 20px 0 0;
+    border: 1px dashed #dfe1e5;
+    border-radius: 5px;
+  }
+
   &-row {
-    margin: 10px 0 0;
     font-size: 13px;
 
     &-title {

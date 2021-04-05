@@ -67,6 +67,16 @@
           </a-col>
         </a-row>
       </GlobalCard>
+
+      <GlobalCard>
+        <div class="pl-4 pr-4 ">
+          <a-form-item label="图书封面">
+            <a-button type="link">
+              上传
+            </a-button>
+          </a-form-item>
+        </div>
+      </GlobalCard>
     </a-form>
 
     <!-- 馆藏信息 -->
@@ -139,4 +149,6 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+
+</style>

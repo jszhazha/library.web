@@ -1,7 +1,9 @@
 <template>
   <div class="mr-1 ml-1" @click="openFile">
     <input ref="inputRef" type="file" class="display-none" :accept="accept" @change="handleFiles">
-    <a-button><LoadingOutlined v-if="loading" />{{ title }}</a-button>
+    <a-button :loading="loading">
+      {{ title }}
+    </a-button>
   </div>
 </template>
 

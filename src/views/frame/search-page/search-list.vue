@@ -1,25 +1,28 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
   <div v-for="item in dataSource" :key="item.id" class="search-list-box">
-    <div class="header">
-      <router-link class="header-link" :to="'/search/' + item.id" v-html="highlight(item.name)" />
-    </div>
-    <div class="main">
-      <div class="main-box">
-        <span class="box-title">作者</span>
-        <span class="box-content" v-html="highlight(item.author)" />
+    <div class="book-image" />
+    <div>
+      <div class="header">
+        <router-link class="header-link" :to="'/search/' + item.id" v-html="highlight(item.name)" />
       </div>
-      <div class="main-box">
-        <span class="box-title">出版社</span>
-        <span class="box-content" v-html="highlight(item.publisher)" />
-      </div>
-      <div class="main-box">
-        <span class="box-title">出版时间</span>
-        <span class="box-content">{{ item.publicationTime }}</span>
-      </div>
-      <div class="main-box">
-        <span class="box-title">描述</span>
-        <span class="box-content" v-html="highlight(item.description || '没有找到任何描述信息')" />
+      <div class="main">
+        <div class="main-box">
+          <span class="box-title">作者</span>
+          <span class="box-content" v-html="highlight(item.author)" />
+        </div>
+        <div class="main-box">
+          <span class="box-title">出版社</span>
+          <span class="box-content" v-html="highlight(item.publisher)" />
+        </div>
+        <div class="main-box">
+          <span class="box-title">出版时间</span>
+          <span class="box-content">{{ item.publicationTime }}</span>
+        </div>
+        <div class="main-box">
+          <span class="box-title">描述</span>
+          <span class="box-content" v-html="highlight(item.description || '没有找到任何描述信息')" />
+        </div>
       </div>
     </div>
   </div>
@@ -60,11 +63,21 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .search-list-box {
+  display: flex;
   margin: 0 0 30px 0;
 
   ::v-deep(em) {
     font-style: normal;
     color: red;
+  }
+
+  .book-image{
+    flex-shrink: 0;
+    width: 120px;
+    height: 140px;
+    margin: 0 20px 0 0;
+    border: 1px dashed #dfe1e5;
+    border-radius: 5px;
   }
 
   .header {

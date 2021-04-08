@@ -23,12 +23,12 @@ export default defineComponent({
     const listData = [
       { title: '账户密码', content: '当前密码强度：强', action: '修改' },
       {
-        title: '密保手机',
+        title: '手机号码',
         content: `已绑定手机：${userStore.getUserInfoState?.mobile}`,
         action: '修改'
       },
       {
-        title: '密保邮箱',
+        title: '邮箱地址',
         content: `已绑定邮箱：${userStore.getUserInfoState?.email}`,
         action: '修改'
       }

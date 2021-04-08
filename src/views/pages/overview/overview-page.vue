@@ -18,7 +18,7 @@
           <div class="content-tips">
             <span>{{ userInfo.roles.map((el) => el.name).join(' ') }}</span>
             <span> - </span>
-            <span>{{ userInfo.roles.map((el) => el.description).join(' ') }}</span>
+            <span>{{ userInfo.description }}</span>
           </div>
         </div>
       </div>

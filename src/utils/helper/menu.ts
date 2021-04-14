@@ -49,7 +49,7 @@ export function getMenus(isFilterHide = true): MenuType[] {
 }
 
 // 获取深层扁平化菜单
-export function getFlatMenus(isFilterHide: boolean): FlatMenu[] {
+export function getFlatMenus(isFilterHide = true): FlatMenu[] {
   const routeList = getAuthFilterMenus(isFilterHide)
   return flatMenus(routeList, '')
 }

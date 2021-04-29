@@ -22,7 +22,6 @@
   </div>
   <div class="main">
     <div class="flex">
-      <div class="book-image" />
       <div class="index-column flex-space-between">
         <div class="main-row-title-name">
           {{ bookInfo.name }}
@@ -156,14 +155,6 @@ export default defineComponent({
   margin: 20px auto 0;
   overflow: auto;
 
-  .book-image {
-    flex-shrink: 0;
-    width: 200px;
-    height: 300px;
-    margin: 0 20px 0 0;
-    border: 1px dashed #dfe1e5;
-    border-radius: 5px;
-  }
 
   &-row {
     font-size: 13px;

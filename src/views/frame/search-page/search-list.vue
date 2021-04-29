@@ -1,7 +1,6 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
   <div v-for="item in dataSource" :key="item.id" class="search-list-box">
-    <div class="book-image" />
     <div>
       <div class="header">
         <router-link class="header-link" :to="'/search/' + item.id" v-html="highlight(item.name)" />
@@ -71,14 +70,6 @@ export default defineComponent({
     color: red;
   }
 
-  .book-image{
-    flex-shrink: 0;
-    width: 120px;
-    height: 140px;
-    margin: 0 20px 0 0;
-    border: 1px dashed #dfe1e5;
-    border-radius: 5px;
-  }
 
   .header {
     &-link {

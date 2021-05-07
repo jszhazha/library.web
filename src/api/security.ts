@@ -41,6 +41,25 @@ export interface UserInfo {
   enabled?: boolean
 }
 
+
+export interface Register {
+  // 账户
+  username?: string
+
+  // 密码
+  password?: string
+
+  // 电话
+  mobile?: string
+
+  // 邮箱
+  email?: string
+
+  // 重复
+  repeat?: string
+
+}
+
 export interface CSRF {
   // 用户标识符
   token: string

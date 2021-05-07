@@ -40,22 +40,22 @@
 </template>
 
 <script lang="ts">
-import type { PropType } from "vue"
-import { defineComponent, ref, reactive, onBeforeUnmount } from "vue"
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons-vue"
+import type { PropType } from 'vue'
+import { defineComponent, ref, reactive, onBeforeUnmount } from 'vue'
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons-vue'
 
 enum InputTypeMap {
-  text = "text",
-  password = "password",
-  phone = "text",
-  code = "text"
+  text = 'text',
+  password = 'password',
+  phone = 'text',
+  code = 'text'
 }
 
 enum TypeMap {
-  text = "text",
-  password = "password",
-  phone = "phone",
-  code = "code"
+  text = 'text',
+  password = 'password',
+  phone = 'phone',
+  code = 'code'
 }
 
 interface UserInput {
@@ -75,20 +75,20 @@ export default defineComponent({
     // 类型
     type: {
       type: String as PropType<string>,
-      default: "text",
+      default: 'text',
       validator: (v: string): boolean => {
-        return ["text", "password", "phone", "code"].includes(v)
+        return ['text', 'password', 'phone', 'code'].includes(v)
       }
     },
     // 提示文件
     placeholder: {
       type: String as PropType<string>,
-      default: ""
+      default: ''
     },
     // 值
     value: {
       type: String as PropType<string>,
-      default: ""
+      default: ''
     },
     // 最大长度
     maxlength: {
@@ -111,7 +111,7 @@ export default defineComponent({
       default: true
     }
   },
-  emits: ["update:value", "update:errorBorder", "on-enter", "on-blur"],
+  emits: ['update:value', 'update:errorBorder', 'on-enter', 'on-blur', 'on-input'],
   setup(props, { emit }) {
     const userInput = reactive<UserInput>({
       type: InputTypeMap[props.type as InputTypeMap],
@@ -119,11 +119,11 @@ export default defineComponent({
     })
     const codeContent = reactive<CodeContent>({
       instance: null,
-      tip: "获取验证码",
+      tip: '获取验证码',
       time: 0
     })
     const passwordType = ref<boolean>(true)
-    const borderColor = ref<string>("")
+    const borderColor = ref<string>('')
 
     // 密码切换
     function handleSwitch(value: boolean) {
@@ -134,24 +134,25 @@ export default defineComponent({
 
     // 失去焦点
     function handleBlur() {
-      borderColor.value = ""
-      emit("on-blur")
+      borderColor.value = ''
+      emit('on-blur')
     }
 
     // 获得焦点
     function handleFocus() {
       if (props.focusHighlight) {
-        borderColor.value = "#1890ff"
+        borderColor.value = '#1890ff'
       }
     }
 
     // 输入内容
     function handleInput() {
       if (props.type === TypeMap.phone) {
-        userInput.value = userInput.value.replace(/[^0-9]+/g, "")
+        userInput.value = userInput.value.replace(/[^0-9]+/g, '')
       }
-      emit("update:value", userInput.value)
-      emit("update:errorBorder", false)
+      emit('update:value', userInput.value)
+      emit('update:errorBorder', false)
+      emit('on-input', userInput.value)
     }
 
     // 点击 code
@@ -165,7 +166,7 @@ export default defineComponent({
     // 用户按下 enter
     function handleEnter() {
       if (userInput.value) {
-        emit("on-enter")
+        emit('on-enter')
       }
     }
 
@@ -176,7 +177,7 @@ export default defineComponent({
         codeContent.time--
         codeContent.tip = `重新获取 (${codeContent.time})`
         if (codeContent.time === -1) {
-          codeContent.tip = "重新获取"
+          codeContent.tip = '重新获取'
           clearInterval(codeContent.instance!)
           codeContent.instance = null
         }

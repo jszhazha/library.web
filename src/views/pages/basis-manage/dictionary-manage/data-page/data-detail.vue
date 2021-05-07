@@ -129,7 +129,6 @@ export default defineComponent({
     }
 
     // 数据删除
-    // 数据删除
     async function onDeleteDataItem({ id }: DictionaryDetail) {
       useDeleteModal(async () => {
         await service.deleteItemById(id!)

@@ -1,5 +1,4 @@
 import type { TableColumn } from '/@/lib/props/TableList'
-import type { DictionaryManage } from "/@/api/basis-manage/dictionary-manage"
 
 export const tableColumns: TableColumn[] = [
   {
@@ -26,7 +25,8 @@ export const tableColumns: TableColumn[] = [
     title: '状态',
     dataIndex: 'state',
     align: 'center',
-    ellipsis: true
+    ellipsis: true,
+    slots: { customRender: 'state' }
   },
   {
     title: '描述',
@@ -35,21 +35,18 @@ export const tableColumns: TableColumn[] = [
     ellipsis: true
   },
   {
+    title: '创建时间',
+    dataIndex: 'createTime',
+    align: 'center',
+    ellipsis: true,
+    slots: { customRender: 'createTime' }
+  },
+  {
     title: '操作',
     align: 'center',
     width: 170,
     ellipsis: true,
     dataIndex: 'operation',
     slots: { customRender: 'operation' }
-  }
-]
-
-export const mockData: DictionaryManage[] = [
-  {
-    id: 1,
-    name: '用户性别',
-    type: "sys_user_sex",
-    state: 1,
-    description: '用户性别列表'
   }
 ]

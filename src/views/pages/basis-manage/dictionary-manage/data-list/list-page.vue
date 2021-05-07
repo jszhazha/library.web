@@ -12,7 +12,6 @@ import { defineComponent, reactive, toRefs } from 'vue'
 import service, { DictionaryManage } from '/@/api/basis-manage/dictionary-manage'
 import { Instance } from '/@/lib/interface/ListPage'
 import { listPageMix } from '/@/lib/idata/data-list/'
-import { mockData } from './data-list'
 import searchPanle from './search-panle.vue'
 import listView from './list-view.vue'
 
@@ -45,9 +44,8 @@ export default defineComponent({
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
       const query = queryData()
-      console.log(query)
-      // const { data } = await service.fecthList(query)
-      instance.listInstance?.setDataSource(mockData, 1)
+      const { data } = await service.fecthList(query)
+      instance.listInstance?.setDataSource(data.content, data.totalElements)
     }
 
     // 删除数据, 刷新数据

@@ -11,6 +11,14 @@
         新增
       </a-button>
     </template>
+    <template #state="{ record }">
+      <div>{{ record.state ? '正常' : '停用' }}</div>
+    </template>
+
+    <template #createTime="{ record }">
+      {{ MixinUseMoment(record.createTime, 'YYYY-MM-DD HH:mm:ss') }}
+    </template>
+
     <template #operation="{ record }">
       <div class="index-operation">
         <span @click="onViewDataItem(record)">查看</span>
@@ -18,6 +26,8 @@
         <span @click="onDeleteDataItem(record)">删除</span>
       </div>
     </template>
+
+    
 
     <template #footer-right>
       <PaginationWrap v-model:current="current" :total="totalElements" @change="onPageChange" />

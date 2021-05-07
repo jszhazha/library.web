@@ -7,7 +7,7 @@ interface ConfigProvide {
 export function useConfigProvider(): ConfigProvide {
   function transformCellText({ text }: { text: string }) {
     if (isNull(text) || isUnDef(text)) {
-      return ''
+      return '-'
     }
     return text
   }

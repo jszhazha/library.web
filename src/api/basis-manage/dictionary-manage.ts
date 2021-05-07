@@ -41,7 +41,7 @@ export default class Service {
   // 向服务查询数据并分页返回结果
   static fecthList(query?: PagerQueryData): Promise<DataPager> {
     return request<DataPager>({
-      url: "/api/data-dictionary",
+      url: "/epi/dict",
       method: "get",
       params: query
     })
@@ -52,7 +52,7 @@ export default class Service {
   // 保存数据到远程服务器
   static saveNewItem(item: DictionaryManage): Promise<Result<DictionaryManage>> {
     return request<Result<DictionaryManage>>({
-      url: "/api/data-dictionary",
+      url: "/epi/dict",
       method: "post",
       data: item
     })
@@ -61,7 +61,7 @@ export default class Service {
   // 通过ID取得数据
   static getItemById(id: number): Promise<Result<DictionaryManage>> {
     return request<Result<DictionaryManage>>({
-      url: "/api/data-dictionary/" + id,
+      url: "/epi/dict/" + id,
       method: "get"
     })
   }
@@ -69,7 +69,7 @@ export default class Service {
   // 更新数据到远程服务器
   static updateItem(id: number, item: DictionaryManage): Promise<Result<DictionaryManage>> {
     return request<Result<DictionaryManage>>({
-      url: "/api/data-dictionary/" + id,
+      url: "/epi/dict/" + id,
       method: "put",
       data: item
     })
@@ -78,7 +78,7 @@ export default class Service {
   // 删除指定ID的数据
   static deleteItemById(id: number): Promise<Result<null>> {
     return request<Result<null>>({
-      url: "/api/data-dictionary/" + id,
+      url: "/epi/dict/" + id,
       method: "delete"
     })
   }

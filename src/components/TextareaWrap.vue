@@ -3,6 +3,7 @@
     v-model:value="inputValue"
     class="textarea-wrap"
     :disabled="inputReadonly"
+    :auto-size="{ minRows: 2, maxRows: 5 }"
     :placeholder="inputReadonly ? '' : placeholder"
     @change="onChange"
   />

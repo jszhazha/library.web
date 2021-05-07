@@ -9,19 +9,11 @@ export const formRules: FromRules = {
       message: '不允许为空'
     }
   ],
-  code: [
+  type: [
     {
       required: true,
       whitespace: true,
       message: '不允许为空'
-    },
-    {
-      validator: (_rule: unknown, value: string): Promise<void> => {
-        if (/^[A-Z0-9a-z]{0,4}$/.test(value)) {
-          return Promise.resolve()
-        }
-        return Promise.reject('格式错误')
-      }
     }
   ]
 }
@@ -42,21 +34,15 @@ export const dataTypeColumn: TableColumn[] = [
 
   },
   {
-    title: '字典标签',
+    title: '数据标签',
     dataIndex: 'label',
     align: 'center',
     ellipsis: true
 
   },
   {
-    title: '字典键值',
+    title: '数据键值',
     dataIndex: 'value',
-    align: 'center',
-    ellipsis: true
-  },
-  {
-    title: '字典排序',
-    dataIndex: 'sort',
     align: 'center',
     ellipsis: true
   },
@@ -64,7 +50,8 @@ export const dataTypeColumn: TableColumn[] = [
     title: '状态',
     dataIndex: 'state',
     align: 'center',
-    ellipsis: true
+    ellipsis: true,
+    slots: { customRender: 'state' }
   },
   {
     title: '描述',
@@ -81,3 +68,22 @@ export const dataTypeColumn: TableColumn[] = [
     slots: { customRender: 'operation' }
   }
 ]
+
+
+export const dictDetailRules: FromRules = {
+  label: [
+    {
+      required: true,
+      whitespace: true,
+      message: '不允许为空'
+    }
+  ],
+  value: [
+    {
+      required: true,
+      whitespace: true,
+      message: '不允许为空'
+    }
+  ]
+  
+}

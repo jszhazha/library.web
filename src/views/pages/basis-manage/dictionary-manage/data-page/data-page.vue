@@ -10,13 +10,13 @@
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="字典类型" v-bind="validateInfos.code">
-              <InputWrap v-model:value="dataItem.code" :maxlength="4" :readonly="mode === 1" />
+            <a-form-item label="字典类型" v-bind="validateInfos.type">
+              <InputWrap v-model:value="dataItem.type" :readonly="mode === 1" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="状态" v-bind="validateInfos.show">
-              <SelectWrap v-model:value="dataItem.show" :options="selectOption" />
+            <a-form-item label="状态" v-bind="validateInfos.state">
+              <SelectWrap v-model:value="dataItem.state" :options="selectOption" />
             </a-form-item>
           </a-col>
         </a-row>
@@ -35,11 +35,11 @@
       </GlobalCard>
     </a-form>
 
+    <!-- 字典数据 -->
+    <data-detail v-if="dataItem.id" :mode="mode" :dict-type="dataItem.type" />
+
     <!-- 修改信息 -->
     <OperationInfoPanel v-if="dataItem.id" :data="dataItem" />
-
-    <!-- Can't access resource -->
-    <data-type v-if="dataItem.id" :mode="mode" />
 
     <!-- 操作 -->
     <template #footer-block>
@@ -62,12 +62,12 @@ import { dataPageMix } from '/@/lib/idata/data-page/'
 import { formRules, selectOption } from './data-page'
 import service, { DictionaryManage } from '/@/api/basis-manage/dictionary-manage'
 import { assign } from 'lodash-es'
-import dataType from './data-type.vue'
+import dataDetail from './data-detail.vue'
 
 export default defineComponent({
-  components: { dataType },
+  components: { dataDetail },
   setup() {
-    const dataItem = reactive<DictionaryManage>({})
+    const dataItem = reactive<DictionaryManage>({ state: 1 })
     const rules = reactive(formRules)
     const onServerMethods = { onNewData, onSaveData, onLoadDataById }
     const parameter = { rules, dataItem, onServerMethods }
@@ -80,18 +80,26 @@ export default defineComponent({
     async function onLoadDataById(id: number) {
       const { data } = await service.getItemById(id)
       assign(dataItem, data)
+      changeDataType()
     }
 
     // 保存数据
     async function onSaveData(id: number, contrast: DictionaryManage) {
       const { data } = await service.updateItem(id, contrast)
       assign(dataItem, data)
+      changeDataType()
     }
 
     // 新增数据
     async function onNewData() {
       const { data } = await service.saveNewItem(dataItem)
       assign(dataItem, data)
+      changeDataType()
+    }
+
+    // 改变数据类型
+    function changeDataType() {
+      dataItem.state = dataItem.state ? 1 : 0
     }
 
     return {

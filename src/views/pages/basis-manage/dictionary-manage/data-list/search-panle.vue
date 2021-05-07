@@ -8,7 +8,7 @@
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="字典类型">
-          <InputSearch v-model:value="queryData.code" />
+          <InputSearch v-model:value="queryData.type" />
         </a-form-item>
       </a-col>
       <a-col :xs="24" :lg="8" class="index-table-search-col">

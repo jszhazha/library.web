@@ -86,7 +86,7 @@ function newModeInit<T>(dataItem: T, mode: Ref<number>, name: string, storage: C
     }
   }
   // 查看缓存中是否有数据
-  checkCacheData<T>(name, storage, (data: T) => assign(dataItem, data))
+  checkCacheData<T>(name, storage, (data: T) => assign(dataItem, data), dataItem)
 
   /**
    * 刷新页面 不会走生命周期 , 同时监听刷新和卸载时 进行缓存数据

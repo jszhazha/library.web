@@ -1,22 +1,37 @@
 <template>
   <GlobalDataPage :mode="mode">
-    <a-form :label-col="{ flex: '100px' }" :wrapper-col="{ flex: 'auto' }">
+    <a-form :label-col="{ flex: '110px' }" :wrapper-col="{ flex: 'auto' }">
       <!-- 基本信息 -->
       <GlobalCard title="基本信息">
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="字典名称" v-bind="validateInfos.name">
+            <a-form-item label="日期名称" v-bind="validateInfos.name">
               <InputWrap v-model:value="dataItem.name" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="字典类型" v-bind="validateInfos.code">
-              <InputWrap v-model:value="dataItem.code" :maxlength="4" :readonly="mode === 1" />
+            <a-form-item label="状态" v-bind="validateInfos.state">
+              <SelectWrap v-model:value="dataItem.state" :options="selectOption" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="状态" v-bind="validateInfos.show">
-              <SelectWrap v-model:value="dataItem.show" :options="selectOption" />
+            <a-form-item label="开始日期" v-bind="validateInfos.startDate">
+              <DatePickerWrap v-model:value="dataItem.startDate" :end-date="dataItem.endDate" />
+            </a-form-item>
+          </a-col>
+          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
+            <a-form-item label="结束日期" v-bind="validateInfos.endDate">
+              <DatePickerWrap v-model:value="dataItem.endDate" :start-date="dataItem.startDate" />
+            </a-form-item>
+          </a-col>
+          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
+            <a-form-item label="延迟日期" v-bind="validateInfos.delayValue">
+              <InputNumberWrap v-model:value="dataItem.delayValue" />
+            </a-form-item>
+          </a-col>
+          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
+            <a-form-item label="延迟日期单位" v-bind="validateInfos.delayUnit">
+              <SelectWrap v-model:value="dataItem.delayUnit" :options="selectUnitOption" />
             </a-form-item>
           </a-col>
         </a-row>
@@ -56,17 +71,17 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import { dataPageMix } from '/@/lib/idata/data-page/'
-import { formRules, selectOption } from './data-page'
-import service, { BookCategory } from '/@/api/book-manage/book-category'
+import { formRules, selectOption, selectUnitOption } from './data-page'
+import service, { DateManage } from '/@/api/basis-manage/date-manage'
 import { assign } from 'lodash-es'
 
 export default defineComponent({
   setup() {
-    const dataItem = reactive<BookCategory>({})
+    const dataItem = reactive<DateManage>({ state: 1 })
     const rules = reactive(formRules)
     const onServerMethods = { onNewData, onSaveData, onLoadDataById }
     const parameter = { rules, dataItem, onServerMethods }
-    const { pageInfo, onDataMethods, validateInfos, loading } = dataPageMix<BookCategory>(parameter)
+    const { pageInfo, onDataMethods, validateInfos, loading } = dataPageMix<DateManage>(parameter)
     const { mode, readonly } = toRefs(pageInfo)
 
     // 通过ID加载数据
@@ -76,7 +91,7 @@ export default defineComponent({
     }
 
     // 保存数据
-    async function onSaveData(id: number, contrast: BookCategory) {
+    async function onSaveData(id: number, contrast: DateManage) {
       const { data } = await service.updateItem(id, contrast)
       assign(dataItem, data)
     }
@@ -93,6 +108,7 @@ export default defineComponent({
       dataItem,
       loading,
       selectOption,
+      selectUnitOption,
       validateInfos,
       ...onDataMethods
     }

@@ -8,19 +8,34 @@ export const formRules: FromRules = {
       message: '不允许为空'
     }
   ],
-  code: [
+  startDate: [
     {
       required: true,
       whitespace: true,
       message: '不允许为空'
-    },
+    }
+  ],
+  endDate: [
     {
-      validator: (_rule: unknown, value: string): Promise<void> => {
-        if (/^[A-Z0-9a-z]{0,4}$/.test(value)) {
-          return Promise.resolve()
-        }
-        return Promise.reject('格式错误')
-      }
+      required: true,
+      whitespace: true,
+      message: '不允许为空'
+    }
+  ],
+  delayValue: [
+    {
+      type: 'number',
+      required: true,
+      whitespace: true,
+      message: '不允许为空'
+    }
+  ],
+  delayUnit: [
+    {
+      type: 'number',
+      required: true,
+      whitespace: true,
+      message: '不允许为空'
     }
   ]
 }
@@ -29,4 +44,12 @@ export const formRules: FromRules = {
 export const selectOption = [
   { value: 1, label: '正常' },
   { value: 0, label: '停用' }
+]
+
+export const selectUnitOption = [
+  { value: 1, label: '年' },
+  { value: 2, label: '季' },
+  { value: 3, label: '月' },
+  { value: 4, label: '周' },
+  { value: 5, label: '日' }
 ]

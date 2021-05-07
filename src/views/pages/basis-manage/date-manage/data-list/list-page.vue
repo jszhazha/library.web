@@ -9,19 +9,19 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
-import service, { BookCategory } from '/@/api/book-manage/book-category'
+import service, { DateManage } from '/@/api/basis-manage/date-manage'
 import { Instance } from '/@/lib/interface/ListPage'
 import { listPageMix } from '/@/lib/idata/data-list/'
 import searchPanle from './search-panle.vue'
 import listView from './list-view.vue'
 
-const DATA_PAGE_NAME = 'basis-manage-data-dictionary-data-page'
+const DATA_PAGE_NAME = 'basis-manage-date-manage-data-page'
 
 export default defineComponent({
   components: { listView, searchPanle },
   setup() {
     // 实例
-    const instance = reactive<Instance<BookCategory>>({
+    const instance = reactive<Instance<DateManage>>({
       // 搜索实例
       searchInstance: null,
       // 列表实例
@@ -39,14 +39,14 @@ export default defineComponent({
       instance
     }
 
-    const { onFetchData, onSearchData, queryData } = listPageMix<BookCategory>(options)
+    const { onFetchData, onSearchData, queryData } = listPageMix<DateManage>(options)
 
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
       const query = queryData()
       console.log(query)
-      // const { data } = await service.fecthList(query)
-      // instance.listInstance?.setDataSource(data.content, data.totalElements)
+      const { data } = await service.fecthList(query)
+      instance.listInstance?.setDataSource(data.content, data.totalElements)
     }
 
     // 删除数据, 刷新数据

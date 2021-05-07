@@ -56,7 +56,6 @@ export default defineComponent({
 
     // 数据初始化
     function chartInit() {
-      console.log()
       const chart = new Chart({
         container: containerRef.value!,
         height: 60,

@@ -25,6 +25,17 @@ const routers: AppRouteModule = {
       }
     },
     {
+      path: 'date-manage-data-page',
+      name: 'date-manage-data-page',
+      component: (): unknown =>
+        import(`/@/views/pages/basis-manage/date-manage/data-page/data-page.vue`),
+      meta: {
+        title: '日期管理详情',
+        hideInMenu: true,
+        ignoreTabKeepAlive: true
+      }
+    },
+    {
       path: 'dictionary-manage-list-page',
       name: 'dictionary-manage-list-page',
       component: (): unknown =>

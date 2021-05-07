@@ -10,16 +10,17 @@ export const tableColumns: TableColumn[] = [
   },
   {
     title: '日期范围',
-    dataIndex: 'name',
+    dataIndex: 'date',
     align: 'center',
-    ellipsis: true
-
+    ellipsis: true,
+    slots: { customRender: 'date' }
   },
   {
     title: '延迟时间',
-    dataIndex: 'code',
+    dataIndex: 'delay',
     align: 'center',
-    ellipsis: true
+    ellipsis: true,
+    slots: { customRender: 'delay' }
   },
   {
     title: '状态',
@@ -41,4 +42,14 @@ export const tableColumns: TableColumn[] = [
     dataIndex: 'operation',
     slots: { customRender: 'operation' }
   }
+]
+
+
+
+export const selectUnitOption = [
+  { value: 1, label: '年' },
+  { value: 2, label: '季' },
+  { value: 3, label: '月' },
+  { value: 4, label: '周' },
+  { value: 5, label: '日' }
 ]

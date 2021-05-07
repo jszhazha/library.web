@@ -43,7 +43,7 @@ export default defineComponent({
         }
 
         let route: any = unref(value)
-        const flatItems = getFlatMenus()
+        const flatItems = getFlatMenus(false) 
         if (route.meta?.hideInTab) {
           const parentPath = getAllParentPath(flatItems, value.name as string).reverse()
           route = parentPath.find((el) => !el.meta?.hideInTab)
@@ -70,7 +70,7 @@ export default defineComponent({
      * @description: 设置固定tabs
      */
     function addAffixTabs(): void {
-      const affixTabs = filterAffixTabs((getFlatMenus() as unknown) as AppRouteRecordRaw[])
+      const affixTabs = filterAffixTabs((getFlatMenus(false) as unknown) as AppRouteRecordRaw[])
       const cacheTabs = readCacheTabs()
       tabStore.commitResetTabsState()
       if (cacheTabs) {
@@ -86,7 +86,7 @@ export default defineComponent({
 
     // 获取全部路由设置 防止不存在路由添加 也只有菜单路由添加进去
     function addRouteSet() {
-      const routes = getFlatMenus()
+      const routes = getFlatMenus(false)
       routes.forEach((item) => routeSet.add(item.name))
     }
 

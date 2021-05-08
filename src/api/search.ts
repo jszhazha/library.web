@@ -72,7 +72,7 @@ export default class Service {
   // 向服务查询数据并分页返回结果
   static fecthHotList(): Promise<Result<Hot[]>> {
     return request<Result<Hot[]>>({
-      url: '/epi/search/hot',
+      url: '/epi/record/search',
       method: 'get'
     })
   }

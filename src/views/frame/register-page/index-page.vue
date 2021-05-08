@@ -157,7 +157,6 @@ export default defineComponent({
       if (!dataItem.password) {
         return
       }
-
       if (dataItem.password.length < 6) {
         errorTips.isPassword = true
         errorTips.password = '至少包含6个字符'

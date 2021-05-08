@@ -4,7 +4,7 @@
       <span><a href="https://github.com/PBOVE" target="_blank">pbove</a></span>
       <span><a href="https://github.com/Abouerp" target="_blank">abouerp</a></span>
       <span><router-link :to="{ name: 'help' }">帮助中心</router-link></span>
-      <span><a href="https://tibis.top" target="_blank">微享文档</a></span>
+      <!-- <span><a href="https://tibis.top" target="_blank">微享文档</a></span> -->
     </div>
     <div>
       <span>©2021 毕业设计</span>

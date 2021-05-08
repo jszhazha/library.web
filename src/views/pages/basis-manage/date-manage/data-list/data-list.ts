@@ -30,7 +30,7 @@ export const tableColumns: TableColumn[] = [
   },
   {
     title: '备注',
-    dataIndex: 'updateBy',
+    dataIndex: 'description',
     align: 'center',
     ellipsis: true
   },

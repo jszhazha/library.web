@@ -63,7 +63,7 @@ export default class Service {
   // 向服务查询数据并分页返回结果
   static fecthList(query: Partial<PagerQueryData>): Promise<DataPager> {
     return request<DataPager>({
-      url: '/epi/search/high',
+      url: '/epi/search',
       method: 'get',
       params: query
     })

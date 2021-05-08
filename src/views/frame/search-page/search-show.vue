@@ -84,9 +84,9 @@
           被预约
         </a-tag>
       </template>
-      <template #operation>
+      <template #operation="{ record }">
         <div class="index-operation">
-          <span @click="handleBorrow">借阅</span>
+          <span v-if="record.status === 'IN_LIBRARY'" @click="handleBorrow(record)">借阅</span>
         </div>
       </template>
     </GlobalTable>
@@ -139,16 +139,24 @@ export default defineComponent({
     })
 
     // 借阅书籍
-    async function handleBorrow() {
+    async function handleBorrow(record: BookDetail) {
       // 未登录
       if (!validUserState()) return
-      //
+      // 发送请求
+      try {
+        loading.value = true
+        await service.bookBorrow(record.searchCode!)
+        await fetchDataByService()
+      } catch (err) {
+        message.error(`借阅失败: ${err.msg}`)
+        loading.value = false
+      }
     }
 
     // 判断用户登录
     function validUserState() {
       if (unref(userIsLogin)) return true
-      
+
       // 登录完成再重定向回来
       const redirect = unref(currentRoute).fullPath
       go({ name: PageEnum.BASE_LOGIN, query: { redirect } })

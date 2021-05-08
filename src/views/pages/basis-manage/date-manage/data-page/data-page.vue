@@ -88,18 +88,26 @@ export default defineComponent({
     async function onLoadDataById(id: number) {
       const { data } = await service.getItemById(id)
       assign(dataItem, data)
+       changeDataType()
     }
 
     // 保存数据
     async function onSaveData(id: number, contrast: DateManage) {
       const { data } = await service.updateItem(id, contrast)
       assign(dataItem, data)
+       changeDataType()
     }
 
     // 新增数据
     async function onNewData() {
       const { data } = await service.saveNewItem(dataItem)
       assign(dataItem, data)
+      changeDataType()
+    }
+
+    // 改变数据类型
+    function changeDataType() {
+      dataItem.state = dataItem.state ? 1 : 0
     }
 
     return {

@@ -9,9 +9,6 @@ import request from "/@/lib/http/axios/"
 
 
 
-
-
-
 export default class Service {
 
   // 向服务查询数据并分页返回结果 无须权限
@@ -28,6 +25,14 @@ export default class Service {
     return request<Result<{ book: BookInfo, detail: BookDetail[] }>>({
       url: "/api/anonymous/book/" + id,
       method: "get"
+    })
+  }
+
+  // 借阅书籍
+  static bookBorrow(searchCode: string): Promise<Result<boolean>> {
+    return request<Result<boolean>>({
+      url: "/epi/book/borrow/" + searchCode,
+      method: "post"
     })
   }
 }

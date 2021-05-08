@@ -23,7 +23,11 @@
             >
               添加
             </a-button>
-            <a-button v-if="mode === MixinPageMode.view" type="primary" @click="fetchDataFromServer">
+            <a-button
+              v-if="mode === MixinPageMode.view"
+              type="primary"
+              @click="fetchDataFromServer"
+            >
               查询
             </a-button>
           </div>

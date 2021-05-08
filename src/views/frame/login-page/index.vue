@@ -77,8 +77,8 @@ export default defineComponent({
 
     // 登录成功
     const loginSuccess = () => {
-      const name = (query.redirect as string) || PageEnum.BASE_HOME
-      replace({ name })
+      const path = (query.redirect as string) || PageEnum.BASE_HOME
+      replace(path)
     }
 
     return {

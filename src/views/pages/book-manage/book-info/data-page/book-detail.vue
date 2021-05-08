@@ -49,10 +49,10 @@
       </template>
       <template #status="{ text }">
         <a-tag v-if="text === 'IN_LIBRARY'" color="success">
-          在馆未借
+          未借阅
         </a-tag>
         <a-tag v-else-if="text === 'OUT_LIBRARY'" color="processing">
-          已借未还
+          被借阅
         </a-tag>
         <a-tag v-else-if="text === 'LOST'" color="error">
           丢失

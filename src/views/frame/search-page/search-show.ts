@@ -21,23 +21,30 @@ export const holdInfoColumns: TableColumn[] = [
     ellipsis: true,
     slots: { customRender: 'status' }
   },
+  // {
+  //   title: "应还时间",
+  //   dataIndex: "backTime",
+  //   align: "center",
+  //   ellipsis: true
+  // }
+  // {
+  //   title: "借阅次数",
+  //   dataIndex: "borrowingTimes",
+  //   align: "center",
+  //   ellipsis: true
+  // },
+  // {
+  //   title: "归还次数",
+  //   dataIndex: "renewalTimes",
+  //   align: "center",
+  //   ellipsis: true
+  // },
   {
-    title: "应还时间",
-    dataIndex: "backTime",
+    title: "操作",
+    dataIndex: "operation",
     align: "center",
-    ellipsis: true
-  },
-  {
-    title: "借阅次数",
-    dataIndex: "borrowingTimes",
-    align: "center",
-    ellipsis: true
-  },
-  {
-    title: "归还次数",
-    dataIndex: "renewalTimes",
-    align: "center",
-    ellipsis: true
+    ellipsis: true,
+    slots: { customRender: 'operation' }  
   }
 ]
 

@@ -66,17 +66,44 @@
       :loading="loading"
       :data-source="bookDetail"
       :columns="holdInfoColumns"
-    />
+    >
+      <template #status="{ text }">
+        <a-tag v-if="text === 'IN_LIBRARY'" color="success">
+          未借阅
+        </a-tag>
+        <a-tag v-else-if="text === 'OUT_LIBRARY'" color="processing">
+          被借阅
+        </a-tag>
+        <a-tag v-else-if="text === 'LOST'" color="error">
+          丢失
+        </a-tag>
+        <a-tag v-else-if="text === 'OVERDUE'" color="warning">
+          逾期
+        </a-tag>
+        <a-tag v-else-if="text === 'SUBSCRIBE'" color="purple">
+          被预约
+        </a-tag>
+      </template>
+      <template #operation>
+        <div class="index-operation">
+          <span @click="handleBorrow">借阅</span>
+        </div>
+      </template>
+    </GlobalTable>
   </div>
 </template>
 
 <script lang="ts">
 import type { BookDetail } from '/@/api/book-manage/book-detail'
-import { defineComponent, ref, unref } from 'vue'
+import { defineComponent, ref, unref, computed } from 'vue'
 import { holdInfoColumns } from './search-show'
+import { userStore } from '/@/store/modules/user'
 import { useRouter } from 'vue-router'
 import service from '/@/api/anonymous'
+import { isNull } from '/@/utils/is'
 import { message } from 'ant-design-vue'
+import { useGo } from '/@/hooks/web/usePage'
+import { PageEnum } from '/@/enums/pageEnum'
 
 export default defineComponent({
   setup() {
@@ -88,6 +115,9 @@ export default defineComponent({
 
     const loading = ref<boolean>(false)
 
+    const go = useGo()
+
+    // 获取服务器数据
     async function fetchDataByService() {
       try {
         loading.value = true
@@ -103,9 +133,32 @@ export default defineComponent({
       }
     }
 
+    // 用户是否登录
+    const userIsLogin = computed(() => {
+      return !isNull(userStore.getUserInfoState?.id)
+    })
+
+    // 借阅书籍
+    async function handleBorrow() {
+      // 未登录
+      if (!validUserState()) return
+      //
+    }
+
+    // 判断用户登录
+    function validUserState() {
+      if (unref(userIsLogin)) return true
+      
+      // 登录完成再重定向回来
+      const redirect = unref(currentRoute).fullPath
+      go({ name: PageEnum.BASE_LOGIN, query: { redirect } })
+
+      return false
+    }
+
     fetchDataByService()
 
-    return { loading, bookInfo, bookDetail, holdInfoColumns, back }
+    return { loading, bookInfo, bookDetail, holdInfoColumns, back, handleBorrow }
   }
 })
 </script>
@@ -154,7 +207,6 @@ export default defineComponent({
   max-width: 1000px;
   margin: 20px auto 0;
   overflow: auto;
-
 
   &-row {
     font-size: 13px;

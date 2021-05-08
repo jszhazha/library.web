@@ -21,7 +21,7 @@ export function createPermissionGuard(router: Router): void {
       next()
     } else if (isNull(userInfo.id)) {
       // 身份要验证,但是没有登录,跳转到登录页面
-      next({ name: PageEnum.BASE_LOGIN, query: { redirect: to.name as string } })
+      next({ name: PageEnum.BASE_LOGIN, query: { redirect: to.fullPath as string } })
     } else {
       next()
     }

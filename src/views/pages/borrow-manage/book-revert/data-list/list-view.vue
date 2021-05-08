@@ -14,6 +14,33 @@
       </div>
     </template>
 
+    
+    <template #createTime="{ record }">
+      {{ MixinUseMoment(record.createTime, 'YYYY-MM-DD HH:mm:ss') }}
+    </template>
+
+    <template #revertDate="{ record }">
+      {{ MixinUseMoment(record.revertDate, 'YYYY-MM-DD HH:mm:ss') }}
+    </template>
+
+    <template #state="{ text }">
+      <a-tag v-if="text === 'IN_LIBRARY'" color="success">
+        未借阅
+      </a-tag>
+      <a-tag v-else-if="text === 'OUT_LIBRARY'" color="processing">
+        被借阅
+      </a-tag>
+      <a-tag v-else-if="text === 'LOST'" color="error">
+        丢失
+      </a-tag>
+      <a-tag v-else-if="text === 'OVERDUE'" color="warning">
+        逾期
+      </a-tag>
+      <a-tag v-else-if="text === 'SUBSCRIBE'" color="purple">
+        被预约
+      </a-tag>
+    </template>
+
     <template #footer-right>
       <PaginationWrap v-model:current="current" :total="totalElements" @change="onPageChange" />
     </template>
@@ -23,7 +50,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { tableColumns } from './data-list'
-import { DictionaryManage } from '../../../../../api/basis-manage/dictionary-manage'
+import { BorrowManage } from '/@/api/borrow-manage/borrow-manage'
 import { injectListPage } from '/@/lib/idata/data-list/methods/useDepend'
 import { usePagination } from '/@/hooks/web/usePagination'
 
@@ -31,23 +58,23 @@ export default defineComponent({
   emits: ['on-page-change', 'on-refresh'],
   setup(_props, { emit }) {
     // 数据源
-    const dataSource = ref<DictionaryManage[]>([])
+    const dataSource = ref<BorrowManage[]>([])
 
     // 总数据
     const totalElements = ref<number>(0)
 
-    const listPage = injectListPage<DictionaryManage>()
+    const listPage = injectListPage<BorrowManage>()
 
     // 数据加载
     const loading = listPage.loading
     // 添加新的数据
     const onNewDataItem = () => listPage.onNewDataItem()
     // 查看数据
-    const onViewDataItem = (record: DictionaryManage) => listPage.onViewDataItem(record)
+    const onViewDataItem = (record: BorrowManage) => listPage.onViewDataItem(record)
     // 编辑数据
-    const onEditDataItem = (record: DictionaryManage) => listPage.onEditDataItem(record)
+    const onEditDataItem = (record: BorrowManage) => listPage.onEditDataItem(record)
     // 删除数据
-    const onDeleteDataItem = (record: DictionaryManage) => listPage.onDeleteDataItem(record)
+    const onDeleteDataItem = (record: BorrowManage) => listPage.onDeleteDataItem(record)
 
     const pagination = usePagination()
 
@@ -73,7 +100,7 @@ export default defineComponent({
   },
   methods: {
     // 设置数据源
-    setDataSource(data: DictionaryManage[], total: number) {
+    setDataSource(data: BorrowManage[], total: number) {
       this.dataSource = data
       this.totalElements = total
     }

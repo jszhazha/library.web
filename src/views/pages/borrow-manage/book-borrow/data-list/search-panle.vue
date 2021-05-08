@@ -3,29 +3,21 @@
     <a-row>
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="借阅编号">
-          <InputSearch v-model:value="queryData.name" />
-        </a-form-item>
-      </a-col>
-      <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="图书名称">
           <InputSearch v-model:value="queryData.code" />
         </a-form-item>
       </a-col>
-      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
+      <a-col :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="索书号">
-          <InputSearch v-model:value="queryData.publisher" />
+          <InputSearch v-model:value="queryData.bookCode" />
         </a-form-item>
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="读者账户">
-          <InputSearch v-model:value="queryData.publisher" />
+          <InputSearch v-model:value="queryData.username" />
         </a-form-item>
       </a-col>
-      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="状态">
-          <InputSearch v-model:value="queryData.isbn" />
-        </a-form-item>
-      </a-col>
+      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col" />
+      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col" />
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <div class="index-button-right">
           <a-button type="primary" @click="onSearchData">
@@ -55,7 +47,8 @@ export default defineComponent({
     const queryData = reactive<PagerQueryData>({
       size: 10,
       page: 0,
-      sort: 'createTime,desc'
+      sort: 'createTime,desc',
+      state: 'OUT_LIBRARY'
     })
     // 返回查询条件
     const getCurQueryData = (): PagerQueryData => queryData

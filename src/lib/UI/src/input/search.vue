@@ -25,7 +25,7 @@
     <div v-show="tipData.length && queryBoxFoucs" class="ui-input-box">
       <div
         v-for="(title, index) in tipData"
-        :key="title"
+        :key="index"
         class="row index-middle"
         :class="{ 'row-select': selectIndex === index }"
         @click="handleBoxClick(title)"
@@ -79,7 +79,7 @@ export default defineComponent({
     // 获取焦点显示阴影
     const queryBoxFoucs = ref<boolean>(false)
     // 处理输入
-    const handleInput = debounce(fetchDataFromServer, 1000)
+    const handleInput = debounce(fetchDataFromServer, 600)
     // 联想数据
     const tipData = ref<string[]>([])
 
@@ -110,16 +110,16 @@ export default defineComponent({
     }
     // 从服务器获取数据
     async function fetchDataFromServer() {
-      // try {
-      //   const query = queryData()
-      //   if (!query.keyword) return
-      //   const { data } = await service.fecthTipList(query)
-      //   tipData.value = data
-      //   selectIndex.value = -1
-      //   originData.value = unref(inputValue)
-      // } catch (err) {
-      //   message.error(`数据获取失败: ${err.msg}`)
-      // }
+      try {
+        const query = queryData()
+        if (!query.keyword) return
+        const { data } = await service.fecthTipList(query)
+        tipData.value = data
+        selectIndex.value = -1
+        originData.value = unref(inputValue)
+      } catch (err) {
+        message.error(`数据获取失败: ${err.msg}`)
+      }
     }
 
     // 获取搜索数据

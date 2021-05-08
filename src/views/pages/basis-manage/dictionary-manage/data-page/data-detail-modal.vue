@@ -34,6 +34,7 @@ import { selectOption, dictDetailRules } from './data-page'
 import service, { DictionaryDetail } from '/@/api/basis-manage/dictionary-detail'
 import { isDef } from '/@/utils/is'
 import { message } from 'ant-design-vue'
+import { resetDataItem } from '/@/hooks/web/useForm'
 
 export default defineComponent({
   props: {
@@ -63,7 +64,12 @@ export default defineComponent({
     watch(
       () => props.visible,
       (val) => {
-        val ? assign(dataItem, props.dictData) : resetFields()
+        if (val) {
+          assign(dataItem, props.dictData)
+        } else {
+          // 重置数据
+          resetDataItem(dataItem), resetFields()
+        }
         changeDataType()
         modalState.value = val
       }

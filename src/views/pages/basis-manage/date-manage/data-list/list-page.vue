@@ -44,7 +44,6 @@ export default defineComponent({
     // 从服务器取得数据 设置列表数据
     async function fetchDataFromServer() {
       const query = queryData()
-      console.log(query)
       const { data } = await service.fecthList(query)
       instance.listInstance?.setDataSource(data.content, data.totalElements)
     }

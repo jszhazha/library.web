@@ -110,16 +110,16 @@ export default defineComponent({
     }
     // 从服务器获取数据
     async function fetchDataFromServer() {
-      try {
-        const query = queryData()
-        if (!query.keyword) return
-        const { data } = await service.fecthTipList(query)
-        tipData.value = data
-        selectIndex.value = -1
-        originData.value = unref(inputValue)
-      } catch (err) {
-        message.error(`数据获取失败: ${err.msg}`)
-      }
+      // try {
+      //   const query = queryData()
+      //   if (!query.keyword) return
+      //   const { data } = await service.fecthTipList(query)
+      //   tipData.value = data
+      //   selectIndex.value = -1
+      //   originData.value = unref(inputValue)
+      // } catch (err) {
+      //   message.error(`数据获取失败: ${err.msg}`)
+      // }
     }
 
     // 获取搜索数据

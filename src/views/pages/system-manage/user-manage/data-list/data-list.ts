@@ -27,8 +27,7 @@ export const tableColumns: TableColumn[] = [
     dataIndex: 'sex',
     align: 'center',
     width: 100,
-    ellipsis: true,
-    slots: { customRender: 'sex' }
+    ellipsis: true
   },
   {
     title: '手机号码',
@@ -52,8 +51,3 @@ export const tableColumns: TableColumn[] = [
   }
 ]
 
-export const selectSexOption = [
-  { value: '男', label: '男' },
-  { value: '女', label: '女' },
-  { value: '', label: '全部' }
-]

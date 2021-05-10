@@ -35,7 +35,7 @@
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="性别" v-bind="validateInfos.sex">
-              <SelectWrap v-model:value="dataItem.sex" :options="selectSexOption" />
+              <DictSelect v-model:value="dataItem.sex" type="sys_user_sex" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
@@ -91,7 +91,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref, unref, computed } from 'vue'
 import { dataPageMix } from '/@/lib/idata/data-page/'
-import { formRules, selectSexOption, selectEnableOption } from './data-page'
+import { formRules, selectEnableOption } from './data-page'
 import service, { UserManage } from '/@/api/system-manage/user-manage'
 import { userStore } from '/@/store/modules/user'
 import { assign } from 'lodash-es'
@@ -159,7 +159,6 @@ export default defineComponent({
       readonly,
       dataItem,
       enabledState,
-      selectSexOption,
       selectEnableOption,
       validate,
       validateInfos,

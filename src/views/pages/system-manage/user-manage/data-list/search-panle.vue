@@ -23,7 +23,7 @@
       </a-col>
       <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
         <a-form-item label="性别">
-          <SelectWrap v-model:value="queryData.sex" :options="selectSexOption" />
+          <DictSelect v-model:value="queryData.sex" type="sys_user_sex" />
         </a-form-item>
       </a-col>
 
@@ -46,7 +46,6 @@
 import { defineComponent, reactive, ref } from 'vue'
 import { PagerQueryData } from '/@/lib/http/axios/types'
 import { useSearch, SearchInstance } from '/@/lib/idata/data-list/methods/useSearch'
-import { selectSexOption } from './data-list'
 
 export default defineComponent({
   emits: ['onSearch'],
@@ -73,8 +72,7 @@ export default defineComponent({
       queryData,
       onResetData,
       onSearchData,
-      getCurQueryData,
-      selectSexOption
+      getCurQueryData
     }
   }
 })

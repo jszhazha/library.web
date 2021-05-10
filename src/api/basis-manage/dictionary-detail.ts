@@ -69,6 +69,14 @@ export default class Service {
     })
   }
 
+    // 通过类型取得数据
+    static fecthListByType(type: string): Promise<Result<Array<DictionaryDetail>>> {
+      return request<Result<Array<DictionaryDetail>>>({
+        url: "/epi/dict-detail/all/type/" + type,
+        method: "get"
+      })
+    }
+
   // 更新数据到远程服务器
   static updateItem(id: number, item: DictionaryDetail): Promise<Result<DictionaryDetail>> {
     return request<Result<DictionaryDetail>>({

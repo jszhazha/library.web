@@ -11,14 +11,6 @@
         新增
       </a-button>
     </template>
-    <template #sex="{ text }">
-      <div v-if="text">
-        {{ text }}
-      </div>
-      <div v-else>
-        未知
-      </div>
-    </template>
     <template #enabled="{ text }">
       <div class="index-center-middle">
         <div :class="[text ? 'use' : 'disable', 'circle', 'mr-2']" />

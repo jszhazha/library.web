@@ -45,12 +45,6 @@ export const formRules: FromRules = {
 
 
 
-export const selectSexOption = [
-  { value: '男', label: '男' },
-  { value: '女', label: '女' },
-  { value: '', label: '未知' }
-]
-
 export const selectEnableOption = [
   { value: 0, label: '禁用' },
   { value: 1, label: '使用' }

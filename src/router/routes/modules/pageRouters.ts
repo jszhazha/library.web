@@ -4,10 +4,10 @@ import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant'
 
 const routers: AppRouteModule = {
   layout: {
-    path: 'book-manage',
-    name: 'book-manage',
+    path: 'page-manage',
+    name: 'page-manage',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: { name: 'book-category-list-page' },
+    // redirect: { name: 'book-category-list-page' },
     meta: {
       title: '页面管理',
       icon: 'ant-design:file-text-outlined'

@@ -6,6 +6,7 @@ import PublicHeader from '/@/components/PublicHeader/index'
 import PublicEditor from '/@/components/PublicEditor/index'
 import BookCategorySearchSelect from '/@/components/SearchSelect/BookCategory.vue'
 import RoleSearchSelect from '/@/components/SearchSelect/RoleSelect.vue'
+import DictSelect from '/@/components/SearchSelect/DictSelect.vue'
 
 const modules = import.meta.globEager('../components/**.vue')
 
@@ -18,6 +19,7 @@ export default class ComponentRegisterPlugin {
 
     app.component('Icon', Icon)
     app.component('TableList', TableList)
+    app.component('DictSelect', DictSelect)
     app.component('PublicEditor', PublicEditor)
     app.component('PublicHeader', PublicHeader)
     app.component('BookCategorySearchSelect', BookCategorySearchSelect)

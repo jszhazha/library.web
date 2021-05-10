@@ -76,6 +76,11 @@ export default defineComponent({
 
     &-content-area {
       flex: 1;
+      overflow: auto;
+
+      ::v-deep(.vditor) {
+        height: 100%;
+      }
     }
 
     &-footer {

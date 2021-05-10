@@ -80,7 +80,7 @@ export default defineComponent({
       modal.visible = true
       modal.data = {}
     }
-    
+
     // 处理点击模块
     function handleClickEnter(name: string) {
       go({ name })

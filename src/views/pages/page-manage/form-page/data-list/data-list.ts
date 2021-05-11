@@ -2,37 +2,30 @@ import type { TableColumn } from '/@/lib/props/TableList'
 
 export const tableColumns: TableColumn[] = [
   {
-    title: '借阅编号',
-    dataIndex: 'code',
+    title: '名称',
+    dataIndex: 'name',
     align: 'center',
     ellipsis: true
 
   },
   {
-    title: '索书号',
-    dataIndex: 'bookCode',
+    title: '编码',
+    dataIndex: 'code',
     align: 'center',
     ellipsis: true
   },
   {
-    title: '读者账户',
-    dataIndex: 'createBy',
+    title: '更新者',
+    dataIndex: 'updateBy',
     align: 'center',
     ellipsis: true
   },
   {
-    title: '借阅日期',
-    dataIndex: 'createTime',
+    title: '更新时间',
+    dataIndex: 'updateTime',
     align: 'center',
     ellipsis: true,
-    slots: { customRender: 'createTime' }
-  },
-  {
-    title: '归还日期',
-    dataIndex: 'revertDate',
-    align: 'center',
-    ellipsis: true,
-    slots: { customRender: 'revertDate' }
+    slots: { customRender: 'updateTime' }
   },
   {
     title: '操作',

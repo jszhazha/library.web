@@ -80,6 +80,15 @@ const routers: AppRouteModule = {
           edit: ['PROBLEM_MANAGE_UPDATE']
         }
       }
+    },
+    {
+      path: 'image-manage-list-page',
+      name: 'image-manage-list-page',
+      component: (): unknown =>
+        import(`/@/views/pages/page-manage/form-page/data-list/list-page.vue`),
+      meta: {
+        title: '图片管理'
+      }
     }
   ],
   sortValue: 1

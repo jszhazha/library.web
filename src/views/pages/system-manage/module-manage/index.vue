@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 pt-2 module-manage">
+  <div class="pb-4 pr-4 pl-4 module-manage">
     <Scrollbar class="bg-white br-2 default-shadow">
       <module-tree class="tree-menu" @on-select="handleSelect" />
     </Scrollbar>

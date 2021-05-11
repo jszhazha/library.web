@@ -22,7 +22,8 @@ const routers: AppRouteModule = {
         import(`/@/views/pages/book-manage/book-category/data-list/list-page.vue`),
       meta: {
         title: '图书类别',
-        auth: ['BOOK_CATEGORY_READ']
+        auth: ['BOOK_CATEGORY_READ'],
+        keepAlive: true
       }
     },
     {
@@ -48,7 +49,8 @@ const routers: AppRouteModule = {
         import(`/@/views/pages/book-manage/book-info/data-list/list-page.vue`),
       meta: {
         title: '图书信息',
-        auth: ['BOOK_READ', 'BOOK_CATEGORY_READ']
+        auth: ['BOOK_READ', 'BOOK_CATEGORY_READ'],
+        keepAlive: true
       }
     },
     {

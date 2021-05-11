@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap pt-4 pb-4 pr-4">
+  <div class="wrap pt-4 pb-4 pr-4 default-shadow">
     <div class="left">
       <a-menu
         v-model:selectedKeys="selectedKeys"
@@ -61,9 +61,9 @@ export default defineComponent({
 <style lang="less" scoped>
 .wrap {
   display: flex;
-  margin: 6px 16px 16px;
+  margin: 0 16px 16px;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  border-radius: var(--public-order-radius);
 }
 
 .left {

@@ -1,23 +1,16 @@
 <template>
   <a-form :label-col="{ flex: '100px' }">
-    <a-row>
+    <a-row type="flex" justify="end">
       <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="借阅编号">
+        <a-form-item label="类别名">
+          <InputSearch v-model:value="queryData.name" />
+        </a-form-item>
+      </a-col>
+      <a-col :xs="24" :lg="8" class="index-table-search-col">
+        <a-form-item label="编码">
           <InputSearch v-model:value="queryData.code" />
         </a-form-item>
       </a-col>
-      <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="索书号">
-          <InputSearch v-model:value="queryData.bookCode" />
-        </a-form-item>
-      </a-col>
-      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="读者账户">
-          <InputSearch v-model:value="queryData.username" />
-        </a-form-item>
-      </a-col>
-      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col" />
-      <a-col v-show="isOpen" :xs="24" :lg="8" class="index-table-search-col" />
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <div class="index-button-right">
           <a-button type="primary" @click="onSearchData">
@@ -26,7 +19,6 @@
           <a-button @click="onResetData">
             重置
           </a-button>
-          <DownOutButton :is-open="isOpen" @click="onOpen" />
         </div>
       </a-col>
     </a-row>
@@ -34,15 +26,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
-import { PagerQueryData } from '/@/lib/http/axios/types'
-import { useSearch, SearchInstance } from '/@/lib/idata/data-list/methods/useSearch'
+import { defineComponent, reactive } from "vue"
+import { PagerQueryData } from "/@/lib/http/axios/types"
+import { useSearch, SearchInstance } from "/@/lib/idata/data-list/methods/useSearch"
 
 export default defineComponent({
-  emits: ['onSearch'],
+  emits: ["onSearch"],
   setup(_props, { emit }): SearchInstance {
-    // 搜索是否展开
-    const isOpen = ref<boolean>(false)
     // 数据搜索
     const queryData = reactive<PagerQueryData>({
       size: 10,
@@ -53,14 +43,12 @@ export default defineComponent({
     const getCurQueryData = (): PagerQueryData => queryData
 
     // 查询数据
-    const onSearchData = () => emit('onSearch')
+    const onSearchData = () => emit("onSearch")
 
-    const { onResetData, onOpen } = useSearch(queryData, isOpen)
+    const { onResetData } = useSearch(queryData)
 
     return {
-      isOpen,
       queryData,
-      onOpen,
       onResetData,
       onSearchData,
       getCurQueryData

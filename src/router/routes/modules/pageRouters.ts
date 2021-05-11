@@ -23,6 +23,17 @@ const routers: AppRouteModule = {
       meta: {
         title: '表单页面'
       }
+    },
+    {
+      path: 'form-page-data-page',
+      name: 'form-page-data-page',
+      component: (): unknown =>
+        import(`/@/views/pages/page-manage/form-page/data-page/data-page.vue`),
+      meta: {
+        title: '表单页面详情',
+        hideInMenu: true,
+        ignoreTabKeepAlive: true
+      }
     }
   ],
   sortValue: 4

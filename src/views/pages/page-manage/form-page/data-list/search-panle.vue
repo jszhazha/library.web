@@ -2,15 +2,11 @@
   <a-form :label-col="{ flex: '100px' }">
     <a-row type="flex" justify="end">
       <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="类别名">
+        <a-form-item label="名称">
           <InputSearch v-model:value="queryData.name" />
         </a-form-item>
       </a-col>
-      <a-col :xs="24" :lg="8" class="index-table-search-col">
-        <a-form-item label="编码">
-          <InputSearch v-model:value="queryData.code" />
-        </a-form-item>
-      </a-col>
+      <a-col :xs="24" :lg="8" class="index-table-search-col" />
       <a-col :xs="24" :lg="8" class="index-table-search-col">
         <div class="index-button-right">
           <a-button type="primary" @click="onSearchData">

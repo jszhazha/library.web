@@ -89,4 +89,6 @@ Markdown
 暗黑主题
 mock
 jest
+表单页面可视化
+图片管理
 ```

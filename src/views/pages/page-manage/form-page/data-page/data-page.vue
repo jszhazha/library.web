@@ -5,33 +5,13 @@
       <GlobalCard title="基本信息">
         <a-row>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="日期名称" v-bind="validateInfos.name">
+            <a-form-item label="名称" v-bind="validateInfos.name">
               <InputWrap v-model:value="dataItem.name" />
             </a-form-item>
           </a-col>
           <a-col :xs="24" :lg="9" class="pl-4 pr-4">
             <a-form-item label="状态" v-bind="validateInfos.state">
               <SelectWrap v-model:value="dataItem.state" :options="selectOption" />
-            </a-form-item>
-          </a-col>
-          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="开始日期" v-bind="validateInfos.startDate">
-              <DatePickerWrap v-model:value="dataItem.startDate" :end-date="dataItem.endDate" />
-            </a-form-item>
-          </a-col>
-          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="结束日期" v-bind="validateInfos.endDate">
-              <DatePickerWrap v-model:value="dataItem.endDate" :start-date="dataItem.startDate" />
-            </a-form-item>
-          </a-col>
-          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="延迟日期" v-bind="validateInfos.delayValue">
-              <InputNumberWrap v-model:value="dataItem.delayValue" />
-            </a-form-item>
-          </a-col>
-          <a-col :xs="24" :lg="9" class="pl-4 pr-4">
-            <a-form-item label="延迟日期单位" v-bind="validateInfos.delayUnit">
-              <SelectWrap v-model:value="dataItem.delayUnit" :options="selectUnitOption" />
             </a-form-item>
           </a-col>
         </a-row>
@@ -72,16 +52,16 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 import { dataPageMix } from '/@/lib/idata/data-page/'
 import { formRules, selectOption, selectUnitOption } from './data-page'
-import service, { DateManage } from '/@/api/basis-manage/date-manage'
+import service, { FormManage } from '/@/api/page-manage/form-page'
 import { assign } from 'lodash-es'
 
 export default defineComponent({
   setup() {
-    const dataItem = reactive<DateManage>({ state: 1 })
+    const dataItem = reactive<FormManage>({ state: 1 })
     const rules = reactive(formRules)
     const onServerMethods = { onNewData, onSaveData, onLoadDataById }
     const parameter = { rules, dataItem, onServerMethods }
-    const { pageInfo, onDataMethods, validateInfos, loading } = dataPageMix<DateManage>(parameter)
+    const { pageInfo, onDataMethods, validateInfos, loading } = dataPageMix<FormManage>(parameter)
     const { mode, readonly } = toRefs(pageInfo)
 
     // 通过ID加载数据
@@ -92,7 +72,7 @@ export default defineComponent({
     }
 
     // 保存数据
-    async function onSaveData(id: number, contrast: DateManage) {
+    async function onSaveData(id: number, contrast: FormManage) {
       const { data } = await service.updateItem(id, contrast)
       assign(dataItem, data)
        changeDataType()

@@ -1,7 +1,7 @@
 <template>
   <div class="header-right-action">
     <slot />
-    <div class="ml-8">
+    <div v-if="isShowUserInfo" class="ml-8">
       <div v-if="userIsLogin">
         <drop-menu>
           <router-link :to="{ name: PageEnum.BASE_HOME }" class="header-title">
@@ -27,6 +27,12 @@ import dropMenu from './dropMenu.vue'
 
 export default defineComponent({
   components: { Button, dropMenu },
+   props: {
+    isShowUserInfo: {
+      type: Boolean,
+      default: true
+    }
+  },
   setup() {
     const go = useGo()
 

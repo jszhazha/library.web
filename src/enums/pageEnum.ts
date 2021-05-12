@@ -26,5 +26,8 @@ export enum PageEnum {
   SEARCH_PAGE = 'search',
 
   // 帮助中心
-  HELP_PAGE = 'help'
+  HELP_PAGE = 'help',
+
+  // 表单编辑页
+  EDITOR_FORM = 'editor-form'
 }

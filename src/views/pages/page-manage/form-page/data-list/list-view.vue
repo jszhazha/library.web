@@ -1,6 +1,6 @@
 <template>
   <TableList
-    title="类别列表"
+    title="表单列表"
     :loading="loading"
     :columns="tableColumns"
     :data-source="dataSource"
@@ -15,6 +15,7 @@
     <template #operation="{ record }">
       <div class="index-operation">
         <span @click="onViewDataItem(record)">查看</span>
+        <span @click="onComposePage(record)">排版</span>
         <span @click="onEditDataItem(record)">编辑</span>
         <span @click="onDeleteDataItem(record)">删除</span>
       </div>
@@ -33,31 +34,33 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { tableColumns } from './data-list'
-import { BookCategory } from '/@/api/book-manage/book-category'
+import { FormManage } from '/@/api/page-manage/form-page'
 import { injectListPage } from '/@/lib/idata/data-list/methods/useDepend'
 import { usePagination } from '/@/hooks/web/usePagination'
 
 export default defineComponent({
-  emits: ['on-page-change', 'on-refresh'],
+  emits: ['on-page-change', 'on-refresh', 'on-compose-page'],
   setup(_props, { emit }) {
     // 数据源
-    const dataSource = ref<BookCategory[]>([])
+    const dataSource = ref<FormManage[]>([])
 
     // 总数据
     const totalElements = ref<number>(0)
 
-    const listPage = injectListPage<BookCategory>()
+    const listPage = injectListPage<FormManage>()
 
     // 数据加载
     const loading = listPage.loading
     // 添加新的数据
     const onNewDataItem = () => listPage.onNewDataItem()
     // 查看数据
-    const onViewDataItem = (record: BookCategory) => listPage.onViewDataItem(record)
+    const onViewDataItem = (record: FormManage) => listPage.onViewDataItem(record)
     // 编辑数据
-    const onEditDataItem = (record: BookCategory) => listPage.onEditDataItem(record)
+    const onEditDataItem = (record: FormManage) => listPage.onEditDataItem(record)
     // 删除数据
-    const onDeleteDataItem = (record: BookCategory) => listPage.onDeleteDataItem(record)
+    const onDeleteDataItem = (record: FormManage) => listPage.onDeleteDataItem(record)
+    // 排版页面
+    const onComposePage = (record: FormManage) => emit('on-compose-page', record)
 
     const pagination = usePagination()
 
@@ -76,6 +79,7 @@ export default defineComponent({
       onRefresh,
       onPageChange,
       onNewDataItem,
+      onComposePage,
       onViewDataItem,
       onEditDataItem,
       onDeleteDataItem
@@ -83,7 +87,7 @@ export default defineComponent({
   },
   methods: {
     // 设置数据源
-    setDataSource(data: BookCategory[], total: number) {
+    setDataSource(data: FormManage[], total: number) {
       this.dataSource = data
       this.totalElements = total
     }

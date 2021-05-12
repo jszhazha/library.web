@@ -16,6 +16,13 @@ export const tableColumns: TableColumn[] = [
 
   },
   {
+    title: '描述',
+    dataIndex: 'description',
+    align: 'center',
+    ellipsis: true
+
+  },
+  {
     title: '更新者',
     dataIndex: 'updateBy',
     align: 'center',

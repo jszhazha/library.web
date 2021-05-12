@@ -45,9 +45,17 @@ export const FrameRouters: AppRouteRecordRaw[] = [
     }
   },
   {
-    path: '/editor',
-    name: 'editor',
-    component: () => import('/@/views/frame/editor-page/index.vue'),
+    path: '/editor-text',
+    name: 'editor-text',
+    component: () => import('/@/views/frame/editor-page/text/index.vue'),
+    meta: {
+      title: '编辑'
+    }
+  },
+  {
+    path: '/editor-form/:id',
+    name: 'editor-form',
+    component: () => import('/@/views/frame/editor-page/form/index.vue'),
     meta: {
       title: '编辑'
     }
@@ -64,7 +72,7 @@ export const FrameRouters: AppRouteRecordRaw[] = [
   {
     path: '/register',
     name: 'register',
-    component: () => import('../../../views/frame/register-page/index-page.vue'),
+    component: () => import('/@/views/frame/register-page/index-page.vue'),
     meta: {
       ignoreAuth: true,
       title: '注册'

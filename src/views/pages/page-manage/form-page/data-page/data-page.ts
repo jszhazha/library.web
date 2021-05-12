@@ -7,36 +7,6 @@ export const formRules: FromRules = {
       whitespace: true,
       message: '不允许为空'
     }
-  ],
-  startDate: [
-    {
-      required: true,
-      whitespace: true,
-      message: '不允许为空'
-    }
-  ],
-  endDate: [
-    {
-      required: true,
-      whitespace: true,
-      message: '不允许为空'
-    }
-  ],
-  delayValue: [
-    {
-      type: 'number',
-      required: true,
-      whitespace: true,
-      message: '不允许为空'
-    }
-  ],
-  delayUnit: [
-    {
-      type: 'number',
-      required: true,
-      whitespace: true,
-      message: '不允许为空'
-    }
   ]
 }
 

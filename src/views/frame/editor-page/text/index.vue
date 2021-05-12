@@ -32,7 +32,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import masterState from './masterState.vue'
+import masterState from './components/masterState.vue'
 import wordCount from '/@/utils/wordCount'
 
 export default defineComponent({

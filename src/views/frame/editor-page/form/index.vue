@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-column">
+  <div class="flex flex-column editor-form-wrap">
     <PublicHeader class="editor-form-header" :is-show-user-info="false">
       <template #left>
         <div class="index-theme header-left index-middle">
@@ -8,7 +8,8 @@
       </template>
       <template #center>
         <div class="header-center index-center-middle w100">
-          <input v-model="dataItem.name" class="name-input">
+          <input v-model="dataItem.name" class="name-input mr-2">
+          <Icon icon="entypo:edit" />
         </div>
       </template>
       <template #right>
@@ -25,10 +26,10 @@
         </div>
       </template>
     </PublicHeader>
-    <div class="flex">
+    <div class="flex flex-item hidden editor-form-main">
       <tool-area />
-      <action-area class="flex-item" />
-      <view-area />
+      <view-area class="flex-item" />
+      <action-area />
     </div>
   </div>
 </template>
@@ -41,6 +42,8 @@ import actionArea from './src/actionArea.vue'
 import toolArea from './src/toolArea.vue'
 import viewArea from './src/viewArea.vue'
 import service, { FormManage } from '/@/api/page-manage/form-page'
+import './components/tools/index'
+
 
 export default defineComponent({
   components: { actionArea, toolArea, viewArea },
@@ -53,7 +56,6 @@ export default defineComponent({
     async function onLoadDataById(id: number) {
       const { data } = await service.getItemById(id)
       assign(dataItem, data)
-      console.log(data)
     }
 
     onLoadDataById(+unref(currentRoute).params.id)
@@ -65,8 +67,16 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .editor-form {
+  &-wrap {
+    height: 100vh;
+    background: #f5f6fa;
+  }
+
   &-header {
+    position: relative;
+    z-index: 11;
     height: 54px;
+    background: #fff;
     box-shadow: 0 2px 4px 0 #dbdbdb99;
   }
 }
@@ -82,7 +92,7 @@ export default defineComponent({
     .name-input {
       overflow: hidden;
       color: #292b33;
-      text-align: center;
+      text-align: right;
       text-overflow: ellipsis;
       cursor: pointer;
       border-width: 0;

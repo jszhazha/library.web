@@ -1,6 +1,6 @@
 <template>
-  <div>
-    234
+  <div class="index-center">
+    123
   </div>
 </template>
 

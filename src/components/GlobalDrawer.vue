@@ -1,0 +1,102 @@
+<template>
+  <div ref="wrapRef" class="global-drawer-wrap" :style="wrapStyle">
+    <slot />
+    <div
+      :class="['hide-panel index-center-middle', `hide-panel-${placement}`]"
+      @click="handleSwitchHide"
+    >
+      <Icon
+        color="#A1A6B3"
+        class="hide-panel-icon"
+        :icon="`ant-design:caret-${visible ? 'right' : 'left'}-outlined`"
+      />
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { CSSProperties, defineComponent, reactive, ref } from 'vue'
+
+export default defineComponent({
+  props: {
+    placement: {
+      type: String,
+      default: 'left',
+      validator: (v: string): boolean => ['left', 'right'].includes(v)
+    }
+  },
+  setup(props) {
+    const wrapRef = ref<HTMLElement | null>(null)
+
+    const wrapStyle = reactive<CSSProperties>({})
+
+    const visible = ref<boolean>(false)
+
+    const stateMap = { left: '-', right: '' }
+
+    // 切换隐藏面板
+    function handleSwitchHide() {
+      visible.value = !visible.value
+      if (visible.value) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const symbol = (stateMap as any)[props.placement as string]
+        wrapStyle.transform = `translateX(${symbol}100%)`
+      } else {
+        wrapStyle.transform = 'translateX(0px)'
+      }
+    }
+
+    return { wrapRef, visible, wrapStyle, handleSwitchHide }
+  }
+})
+</script>
+
+<style lang="less" scoped>
+.global-drawer {
+  &-wrap {
+    position: relative;
+    background: #fff;
+    box-shadow: 0 2px 8px 0 #dbdbdb99;
+    transition: all 0.3s;
+  }
+}
+
+.hide-panel {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 88px;
+  cursor: pointer;
+
+  &:hover::before {
+    background: #dadde6;
+  }
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #e6e9f2;
+    border-radius: 0 4px 4px 0;
+    content: '';
+    transform: perspective(50px) rotateY(30deg);
+    transition: all 0.3s;
+  }
+
+  &-left {
+    right: -18px;
+    transform: translateY(-50%);
+  }
+
+  &-right {
+    left: -18px;
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  &-icon {
+    position: absolute;
+  }
+}
+</style>

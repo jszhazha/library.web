@@ -493,7 +493,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@iconify/iconify@>=2.0.0-rc.1", "@iconify/iconify@^2.0.1":
+"@iconify/iconify@>=2.0.0-rc.1", "@iconify/iconify@^2.0.0-rc.2":
   version "2.0.1"
   resolved "https://registry.nlark.com/@iconify/iconify/download/@iconify/iconify-2.0.1.tgz#4927812922d50b378699694b5e72e22a1acc9d2f"
   integrity sha1-SSeBKSLVCzeGmWlLXnLiKhrMnS8=
@@ -956,7 +956,7 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@^2.1.4:
+ant-design-vue@^2.0.0:
   version "2.1.5"
   resolved "https://registry.nlark.com/ant-design-vue/download/ant-design-vue-2.1.5.tgz#3f907d430c8aa9e3e9baa6afa0ce5d8d6a1e2606"
   integrity sha1-P5B9QwyKqePpuqavoM5djWoeJgY=
@@ -1679,10 +1679,10 @@ esbuild@^0.11.4:
   resolved "https://registry.nlark.com/esbuild/download/esbuild-0.11.20.tgz?cache=0&sync_timestamp=1620435704293&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fesbuild%2Fdownload%2Fesbuild-0.11.20.tgz#7cefa1aee8b372c184e42457885f7ce5d3e62a1e"
   integrity sha1-fO+hruizcsGE5CRXiF985dPmKh4=
 
-esbuild@^0.8.47:
-  version "0.8.57"
-  resolved "https://registry.nlark.com/esbuild/download/esbuild-0.8.57.tgz?cache=0&sync_timestamp=1620435704293&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fesbuild%2Fdownload%2Fesbuild-0.8.57.tgz#a42d02bc2b57c70bcd0ef897fe244766bb6dd926"
-  integrity sha1-pC0CvCtXxwvNDviX/iRHZrtt2SY=
+esbuild@^0.9.3:
+  version "0.9.7"
+  resolved "https://registry.nlark.com/esbuild/download/esbuild-0.9.7.tgz?cache=0&sync_timestamp=1620435704293&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fesbuild%2Fdownload%2Fesbuild-0.9.7.tgz#ea0d639cbe4b88ec25fbed4d6ff00c8d788ef70b"
+  integrity sha1-6g1jnL5LiOwl++1Nb/AMjXiO9ws=
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -3990,12 +3990,12 @@ vite-plugin-style-import@^0.7.5:
     es-module-lexer "^0.4.0"
     magic-string "^0.25.7"
 
-vite@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.nlark.com/vite/download/vite-2.0.3.tgz?cache=0&sync_timestamp=1620717595577&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvite%2Fdownload%2Fvite-2.0.3.tgz#ea0329295d4da9341e670036e5e7f0bfa30ae2cf"
-  integrity sha1-6gMpKV1NqTQeZwA25efwv6MK4s8=
+vite@2.2.4:
+  version "2.2.4"
+  resolved "https://registry.nlark.com/vite/download/vite-2.2.4.tgz#8f9cc85aacab04c850085894b086c8717f12ed16"
+  integrity sha1-j5zIWqyrBMhQCFiUsIbIcX8S7RY=
   dependencies:
-    esbuild "^0.8.47"
+    esbuild "^0.9.3"
     postcss "^8.2.1"
     resolve "^1.19.0"
     rollup "^2.38.5"

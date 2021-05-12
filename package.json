@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@antv/g2": "^4.1.12",
-    "@iconify/iconify": "^2.0.1",
+    "@iconify/iconify": "^2.0.0-rc.2",
     "@types/qs": "^6.9.5",
-    "ant-design-vue": "^2.1.4",
+    "ant-design-vue": "^2.0.0",
     "axios": "^0.21.1",
     "crypto-es": "^1.2.6",
     "lodash-es": "^4.17.21",
@@ -62,7 +62,7 @@
     "stylelint-order": "^4.1.0",
     "tasksfile": "^5.1.1",
     "typescript": "^4.1.5",
-    "vite": "2.0.3",
+    "vite": "2.2.4",
     "vite-plugin-html": "^2.0.2",
     "vite-plugin-mock": "^2.1.5",
     "vite-plugin-style-import": "^0.7.5"

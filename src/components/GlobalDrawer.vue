@@ -42,7 +42,7 @@ export default defineComponent({
         const symbol = (stateMap as any)[props.placement as string]
         wrapStyle.transform = `translateX(${symbol}100%)`
       } else {
-        wrapStyle.transform = 'translateX(0px)'
+        wrapStyle.transform = ''
       }
     }
 
@@ -64,6 +64,7 @@ export default defineComponent({
 .hide-panel {
   position: absolute;
   top: 50%;
+  z-index: 10;
   width: 18px;
   height: 88px;
   cursor: pointer;

@@ -1,5 +1,5 @@
 <template>
-  <div>324</div>
+  <div>checkbox</div>
 </template>
 
 <script lang="ts">

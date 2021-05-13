@@ -1,5 +1,5 @@
 <template>
-  <div>324</div>
+  <div>input</div>
 </template>
 
 <script lang="ts">

@@ -25,7 +25,7 @@
         </div>
       </template>
     </PublicHeader>
-    <div class="flex flex-item hidden editor-form-main">
+    <div class="flex flex-item hidden editor-form-main relative">
       <tool-area />
       <view-area class="flex-item" />
       <action-area />

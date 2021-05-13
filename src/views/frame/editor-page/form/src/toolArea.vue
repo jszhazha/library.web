@@ -22,7 +22,13 @@
     </div>
     <GlobalDrawer class="tool-area-panel">
       <div v-for="(item, key) in viewList" :key="key" class="panel-content">
-        <div v-for="(el, index) in item" :key="index" class="panel-box" draggable="true">
+        <div
+          v-for="(el, index) in item"
+          :key="index"
+          class="panel-box"
+          draggable="true"
+          @dragstart="handleDragstart($event, el)"
+        >
           <div class="index-center-middle flex-item">
             <Icon :icon="classify.icon[el]" size="20" />
           </div>
@@ -41,7 +47,13 @@ import { viewList, classify } from '../components/tools/index'
 
 export default defineComponent({
   setup() {
-    return { viewList, classify }
+    // 处理拖拽开始
+    function handleDragstart(event: DragEvent, record: string) {
+      // 数据传递
+      event.dataTransfer?.setData('name', record)
+    }
+
+    return { viewList, classify, handleDragstart }
   }
 })
 </script>

@@ -2,8 +2,7 @@
   <Scrollbar>
     <div class="view-area">
       <div class="view-area-panel" @drop="handleDrop" @dragover.prevent>
-        <!-- 123 -->
-        <component :is="itme.name" v-for="itme in dataItem" :key="itme.uuid" />
+        <component :is="item.name" v-for="item in dataItem" :key="item.uuid" />
       </div>
     </div>
   </Scrollbar>

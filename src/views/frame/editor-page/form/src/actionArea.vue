@@ -1,7 +1,7 @@
 <template>
   <div class="action-area">
     <GlobalDrawer placement="right" class="h100">
-      2254
+      属性设置
     </GlobalDrawer>
   </div>
 </template>

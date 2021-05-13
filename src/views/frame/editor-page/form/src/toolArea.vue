@@ -1,17 +1,49 @@
 <template>
   <div class="tool-area">
     <div class="tool-area-switch">
-      23432
+      <a-tabs tab-position="left">
+        <a-tab-pane v-for="(item, key) in viewList" :key="key">
+          <template #tab>
+            <Icon :icon="classify.icon[key]" size="18" />
+            <div class="pt-1">
+              {{ classify.name[key] }}
+            </div>
+          </template>
+        </a-tab-pane>
+        <a-tab-pane>
+          <template #tab>
+            <Icon icon="ant-design:user-outlined" size="18" />
+            <div class="pt-1">
+              我的
+            </div>
+          </template>
+        </a-tab-pane>
+      </a-tabs>
     </div>
     <GlobalDrawer class="tool-area-panel">
-      基础组件
+      <div v-for="(item, key) in viewList" :key="key" class="panel-content">
+        <div v-for="(el, index) in item" :key="index" class="panel-box" draggable="true">
+          <div class="index-center-middle flex-item">
+            <Icon :icon="classify.icon[el]" size="20" />
+          </div>
+          <div class="panel-box-title">
+            {{ classify.name[el] }}
+          </div>
+        </div>
+      </div>
     </GlobalDrawer>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-export default defineComponent({})
+import { viewList, classify } from '../components/tools/index'
+
+export default defineComponent({
+  setup() {
+    return { viewList, classify }
+  }
+})
 </script>
 
 <style lang="less" scoped>
@@ -22,11 +54,71 @@ export default defineComponent({})
   &-switch {
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 64px;
+    padding: 30px 0 0;
     background: #fff;
+
+    ::v-deep(.ant-tabs-left-bar) {
+      width: calc(100% - 2px);
+      border-right-width: 0;
+
+      .ant-tabs-tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px 0;
+      }
+
+      .ant-tabs-ink-bar {
+        left: 0;
+        width: 3px;
+      }
+    }
   }
 
   &-panel {
+    width: 240px;
     border-left: 1px solid #f0f0f0;
+    box-sizing: content-box;
+
+    .panel {
+      &-content {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px 0 0;
+      }
+
+      &-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 70px;
+        height: 70px;
+        margin: 5px;
+        cursor: move;
+        border: 2px solid hsla(0, 0%, 62%, 0.24);
+        border-radius: 8px;
+        transition: all 0.3s;
+
+        &:hover {
+          color: @primary-color;
+          border: 2px solid @primary-color;
+
+          .panel-box-title {
+            color: @primary-color;
+          }
+        }
+
+        &-title {
+          font-size: 12px;
+          color: #767676;
+          text-align: center;
+        }
+      }
+    }
   }
 }
 </style>

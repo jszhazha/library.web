@@ -2,14 +2,13 @@
   <div class="flex flex-column editor-form-wrap">
     <PublicHeader class="editor-form-header" :is-show-user-info="false">
       <template #left>
-        <div class="index-theme header-left index-middle">
-          表单样式设计
-        </div>
-      </template>
-      <template #center>
-        <div class="header-center index-center-middle w100">
-          <input v-model="dataItem.name" class="name-input mr-2">
-          <Icon icon="entypo:edit" />
+        <div class="index-theme header-left index-middle index-hidden-newline">
+          <div>表单样式设计</div>
+
+          <div class="index-center-middle header-input">
+            <input v-model="dataItem.name" class="name-input mr-2">
+            <Icon icon="entypo:edit" />
+          </div>
         </div>
       </template>
       <template #right>
@@ -42,8 +41,6 @@ import actionArea from './src/actionArea.vue'
 import toolArea from './src/toolArea.vue'
 import viewArea from './src/viewArea.vue'
 import service, { FormManage } from '/@/api/page-manage/form-page'
-import './components/tools/index'
-
 
 export default defineComponent({
   components: { actionArea, toolArea, viewArea },
@@ -88,8 +85,12 @@ export default defineComponent({
     color: @primary-color;
   }
 
-  &-center {
+  &-input {
+    margin: 0 0 0 20px;
+
     .name-input {
+      width: 120px;
+      margin: 0 10px 0 0;
       overflow: hidden;
       color: #292b33;
       text-align: right;

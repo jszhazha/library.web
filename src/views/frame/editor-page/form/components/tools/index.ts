@@ -10,8 +10,23 @@ interface ViewList {
 const viewTools = import.meta.globEager('./**/index.vue')
 
 // 工具列表
-const viewList: ViewList = {}
+export const viewList: ViewList = {}
 
+// 分类 中文 和 图标
+export const classify = {
+  name: {
+    base: '基础',
+    input: '输入框',
+    checkbox: '多选框',
+    radio: '单选框'
+  },
+  icon: {
+    base: 'ant-design:highlight-outlined',
+    input: 'ant-design:edit-outlined',
+    checkbox: 'ant-design:check-square-outlined',
+    radio: 'mdi:radiobox-marked'
+  }
+}
 
 Object.keys(viewTools).forEach((key) => {
   // 读取文件名称
@@ -21,6 +36,3 @@ Object.keys(viewTools).forEach((key) => {
   // 添加数据
   viewList[classify].push(name)
 })
-
-
-console.log(viewList)

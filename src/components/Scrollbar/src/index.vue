@@ -1,7 +1,7 @@
 <template>
   <div class="scrollbar-box">
     <div ref="wrap" class="scrollbar-wrap scrollbar-wrap-hidden-default">
-      <component :is="tag" ref="resize">
+      <component :is="tag" ref="resize" class="h100">
         <slot />
       </component>
     </div>

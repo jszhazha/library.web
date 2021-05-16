@@ -4,7 +4,6 @@
       <template #left>
         <div class="index-theme header-left index-middle index-hidden-newline">
           <div>表单样式设计</div>
-
           <div class="index-center-middle header-input">
             <input
               ref="inputRef"

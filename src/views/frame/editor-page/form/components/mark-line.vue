@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, computed, PropType, watch } from 'vue'
+import { defineComponent, reactive, ref, computed, PropType, watch, unref } from 'vue'
 import { pointStore } from '/@/store/modules/point'
 
 type line = 'xt' | 'xc' | 'xb' | 'yl' | 'yc' | 'yr'
@@ -19,6 +19,10 @@ export default defineComponent({
     move: {
       type: Object as PropType<{ x?: number; y?: number }>,
       default: () => ({})
+    },
+    uuid: {
+      type: String,
+      default: ''
     }
   },
   setup(props) {
@@ -33,7 +37,15 @@ export default defineComponent({
 
     // 展示线条
     function showLine() {
-      
+      const curPoint = unref(pointData).find((el) => el.uuid === props.uuid)
+      const curPointWidth = curPoint?.width
+      const curPointHeight = curPoint?.height
+
+      unref(pointData).forEach((el) => {
+        if (el.uuid === props.uuid) return
+        const { height, width, x, y } = el
+        console.log(height, width, x, y)
+      })
     }
 
     watch(

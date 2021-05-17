@@ -27,7 +27,7 @@
         </draggable>
 
         <!-- 标线 -->
-        <mark-line :move="curState.pos" />
+        <mark-line :uuid="curState.uuid" :move="curState.pos" />
       </div>
     </div>
   </Scrollbar>
@@ -40,9 +40,9 @@ import { moduleList } from '../components/tools/index'
 import { buildUUID } from '/@/utils/uuid'
 import { Draggable } from '/@/lib/UI/'
 import { pointStore } from '/@/store/modules/point'
+import { schemaList } from '../components/tools/schema'
 import markLine from '../components/mark-line.vue'
-import '../components/tools/schema'
-
+import { assign, cloneDeep } from 'lodash-es'
 
 interface CurState {
   // 选择鼠标指针浮动在其上的元素
@@ -80,11 +80,16 @@ export default defineComponent({
       const y = offsetY + offset.y
       // 唯一值
       const uuid = buildUUID()
+
+      const schema = cloneDeep(schemaList[`${name}Module`])
+
+      assign(schema, { x, y, uuid, name: `${name}Module` })
+
       // 设置样式
       pointStyle[uuid] = {}
       pointStyle[uuid].transform = `translate(${x}px,${y}px)`
       // 添加数据
-      pointStore.commitAddPointState({ x, y, uuid, name: `${name}Module` })
+      pointStore.commitAddPointState(schema)
     }
 
     // 当被鼠标拖动的对象进入其容器范围内时触发此事件

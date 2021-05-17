@@ -2,14 +2,22 @@
 // 组件数据
 export interface PointInfo {
   // 唯一值
-  uuid: string
+  uuid?: string
 
-  // 模块名称
-  name: string,
+  // 距离左边位置
+  x?: number
 
-  // x
-  x: number,
+  // 距离顶部位置
+  y?: number
 
-  // y
-  y: number
+  // 工具名称
+  name?: string
+
+  // 宽度
+  width?: number
+
+  // 高度
+  height?: number
+
+  [key: string]: unknown
 }

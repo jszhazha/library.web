@@ -56,10 +56,10 @@ export default defineComponent({
 
       const { clientHeight: height, clientWidth: width } = target as HTMLElement
 
-      const data = { name, offset: { x: width / 2 - offsetX, y: height / 2 - offsetY } }
+      const tool = { name, offset: { x: width / 2 - offsetX, y: height / 2 - offsetY } }
 
       // 数据传递
-      event.dataTransfer?.setData('tool', JSON.stringify(data))
+      event.dataTransfer?.setData('tool', JSON.stringify(tool))
     }
 
     // 处理标签切换

@@ -27,7 +27,7 @@
         </draggable>
 
         <!-- 标线 -->
-        <mark-line />
+        <mark-line :move="curState.pos" />
       </div>
     </div>
   </Scrollbar>
@@ -41,6 +41,19 @@ import { buildUUID } from '/@/utils/uuid'
 import { Draggable } from '/@/lib/UI/'
 import { pointStore } from '/@/store/modules/point'
 import markLine from '../components/mark-line.vue'
+import '../components/tools/schema'
+
+
+interface CurState {
+  // 选择鼠标指针浮动在其上的元素
+  hover?: string
+  // 是否移动
+  isMove?: boolean
+  // 唯一值
+  uuid?: string
+  // 当前位置
+  pos?: { x?: number; y?: number }
+}
 
 export default defineComponent({
   components: { Scrollbar, Draggable, ...moduleList, markLine },
@@ -52,7 +65,7 @@ export default defineComponent({
     // 拖拽数据样式
     const pointStyle = reactive<Indexable<CSSProperties>>({})
     // 当前状态
-    const curState = reactive<{ hover?: string; isMove?: boolean }>({})
+    const curState = reactive<CurState>({})
 
     // 在一个拖动过程中，释放鼠标键时触发此事件
     function handleDrag(event: DragEvent) {
@@ -62,10 +75,9 @@ export default defineComponent({
       const { name, offset } = JSON.parse(event.dataTransfer?.getData('tool') || '')
       // 获取数据位置
       const { offsetX, offsetY } = event
-      // 计算位置
-      const x = offsetX - offset.x
-      const y = offsetY - offset.y
-      console.log(x, y)
+      // 计算位置 设置中间对齐
+      const x = offsetX + offset.x
+      const y = offsetY + offset.y
       // 唯一值
       const uuid = buildUUID()
       // 设置样式
@@ -88,6 +100,8 @@ export default defineComponent({
     // 处理移动
     function handleMove({ uuid, x, y }: { uuid: string; x: number; y: number }) {
       const pos = handlePosition({ x, y }, uuid)
+      // 记录位置
+      curState.pos = pos
       // 设置样式
       pointStyle[uuid].transform = `translate(${pos.x}px,${pos.y}px)`
     }
@@ -100,12 +114,14 @@ export default defineComponent({
       pointStore.commitUpdatePointState({ uuid, key: 'y', value: pos.y as never })
       // 设置鼠标弹起
       curState.isMove = false
+      curState.uuid = ''
     }
 
     // 处理移动开始
-    function handleMoveStart({}: { uuid: string }) {
+    function handleMoveStart({ uuid }: { uuid: string }) {
       // 设置鼠标按下
       curState.isMove = true
+      curState.uuid = uuid
     }
 
     //  位置信息处理

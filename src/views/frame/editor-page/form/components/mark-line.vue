@@ -9,13 +9,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, computed } from 'vue'
+import { defineComponent, reactive, ref, computed, PropType, watch } from 'vue'
 import { pointStore } from '/@/store/modules/point'
 
 type line = 'xt' | 'xc' | 'xb' | 'yl' | 'yc' | 'yr'
 
 export default defineComponent({
-  setup() {
+  props: {
+    move: {
+      type: Object as PropType<{ x?: number; y?: number }>,
+      default: () => ({})
+    }
+  },
+  setup(props) {
     // 相距 dff 像素将自动吸附
     const diff = 3
     // 分别对应三条横线和三条竖线
@@ -24,6 +30,16 @@ export default defineComponent({
     const lineStatus = reactive<{ [key: string]: boolean }>({})
     // 拖拽数据信息
     const pointData = computed(() => pointStore.getPointState)
+
+    // 展示线条
+    function showLine() {
+      
+    }
+
+    watch(
+      () => props.move,
+      () => showLine()
+    )
 
     return { lines, lineStatus }
   }

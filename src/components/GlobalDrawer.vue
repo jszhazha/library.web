@@ -15,17 +15,22 @@
 </template>
 
 <script lang="ts">
-import { CSSProperties, defineComponent, reactive, ref } from 'vue'
+import { CSSProperties, defineComponent, PropType, reactive, ref, watch } from 'vue'
 
 export default defineComponent({
   props: {
     placement: {
-      type: String,
+      type: String as PropType<'left' | 'right'>,
       default: 'left',
       validator: (v: string): boolean => ['left', 'right'].includes(v)
+    },
+    value: {
+      type: Boolean,
+      default: true
     }
   },
-  setup(props) {
+  emits: ['update:value'],
+  setup(props, { emit }) {
     const wrapRef = ref<HTMLElement | null>(null)
 
     const wrapStyle = reactive<CSSProperties>({})
@@ -37,14 +42,24 @@ export default defineComponent({
     // 切换隐藏面板
     function handleSwitchHide() {
       visible.value = !visible.value
-      if (visible.value) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const symbol = (stateMap as any)[props.placement as string]
-        wrapStyle.transform = `translateX(${symbol}100%)`
-      } else {
-        wrapStyle.transform = ''
-      }
+      emit('update:value', visible.value)
     }
+
+
+    watch(
+      () => props.value,
+      (val) => {
+        // 设置数据
+        visible.value = val
+        // 面板切换
+        if (visible.value) {
+          wrapStyle.transform = `translateX(${stateMap[props.placement]}100%)`
+        } else {
+          wrapStyle.transform = ''
+        }
+      },
+      { immediate: true }
+    )
 
     return { wrapRef, visible, wrapStyle, handleSwitchHide }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="tool-area">
     <div class="tool-area-switch">
-      <a-tabs tab-position="left">
+      <a-tabs tab-position="left" @change="handleTabChange">
         <a-tab-pane v-for="(item, key) in viewList" :key="key">
           <template #tab>
             <Icon :icon="classify.icon[key]" size="18" />
@@ -20,7 +20,7 @@
         </a-tab-pane>
       </a-tabs>
     </div>
-    <GlobalDrawer class="tool-area-panel">
+    <GlobalDrawer v-model:value="visible" class="tool-area-panel">
       <div v-for="(item, key) in viewList" :key="key" class="panel-content">
         <div
           v-for="(el, index) in item"
@@ -42,18 +42,32 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { viewList, classify } from '../components/tools/index'
 
 export default defineComponent({
   setup() {
+    // 折叠面板
+    const visible = ref<boolean>(false)
     // 处理拖拽开始
-    function handleDragstart(event: DragEvent, record: string) {
+    function handleDragstart(event: DragEvent, name: string) {
+      // 获取鼠标点击位置
+      const { offsetX, offsetY, target } = event
+
+      const { clientHeight: height, clientWidth: width } = target as HTMLElement
+
+      const data = { name, offset: { x: width / 2 - offsetX, y: height / 2 - offsetY } }
+
       // 数据传递
-      event.dataTransfer?.setData('name', record)
+      event.dataTransfer?.setData('tool', JSON.stringify(data))
     }
 
-    return { viewList, classify, handleDragstart }
+    // 处理标签切换
+    function handleTabChange() {
+      visible.value = false
+    }
+
+    return { viewList, visible, classify, handleDragstart, handleTabChange }
   }
 })
 </script>

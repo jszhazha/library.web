@@ -10,6 +10,8 @@ import DirectivesRegisterPlugin from '/@/lib/directives/'
 
 import MixinPlugins from '/@/plugins/mixin-plugins'
 
+import ErrorPlugin from '/@/plugins/error-plugins'
+
 export default class PluginsIniter {
   static init(app: App<Element>): void {
     // UI 按需加载
@@ -26,5 +28,8 @@ export default class PluginsIniter {
 
     // 全局函数
     MixinPlugins.init(app)
+
+    // 错误收集
+    ErrorPlugin.init(app)
   }
 }

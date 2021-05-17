@@ -2,17 +2,18 @@ import type { PointInfo } from '/@/lib/interface/PointInfo'
 import store from '/@/store/index'
 import { VuexModule, Mutation, Module, getModule } from 'vuex-module-decorators'
 
-
 const NAME = 'component'
 
-/**
- * dynamic: true: 动态创建动态模块,即new Vuex.Store({})里面不用注册的,
- * store,当前模块注册到store上.也可以写在getModule上,即 getModule(PassengerStore,store)
- * namespaced: true, name: 'passenger' 命名空间
- */
+interface UpdatePointState {
+  // 唯一值
+  uuid: string
+  // 下标
+  key: keyof PointInfo
+  // 值
+  value: never
+}
 @Module({ name: NAME, store, dynamic: true, namespaced: true })
 export default class Point extends VuexModule {
-
   // 组件数据
   private pointDataState: PointInfo[] = []
 
@@ -23,12 +24,20 @@ export default class Point extends VuexModule {
 
   // 添加数据
   @Mutation
-  commitPointState(data:PointInfo): void {
+  commitAddPointState(data: PointInfo): void {
     this.pointDataState.push(data)
   }
+
+  // 更新数据
+  @Mutation
+  commitUpdatePointState({ uuid, key, value }: UpdatePointState): void {
+    // 查找数据
+    const point = this.pointDataState.find((el) => el.uuid === uuid)
+
+    // 更新数据
+    point && (point[key] = value)
+  }
 }
-
-
 
 export { Point }
 export const pointStore = getModule<Point>(Point)

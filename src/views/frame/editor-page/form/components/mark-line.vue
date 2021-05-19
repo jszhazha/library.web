@@ -11,6 +11,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, computed, PropType, watch, unref } from 'vue'
 import { pointStore } from '/@/store/modules/point'
+import { throttle } from 'lodash-es'
 
 type line = 'xt' | 'xc' | 'xb' | 'yl' | 'yc' | 'yr'
 
@@ -40,17 +41,21 @@ export default defineComponent({
       const curPoint = unref(pointData).find((el) => el.uuid === props.uuid)
       const curPointWidth = curPoint?.width
       const curPointHeight = curPoint?.height
+      console.log(curPoint)
 
       unref(pointData).forEach((el) => {
         if (el.uuid === props.uuid) return
         const { height, width, x, y } = el
-        console.log(height, width, x, y)
+        // console.log(height, width, x, y)
       })
     }
 
+    // 使用节流函数
+    const throttled = throttle(showLine, 1000)
+
     watch(
       () => props.move,
-      () => showLine()
+      () => throttled()
     )
 
     return { lines, lineStatus }

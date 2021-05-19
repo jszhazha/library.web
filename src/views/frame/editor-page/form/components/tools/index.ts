@@ -5,7 +5,7 @@ interface ViewList {
   [prop: string]: string[]
 }
 
-interface ModuleList {
+interface PointList {
   [prop: string]: unknown
 }
 
@@ -17,7 +17,7 @@ const viewTools = import.meta.globEager('./**/index.vue')
 export const viewList: ViewList = {}
 
 // 模块列表
-export const moduleList: ModuleList = {}
+export const pointList: PointList = {}
 
 // 分类 中文 和 图标
 export const classify = {
@@ -42,7 +42,7 @@ Object.keys(viewTools).forEach((key) => {
   // 设置数组
   !isArray(viewList[classify]) && (viewList[classify] = [])
   // 添加模块
-  moduleList[`${name}Module`] = viewTools[key].default
+  pointList[`${name}-point`] = viewTools[key].default
   // 添加数据
   viewList[classify].push(name)
 })

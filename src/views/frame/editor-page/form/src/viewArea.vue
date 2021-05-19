@@ -36,7 +36,7 @@
 <script lang="ts">
 import { defineComponent, computed, reactive, CSSProperties, unref } from 'vue'
 import { Scrollbar } from '/@/components/Scrollbar'
-import { moduleList } from '../components/tools/index'
+import { pointList } from '../components/tools/index'
 import { buildUUID } from '/@/utils/uuid'
 import { Draggable } from '/@/lib/UI/'
 import { pointStore } from '/@/store/modules/point'
@@ -56,7 +56,7 @@ interface CurState {
 }
 
 export default defineComponent({
-  components: { Scrollbar, Draggable, ...moduleList, markLine },
+  components: { Scrollbar, Draggable, ...pointList, markLine },
   setup() {
     // 面板样式
     const panelStyle = reactive<CSSProperties>({})
@@ -81,9 +81,9 @@ export default defineComponent({
       // 唯一值
       const uuid = buildUUID()
 
-      const schema = cloneDeep(schemaList[`${name}Module`])
+      const schema = cloneDeep(schemaList[`${name}-point`])
 
-      assign(schema, { x, y, uuid, name: `${name}Module` })
+      assign(schema, { x, y, uuid, name: `${name}-point` })
 
       // 设置样式
       pointStyle[uuid] = {}

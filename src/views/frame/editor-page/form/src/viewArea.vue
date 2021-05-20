@@ -34,6 +34,7 @@
 </template>
 
 <script lang="ts">
+import type { PointInfo } from '/@/lib/interface/PointInfo'
 import { defineComponent, computed, reactive, CSSProperties, unref } from 'vue'
 import { Scrollbar } from '/@/components/Scrollbar'
 import { pointList } from '../components/tools/index'
@@ -52,7 +53,7 @@ interface CurState {
   // 唯一值
   uuid?: string
   // 当前位置
-  pos?: { x?: number; y?: number }
+  pos?: Pick<PointInfo, 'x' | 'y' | 'width' | 'height'>
 }
 
 export default defineComponent({
@@ -134,7 +135,9 @@ export default defineComponent({
       const point = unref(pointData).find((el) => el.uuid === uuid)
       const x = pos.x + (point?.x || 0)
       const y = pos.y + (point?.y || 0)
-      return { x, y }
+      const width = point?.width
+      const height = point?.height
+      return { x, y, width, height }
     }
 
     // 处理鼠标进入

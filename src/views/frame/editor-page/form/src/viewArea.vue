@@ -23,7 +23,7 @@
           @mouseenter="mouseenter(item.uuid)"
           @mouseleave="mouseleave"
         >
-          <component :is="item.name" />
+          <component :is="item.name" :uuid="item.uuid" />
         </draggable>
 
         <!-- 标线 -->

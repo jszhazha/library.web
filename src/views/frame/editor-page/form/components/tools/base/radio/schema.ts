@@ -1,7 +1,7 @@
 import type { PointInfo } from '/@/lib/interface/PointInfo'
 
 export const schema: PointInfo = {
-  height: 21,
+  height: 30,
 
-  width: 31
+  width: 60
 }

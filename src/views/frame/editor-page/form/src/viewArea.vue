@@ -23,11 +23,11 @@
           @mouseenter="mouseenter(item.uuid)"
           @mouseleave="mouseleave"
         >
-          <component :is="item.name" :uuid="item.uuid" />
+          <component :is="item.name" :uuid="item.uuid" :title="item.uuid" />
         </draggable>
 
         <!-- 标线 -->
-        <mark-line :uuid="curState.uuid" :move="curState.pos" />
+        <mark-line :uuid="curState.uuid" :move="curState.pos" @on-suck="setPointStyle" />
       </div>
     </div>
   </Scrollbar>
@@ -109,15 +109,14 @@ export default defineComponent({
       // 记录位置
       curState.pos = pos
       // 设置样式
-      pointStyle[uuid].transform = `translate(${pos.x}px,${pos.y}px)`
+      setPointStyle({ uuid, x: pos.x, y: pos.y })
     }
 
     // 处理移动结束
-    function handleMoveEnd({ uuid, x, y }: { uuid: string; x: number; y: number }) {
-      const pos = handlePosition({ x, y }, uuid)
+    function handleMoveEnd({ uuid }: { uuid: string; x: number; y: number }) {
       // 更新数据
-      pointStore.commitUpdatePointState({ uuid, key: 'x', value: pos.x as never })
-      pointStore.commitUpdatePointState({ uuid, key: 'y', value: pos.y as never })
+      pointStore.commitUpdatePointState({ uuid, key: 'x', value: curState.pos?.x as never })
+      pointStore.commitUpdatePointState({ uuid, key: 'y', value: curState.pos?.y as never })
       // 设置鼠标弹起
       curState.isMove = false
       curState.uuid = ''
@@ -128,6 +127,14 @@ export default defineComponent({
       // 设置鼠标按下
       curState.isMove = true
       curState.uuid = uuid
+    }
+
+    // 设置移动样式
+    function setPointStyle({ uuid, x, y }: { uuid: string; x: number; y: number }) {
+      curState.pos!.x = x
+      curState.pos!.y = y
+      // 设置样式
+      pointStyle[uuid].transform = `translate(${x}px,${y}px)`
     }
 
     //  位置信息处理
@@ -162,7 +169,8 @@ export default defineComponent({
       handleMoveStart,
       handleDrag,
       handleDragenter,
-      handleDragleave
+      handleDragleave,
+      setPointStyle
     }
   }
 })
@@ -184,7 +192,8 @@ export default defineComponent({
   }
 
   .view-item {
-    border: 2px solid transparent;
+    border: 1px solid transparent;
+    box-sizing: border-box;
 
     &[hover='true'] {
       cursor: move;

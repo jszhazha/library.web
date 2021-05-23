@@ -1,25 +1,16 @@
 <template>
   <div class="draggable" @mousedown.stop.prevent="startMove($event, 'mouse')">
     <slot />
-    <Icon
-      icon="ant-design:right-outlined"
-      size="10"
-      class="right absolute"
-      @mousedown.stop.prevent="startMove($event, 'ew')"
-    />
-    <Icon
-      icon="ant-design:down-outlined"
-      size="10"
-      class="down absolute"
-      @mousedown.stop.prevent="startMove($event, 'ns')"
-    />
+    <div class="ew absolute size" @mousedown.stop.prevent="startMove($event, 'ew')" />
+    <div class="ns absolute size" @mousedown.stop.prevent="startMove($event, 'ns')" />
+    <div class="se absolute size" @mousedown.stop.prevent="startMove($event, 'se')" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-type Type = 'mouse' | 'ew' | 'ns'
+type Type = 'mouse' | 'ew' | 'ns' | 'se'
 
 export default defineComponent({
   props: {
@@ -89,17 +80,30 @@ export default defineComponent({
   position: absolute;
 }
 
-.right {
+.ew {
   top: 50%;
   right: 0;
   cursor: ew-resize;
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(315deg);
 }
 
-.down {
+.ns {
   bottom: 0;
   left: 50%;
   cursor: ns-resize;
-  transform: translateX(-50%);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.se {
+  right: 0;
+  bottom: 0;
+  cursor: se-resize;
+}
+
+.size {
+  width: 5px;
+  height: 5px;
+  border-right: 2px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
 }
 </style>

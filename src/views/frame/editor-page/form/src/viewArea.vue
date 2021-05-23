@@ -18,6 +18,8 @@
           :uuid="item.uuid"
           :style="pointStyle[item.uuid]"
           :hover="curState.hover === item.uuid"
+          :select="curState.select === item.uuid"
+          @dragleave.stop
           @on-end="handleMoveEnd"
           @on-move="handleMove"
           @on-start="handleMoveStart"
@@ -54,6 +56,8 @@ import { assign, cloneDeep } from 'lodash-es'
 interface CurState {
   // 选择鼠标指针浮动在其上的元素
   hover?: string
+  // 设置选中
+  select?: string
   // 是否移动
   isMove?: boolean
   // 唯一值
@@ -66,7 +70,7 @@ interface Move {
   // 唯一值
   uuid: string
   // 类型
-  type: 'mouse' | 'ew' | 'ns'
+  type: 'mouse' | 'ew' | 'ns' | 'se'
   // 相对位移
   x: number
   y: number
@@ -74,7 +78,8 @@ interface Move {
 
 export default defineComponent({
   components: { Scrollbar, Draggable, ...pointList, markLine },
-  setup() {
+  emits: ['on-click-point'],
+  setup(_props, { emit }) {
     // 面板样式
     const panelStyle = reactive<CSSProperties>({})
     // 拖拽数据信息
@@ -107,6 +112,8 @@ export default defineComponent({
       const { width, height } = initPointStyle(uuid, schema)
       schema.width = width
       schema.height = height
+      // 传递数据
+      setSelectPoint(uuid)
       // 添加数据
       pointStore.commitAddPointState(schema)
     }
@@ -144,12 +151,18 @@ export default defineComponent({
         // 设置样式
         setPointTransform({ uuid, x: pos.x, y: pos.y })
       } else if (type === 'ew') {
-        const { width } = handleWidth({ x }, uuid)
+        const pos = handleWidth({ x }, uuid)
         // 设置样式
-        setPointStyle({ uuid, key: 'width', value: `${width}px` })
+        setPointStyle({ uuid, key: 'width', value: `${pos.width}px` })
       } else if (type === 'ns') {
         const { height } = handleHeight({ y }, uuid)
         // 设置样式
+        setPointStyle({ uuid, key: 'height', value: `${height}px` })
+      } else if (type === 'se') {
+        const { width } = handleWidth({ x }, uuid)
+        const { height } = handleHeight({ y }, uuid)
+        // 设置样式
+        setPointStyle({ uuid, key: 'width', value: `${width}px` })
         setPointStyle({ uuid, key: 'height', value: `${height}px` })
       }
     }
@@ -174,23 +187,29 @@ export default defineComponent({
         const { height } = handleHeight({ y }, uuid)
         // 更新数据
         pointStore.commitUpdatePointState({ uuid, key: 'height', value: height as never })
+      } else if (type === 'se') {
+        const { width } = handleWidth({ x }, uuid)
+        const { height } = handleHeight({ y }, uuid)
+        // 更新数据
+        pointStore.commitUpdatePointState({ uuid, key: 'width', value: width as never })
+        pointStore.commitUpdatePointState({ uuid, key: 'height', value: height as never })
       }
     }
 
     // 处理移动开始
-    function handleMoveStart({ uuid, type }: { uuid: string; type: string }) {
+    function handleMoveStart({ uuid }: { uuid: string; type: string }) {
       // 设置鼠标按下
       curState.isMove = true
       // 判断移动的类型
-      if (type === 'mouse') {
-        curState.uuid = uuid
-      }
+      curState.uuid = uuid
+      // 传递数据
+      setSelectPoint(uuid)
     }
 
     // 设置样式
     function setPointStyle(options: { uuid: string; key: string; value: string }) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ;(pointStyle[options.uuid]! as any)[options.key] = options.value
+      (pointStyle[options.uuid]! as any)[options.key] = options.value
     }
 
     // 设置 transform
@@ -211,7 +230,7 @@ export default defineComponent({
       let width = (point?.width || 0) + pos.x
       width = x + width > clientWidth ? clientWidth - x : width
 
-      return { width }
+      return { width, height: point?.height, x: point?.x, y: point?.y }
     }
     // 处理 高度
     function handleHeight(pos: { y: number }, uuid: string) {
@@ -221,7 +240,7 @@ export default defineComponent({
       let height = (point?.height || 0) + pos.y
       height = y + height > clientHeight ? clientHeight - y : height
 
-      return { height }
+      return { height, width: point?.width, x: point?.x, y: point?.y }
     }
 
     // 位置信息处理
@@ -246,6 +265,13 @@ export default defineComponent({
     // 处理鼠标离开
     function mouseleave() {
       !curState.isMove && (curState.hover = '')
+    }
+
+    function setSelectPoint(uuid: string) {
+      // 传递数据
+      emit('on-click-point', { uuid })
+      // 设置选中
+      curState.select = uuid
     }
 
     return {
@@ -289,6 +315,10 @@ export default defineComponent({
 
     &[hover='true'] {
       cursor: move;
+      border-color: @primary-color;
+    }
+
+    &[select='true'] {
       border-color: @primary-color;
     }
   }

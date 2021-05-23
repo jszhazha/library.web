@@ -33,8 +33,8 @@
     </PublicHeader>
     <div class="flex flex-item hidden editor-form-main relative">
       <tool-area />
-      <view-area class="flex-item" />
-      <action-area />
+      <view-area class="flex-item" @on-click-point="handleClickPoint" />
+      <action-area v-model:value="action.visible" :uuid="action.uuid" />
     </div>
   </div>
 </template>
@@ -59,6 +59,8 @@ export default defineComponent({
 
     const inputState = ref<boolean>(false)
 
+    const action = reactive<{ visible: boolean; uuid: string }>({ visible: true, uuid: '' })
+
     // 处理点击编辑
     const onClickEdit = () => inputRef.value?.focus()
 
@@ -77,9 +79,25 @@ export default defineComponent({
       assign(dataItem, data)
     }
 
+    // 点击 point
+    function handleClickPoint({ uuid }: { uuid: string }) {
+      action.visible = false
+      action.uuid = uuid
+    }
+
     onLoadDataById(+unref(currentRoute).params.id)
 
-    return { dataItem, inputRef, inputState, onClickEdit, onInputFocus, onInputBlur, onGoBack }
+    return {
+      action,
+      dataItem,
+      inputRef,
+      inputState,
+      onClickEdit,
+      onInputFocus,
+      onInputBlur,
+      onGoBack,
+      handleClickPoint
+    }
   }
 })
 </script>

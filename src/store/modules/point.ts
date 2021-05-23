@@ -36,8 +36,6 @@ export default class Point extends VuexModule {
 
     // 更新数据
     point && (point[key] = value)
-
-    console.log(uuid, key, value )
   }
 }
 

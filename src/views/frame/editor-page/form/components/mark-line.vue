@@ -57,19 +57,19 @@ export default defineComponent({
           handelShowStyle('y', x!, x!)
         } else if (isNearly(x! + width!, current.x!)) {
           // 左边 - 右边
-          handelShowStyle('y', x! + width! + 1, x! + width! + 1)
+          handelShowStyle('y', x! + width!, x! + width!)
         } else if (isNearly(x! + width! / 2, current.x!)) {
           // 左边 - 中间
           handelShowStyle('y', x! + width! / 2, x! + width! / 2)
         } else if (isNearly(current.x! + current.width!, x!)) {
           // 右边  - 左边
-          handelShowStyle('y', x!, x! - current.width! - 1)
+          handelShowStyle('y', x!, x! - current.width!)
         } else if (isNearly(current.x! + current.width!, x! + width!)) {
           // 右边  - 右边
-          handelShowStyle('y', x! + width! + 1, x! + width! - current.width!)
+          handelShowStyle('y', x! + width!, x! + width! - current.width!)
         } else if (isNearly(current.x! + current.width!, x! + width! / 2)) {
           // 右边  - 中间
-          handelShowStyle('y', x! + width! / 2, x! + width! / 2 - current.width! - 1)
+          handelShowStyle('y', x! + width! / 2, x! + width! / 2 - current.width!)
         } else if (isNearly(current.x! + current.width! / 2, x!)) {
           // 中间  - 左边
           handelShowStyle('y', x!, x! - current.width! / 2)
@@ -78,7 +78,7 @@ export default defineComponent({
           handelShowStyle('y', x! + width! / 2!, x! + width! / 2! - current.width! / 2)
         } else if (isNearly(current.x! + current.width! / 2, x! + width!)) {
           // 中间  - 右边
-          handelShowStyle('y', x! + width! + 1, x! + width! - current.width! / 2 + 1)
+          handelShowStyle('y', x! + width!, x! + width! - current.width! / 2)
         }
 
         if (isNearly(current.y!, y!)) {
@@ -89,25 +89,25 @@ export default defineComponent({
           handelShowStyle('x', y! + height! / 2, y! + height! / 2)
         } else if (isNearly(current.y!, y! + height!)) {
           // 上边 - 下边
-          handelShowStyle('x', y! + height! + 1, y! + height! + 1)
+          handelShowStyle('x', y! + height!, y! + height!)
         } else if (isNearly(current.y! + current.height!, y!)) {
           // 下边 - 上边
-          handelShowStyle('x', y!, y! - current.height! - 1)
+          handelShowStyle('x', y!, y! - current.height!)
         } else if (isNearly(current.y! + current.height!, y! + height! / 2)) {
           // 下边 - 中间
-          handelShowStyle('x', y! + height! / 2, y! + height! / 2 - current.height! - 1)
+          handelShowStyle('x', y! + height! / 2, y! + height! / 2 - current.height!)
         } else if (isNearly(current.y! + current.height!, y! + height!)) {
           // 下边 - 下标
-          handelShowStyle('x', y! + height! + 1, y! + height! - current.height!)
+          handelShowStyle('x', y! + height!, y! + height! - current.height!)
         } else if (isNearly(current.y! + current.height! / 2, y!)) {
           // 中间 - 上边
-          handelShowStyle('x', y!, y! - current.height! / 2 - 1)
+          handelShowStyle('x', y!, y! - current.height! / 2)
         } else if (isNearly(current.y! + current.height! / 2, y! + height! / 2)) {
           // 中间 - 中间
-          handelShowStyle('x', y! + height! / 2, y! + height! / 2 - current.height! / 2 - 1)
+          handelShowStyle('x', y! + height! / 2, y! + height! / 2 - current.height! / 2)
         } else if (isNearly(current.y! + current.height! / 2, y! + height!)) {
           // 中间 - 下标
-          handelShowStyle('x', y! + height! + 1, y! + height! - current.height! / 2)
+          handelShowStyle('x', y! + height!, y! + height! - current.height! / 2)
         }
       })
     }

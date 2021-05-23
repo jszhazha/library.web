@@ -5,7 +5,7 @@ export interface InputSchema extends PointInfo {
 }
 
 export const schema: InputSchema = {
-  height: 50,
+  height: 32,
 
-  width: 50
+  width: 200
 }

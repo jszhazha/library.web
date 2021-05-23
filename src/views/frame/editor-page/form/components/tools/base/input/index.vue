@@ -1,12 +1,12 @@
 <template>
-  <div :style="styleWrap">
+  <div>
     input
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, unref, computed } from 'vue'
-import { pointStore } from '/@/store/modules/point'
+import { defineComponent } from 'vue'
+import { queryPoint } from '../../utils'
 
 export default defineComponent({
   props: {
@@ -17,15 +17,12 @@ export default defineComponent({
   },
   setup(props) {
     // 拖拽数据信息
-    const pointData = computed(() => pointStore.getPointState)
+    const point = queryPoint(props.uuid)
 
-    const point = unref(pointData).find((el) => el.uuid === props.uuid)
-
-    const styleWrap = computed(() => ({ width: `${point?.width}px`, height: `${point?.height}px` }))
 
     console.log(point)
 
-    return {styleWrap}
+    return {  }
   }
 })
 </script>

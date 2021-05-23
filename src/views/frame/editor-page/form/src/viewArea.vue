@@ -2,6 +2,7 @@
   <Scrollbar>
     <div class="view-area">
       <div
+        ref="panelRef"
         class="view-area-panel relative"
         :style="panelStyle"
         @drop="handleDrag"
@@ -27,7 +28,12 @@
         </draggable>
 
         <!-- 标线 -->
-        <mark-line :uuid="curState.uuid" :move="curState.pos" @on-suck="setPointStyle" />
+        <mark-line
+          :uuid="curState.uuid"
+          :move="curState.pos"
+          :is-move="curState.isMove"
+          @on-suck="setPointTransform"
+        />
       </div>
     </div>
   </Scrollbar>
@@ -35,7 +41,7 @@
 
 <script lang="ts">
 import type { PointInfo } from '/@/lib/interface/PointInfo'
-import { defineComponent, computed, reactive, CSSProperties, unref } from 'vue'
+import { defineComponent, computed, reactive, CSSProperties, ref, unref } from 'vue'
 import { Scrollbar } from '/@/components/Scrollbar'
 import { pointList } from '../components/tools/index'
 import { buildUUID } from '/@/utils/uuid'
@@ -56,6 +62,16 @@ interface CurState {
   pos?: Pick<PointInfo, 'x' | 'y' | 'width' | 'height'>
 }
 
+interface Move {
+  // 唯一值
+  uuid: string
+  // 类型
+  type: 'mouse' | 'ew' | 'ns'
+  // 相对位移
+  x: number
+  y: number
+}
+
 export default defineComponent({
   components: { Scrollbar, Draggable, ...pointList, markLine },
   setup() {
@@ -67,6 +83,8 @@ export default defineComponent({
     const pointStyle = reactive<Indexable<CSSProperties>>({})
     // 当前状态
     const curState = reactive<CurState>({})
+    // ref
+    const panelRef = ref<HTMLElement | null>(null)
 
     // 在一个拖动过程中，释放鼠标键时触发此事件
     function handleDrag(event: DragEvent) {
@@ -85,12 +103,25 @@ export default defineComponent({
       const schema = cloneDeep(schemaList[`${name}-point`])
 
       assign(schema, { x, y, uuid, name: `${name}-point` })
-
-      // 设置样式
-      pointStyle[uuid] = {}
-      pointStyle[uuid].transform = `translate(${x}px,${y}px)`
+      // 初始化样式
+      const { width, height } = initPointStyle(uuid, schema)
+      schema.width = width
+      schema.height = height
       // 添加数据
       pointStore.commitAddPointState(schema)
+    }
+
+    //  初始化样式
+    function initPointStyle(uuid: string, { x, y, width: w, height: h }: PointInfo) {
+      pointStyle[uuid] = {}
+      const { clientHeight: cH, clientWidth: cW } = panelRef.value!
+      const width = x! + w! > cW ? cW - x! : w
+      const height = y! + h! > cH ? cH - y! : h
+      setPointStyle({ uuid, key: 'transform', value: `translate(${x}px,${y}px)` })
+      setPointStyle({ uuid, key: 'width', value: `${width}px` })
+      setPointStyle({ uuid, key: 'height', value: `${height}px` })
+
+      return { width, height }
     }
 
     // 当被鼠标拖动的对象进入其容器范围内时触发此事件
@@ -104,46 +135,106 @@ export default defineComponent({
     }
 
     // 处理移动
-    function handleMove({ uuid, x, y }: { uuid: string; x: number; y: number }) {
-      const pos = handlePosition({ x, y }, uuid)
-      // 记录位置
-      curState.pos = pos
-      // 设置样式
-      setPointStyle({ uuid, x: pos.x, y: pos.y })
+    function handleMove({ uuid, x, y, type }: Move) {
+      // 判断移动的类型
+      if (type === 'mouse') {
+        const pos = handlePosition({ x, y }, uuid)
+        // 记录位置
+        curState.pos = pos
+        // 设置样式
+        setPointTransform({ uuid, x: pos.x, y: pos.y })
+      } else if (type === 'ew') {
+        const { width } = handleWidth({ x }, uuid)
+        // 设置样式
+        setPointStyle({ uuid, key: 'width', value: `${width}px` })
+      } else if (type === 'ns') {
+        const { height } = handleHeight({ y }, uuid)
+        // 设置样式
+        setPointStyle({ uuid, key: 'height', value: `${height}px` })
+      }
     }
 
     // 处理移动结束
-    function handleMoveEnd({ uuid }: { uuid: string; x: number; y: number }) {
-      // 更新数据
-      pointStore.commitUpdatePointState({ uuid, key: 'x', value: curState.pos?.x as never })
-      pointStore.commitUpdatePointState({ uuid, key: 'y', value: curState.pos?.y as never })
+    function handleMoveEnd({ uuid, x, y, type }: Move) {
       // 设置鼠标弹起
       curState.isMove = false
-      curState.uuid = ''
+      // 判断移动的类型
+      if (type === 'mouse') {
+        curState.uuid = ''
+        // 没有位移就不更新
+        if (x === 0 && y === 0) return
+        // 更新数据
+        pointStore.commitUpdatePointState({ uuid, key: 'x', value: curState.pos?.x as never })
+        pointStore.commitUpdatePointState({ uuid, key: 'y', value: curState.pos?.y as never })
+      } else if (type === 'ew') {
+        const { width } = handleWidth({ x }, uuid)
+        // 更新数据
+        pointStore.commitUpdatePointState({ uuid, key: 'width', value: width as never })
+      } else if (type === 'ns') {
+        const { height } = handleHeight({ y }, uuid)
+        // 更新数据
+        pointStore.commitUpdatePointState({ uuid, key: 'height', value: height as never })
+      }
     }
 
     // 处理移动开始
-    function handleMoveStart({ uuid }: { uuid: string }) {
+    function handleMoveStart({ uuid, type }: { uuid: string; type: string }) {
       // 设置鼠标按下
       curState.isMove = true
-      curState.uuid = uuid
+      // 判断移动的类型
+      if (type === 'mouse') {
+        curState.uuid = uuid
+      }
     }
 
-    // 设置移动样式
-    function setPointStyle({ uuid, x, y }: { uuid: string; x: number; y: number }) {
-      curState.pos!.x = x
-      curState.pos!.y = y
-      // 设置样式
-      pointStyle[uuid].transform = `translate(${x}px,${y}px)`
+    // 设置样式
+    function setPointStyle(options: { uuid: string; key: string; value: string }) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ;(pointStyle[options.uuid]! as any)[options.key] = options.value
     }
 
-    //  位置信息处理
-    function handlePosition(pos: { x: number; y: number }, uuid: string) {
+    // 设置 transform
+    function setPointTransform({ uuid, x, y }: { uuid: string; x: number; y: number }) {
+      curState.pos!.x = x <= 0 ? 0 : x
+      curState.pos!.y = y <= 0 ? 0 : y
+      const key = 'transform'
+      const value = `translate(${curState.pos!.x}px,${curState.pos!.y}px)`
+
+      setPointStyle({ uuid, key, value })
+    }
+
+    // 处理 宽度
+    function handleWidth(pos: { x: number }, uuid: string) {
+      const { clientWidth } = panelRef.value!
       const point = unref(pointData).find((el) => el.uuid === uuid)
-      const x = pos.x + (point?.x || 0)
-      const y = pos.y + (point?.y || 0)
+      const x = point?.x || 0
+      let width = (point?.width || 0) + pos.x
+      width = x + width > clientWidth ? clientWidth - x : width
+
+      return { width }
+    }
+    // 处理 高度
+    function handleHeight(pos: { y: number }, uuid: string) {
+      const { clientHeight } = panelRef.value!
+      const point = unref(pointData).find((el) => el.uuid === uuid)
+      const y = point?.y || 0
+      let height = (point?.height || 0) + pos.y
+      height = y + height > clientHeight ? clientHeight - y : height
+
+      return { height }
+    }
+
+    // 位置信息处理
+    function handlePosition(pos: { x: number; y: number }, uuid: string) {
+      const { clientHeight, clientWidth } = panelRef.value!
+      const point = unref(pointData).find((el) => el.uuid === uuid)
       const width = point?.width
       const height = point?.height
+      let x = pos.x + (point?.x || 0)
+      let y = pos.y + (point?.y || 0)
+      x = x > clientWidth - width! ? clientWidth - width! : x <= 0 ? 0 : x
+      y = y > clientHeight - height! ? clientHeight - height! : y <= 0 ? 0 : y
+
       return { x, y, width, height }
     }
 
@@ -158,6 +249,7 @@ export default defineComponent({
     }
 
     return {
+      panelRef,
       curState,
       pointData,
       pointStyle,
@@ -170,7 +262,7 @@ export default defineComponent({
       handleDrag,
       handleDragenter,
       handleDragleave,
-      setPointStyle
+      setPointTransform
     }
   }
 })

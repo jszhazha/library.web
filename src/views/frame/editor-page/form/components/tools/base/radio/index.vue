@@ -1,12 +1,10 @@
 <template>
-  <div :style="styleWrap">
-    radio
-  </div>
+  <div>radio</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, unref, computed } from 'vue'
-import { pointStore } from '/@/store/modules/point'
+import { defineComponent } from 'vue'
+import { queryPoint } from '../../utils'
 
 export default defineComponent({
   props: {
@@ -17,15 +15,11 @@ export default defineComponent({
   },
   setup(props) {
     // 拖拽数据信息
-    const pointData = computed(() => pointStore.getPointState)
-
-    const point = unref(pointData).find((el) => el.uuid === props.uuid)
-
-    const styleWrap = computed(() => ({ width: `${point?.width}px`, height: `${point?.height}px` }))
+    const point = queryPoint(props.uuid)
 
     console.log(point)
 
-    return {styleWrap}
+    return {}
   }
 })
 </script>

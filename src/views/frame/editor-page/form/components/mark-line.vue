@@ -23,6 +23,10 @@ export default defineComponent({
     uuid: {
       type: String,
       default: ''
+    },
+    isMove: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['on-suck'],
@@ -39,10 +43,10 @@ export default defineComponent({
     // 展示线条
     function handleShow() {
       const current = props.move
-      // 不能为空
-      if (!props.uuid) return
       // 隐藏线条
       handleHide()
+      // 不能为空
+      if (!props.uuid) return
 
       pointData.value.forEach((el) => {
         if (el.uuid === props.uuid) return
@@ -115,6 +119,7 @@ export default defineComponent({
 
     // 展示样式
     function handelShowStyle(line: 'x' | 'y', move: number, vlaue: number) {
+      if (move === 0) return
       const state = { x: 'y', y: 'x' }
       lineStatus.value[line].display = 'inline'
       lineStatus.value[line].transform = `translate${state[line]}(${move}px)`
@@ -138,6 +143,11 @@ export default defineComponent({
       () => throttled()
     )
 
+    watch(
+      () => props.isMove,
+      (val) => !val && handleHide()
+    )
+
     return { lines, lineStatus }
   }
 })
@@ -147,16 +157,19 @@ export default defineComponent({
 .line {
   position: absolute;
   display: none;
-  background: #0050b3;
 }
 
 .xline {
   width: 100%;
   height: 1px;
+  background: linear-gradient(to right, #0050b3, #0050b3 5px, transparent 5px, transparent);
+  background-size: 10px 100%;
 }
 
 .yline {
   width: 1px;
   height: 100%;
+  background: linear-gradient(to top, #0050b3, #0050b3 5px, transparent 5px, transparent);
+  background-size: 100% 10px;
 }
 </style>

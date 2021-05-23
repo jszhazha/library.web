@@ -25,7 +25,8 @@ export const classify = {
     base: '基础',
     input: '输入框',
     checkbox: '多选框',
-    radio: '单选框'
+    radio: '单选框',
+    form: '表单配置'
   },
   icon: {
     base: 'ant-design:highlight-outlined',

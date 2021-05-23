@@ -1,20 +1,26 @@
 <template>
   <div class="action-area">
     <GlobalDrawer v-model:value="visible" placement="right" class="h100">
-      <div class="action-area-header index-center-middle">
-        {{ classify.name[dataItem.name.replace(/-point/, '')] }}
+      <div class="action-area-header index-middle">
+        {{ classify.name[dataItem.name] }}
       </div>
+      <a-form layout="vertical" class="action-area-main">
+        <component :is="`${dataItem.name}-point`" />
+      </a-form>
     </GlobalDrawer>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, watch, computed, unref } from 'vue'
+import { templateList } from '../components/tools/template'
 import { PointInfo } from '/@/lib/interface/PointInfo'
 import { pointStore } from '/@/store/modules/point'
 import { classify } from '../components/tools/index'
+import formPoint from '../components/form-point.vue'
 
 export default defineComponent({
+  components: { formPoint, ...templateList },
   props: {
     value: {
       type: Boolean,
@@ -29,7 +35,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const pointData = computed(() => pointStore.getPointState)
 
-    const dataItem = ref<PointInfo | undefined>(undefined)
+    const dataItem = ref<PointInfo>({ name: 'form' })
     // 折叠面板
     const visible = ref<boolean>(props.value)
 
@@ -45,7 +51,10 @@ export default defineComponent({
 
     watch(
       () => props.uuid,
-      (uuid) => (dataItem.value = unref(pointData).find((el) => el.uuid === uuid))
+      (uuid) => {
+        // 为空就空对象
+        dataItem.value = unref(pointData).find((el) => el.uuid === uuid) || { name: 'form' }
+      }
     )
 
     return { visible, classify, dataItem }
@@ -60,9 +69,20 @@ export default defineComponent({
 
   &-header {
     height: 64px;
-    font-size: 16px;
-    font-weight: 600;
+    padding: 0 0 0 20px;
+    font-size: 18px;
     color: #292b33;
+  }
+
+  &-main {
+    padding: 0 20px;
+
+    ::v-deep(.ant-form-item) {
+      .ant-input,
+      .ant-radio-inner {
+        background-color: #f6f6f6;
+      }
+    }
   }
 }
 </style>

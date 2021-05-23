@@ -1,6 +1,6 @@
 <template>
   <Scrollbar>
-    <div class="view-area">
+    <div class="view-area" @contextmenu.prevent="handleContextmenu">
       <div
         ref="panelRef"
         class="view-area-panel relative"
@@ -20,13 +20,14 @@
           :hover="curState.hover === item.uuid"
           :select="curState.select === item.uuid"
           @dragleave.stop
+          @contextmenu.stop.prevent
           @on-end="handleMoveEnd"
           @on-move="handleMove"
           @on-start="handleMoveStart"
           @mouseenter="mouseenter(item.uuid)"
           @mouseleave="mouseleave"
         >
-          <component :is="item.name" :uuid="item.uuid" :title="item.uuid" />
+          <component :is="`${item.name}-point`" :uuid="item.uuid" :title="item.uuid" />
         </draggable>
 
         <!-- 标线 -->
@@ -105,9 +106,9 @@ export default defineComponent({
       // 唯一值
       const uuid = buildUUID()
 
-      const schema = cloneDeep(schemaList[`${name}-point`])
+      const schema = cloneDeep(schemaList[name])
 
-      assign(schema, { x, y, uuid, name: `${name}-point` })
+      assign(schema, { x, y, uuid, name })
       // 初始化样式
       const { width, height } = initPointStyle(uuid, schema)
       schema.width = width
@@ -274,6 +275,11 @@ export default defineComponent({
       curState.select = uuid
     }
 
+    // 右键
+    function handleContextmenu() {
+      setSelectPoint('')
+    }
+
     return {
       panelRef,
       curState,
@@ -288,6 +294,7 @@ export default defineComponent({
       handleDrag,
       handleDragenter,
       handleDragleave,
+      handleContextmenu,
       setPointTransform
     }
   }

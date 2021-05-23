@@ -1,6 +1,6 @@
 <template>
-  <div class="action-area">
-    <GlobalDrawer v-model:value="visible" placement="right" class="h100">
+  <Scrollbar class="action-area">
+    <GlobalDrawer v-model:value="visible" placement="right">
       <div class="action-area-header index-middle">
         {{ classify.name[dataItem.name] }}
       </div>
@@ -8,7 +8,7 @@
         <component :is="`${dataItem.name}-point`" />
       </a-form>
     </GlobalDrawer>
-  </div>
+  </Scrollbar>
 </template>
 
 <script lang="ts">
@@ -16,11 +16,12 @@ import { defineComponent, ref, watch, computed, unref } from 'vue'
 import { templateList } from '../components/tools/template'
 import { PointInfo } from '/@/lib/interface/PointInfo'
 import { pointStore } from '/@/store/modules/point'
+import { Scrollbar } from '/@/components/Scrollbar'
 import { classify } from '../components/tools/index'
 import formPoint from '../components/form-point.vue'
 
 export default defineComponent({
-  components: { formPoint, ...templateList },
+  components: { formPoint, ...templateList, Scrollbar },
   props: {
     value: {
       type: Boolean,

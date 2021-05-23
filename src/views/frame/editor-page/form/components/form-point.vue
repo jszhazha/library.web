@@ -12,6 +12,7 @@
   <a-form-item label="标签宽度：">
     <a-input />
   </a-form-item>
+
   <a-form-item label="隐藏表单项的必选标记：">
     <a-radio-group>
       <a-radio value="left">
@@ -38,6 +39,3 @@
 import { defineComponent } from 'vue'
 export default defineComponent({})
 </script>
-
-<style lang="less" scoped>
-</style>

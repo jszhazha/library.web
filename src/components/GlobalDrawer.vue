@@ -70,6 +70,7 @@ export default defineComponent({
 .global-drawer {
   &-wrap {
     position: relative;
+    min-height: 100%;
     background: #fff;
     box-shadow: 0 2px 8px 0 #dbdbdb99;
     transition: all 0.3s;

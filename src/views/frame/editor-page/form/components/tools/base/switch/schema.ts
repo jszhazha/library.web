@@ -8,7 +8,7 @@ export const schema: PointInfo = {
 }
 
 
-export const name = '多选框'
 
-export const icon = 'ion:checkbox-outline'
+export const name = '开关'
 
+export const icon = 'radix-icons:switch'

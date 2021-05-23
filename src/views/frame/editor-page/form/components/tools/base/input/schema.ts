@@ -9,3 +9,9 @@ export const schema: InputSchema = {
 
   width: 200
 }
+
+
+
+export const name = '输入框'
+
+export const icon = 'ant-design:edit-outlined'

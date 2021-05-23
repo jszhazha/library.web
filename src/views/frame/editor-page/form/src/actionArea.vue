@@ -2,7 +2,7 @@
   <Scrollbar class="action-area">
     <GlobalDrawer v-model:value="visible" placement="right">
       <div class="action-area-header index-middle">
-        {{ classify.name[dataItem.name] }}
+        {{ pointConfigs.name[dataItem.name] }}
       </div>
       <a-form layout="vertical" class="action-area-main">
         <component :is="`${dataItem.name}-point`" />
@@ -17,7 +17,7 @@ import { templateList } from '../components/tools/template'
 import { PointInfo } from '/@/lib/interface/PointInfo'
 import { pointStore } from '/@/store/modules/point'
 import { Scrollbar } from '/@/components/Scrollbar'
-import { classify } from '../components/tools/index'
+import { pointConfigs } from '../components/tools/index'
 import formPoint from '../components/form-point.vue'
 
 export default defineComponent({
@@ -58,7 +58,7 @@ export default defineComponent({
       }
     )
 
-    return { visible, classify, dataItem }
+    return { visible, pointConfigs, dataItem }
   }
 })
 </script>
@@ -77,13 +77,6 @@ export default defineComponent({
 
   &-main {
     padding: 0 20px;
-
-    ::v-deep(.ant-form-item) {
-      .ant-input,
-      .ant-radio-inner {
-        background-color: #f6f6f6;
-      }
-    }
   }
 }
 </style>

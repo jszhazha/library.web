@@ -5,3 +5,8 @@ export const schema: PointInfo = {
 
   width: 60
 }
+
+
+export const name = '单选框'
+
+export const icon = 'mdi:radiobox-marked'

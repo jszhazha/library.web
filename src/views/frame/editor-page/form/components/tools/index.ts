@@ -9,9 +9,18 @@ interface PointList {
   [prop: string]: unknown
 }
 
+interface PointConfigs {
+  name: { [prop: string]: string }
+
+  icon: { [prop: string]: string }
+}
+
 
 // 视图工具
 const viewTools = import.meta.globEager('./**/index.vue')
+
+// 模型工具
+const schemaTools = import.meta.globEager('./**/schema.ts')
 
 // 工具列表
 export const viewList: ViewList = {}
@@ -20,19 +29,13 @@ export const viewList: ViewList = {}
 export const pointList: PointList = {}
 
 // 分类 中文 和 图标
-export const classify = {
+export const pointConfigs: PointConfigs = {
   name: {
     base: '基础',
-    input: '输入框',
-    checkbox: '多选框',
-    radio: '单选框',
     form: '表单配置'
   },
   icon: {
-    base: 'ant-design:highlight-outlined',
-    input: 'ant-design:edit-outlined',
-    checkbox: 'ant-design:check-square-outlined',
-    radio: 'mdi:radiobox-marked'
+    base: 'ant-design:highlight-outlined'
   }
 }
 
@@ -48,3 +51,13 @@ Object.keys(viewTools).forEach((key) => {
   viewList[classify].push(name)
 })
 
+
+Object.keys(schemaTools).forEach((key) => {
+  // 读取文件名称
+  const [, name] = key.replace(/\.\/|.schema.ts/g, '').split('/')
+  // 添加名称
+  pointConfigs.name[name] = schemaTools[key].name as string
+
+   // 添加名称
+   pointConfigs.icon[name] = schemaTools[key].icon as string
+})

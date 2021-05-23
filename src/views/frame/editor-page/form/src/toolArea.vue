@@ -4,9 +4,9 @@
       <a-tabs tab-position="left" @change="handleTabChange">
         <a-tab-pane v-for="(item, key) in viewList" :key="key">
           <template #tab>
-            <Icon :icon="classify.icon[key]" size="18" />
+            <Icon :icon="pointConfigs.icon[key]" size="18" />
             <div class="pt-1">
-              {{ classify.name[key] }}
+              {{ pointConfigs.name[key] }}
             </div>
           </template>
         </a-tab-pane>
@@ -30,10 +30,10 @@
           @dragstart="handleDragstart($event, el)"
         >
           <div class="index-center-middle flex-item">
-            <Icon :icon="classify.icon[el]" size="20" />
+            <Icon :icon="pointConfigs.icon[el]" size="20" />
           </div>
           <div class="panel-box-title">
-            {{ classify.name[el] }}
+            {{ pointConfigs.name[el] }}
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { viewList, classify } from '../components/tools/index'
+import { viewList, pointConfigs } from '../components/tools/index'
 
 export default defineComponent({
   setup() {
@@ -67,7 +67,7 @@ export default defineComponent({
       visible.value = false
     }
 
-    return { viewList, visible, classify, handleDragstart, handleTabChange }
+    return { viewList, visible, pointConfigs, handleDragstart, handleTabChange }
   }
 })
 </script>

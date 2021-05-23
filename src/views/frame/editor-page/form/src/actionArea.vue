@@ -1,5 +1,5 @@
 <template>
-  <Scrollbar class="action-area">
+  <div class="action-area">
     <GlobalDrawer v-model:value="visible" placement="right">
       <div class="action-area-header index-middle">
         {{ pointConfigs.name[dataItem.name] }}
@@ -8,7 +8,7 @@
         <component :is="`${dataItem.name}-point`" />
       </a-form>
     </GlobalDrawer>
-  </Scrollbar>
+  </div>
 </template>
 
 <script lang="ts">
@@ -16,12 +16,11 @@ import { defineComponent, ref, watch, computed, unref } from 'vue'
 import { templateList } from '../components/tools/template'
 import { PointInfo } from '/@/lib/interface/PointInfo'
 import { pointStore } from '/@/store/modules/point'
-import { Scrollbar } from '/@/components/Scrollbar'
 import { pointConfigs } from '../components/tools/index'
 import formPoint from '../components/form-point.vue'
 
 export default defineComponent({
-  components: { formPoint, ...templateList, Scrollbar },
+  components: { formPoint, ...templateList },
   props: {
     value: {
       type: Boolean,

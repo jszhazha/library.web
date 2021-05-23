@@ -59,7 +59,7 @@ export default defineComponent({
 
     const inputState = ref<boolean>(false)
 
-    const action = reactive<{ visible: boolean; uuid: string }>({ visible: false, uuid: '' })
+    const action = reactive<{ visible: boolean; uuid: string }>({ visible: true, uuid: '' })
 
     // 处理点击编辑
     const onClickEdit = () => inputRef.value?.focus()

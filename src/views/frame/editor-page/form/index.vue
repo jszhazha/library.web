@@ -41,12 +41,13 @@
 
 <script lang="ts">
 import { assign } from 'lodash-es'
-import { defineComponent, reactive, ref, unref } from 'vue'
+import { defineComponent, onBeforeUnmount, reactive, ref, unref } from 'vue'
 import { useRouter } from 'vue-router'
 import actionArea from './src/actionArea.vue'
 import toolArea from './src/toolArea.vue'
 import viewArea from './src/viewArea.vue'
 import service, { FormManage } from '/@/api/page-manage/form-page'
+import { pointStore } from '/@/store/modules/point'
 
 export default defineComponent({
   components: { actionArea, toolArea, viewArea },
@@ -59,7 +60,7 @@ export default defineComponent({
 
     const inputState = ref<boolean>(false)
 
-    const action = reactive<{ visible: boolean; uuid: string }>({ visible: true, uuid: '' })
+    const action = reactive<{ visible: boolean; uuid: string }>({ visible: false, uuid: '' })
 
     // 处理点击编辑
     const onClickEdit = () => inputRef.value?.focus()
@@ -84,6 +85,8 @@ export default defineComponent({
       action.visible = false
       action.uuid = uuid
     }
+
+    onBeforeUnmount(() => pointStore.commitEmptyPointState())
 
     onLoadDataById(+unref(currentRoute).params.id)
 

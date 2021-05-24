@@ -37,6 +37,12 @@ export default class Point extends VuexModule {
     // 更新数据
     point && (point[key] = value)
   }
+
+  // 清空
+  @Mutation
+  commitEmptyPointState():void{
+    this.pointDataState = []
+  }
 }
 
 export { Point }

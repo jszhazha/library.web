@@ -5,7 +5,7 @@
         {{ pointConfigs.name[dataItem.name] }}
       </div>
       <a-form layout="vertical" class="action-area-main">
-        <component :is="`${dataItem.name}-point`" />
+        <component :is="`${dataItem.name}-point`" :uuid="uuid" />
       </a-form>
     </GlobalDrawer>
   </div>

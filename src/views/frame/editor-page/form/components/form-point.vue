@@ -12,8 +12,6 @@
       </a-select-option>
     </a-select>
   </a-form-item>
- 
-
   <a-form-item label="隐藏表单项的必选标记：">
     <a-select>
       <a-select-option value="jack">
@@ -38,5 +36,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-export default defineComponent({})
+export default defineComponent({
+  props:{
+      uuid: {
+      type: String,
+      default: ''
+    }
+  }
+})
 </script>

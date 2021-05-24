@@ -1,5 +1,5 @@
 <template>
-  <div>input</div>
+  <div>{{ point.label }}</div>
 </template>
 
 <script lang="ts">
@@ -19,7 +19,7 @@ export default defineComponent({
 
     console.log(point)
 
-    return {}
+    return { point }
   }
 })
 </script>

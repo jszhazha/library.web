@@ -10,6 +10,11 @@
     "lint:stylelint": "yarn stylelint **/*.{css,vue} --fix",
     "prepare": "husky install"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.vue": ["eslint --fix", "prettier --write", "stylelint --fix"],
+    "*.{scss,less,styl,html}": ["stylelint --fix", "prettier --write"]
+  },
   "dependencies": {
     "@antv/g2": "^4.1.12",
     "@iconify/iconify": "^2.0.0-rc.2",
@@ -56,6 +61,7 @@
     "fs-extra": "^9.0.1",
     "husky": "^6.0.0",
     "less": "^3.12.2",
+    "lint-staged": "^11.0.0",
     "prettier": "^2.2.0",
     "stylelint": "^13.8.0",
     "stylelint-config-prettier": "^8.0.2",

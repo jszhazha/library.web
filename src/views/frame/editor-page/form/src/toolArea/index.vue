@@ -13,7 +13,9 @@
         <a-tab-pane>
           <template #tab>
             <Icon icon="ant-design:user-outlined" size="18" />
-            <div class="pt-1">我的</div>
+            <div class="pt-1">
+              我的
+            </div>
           </template>
         </a-tab-pane>
       </a-tabs>

@@ -261,7 +261,7 @@ export default defineComponent({
     // 设置样式
     function setPointStyle(options: { uuid: string; key: string; value: string }) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ;(pointStyle[options.uuid]! as any)[options.key] = options.value
+      (pointStyle[options.uuid]! as any)[options.key] = options.value
     }
 
     // 设置 transform

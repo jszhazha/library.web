@@ -91,6 +91,8 @@ export default defineComponent({
     const curState = reactive<CurState>({})
     // ref
     const panelRef = ref<HTMLElement | null>(null)
+    // 宽高 小于 deleteVal 表示删除
+    const deleteVal = 3
 
     // 在一个拖动过程中，释放鼠标键时触发此事件
     function handleDrag(event: DragEvent) {
@@ -182,18 +184,36 @@ export default defineComponent({
         pointStore.commitUpdatePointState({ uuid, key: 'y', value: curState.pos?.y as never })
       } else if (type === 'ew') {
         const { width } = handleWidth({ x }, uuid)
-        // 更新数据
-        pointStore.commitUpdatePointState({ uuid, key: 'width', value: width as never })
+
+        if (width < deleteVal) {
+          // 删数数据
+          pointStore.commitDeletePointState({ uuid })
+        } else {
+          // 更新数据
+          pointStore.commitUpdatePointState({ uuid, key: 'width', value: width as never })
+        }
       } else if (type === 'ns') {
         const { height } = handleHeight({ y }, uuid)
-        // 更新数据
-        pointStore.commitUpdatePointState({ uuid, key: 'height', value: height as never })
+
+        if (height < deleteVal) {
+          // 删数数据
+          pointStore.commitDeletePointState({ uuid })
+        } else {
+          // 更新数据
+          pointStore.commitUpdatePointState({ uuid, key: 'height', value: height as never })
+        }
       } else if (type === 'se') {
         const { width } = handleWidth({ x }, uuid)
         const { height } = handleHeight({ y }, uuid)
-        // 更新数据
-        pointStore.commitUpdatePointState({ uuid, key: 'width', value: width as never })
-        pointStore.commitUpdatePointState({ uuid, key: 'height', value: height as never })
+
+        if (height < deleteVal || width < deleteVal) {
+          // 删数数据
+          pointStore.commitDeletePointState({ uuid })
+        } else {
+          // 更新数据
+          pointStore.commitUpdatePointState({ uuid, key: 'width', value: width as never })
+          pointStore.commitUpdatePointState({ uuid, key: 'height', value: height as never })
+        }
       }
     }
 

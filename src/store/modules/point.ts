@@ -38,9 +38,19 @@ export default class Point extends VuexModule {
     point && (point[key] = value)
   }
 
+  // 删除数据
+  @Mutation
+  commitDeletePointState({ uuid }: { uuid: string }): void {
+    // 查找数据
+    const index = this.pointDataState.findIndex((el) => el.uuid === uuid)
+
+    // 删除
+    index !== -1 && this.pointDataState.splice(index, 1)
+  }
+
   // 清空
   @Mutation
-  commitEmptyPointState():void{
+  commitEmptyPointState(): void {
     this.pointDataState = []
   }
 }

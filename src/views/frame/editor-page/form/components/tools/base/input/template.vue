@@ -1,10 +1,10 @@
 
 
 <template>
-  <a-form-item label="字段名称">
+  <a-form-item label="字段名称：">
     <ui-index v-model:value="dataItem.label" prop="label" />
   </a-form-item>
-  <a-form-item label="提示信息">
+  <a-form-item label="提示信息：">
     <ui-index v-model:value="dataItem.placeholder" prop="placeholder" />
   </a-form-item>
 </template>

@@ -84,8 +84,7 @@ const routers: AppRouteModule = {
     {
       path: 'image-manage-list-page',
       name: 'image-manage-list-page',
-      component: (): unknown =>
-        import(`/@/views/pages/page-manage/form-page/data-list/list-page.vue`),
+      component: (): unknown => import(`/@/views/pages/account-mange/center/index.vue`),
       meta: {
         title: '图片管理'
       }

@@ -12,22 +12,16 @@
               :class="inputState && 'name-input-edit'"
               @focus="onInputFocus"
               @blur="onInputBlur"
-            >
+            />
             <Icon v-show="!inputState" icon="entypo:edit" class="pointer" @click="onClickEdit" />
           </div>
         </div>
       </template>
       <template #right>
         <div class="header-right flex">
-          <div class="button index-center-middle">
-            保存
-          </div>
-          <div class="button index-center-middle">
-            预览
-          </div>
-          <div class="button-primary index-center-middle" @click="onGoBack">
-            返回
-          </div>
+          <div class="button index-center-middle">保存</div>
+          <div class="button index-center-middle">预览</div>
+          <div class="button-primary index-center-middle" @click="onGoBack">返回</div>
         </div>
       </template>
     </PublicHeader>
@@ -43,9 +37,9 @@
 import { assign } from 'lodash-es'
 import { defineComponent, onBeforeUnmount, reactive, ref, unref } from 'vue'
 import { useRouter } from 'vue-router'
-import actionArea from './src/actionArea.vue'
-import toolArea from './src/toolArea.vue'
-import viewArea from './src/viewArea.vue'
+import actionArea from './src/actionArea/index.vue'
+import toolArea from './src/toolArea/index.vue'
+import viewArea from './src/viewArea/index.vue'
 import service, { FormManage } from '/@/api/page-manage/form-page'
 import { pointStore } from '/@/store/modules/point'
 

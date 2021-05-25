@@ -1,12 +1,10 @@
 <template>
-  <div>个人中心</div>
+  <div />
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent } from 'vue'
 export default defineComponent({})
 </script>
 
-
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

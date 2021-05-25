@@ -6,8 +6,9 @@
     "serve": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint:eslin": "yarn eslint . --ext \\src\\.js,.jsx,.ts,.tsx --fix",
-    "lint:stylelint": "yarn stylelint **/*.{css,vue} --fix"
+    "lint:eslint": "yarn eslint . --ext \\src\\.js,.jsx,.ts,.tsx --fix",
+    "lint:stylelint": "yarn stylelint **/*.{css,vue} --fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@antv/g2": "^4.1.12",

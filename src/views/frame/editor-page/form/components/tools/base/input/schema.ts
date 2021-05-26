@@ -15,7 +15,7 @@ export const schema: InputSchema = {
 
   width: 200,
 
-  label: '33',
+  label: 'input',
 
   placeholder: "",
 

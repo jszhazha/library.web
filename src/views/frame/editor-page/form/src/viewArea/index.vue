@@ -20,6 +20,7 @@
           :hover="curState.hover === item.uuid"
           :select="curState.select === item.uuid"
           @dragleave.stop
+          @dragenter.stop
           @contextmenu.stop.prevent
           @on-end="handleMoveEnd"
           @on-move="handleMove"
@@ -229,7 +230,7 @@ export default defineComponent({
       const point = unref(pointData).find((el) => el.uuid === uuid)
       const x = point?.x || 0
       let width = (point?.width || 0) + pos.x
-      width = x + width > clientWidth ? clientWidth - x : width
+      width = x + width > clientWidth ? clientWidth - x : width <= 0 ? 0 : width
 
       return { width, height: point?.height, x: point?.x, y: point?.y }
     }
@@ -239,7 +240,7 @@ export default defineComponent({
       const point = unref(pointData).find((el) => el.uuid === uuid)
       const y = point?.y || 0
       let height = (point?.height || 0) + pos.y
-      height = y + height > clientHeight ? clientHeight - y : height
+      height = y + height > clientHeight ? clientHeight - y : height <= 0 ? 0 : height
 
       return { height, width: point?.width, x: point?.x, y: point?.y }
     }
